@@ -1,0 +1,35 @@
+.home-wrapper {
+  min-height: calc(100vh - 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #212428;
+  padding: 40px 20px;
+}
+
+.home-card {
+  background: linear-gradient(145deg, #1e2024, #23272b);
+  box-shadow: 10px 10px 25px #1c1e22,
+              -10px -10px 25px #262a2e;
+  border-radius: 18px;
+  padding: 60px 50px;
+  max-width: 520px;
+  text-align: center;
+}
+
+.home-card h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.home-card p {
+  font-size: 16px;
+  color: #c4cfde;
+  margin-bottom: 15px;
+  line-height: 1.7;
+}
+
+.home-card span {
+  color: #ff014f;
+  font-weight: 600;
+}
