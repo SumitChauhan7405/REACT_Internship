@@ -9,8 +9,7 @@
 
 .home-card {
   background: linear-gradient(145deg, #1e2024, #23272b);
-  box-shadow: 10px 10px 25px #1c1e22,
-              -10px -10px 25px #262a2e;
+  box-shadow: 10px 10px 25px #1c1e22, -10px -10px 25px #262a2e;
   border-radius: 18px;
   padding: 60px 50px;
   max-width: 520px;

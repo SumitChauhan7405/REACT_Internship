@@ -5,13 +5,10 @@ const HomePage = () => {
     <div className="home-wrapper">
       <div className="home-card">
         <h1>Welcome </h1>
+        <p>This is my first project for data fetching from API.</p>
         <p>
-          This is my <span>first project</span> for data fetching from API.
-        </p>
-        <p>
-          I am using <strong>React</strong>, <strong>Axios</strong> and
-          <strong> React Router</strong> to fetch and display fake API data
-          provided by JSONPlaceholder.
+          I am using React, Axios and React Router to fetch and display fake API
+          data.
         </p>
       </div>
     </div>

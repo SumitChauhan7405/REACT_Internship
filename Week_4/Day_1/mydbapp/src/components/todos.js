@@ -30,7 +30,7 @@ function Todos() {
                 <td>{item.id}</td>
                 <td>{item.title}</td>
                 <td>
-                  {item.completed ? "✅ Yes" : "❌ No"}
+                  {item.completed ? "True" : "False"}
                 </td>
               </tr>
             );
