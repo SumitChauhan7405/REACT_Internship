@@ -1,0 +1,11 @@
+/* Main content wrapper */
+.main-content {
+  margin-left: 260px; /* same as sidebar width */
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+/* Page content spacing */
+.page-content {
+  padding: 20px;
+}

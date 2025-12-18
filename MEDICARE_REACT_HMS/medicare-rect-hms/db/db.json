@@ -1,0 +1,191 @@
+{
+  "patients": [
+    {
+      "id": "PAT-2025-0001",
+      "firstName": "Rahul",
+      "lastName": "Sharma",
+      "gender": "Male",
+      "dob": "1995-08-12",
+      "phone": "9876543210",
+      "email": "rahul@gmail.com",
+      "address": "Delhi",
+      "bloodGroup": "O+",
+      "createdAt": "2025-01-10T09:30:00"
+    },
+    {
+      "id": "PAT-2025-1153",
+      "firstName": "abc",
+      "lastName": "def",
+      "gender": "Male",
+      "phone": "+1 (327) 745-5789",
+      "dob": "2025-05-03",
+      "bloodGroup": "A+",
+      "createdAt": "2025-12-18T17:05:02.120Z"
+    }
+  ],
+  "doctors": [
+    {
+      "id": "DOC-001",
+      "name": "Dr. Amit Verma",
+      "department": "Cardiology",
+      "availableDays": [
+        "Mon",
+        "Wed",
+        "Fri"
+      ],
+      "timeSlots": [
+        "10:00-13:00",
+        "16:00-18:00"
+      ],
+      "consultationFee": 800
+    },
+    {
+      "id": "DOC-002",
+      "name": "Dr. Neha Kapoor",
+      "department": "Orthopedics",
+      "availableDays": [
+        "Tue",
+        "Thu",
+        "Sat"
+      ],
+      "timeSlots": [
+        "09:00-12:00"
+      ],
+      "consultationFee": 600
+    }
+  ],
+  "appointments": [
+    {
+      "id": "APT-1001",
+      "patientId": "PAT-2025-0001",
+      "doctorId": "DOC-001",
+      "date": "2025-01-12",
+      "time": "10:30",
+      "status": "CONFIRMED",
+      "source": "DASHBOARD"
+    }
+  ],
+  "consultations": [
+    {
+      "id": "CON-9001",
+      "appointmentId": "APT-1001",
+      "doctorId": "DOC-001",
+      "patientId": "PAT-2025-0001",
+      "diagnosis": "High Blood Pressure",
+      "prescription": [
+        {
+          "medicine": "Amlodipine",
+          "dosage": "5mg",
+          "days": 30
+        }
+      ],
+      "notes": "Reduce salt intake and exercise daily",
+      "createdAt": "2025-01-12T11:00:00"
+    }
+  ],
+  "labTests": [
+    {
+      "id": "LAB-3001",
+      "consultationId": "CON-9001",
+      "patientId": "PAT-2025-0001",
+      "tests": [
+        "ECG",
+        "Blood Sugar"
+      ],
+      "results": [
+        {
+          "testName": "ECG",
+          "result": "Normal"
+        }
+      ],
+      "status": "COMPLETED"
+    }
+  ],
+  "admissions": [
+    {
+      "id": "ADM-2001",
+      "patientId": "PAT-2025-0001",
+      "roomNumber": "305",
+      "ward": "ICU",
+      "admissionDate": "2025-01-13",
+      "status": "ADMITTED"
+    }
+  ],
+  "vitals": [
+    {
+      "id": "VIT-5001",
+      "admissionId": "ADM-2001",
+      "date": "2025-01-14",
+      "bp": "130/90",
+      "temperature": "98.6",
+      "pulse": 78
+    }
+  ],
+  "surgeries": [
+    {
+      "id": "SUR-4001",
+      "patientId": "PAT-2025-0001",
+      "type": "Angioplasty",
+      "date": "2025-01-15",
+      "status": "COMPLETED",
+      "notes": "Surgery successful, patient stable"
+    }
+  ],
+  "bills": [
+    {
+      "id": "BILL-7001",
+      "patientId": "PAT-2025-0001",
+      "items": [
+        {
+          "type": "Consultation",
+          "amount": 800
+        },
+        {
+          "type": "Lab Tests",
+          "amount": 1200
+        },
+        {
+          "type": "Room Charges",
+          "amount": 5000
+        }
+      ],
+      "total": 7000,
+      "status": "UNPAID"
+    }
+  ],
+  "payments": [
+    {
+      "id": "PAY-8001",
+      "billId": "BILL-7001",
+      "mode": "Cash",
+      "amount": 7000,
+      "date": "2025-01-16"
+    }
+  ],
+  "discharges": [
+    {
+      "id": "DIS-6001",
+      "patientId": "PAT-2025-0001",
+      "summary": "Patient recovered well and discharged",
+      "date": "2025-01-16"
+    }
+  ],
+  "feedback": [
+    {
+      "id": "FDB-9001",
+      "patientId": "PAT-2025-0001",
+      "rating": 5,
+      "comments": "Excellent service and caring staff"
+    }
+  ],
+  "websiteAppointments": [
+    {
+      "id": "WEB-1001",
+      "name": "Suresh Kumar",
+      "phone": "9999999999",
+      "department": "Orthopedics",
+      "preferredDate": "2025-01-18",
+      "status": "NEW"
+    }
+  ]
+}

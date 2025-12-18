@@ -1,0 +1,120 @@
+/* ===== EMR NAVBAR ===== */
+
+.navbar-emr {
+  height: 64px;
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LEFT */
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f3f4f6;
+  padding: 8px 12px;
+  border-radius: 8px;
+  width: 280px;
+}
+
+.search-box i {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  width: 100%;
+}
+
+/* RIGHT */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Country */
+.navbar-country {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.navbar-country img {
+  width: 22px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+
+/* Icon Button */
+.nav-icon-btn {
+  background-color: #f3f4f6;
+  border: none;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.nav-icon-btn i {
+  font-size: 16px;
+  color: var(--text-muted);
+}
+
+.nav-icon-btn:hover {
+  background-color: #e5e7eb;
+}
+
+/* USER */
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.navbar-user img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+
+.user-name {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.user-role {
+  color: var(--text-muted);
+}
