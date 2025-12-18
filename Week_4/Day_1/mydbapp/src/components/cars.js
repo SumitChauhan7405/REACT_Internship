@@ -12,7 +12,7 @@ function Cars() {
     Torque: "",
   });
 
-  // ===== Display Car - Get
+  // Display Car - Get
   const fetchCars = () => {
     axios.get("http://localhost:5000/Cars").then((res) => {
       setDataa(res.data);
@@ -58,7 +58,7 @@ function Cars() {
       })
       .catch((error) => {
         console.error("Delete failed:", error);
-        alert("Failed to delete Bike");
+        alert("Failed to delete Car");
       });
   };
 

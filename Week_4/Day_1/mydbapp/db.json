@@ -34,6 +34,13 @@
       "color": "Blue and Orange",
       "Torque": "565 Nm Torque",
       "id": "2376"
+    },
+    {
+      "id": "3f42",
+      "name": "Dodge",
+      "Model": "Charger",
+      "color": "Grey",
+      "Torque": "750 Nm Torque"
     }
   ],
   "Bikes": [
@@ -76,6 +83,22 @@
       "Torque": "113 Nm Torque",
       "Mfg_year": "2021",
       "id": "efc9"
+    },
+    {
+      "id": "3fbc",
+      "name": "Royal Enfield",
+      "Model": "Hunter 350",
+      "color": "Green",
+      "Torque": "110 Nm Torque",
+      "Mfg_year": "2025"
+    },
+    {
+      "id": "0d78",
+      "name": "Yamaha",
+      "Model": "MT - 15",
+      "color": "Orange",
+      "Torque": "75 Nm Torque",
+      "Mfg_year": "2026"
     }
   ]
 }

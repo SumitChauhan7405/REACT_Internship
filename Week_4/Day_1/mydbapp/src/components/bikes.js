@@ -13,7 +13,7 @@ function Bikes() {
     Mfg_year: "",
   });
 
-  // ===== Display Bike - Get
+  // Display Bike - Get
   const fetchCars = () => {
     axios.get("http://localhost:5000/Bikes").then((res) => {
       setDataa(res.data);
