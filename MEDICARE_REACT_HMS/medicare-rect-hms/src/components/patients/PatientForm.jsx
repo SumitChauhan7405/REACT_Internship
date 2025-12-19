@@ -1,20 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addPatient } from "../../services/patientService";
+import { getDoctors } from "../../services/doctorService";
 import { generatePatientId } from "../../utils/generatePatientId";
 import "../../assets/css/components/patient-form.css";
 
 const PatientForm = ({ onSuccess }) => {
+  const [doctors, setDoctors] = useState([]);
+
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
     gender: "",
     phone: "",
-    dob: "",
-    bloodGroup: ""
+    age: "",
+    bloodGroup: "",
+    doctorId: "",
+    doctorName: "",
+    timing: ""
   });
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  /* Load doctors */
+  useEffect(() => {
+    getDoctors().then((res) => setDoctors(res.data));
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "doctorId") {
+      const selectedDoctor = doctors.find((d) => d.id === value);
+      setForm({
+        ...form,
+        doctorId: value,
+        doctorName: selectedDoctor?.name || ""
+      });
+    } else {
+      setForm({ ...form, [name]: value });
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,13 +50,17 @@ const PatientForm = ({ onSuccess }) => {
 
     await addPatient(newPatient);
     onSuccess();
+
     setForm({
       firstName: "",
       lastName: "",
       gender: "",
       phone: "",
-      dob: "",
-      bloodGroup: ""
+      age: "",
+      bloodGroup: "",
+      doctorId: "",
+      doctorName: "",
+      timing: ""
     });
   };
 
@@ -46,10 +73,10 @@ const PatientForm = ({ onSuccess }) => {
 
       <form onSubmit={handleSubmit}>
         <div className="form-grid">
+          {/* Row 1 */}
           <div>
             <label>First Name</label>
             <input
-              type="text"
               name="firstName"
               required
               value={form.firstName}
@@ -60,7 +87,6 @@ const PatientForm = ({ onSuccess }) => {
           <div>
             <label>Last Name</label>
             <input
-              type="text"
               name="lastName"
               required
               value={form.lastName}
@@ -82,10 +108,10 @@ const PatientForm = ({ onSuccess }) => {
             </select>
           </div>
 
+          {/* Row 2 */}
           <div>
             <label>Phone</label>
             <input
-              type="text"
               name="phone"
               required
               value={form.phone}
@@ -94,12 +120,12 @@ const PatientForm = ({ onSuccess }) => {
           </div>
 
           <div>
-            <label>Date of Birth</label>
+            <label>Age</label>
             <input
-              type="date"
-              name="dob"
+              type="number"
+              name="age"
               required
-              value={form.dob}
+              value={form.age}
               onChange={handleChange}
             />
           </div>
@@ -107,9 +133,37 @@ const PatientForm = ({ onSuccess }) => {
           <div>
             <label>Blood Group</label>
             <input
-              type="text"
               name="bloodGroup"
               value={form.bloodGroup}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Row 3 */}
+          <div>
+            <label>Doctor</label>
+            <select
+              name="doctorId"
+              required
+              value={form.doctorId}
+              onChange={handleChange}
+            >
+              <option value="">Select Doctor</option>
+              {doctors.map((doc) => (
+                <option key={doc.id} value={doc.id}>
+                  {doc.name} ({doc.department})
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label>Appointment Time</label>
+            <input
+              type="time"
+              name="timing"
+              required
+              value={form.timing}
               onChange={handleChange}
             />
           </div>

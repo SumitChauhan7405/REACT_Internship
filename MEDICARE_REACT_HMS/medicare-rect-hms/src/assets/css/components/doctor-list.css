@@ -1,0 +1,117 @@
+/* ===============================
+   DOCTOR LIST – SIMPLE TABLE
+================================ */
+
+.doctor-table-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.doctor-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.doctor-table-header h6 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.doctor-table-header span {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.doctor-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.doctor-table th,
+.doctor-table td {
+  padding: 10px;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle;
+}
+
+/* fixed column widths (important for alignment) */
+.doctor-table th:nth-child(1),
+.doctor-table td:nth-child(1) {
+  width: 240px;
+}
+
+.doctor-table th:nth-child(2),
+.doctor-table td:nth-child(2) {
+  width: 160px;
+}
+
+.doctor-table th:nth-child(3),
+.doctor-table td:nth-child(3) {
+  width: 220px;
+}
+
+.doctor-table th:nth-child(4),
+.doctor-table td:nth-child(4) {
+  width: 100px;
+}
+
+.doctor-table th:nth-child(5),
+.doctor-table td:nth-child(5) {
+  width: 120px;
+}
+
+/* doctor cell */
+.doctor-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.doctor-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #e5e7eb;
+}
+
+/* action buttons (same old style) */
+.doctor-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: none;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.icon-btn.edit i {
+  color: #2563eb;
+  font-size: 16px;
+}
+
+.icon-btn.delete i {
+  color: #dc2626;
+  font-size: 16px;
+}
+
+.icon-btn:hover {
+  background: #e5e7eb;
+}

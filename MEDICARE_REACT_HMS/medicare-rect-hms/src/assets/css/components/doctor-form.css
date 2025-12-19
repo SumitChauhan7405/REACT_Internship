@@ -1,0 +1,89 @@
+/* ===============================
+   DOCTOR FORM – SIMPLE & CLEAN
+================================ */
+
+.doctor-form-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.doctor-form-card h5 {
+  margin-bottom: 4px;
+}
+
+.doctor-form-card p {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+
+.doctor-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.doctor-form-grid label {
+  font-size: 13px;
+  margin-bottom: 4px;
+  display: block;
+  color: black;
+}
+
+.doctor-form-grid input,
+.doctor-form-grid select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+.opd-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.doctor-form-actions {
+  grid-column: span 3;
+  text-align: right;
+  margin-top: 10px;
+}
+
+.doctor-form-actions button {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.doctor-form-actions button i {
+  margin-right: 6px;
+}
+
+.opd-container {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.opd-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.opd-option input {
+  margin: 0;
+}

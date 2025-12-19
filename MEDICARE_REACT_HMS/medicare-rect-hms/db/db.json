@@ -21,6 +21,28 @@
       "dob": "2025-05-03",
       "bloodGroup": "A+",
       "createdAt": "2025-12-18T17:05:02.120Z"
+    },
+    {
+      "id": "PAT-2025-6765",
+      "firstName": "Sumit",
+      "lastName": "Chauhan",
+      "gender": "Female",
+      "phone": "+1 (107) 849-1215",
+      "dob": "2025-12-20",
+      "bloodGroup": "mmmm",
+      "createdAt": "2025-12-19T04:01:08.210Z"
+    },
+    {
+      "id": "PAT-2025-5299",
+      "firstName": "Namra",
+      "lastName": "Pithwa",
+      "gender": "Male",
+      "phone": "3124678209",
+      "age": "25",
+      "bloodGroup": "AB+",
+      "doctorName": "Ajay Shah",
+      "timing": "10:00",
+      "createdAt": "2025-12-19T04:17:54.125Z"
     }
   ],
   "doctors": [
@@ -34,10 +56,11 @@
         "Fri"
       ],
       "timeSlots": [
-        "10:00-13:00",
-        "16:00-18:00"
+        "10:00-12:00",
+        "17:00-19:00"
       ],
-      "consultationFee": 800
+      "consultationFee": 800,
+      "image": "dr-amit.png"
     },
     {
       "id": "DOC-002",
@@ -49,9 +72,23 @@
         "Sat"
       ],
       "timeSlots": [
-        "09:00-12:00"
+        "10:00-12:00"
       ],
-      "consultationFee": 600
+      "consultationFee": 600,
+      "image": "dr-neha.jpg"
+    },
+    {
+      "id": "DOC-003",
+      "name": "Namra Pithwa",
+      "department": "Cardiology",
+      "availableDays": [
+        "Mon"
+      ],
+      "timeSlots": [
+        "10:00-12:00"
+      ],
+      "consultationFee": 500,
+      "image": "doc.png"
     }
   ],
   "appointments": [

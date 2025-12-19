@@ -21,9 +21,11 @@ const PatientTable = () => {
           <tr>
             <th>Patient ID</th>
             <th>Name</th>
+            <th>Age</th>
             <th>Gender</th>
+            <th>Doctor</th>
+            <th>Time</th>
             <th>Phone</th>
-            <th>Blood</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -32,13 +34,15 @@ const PatientTable = () => {
             <tr key={p.id}>
               <td>{p.id}</td>
               <td>{p.firstName} {p.lastName}</td>
+              <td>{p.age}</td>
               <td>
                 <span className={`badge ${p.gender === "Male" ? "male" : "female"}`}>
                   {p.gender}
                 </span>
               </td>
+              <td>{p.doctorName}</td>
+              <td>{p.timing}</td>
               <td>{p.phone}</td>
-              <td>{p.bloodGroup}</td>
               <td>
                 <button className="view-btn">
                   <i className="bi bi-eye"></i>
