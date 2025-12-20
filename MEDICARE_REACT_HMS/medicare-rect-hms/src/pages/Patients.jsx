@@ -1,14 +1,48 @@
+import { useEffect, useState } from "react";
 import PatientForm from "../components/patients/PatientForm";
 import PatientTable from "../components/patients/PatientTable";
-import { useState } from "react";
+import { getPatients, deletePatient } from "../services/patientService";
 
 const Patients = () => {
-  const [refresh, setRefresh] = useState(false);
+  const [patients, setPatients] = useState([]);
+  const [editPatient, setEditPatient] = useState(null);
+
+  const loadPatients = async () => {
+    const res = await getPatients();
+    setPatients(res.data);
+  };
+
+  useEffect(() => {
+    loadPatients();
+  }, []);
+
+  // ✅ FIX: this function was missing
+  const handleEditPatient = (patient) => {
+    setEditPatient(patient);
+  };
+
+  const handleDeletePatient = async (id) => {
+    await deletePatient(id);
+    loadPatients();
+  };
+
+  const clearEdit = () => {
+    setEditPatient(null);
+  };
 
   return (
     <>
-      <PatientForm onSuccess={() => setRefresh(!refresh)} />
-      <PatientTable key={refresh} />
+      <PatientForm
+        onSuccess={loadPatients}
+        editPatient={editPatient}
+        clearEdit={clearEdit}
+      />
+
+      <PatientTable
+        patients={patients}
+        onEdit={handleEditPatient}     
+        onDelete={handleDeletePatient}
+      />
     </>
   );
 };

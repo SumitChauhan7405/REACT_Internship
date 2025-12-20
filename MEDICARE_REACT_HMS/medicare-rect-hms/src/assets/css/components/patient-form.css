@@ -1,3 +1,7 @@
+/* ===============================
+   PATIENT FORM – SAME OLD DESIGN
+================================ */
+
 .patient-form-card {
   background-color: #ffffff;
   border-radius: 12px;
@@ -6,6 +10,7 @@
   border: 1px solid var(--border-color);
 }
 
+/* Header */
 .form-header h5 {
   font-weight: 600;
   margin-bottom: 4px;
@@ -16,6 +21,7 @@
   color: var(--text-muted);
 }
 
+/* Grid */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -45,7 +51,9 @@
   border-color: var(--primary-color);
 }
 
+/* Actions */
 .form-actions {
+  grid-column: span 3;
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;

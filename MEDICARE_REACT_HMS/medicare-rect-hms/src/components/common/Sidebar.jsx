@@ -1,7 +1,10 @@
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/images/logo/medicare-logo.png";
+import { useAuth } from "../../context/AuthContext";
 
 const Sidebar = () => {
+  const { role } = useAuth(); // admin | doctor
+
   return (
     <aside className="sidebar-modern">
       {/* Brand / Logo */}
@@ -11,55 +14,69 @@ const Sidebar = () => {
 
       {/* Menu */}
       <nav className="sidebar-menu">
-        <NavLink to="/" end className="menu-item">
+
+        {/* Dashboard */}
+        <NavLink to="/admin" end className="menu-item">
           <i className="bi bi-speedometer2"></i>
           <span>Dashboard</span>
         </NavLink>
 
-        <NavLink to="/patients" className="menu-item">
+        {/* Patients (Admin + Doctor) */}
+        <NavLink to="/admin/patients" className="menu-item">
           <i className="bi bi-people"></i>
           <span>Patients</span>
         </NavLink>
 
-        <NavLink to="/appointments" className="menu-item">
+        {/* Appointments (Admin + Doctor) */}
+        <NavLink to="/admin/appointments" className="menu-item">
           <i className="bi bi-calendar-check"></i>
           <span>Appointments</span>
         </NavLink>
 
-        <NavLink to="/doctors" className="menu-item">
-          <i className="bi bi-person-badge"></i>
-          <span>Doctors</span>
-        </NavLink>
+        {/* Doctors (ADMIN ONLY) */}
+        {role === "admin" && (
+          <NavLink to="/admin/doctors" className="menu-item">
+            <i className="bi bi-person-badge"></i>
+            <span>Doctors</span>
+          </NavLink>
+        )}
 
-        <NavLink to="/lab" className="menu-item">
+        {/* Laboratory */}
+        <NavLink to="/admin/lab" className="menu-item">
           <i className="bi bi-flask"></i>
           <span>Laboratory</span>
         </NavLink>
 
-        <NavLink to="/admissions" className="menu-item">
+        {/* Admissions */}
+        <NavLink to="/admin/admissions" className="menu-item">
           <i className="bi bi-hospital"></i>
           <span>Admissions</span>
         </NavLink>
 
-        <NavLink to="/surgery" className="menu-item">
+        {/* Surgery */}
+        <NavLink to="/admin/surgery" className="menu-item">
           <i className="bi bi-scissors"></i>
           <span>Surgery</span>
         </NavLink>
 
-        <NavLink to="/billing" className="menu-item">
+        {/* Billing */}
+        <NavLink to="/admin/billing" className="menu-item">
           <i className="bi bi-receipt"></i>
           <span>Billing</span>
         </NavLink>
 
-        <NavLink to="/discharge" className="menu-item">
+        {/* Discharge */}
+        <NavLink to="/admin/discharge" className="menu-item">
           <i className="bi bi-box-arrow-right"></i>
           <span>Discharge</span>
         </NavLink>
 
-        <NavLink to="/followup" className="menu-item">
+        {/* Follow-up */}
+        <NavLink to="/admin/followup" className="menu-item">
           <i className="bi bi-arrow-repeat"></i>
           <span>Follow-Up</span>
         </NavLink>
+
       </nav>
     </aside>
   );

@@ -46,10 +46,14 @@
   background-color: #f9fafb;
 }
 
+/* Gender badge */
 .badge {
-  padding: 4px 10px;
-  border-radius: 12px;
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 14px;
   font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
 }
 
 .badge.male {
@@ -61,6 +65,12 @@
   background-color: #fde2e4;
   color: #be123c;
 }
+
+.badge.other {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
 
 .view-btn {
   background-color: #f3f4f6;

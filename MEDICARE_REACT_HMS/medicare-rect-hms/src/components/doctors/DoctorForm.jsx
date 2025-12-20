@@ -6,6 +6,8 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
   const [form, setForm] = useState({
     name: "",
     department: "",
+    experience: "",
+    education: "",
     availableDays: [],
     opdTime: "",
     consultationFee: "",
@@ -14,7 +16,16 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
 
   useEffect(() => {
     if (editDoctor) {
-      setForm(editDoctor);
+      setForm({
+        name: editDoctor.name,
+        department: editDoctor.department,
+        experience: editDoctor.experience,
+        education: editDoctor.education,
+        availableDays: editDoctor.availableDays || [],
+        opdTime: editDoctor.timeSlots?.[0] || "",
+        consultationFee: editDoctor.consultationFee,
+        image: editDoctor.image || ""
+      });
     }
   }, [editDoctor]);
 
@@ -24,29 +35,41 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
     if (name === "availableDays") {
       const values = Array.from(e.target.selectedOptions, o => o.value);
       setForm({ ...form, availableDays: values });
-    } else if (name === "image" && files[0]) {
+    } else if (name === "image" && files?.[0]) {
       setForm({ ...form, image: files[0].name });
     } else {
       setForm({ ...form, [name]: value });
     }
   };
 
+  // ✅ SIMPLE & CORRECT ID GENERATION
   const generateDoctorId = async () => {
     const res = await getDoctors();
-    const count = res.data.length + 1;
-    return `DOC-${String(count).padStart(3, "0")}`;
+
+    if (res.data.length === 0) {
+      return "DOC-001";
+    }
+
+    const lastDoctor = res.data[res.data.length - 1];
+    const lastNumber = Number(lastDoctor.id.split("-")[1]);
+    const nextNumber = lastNumber + 1;
+
+    return `DOC-${String(nextNumber).padStart(3, "0")}`;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const payload = {
-      ...form,
+      name: form.name,
+      department: form.department,
+      experience: Number(form.experience),
+      education: form.education,
+      availableDays: form.availableDays,
+      timeSlots: [form.opdTime],
       consultationFee: Number(form.consultationFee),
-      timeSlots: [form.opdTime] // keep DB compatible
+      image: form.image
     };
-
-    delete payload.opdTime;
 
     if (editDoctor) {
       await updateDoctor(editDoctor.id, payload);
@@ -60,9 +83,12 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
     }
 
     onSuccess();
+
     setForm({
       name: "",
       department: "",
+      experience: "",
+      education: "",
       availableDays: [],
       opdTime: "",
       consultationFee: "",
@@ -93,6 +119,27 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
             <option>ENT</option>
             <option>General Medicine</option>
           </select>
+        </div>
+
+        <div>
+          <label>Experience (Years)</label>
+          <input
+            type="number"
+            name="experience"
+            value={form.experience}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div>
+          <label>Education</label>
+          <input
+            name="education"
+            value={form.education}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <div>
@@ -148,6 +195,7 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
             {editDoctor ? " Update Doctor" : " Add Doctor"}
           </button>
         </div>
+
       </form>
     </div>
   );

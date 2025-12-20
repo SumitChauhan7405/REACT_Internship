@@ -1,48 +1,52 @@
 {
   "patients": [
     {
-      "id": "PAT-2025-0001",
-      "firstName": "Rahul",
-      "lastName": "Sharma",
+      "id": "PAT-2025-0002",
+      "firstName": "Martena",
+      "lastName": "Pugh",
       "gender": "Male",
-      "dob": "1995-08-12",
-      "phone": "9876543210",
-      "email": "rahul@gmail.com",
-      "address": "Delhi",
-      "bloodGroup": "O+",
-      "createdAt": "2025-01-10T09:30:00"
+      "age": "95",
+      "phone": "+1 (954) 897-6982",
+      "bloodGroup": "Vitae dicta rerum do",
+      "doctorName": "Dr. Neha Kapoor",
+      "timing": "00:34",
+      "createdAt": "2025-12-20T09:56:37.007Z"
     },
     {
-      "id": "PAT-2025-1153",
-      "firstName": "abc",
-      "lastName": "def",
+      "id": "PAT-2025-0003",
+      "firstName": "Lydia",
+      "lastName": "Maxwell",
       "gender": "Male",
-      "phone": "+1 (327) 745-5789",
-      "dob": "2025-05-03",
-      "bloodGroup": "A+",
-      "createdAt": "2025-12-18T17:05:02.120Z"
+      "age": "97",
+      "phone": "+1 (581) 744-1653",
+      "bloodGroup": "Quod nulla corrupti",
+      "doctorName": "Dr. Neha Kapoor",
+      "timing": "06:52",
+      "createdAt": "2025-12-20T09:56:41.592Z"
     },
     {
-      "id": "PAT-2025-6765",
-      "firstName": "Sumit",
-      "lastName": "Chauhan",
+      "id": "PAT-2025-0004",
+      "firstName": "Willa",
+      "lastName": "Campos",
+      "gender": "Male",
+      "age": "65",
+      "phone": "+1 (759) 337-8676",
+      "bloodGroup": "Molestiae aut enim d",
+      "doctorName": "Namra Pithwa",
+      "timing": "14:13",
+      "createdAt": "2025-12-20T10:01:06.392Z"
+    },
+    {
+      "id": "PAT-2025-0005",
+      "firstName": "Serena",
+      "lastName": "Hill",
       "gender": "Female",
-      "phone": "+1 (107) 849-1215",
-      "dob": "2025-12-20",
-      "bloodGroup": "mmmm",
-      "createdAt": "2025-12-19T04:01:08.210Z"
-    },
-    {
-      "id": "PAT-2025-5299",
-      "firstName": "Namra",
-      "lastName": "Pithwa",
-      "gender": "Male",
-      "phone": "3124678209",
-      "age": "25",
-      "bloodGroup": "AB+",
-      "doctorName": "Ajay Shah",
-      "timing": "10:00",
-      "createdAt": "2025-12-19T04:17:54.125Z"
+      "age": "7",
+      "phone": "+1 (837) 116-8388",
+      "bloodGroup": "Sit suscipit est min",
+      "doctorName": "Namra Pithwa",
+      "timing": "06:49",
+      "createdAt": "2025-12-20T10:07:40.730Z"
     }
   ],
   "doctors": [
@@ -50,6 +54,8 @@
       "id": "DOC-001",
       "name": "Dr. Amit Verma",
       "department": "Cardiology",
+      "experience": 10,
+      "education": "MBBS, MD (Cardiology)",
       "availableDays": [
         "Mon",
         "Wed",
@@ -66,6 +72,8 @@
       "id": "DOC-002",
       "name": "Dr. Neha Kapoor",
       "department": "Orthopedics",
+      "experience": 7,
+      "education": "MBBS, MS (Orthopedics)",
       "availableDays": [
         "Tue",
         "Thu",
@@ -81,6 +89,8 @@
       "id": "DOC-003",
       "name": "Namra Pithwa",
       "department": "Cardiology",
+      "experience": 5,
+      "education": "MBBS",
       "availableDays": [
         "Mon"
       ],
@@ -89,12 +99,32 @@
       ],
       "consultationFee": 500,
       "image": "doc.png"
+    },
+    {
+      "id": "DOC-004",
+      "name": "Parth Vipulbhai Chavda",
+      "department": "Cardiology",
+      "experience": 12,
+      "education": "MBBS, DM (Cardiology)",
+      "availableDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat"
+      ],
+      "timeSlots": [
+        "10:00-12:00"
+      ],
+      "consultationFee": 5000,
+      "image": ""
     }
   ],
   "appointments": [
     {
       "id": "APT-1001",
-      "patientId": "PAT-2025-0001",
+      "patientId": null,
       "doctorId": "DOC-001",
       "date": "2025-01-12",
       "time": "10:30",
@@ -107,7 +137,7 @@
       "id": "CON-9001",
       "appointmentId": "APT-1001",
       "doctorId": "DOC-001",
-      "patientId": "PAT-2025-0001",
+      "patientId": null,
       "diagnosis": "High Blood Pressure",
       "prescription": [
         {
@@ -124,7 +154,7 @@
     {
       "id": "LAB-3001",
       "consultationId": "CON-9001",
-      "patientId": "PAT-2025-0001",
+      "patientId": null,
       "tests": [
         "ECG",
         "Blood Sugar"
@@ -141,7 +171,7 @@
   "admissions": [
     {
       "id": "ADM-2001",
-      "patientId": "PAT-2025-0001",
+      "patientId": null,
       "roomNumber": "305",
       "ward": "ICU",
       "admissionDate": "2025-01-13",
@@ -161,7 +191,7 @@
   "surgeries": [
     {
       "id": "SUR-4001",
-      "patientId": "PAT-2025-0001",
+      "patientId": null,
       "type": "Angioplasty",
       "date": "2025-01-15",
       "status": "COMPLETED",
@@ -171,7 +201,7 @@
   "bills": [
     {
       "id": "BILL-7001",
-      "patientId": "PAT-2025-0001",
+      "patientId": null,
       "items": [
         {
           "type": "Consultation",
@@ -202,7 +232,7 @@
   "discharges": [
     {
       "id": "DIS-6001",
-      "patientId": "PAT-2025-0001",
+      "patientId": null,
       "summary": "Patient recovered well and discharged",
       "date": "2025-01-16"
     }
@@ -210,7 +240,7 @@
   "feedback": [
     {
       "id": "FDB-9001",
-      "patientId": "PAT-2025-0001",
+      "patientId": null,
       "rating": 5,
       "comments": "Excellent service and caring staff"
     }

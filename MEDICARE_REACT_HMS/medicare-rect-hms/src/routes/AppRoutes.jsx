@@ -1,36 +1,60 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import PublicLayout from "../layouts/PublicLayout";
+import AdminLayout from "../layouts/AdminLayout";
+import ProtectedRoute from "./ProtectedRoute";
+import Login from "../pages/Login";
 
-/* Pages */
+
+import Home from "../pages/public/Home";
 import Dashboard from "../pages/Dashboard";
 import Patients from "../pages/Patients";
-import Appointments from "../pages/Appointments";
 import Doctors from "../pages/Doctors";
-import Lab from "../pages/Lab";
+import Appointments from "../pages/Appointments";
 import Admissions from "../pages/Admissions";
-import Surgery from "../pages/Surgery";
 import Billing from "../pages/Billing";
 import Discharge from "../pages/Discharge";
+import Surgery from "../pages/Surgery";
+import Lab from "../pages/Lab";
 import FollowUp from "../pages/FollowUp";
 
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* Default Route */}
-      <Route path="/" element={<Dashboard />} />
+      {/* Public */}
+      <Route path="/" element={<PublicLayout />}>
+        <Route index element={<Home />} />
+        <Route path="login" element={<Login />} />
+      </Route>
 
-      {/* Core Modules */}
-      <Route path="/patients" element={<Patients />} />
-      <Route path="/appointments" element={<Appointments />} />
-      <Route path="/doctors" element={<Doctors />} />
-      <Route path="/lab" element={<Lab />} />
-      <Route path="/admissions" element={<Admissions />} />
-      <Route path="/surgery" element={<Surgery />} />
-      <Route path="/billing" element={<Billing />} />
-      <Route path="/discharge" element={<Discharge />} />
-      <Route path="/followup" element={<FollowUp />} />
+      {/* Admin / Doctor */}
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute allowedRoles={["admin", "doctor"]}>
+            <AdminLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<Dashboard />} />
 
-      {/* Fallback Route */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+        <Route
+          path="patients"
+          element={
+            <ProtectedRoute allowedRoles={["admin", "doctor"]}>
+              <Patients />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="doctors"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <Doctors />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
     </Routes>
   );
 };
