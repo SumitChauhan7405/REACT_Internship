@@ -29,7 +29,7 @@ const DoctorList = ({ onEdit }) => {
     );
   }
 
-  // ✅ GROUP BY DEPARTMENT (SIMPLE LOGIC)
+  // ✅ GROUP BY DEPARTMENT
   const groupedDoctors = doctors.reduce((acc, doc) => {
     acc[doc.department] = acc[doc.department] || [];
     acc[doc.department].push(doc);
@@ -40,16 +40,20 @@ const DoctorList = ({ onEdit }) => {
     <div className="doctor-list-wrapper">
       {Object.keys(groupedDoctors).map((dept) => (
         <div key={dept} className="doctor-table-card">
+          {/* Header */}
           <div className="doctor-table-header">
             <h6>{dept}</h6>
             <span>Total: {groupedDoctors[dept].length}</span>
           </div>
 
+          {/* Table */}
           <table className="doctor-table">
             <thead>
               <tr>
                 <th>Doctor</th>
+                <th>Department</th> {/* ✅ NEW */}
                 <th>Experience / Education</th>
+                <th>Available Days</th>
                 <th>OPD Time</th>
                 <th>Fee</th>
                 <th>Action</th>
@@ -59,6 +63,7 @@ const DoctorList = ({ onEdit }) => {
             <tbody>
               {groupedDoctors[dept].map((doc) => (
                 <tr key={doc.id}>
+                  {/* Doctor */}
                   <td>
                     <div className="doctor-info">
                       <img
@@ -70,14 +75,28 @@ const DoctorList = ({ onEdit }) => {
                     </div>
                   </td>
 
+                  {/* ✅ Department Column */}
+                  <td>{doc.department}</td>
+
+                  {/* Experience / Education */}
                   <td>
                     {doc.experience} yrs · {doc.education}
                   </td>
 
+                  {/* Available Days */}
+                  <td>
+                    {doc.availableDays && doc.availableDays.length > 0
+                      ? doc.availableDays.join(", ")
+                      : "-"}
+                  </td>
+
+                  {/* OPD Time */}
                   <td>{doc.timeSlots?.join(", ")}</td>
 
+                  {/* Fee */}
                   <td>₹{doc.consultationFee}</td>
 
+                  {/* Action */}
                   <td>
                     <div className="doctor-actions">
                       <button
@@ -86,7 +105,6 @@ const DoctorList = ({ onEdit }) => {
                       >
                         <i className="bi bi-pencil-fill"></i>
                       </button>
-
                       <button
                         className="icon-btn delete"
                         onClick={() => handleDelete(doc.id)}

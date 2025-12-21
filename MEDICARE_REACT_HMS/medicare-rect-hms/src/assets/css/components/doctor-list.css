@@ -43,31 +43,42 @@
   vertical-align: middle;
 }
 
-/* fixed column widths (important for alignment) */
+/* fixed column widths (UPDATED ORDER) */
 .doctor-table th:nth-child(1),
 .doctor-table td:nth-child(1) {
-  width: 240px;
+  width: 260px; /* Doctor */
 }
 
 .doctor-table th:nth-child(2),
 .doctor-table td:nth-child(2) {
-  width: 160px;
+  width: 160px; /* Department */
 }
 
 .doctor-table th:nth-child(3),
 .doctor-table td:nth-child(3) {
-  width: 220px;
+  width: 260px; /* Experience / Education */
 }
 
 .doctor-table th:nth-child(4),
 .doctor-table td:nth-child(4) {
-  width: 100px;
+  width: 160px; /* Available Days */
 }
 
 .doctor-table th:nth-child(5),
 .doctor-table td:nth-child(5) {
-  width: 120px;
+  width: 160px; /* OPD Time */
 }
+
+.doctor-table th:nth-child(6),
+.doctor-table td:nth-child(6) {
+  width: 120px; /* Fee */
+}
+
+.doctor-table th:nth-child(7),
+.doctor-table td:nth-child(7) {
+  width: 120px; /* Action */
+}
+
 
 /* doctor cell */
 .doctor-info {
@@ -122,8 +133,7 @@
 
 /* wrapper to control width & center */
 .doctor-list-wrapper {
-  max-width: 1500px;
-  margin: 16px 16px 16px 16px;
+  max-width: 1800px;
 }
 
 /* spacing between department tables */

@@ -1,14 +1,15 @@
-import { BrowserRouter } from "react-router-dom";
-// import Sidebar from "./components/common/Sidebar";
-// import Navbar from "./components/common/Navbar";
-import AppRoutes from "./routes/AppRoutes";
+  // 🔹 THIS FILE IS UPDATED
+  // 🔹 BrowserRouter MUST EXIST ONLY ONCE IN WHOLE APP
 
-function App() {
-  return (
-     <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
-  );
-}
+  import { BrowserRouter } from "react-router-dom";
+  import AppRoutes from "./routes/AppRoutes";
 
-export default App;
+  const App = () => {
+    return (
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    );
+  };
+
+  export default App;

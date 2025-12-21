@@ -1,9 +1,11 @@
+// 🔹 PUBLIC LAYOUT
+// 🔹 NO SIDEBAR, NO NAVBAR
+
 import { Outlet } from "react-router-dom";
 
 const PublicLayout = () => {
   return (
     <div>
-      {/* Public navbar can be added later */}
       <Outlet />
     </div>
   );

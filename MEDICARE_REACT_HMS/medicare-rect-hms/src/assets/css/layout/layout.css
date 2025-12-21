@@ -1,11 +1,29 @@
-/* Main content wrapper */
-.main-content {
-  margin-left: 260px; /* same as sidebar width */
-  min-height: 100vh;
-  background-color: #f9fafb;
+/* ===============================
+   MAIN ADMIN LAYOUT (FIXED)
+================================ */
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;   /* ✅ FIX: allow content to grow */
+  background-color: #f8fafc;
 }
 
-/* Page content spacing */
-.page-content {
-  padding: 20px;
+/* Sidebar already fixed width */
+.admin-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;   /* ✅ FIX */
+}
+
+/* Navbar stays fixed height */
+.admin-main .navbar {
+  flex-shrink: 0;
+}
+
+/* ✅ ONLY CONTENT SCROLLS */
+.admin-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
 }

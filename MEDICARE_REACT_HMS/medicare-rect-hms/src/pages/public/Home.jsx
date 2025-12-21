@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import DoctorCard from "../public/DoctorCard";
+import DoctorCard from "../../components/public/DoctorCard";
 
 const Home = () => {
   const [doctors, setDoctors] = useState([]);

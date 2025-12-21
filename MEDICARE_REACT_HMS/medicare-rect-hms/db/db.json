@@ -55,7 +55,7 @@
       "name": "Dr. Amit Verma",
       "department": "Cardiology",
       "experience": 10,
-      "education": "MBBS, MD (Cardiology)",
+      "education": "MBBS, MD",
       "availableDays": [
         "Mon",
         "Wed",
@@ -73,7 +73,7 @@
       "name": "Dr. Neha Kapoor",
       "department": "Orthopedics",
       "experience": 7,
-      "education": "MBBS, MS (Orthopedics)",
+      "education": "MBBS, MS",
       "availableDays": [
         "Tue",
         "Thu",
@@ -105,7 +105,7 @@
       "name": "Parth Vipulbhai Chavda",
       "department": "Cardiology",
       "experience": 12,
-      "education": "MBBS, DM (Cardiology)",
+      "education": "MBBS, DM",
       "availableDays": [
         "Mon",
         "Tue",

@@ -1,15 +1,17 @@
+/* ===============================
+   SIDEBAR (FIXED LAYOUT ISSUE)
+================================ */
+
 /* Sidebar Container */
 .sidebar-modern {
   width: 260px;
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  top: 0;
+  /* ❌ REMOVED height: 100vh */
+  /* ❌ REMOVED position: fixed */
+
   background-color: #ffffff;
   border-right: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
-  z-index: 100;
 }
 
 /* BRAND / LOGO */
@@ -28,7 +30,7 @@
   object-fit: contain;
 }
 
-/*  MENU */
+/* MENU */
 .sidebar-menu {
   flex: 1;
   padding: 12px 10px;

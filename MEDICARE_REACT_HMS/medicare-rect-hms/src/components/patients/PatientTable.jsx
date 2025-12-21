@@ -66,7 +66,7 @@ const PatientTable = ({ patients, onEdit, onDelete }) => {
                 >
                   <i className="bi bi-pencil-fill text-primary"></i>
                 </button>
-
+              
                 <button
                   className="view-btn"
                   onClick={() => handleDelete(p.id)}  

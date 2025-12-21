@@ -6,9 +6,14 @@ const AdminLayout = () => {
   return (
     <div className="admin-layout">
       <Sidebar />
-      <div className="main-content">
+
+      <div className="admin-main">
         <Navbar />
-        <Outlet />
+
+        {/* ✅ THIS IS THE FIX */}
+        <div className="admin-content">
+          <Outlet />
+        </div>
       </div>
     </div>
   );
