@@ -1,25 +1,34 @@
-import "../../assets/css/public/doctor-cards.css";
+import "../../assets/css/public/doctors-public.css";
 
-const DoctorCard = ({ doctor }) => {
+const DoctorCard = ({ doctor, onBook }) => {
   return (
     <div className="doctor-card">
-      <img
-        src={doctor.image}
-        alt={doctor.name}
-        className="doctor-image"
-      />
+      <div className="doctor-image">
+        <img
+          src={
+            doctor.image
+              ? `/images/doctors/${doctor.image}`
+              : "/images/doctors/default-doctor.png"
+          }
+          alt={doctor.name}
+        />
+      </div>
 
-      <h4>{doctor.name}</h4>
-      <p className="department">{doctor.department}</p>
+      <div className="doctor-body">
+        <h4 className="doctor-name">{doctor.name}</h4>
+        <p className="doctor-dept">{doctor.department}</p>
 
-      <p><strong>Experience:</strong> {doctor.experience} Years</p>
-      <p><strong>Education:</strong> {doctor.education}</p>
-      <p><strong>OPD:</strong> {doctor.opdTimings}</p>
-      <p><strong>Fees:</strong> ₹{doctor.consultationFee}</p>
+        <p><strong>Experience:</strong> {doctor.experience} yrs</p>
+        <p><strong>Education:</strong> {doctor.education}</p>
+        <p><strong>OPD Days:</strong> {doctor.availableDays.join(", ")}</p>
+        <p><strong>OPD Time:</strong> {doctor.timeSlots.join(", ")}</p>
 
-      <button className="book-btn">
-        Book Appointment
-      </button>
+        <p className="doctor-fee">₹{doctor.consultationFee}</p>
+
+        <button className="btn-book" onClick={() => onBook(doctor)}>
+          Book Appointment
+        </button>
+      </div>
     </div>
   );
 };

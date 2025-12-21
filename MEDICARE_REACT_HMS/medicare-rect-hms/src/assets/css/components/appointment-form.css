@@ -1,0 +1,94 @@
+/* ===============================
+   APPOINTMENT FORM
+================================ */
+
+.appointment-form-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.appointment-form-card h5 {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.appointment-form-card p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* GRID */
+.appointment-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.appointment-form-grid label {
+  font-size: 13px;
+  margin-bottom: 4px;
+  display: block;
+  font-weight: 500;
+}
+
+.appointment-form-grid input,
+.appointment-form-grid select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  font-size: 14px;
+}
+
+.appointment-form-actions {
+  grid-column: span 3;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.appointment-form-actions button {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+/* ===============================
+   APPOINTMENT TABLE
+================================ */
+
+.appointment-table-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.appointment-table-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.appointment-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.appointment-table th,
+.appointment-table td {
+  padding: 10px;
+  font-size: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}

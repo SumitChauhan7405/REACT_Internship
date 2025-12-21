@@ -67,7 +67,7 @@ const DoctorList = ({ onEdit }) => {
                   <td>
                     <div className="doctor-info">
                       <img
-                        src={`/Doctorimages/${doc.image || "doc.png"}`}
+                        src={`/images/doctors/${doc.image || "doc.png"}`}
                         alt={doc.name}
                         className="doctor-avatar"
                       />

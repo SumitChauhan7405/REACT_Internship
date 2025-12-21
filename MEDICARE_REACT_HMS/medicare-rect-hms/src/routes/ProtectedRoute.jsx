@@ -1,18 +1,24 @@
-import { Navigate } from "react-router-dom";
+// 🔒 ROUTE PROTECTION COMPONENT
+// Controls access based on login & role
+
+import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const ProtectedRoute = ({ children, allowedRoles }) => {
-  const { role } = useAuth();
+const ProtectedRoute = ({ allowedRoles }) => {
+  const { user } = useAuth();
 
-  if (!role) {
-    return <Navigate to="/login" />;
+  // ❌ Not logged in
+  if (!user) {
+    return <Navigate to="/login" replace />;
   }
 
-  if (!allowedRoles.includes(role)) {
-    return <Navigate to="/admin" />;
+  // ❌ Logged in but role not allowed
+  if (!allowedRoles.includes(user.role)) {
+    return <Navigate to="/login" replace />;
   }
 
-  return children;
+  // ✅ Allowed
+  return <Outlet />;
 };
 
 export default ProtectedRoute;

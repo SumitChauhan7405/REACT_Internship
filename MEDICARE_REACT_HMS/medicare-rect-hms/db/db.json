@@ -53,6 +53,8 @@
     {
       "id": "DOC-001",
       "name": "Dr. Amit Verma",
+      "email": "amit@medicare.com",
+      "password": "amit@123",
       "department": "Cardiology",
       "experience": 10,
       "education": "MBBS, MD",
@@ -71,6 +73,8 @@
     {
       "id": "DOC-002",
       "name": "Dr. Neha Kapoor",
+      "email": "neha@medicare.com",
+      "password": "neha@123",
       "department": "Orthopedics",
       "experience": 7,
       "education": "MBBS, MS",
@@ -88,6 +92,8 @@
     {
       "id": "DOC-003",
       "name": "Namra Pithwa",
+      "email": "namra@medicare.com",
+      "password": "namra@123",
       "department": "Cardiology",
       "experience": 5,
       "education": "MBBS",
@@ -103,6 +109,8 @@
     {
       "id": "DOC-004",
       "name": "Parth Vipulbhai Chavda",
+      "email": "parth@medicare.com",
+      "password": "namra123",
       "department": "Cardiology",
       "experience": 12,
       "education": "MBBS, DM",
@@ -123,13 +131,33 @@
   ],
   "appointments": [
     {
-      "id": "APT-1001",
-      "patientId": null,
-      "doctorId": "DOC-001",
+      "id": "APT-0001",
+      "patientId": "PAT-2025-0005",
+      "patientName": "Serena Hill",
+      "doctorId": "DOC-003",
+      "doctorName": "Namra Pithwa",
       "date": "2025-01-12",
       "time": "10:30",
       "status": "CONFIRMED",
-      "source": "DASHBOARD"
+      "source": "ADMIN"
+    },
+    {
+      "id": "APT-1766337869792",
+      "patientId": "PAT-2025-0002",
+      "doctorId": "DOC-004",
+      "doctorName": "Parth Vipulbhai Chavda",
+      "date": "2026-12-10",
+      "time": "09:00",
+      "status": "PENDING",
+      "source": "ADMIN"
+    },
+    {
+      "id": "805f",
+      "patientId": "PAT-2025-0003",
+      "doctorId": "DOC-002",
+      "date": "2025-10-23",
+      "time": "10:00",
+      "status": "PENDING"
     }
   ],
   "consultations": [
