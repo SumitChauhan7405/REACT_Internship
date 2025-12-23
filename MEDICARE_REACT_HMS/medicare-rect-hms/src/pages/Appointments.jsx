@@ -13,6 +13,8 @@ const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState([]);
   const [doctors, setDoctors] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
 
   const [form, setForm] = useState({
     patientId: "",
@@ -104,6 +106,16 @@ const Appointments = () => {
     loadData();
   };
 
+  const filteredAppointments = appointments.filter((apt) => {
+    const term = searchTerm.toLowerCase();
+
+    return (
+      apt.patientName?.toLowerCase().includes(term) ||
+      apt.patientId?.toLowerCase().includes(term)
+    );
+  });
+
+
   /* ======================
      RENDER
   ======================= */
@@ -184,7 +196,18 @@ const Appointments = () => {
       <div className="appointment-table-card">
         <div className="appointment-table-header">
           <h6>OPD Appointments</h6>
+
+          <div className="table-search">
+            <i className="bi bi-search"></i>
+            <input
+              type="text"
+              placeholder="Search by Patient ID or Name"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
+
 
         <table className="appointment-table">
           <thead>
@@ -199,7 +222,7 @@ const Appointments = () => {
           </thead>
 
           <tbody>
-            {appointments.map((apt) => (
+            {filteredAppointments.map((apt) => (
               <tr key={apt.id}>
                 <td>{apt.patientName || "—"}</td>
                 <td>{apt.doctorName || "—"}</td>
@@ -234,7 +257,7 @@ const Appointments = () => {
                       onClick={() => handleDelete(apt.id)}
                       title="Delete Appointment"
                     >
-                      <i className="bi bi-trash"></i>
+                      <i className="bi bi-trash-fill"></i>
                     </button>
                   </div>
                 </td>

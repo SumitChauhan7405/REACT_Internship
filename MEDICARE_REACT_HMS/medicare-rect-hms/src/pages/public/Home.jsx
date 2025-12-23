@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { getDoctors } from "../../services/doctorService";
 import DoctorCard from "../../components/public/DoctorCard";
+import OnlineAppointmentModal from "../../components/public/OnlineAppointmentModal";
 import "../../assets/css/public/doctors-public.css";
 
 const Home = () => {
   const [doctors, setDoctors] = useState([]);
+
+  // 🔹 MODAL STATE
+  const [showModal, setShowModal] = useState(false);
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
 
   useEffect(() => {
     loadDoctors();
@@ -15,8 +20,15 @@ const Home = () => {
     setDoctors(res.data);
   };
 
+  // 🔹 OPEN MODAL (NO UI CHANGE)
   const handleBook = (doctor) => {
-    alert(`Booking appointment with ${doctor.name}`);
+    setSelectedDoctor(doctor);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedDoctor(null);
   };
 
   return (
@@ -35,6 +47,14 @@ const Home = () => {
           />
         ))}
       </div>
+
+      {/* 🔹 ONLINE APPOINTMENT MODAL */}
+      {showModal && (
+        <OnlineAppointmentModal
+          doctor={selectedDoctor}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 };

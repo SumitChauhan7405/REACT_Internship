@@ -165,3 +165,30 @@
   align-items: center;
   gap: 10px;
 }
+
+/* ===============================
+   TABLE SEARCH BAR
+================================ */
+
+.table-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f9fafb;
+  border: 1px solid var(--border-color);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.table-search i {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.table-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  width: 220px;
+}

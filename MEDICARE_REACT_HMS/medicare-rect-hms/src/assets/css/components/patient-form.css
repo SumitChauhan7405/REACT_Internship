@@ -74,3 +74,23 @@
 .form-actions button:hover {
   opacity: 0.9;
 }
+
+
+/* ===============================
+   MODAL OVERLAY
+================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-card {
+  width: 800px;
+  max-width: 95%;
+}
