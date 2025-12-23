@@ -26,7 +26,9 @@ import FollowUp from "../pages/FollowUp";
 
 /* Doctor Pages */
 import DoctorDashboard from "../pages/doctor/DoctorDashboard";
-import DoctorPatients from "../pages/doctor/Patients";
+import DoctorAppointments from "../pages/doctor/Appointments";
+import DoctorProfile from "../pages/doctor/Profile";
+
 
 const AppRoutes = () => {
   return (
@@ -58,9 +60,11 @@ const AppRoutes = () => {
       <Route element={<ProtectedRoute allowedRoles={["doctor"]} />}>
         <Route path="/doctor" element={<DoctorLayout />}>
           <Route path="dashboard" element={<DoctorDashboard />} />
-          <Route path="patients" element={<DoctorPatients />} />
+          <Route path="profile" element={<DoctorProfile />} />
+          <Route path="appointments" element={<DoctorAppointments />} />
         </Route>
       </Route>
+
 
     </Routes>
   );

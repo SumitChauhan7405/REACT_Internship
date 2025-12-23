@@ -10,7 +10,8 @@
       "bloodGroup": "Vitae dicta rerum do",
       "doctorName": "Dr. Neha Kapoor",
       "timing": "00:34",
-      "createdAt": "2025-12-20T09:56:37.007Z"
+      "createdAt": "2025-12-20T09:56:37.007Z",
+      "status": "CONFIRMED"
     },
     {
       "id": "PAT-2025-0003",
@@ -47,6 +48,58 @@
       "doctorName": "Namra Pithwa",
       "timing": "06:49",
       "createdAt": "2025-12-20T10:07:40.730Z"
+    },
+    {
+      "id": "PAT-2025-0006",
+      "firstName": "Sumit",
+      "lastName": "Chauhan",
+      "gender": "Male",
+      "age": "21",
+      "phone": "2223336660",
+      "bloodGroup": "A+",
+      "doctorName": "Dr. Namra Pithwa",
+      "timing": "10:00",
+      "status": "CONFIRMED",
+      "createdAt": "2025-12-22T17:19:00.397Z"
+    },
+    {
+      "id": "PAT-2025-0007",
+      "firstName": "Krisha",
+      "lastName": "Busha",
+      "gender": "Female",
+      "age": "20",
+      "phone": "1234567890",
+      "bloodGroup": "A+",
+      "doctorName": "Dr. Meet Kacha",
+      "timing": "10:00",
+      "status": "CONFIRMED",
+      "createdAt": "2025-12-22T18:46:41.529Z"
+    },
+    {
+      "id": "PAT-2025-0009",
+      "firstName": "Preston",
+      "lastName": "Bowman",
+      "gender": "Female",
+      "age": "59",
+      "phone": "+1 (649) 604-2087",
+      "bloodGroup": "Aperiam eveniet exe",
+      "doctorName": "Dr. Meet Kacha",
+      "timing": "18:34",
+      "status": "CONFIRMED",
+      "createdAt": "2025-12-23T04:49:19.876Z"
+    },
+    {
+      "id": "PAT-2025-0010",
+      "firstName": "Malachi",
+      "lastName": "Stanton",
+      "gender": "Female",
+      "age": "33",
+      "phone": "+1 (143) 482-5439",
+      "bloodGroup": "Commodi magni ut iur",
+      "doctorName": "Dr. Meet Kacha",
+      "timing": "10:43",
+      "status": "CONFIRMED",
+      "createdAt": "2025-12-23T06:38:44.239Z"
     }
   ],
   "doctors": [
@@ -91,7 +144,7 @@
     },
     {
       "id": "DOC-003",
-      "name": "Namra Pithwa",
+      "name": "Dr. Namra Pithwa",
       "email": "namra@medicare.com",
       "password": "namra@123",
       "department": "Cardiology",
@@ -108,9 +161,9 @@
     },
     {
       "id": "DOC-004",
-      "name": "Parth Vipulbhai Chavda",
+      "name": "Dr.Parth Vipulbhai Chavda",
       "email": "parth@medicare.com",
-      "password": "namra123",
+      "password": "parth@123",
       "department": "Cardiology",
       "experience": 12,
       "education": "MBBS, DM",
@@ -126,6 +179,26 @@
         "10:00-12:00"
       ],
       "consultationFee": 5000,
+      "image": ""
+    },
+    {
+      "id": "DOC-005",
+      "name": "Dr. Meet Kacha",
+      "email": "meet@medicare.com",
+      "password": "meet@123",
+      "department": "Neurology",
+      "experience": 20,
+      "education": "MBBS",
+      "availableDays": [
+        "Mon",
+        "Wed",
+        "Thu",
+        "Sat"
+      ],
+      "timeSlots": [
+        "10:00-12:00"
+      ],
+      "consultationFee": 10000,
       "image": ""
     }
   ],
@@ -148,16 +221,41 @@
       "doctorName": "Parth Vipulbhai Chavda",
       "date": "2026-12-10",
       "time": "09:00",
-      "status": "PENDING",
+      "status": "CONFIRMED",
       "source": "ADMIN"
     },
     {
-      "id": "805f",
-      "patientId": "PAT-2025-0003",
-      "doctorId": "DOC-002",
-      "date": "2025-10-23",
+      "id": "APT-2025-0001",
+      "patientId": "PAT-2025-0007",
+      "patientName": "Krisha Busha",
+      "doctorId": "DOC-005",
+      "doctorName": "Dr. Meet Kacha",
+      "date": "2025-12-23",
       "time": "10:00",
-      "status": "PENDING"
+      "status": "CONFIRMED",
+      "source": "ADMIN"
+    },
+    {
+      "id": "APT-2025-1766465415109",
+      "patientId": "PAT-2025-0009",
+      "patientName": "Preston Bowman",
+      "doctorId": "DOC-005",
+      "doctorName": "Dr. Meet Kacha",
+      "date": "2025-12-23",
+      "time": "18:34",
+      "status": "CONFIRMED",
+      "source": "ADMIN"
+    },
+    {
+      "id": "APT-2025-1766471968961",
+      "patientId": "PAT-2025-0010",
+      "patientName": "Malachi Stanton",
+      "doctorId": "DOC-005",
+      "doctorName": "Dr. Meet Kacha",
+      "date": "2025-12-10",
+      "time": "10:43",
+      "status": "CONFIRMED",
+      "source": "ADMIN"
     }
   ],
   "consultations": [

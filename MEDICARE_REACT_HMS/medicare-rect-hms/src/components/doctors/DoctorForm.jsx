@@ -17,7 +17,7 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
   useEffect(() => {
     if (editDoctor) {
       setForm({
-        name: editDoctor.name,
+        name: editDoctor.name.replace(/^Dr\.\s*/i, ""), // remove Dr. for input
         department: editDoctor.department,
         experience: editDoctor.experience,
         education: editDoctor.education,
@@ -42,7 +42,9 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
     }
   };
 
-  // ✅ SIMPLE & CORRECT ID GENERATION
+  /* ===============================
+     SIMPLE DOCTOR ID GENERATION
+  =============================== */
   const generateDoctorId = async () => {
     const res = await getDoctors();
 
@@ -57,11 +59,40 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
     return `DOC-${String(nextNumber).padStart(3, "0")}`;
   };
 
+  /* ===============================
+     GENERATE EMAIL & PASSWORD
+  =============================== */
+  const generateCredentials = (name) => {
+    // Take only first name
+    const firstName = name
+      .split(" ")[0]        // Namra Pithwa → Namra
+      .toLowerCase()
+      .trim();
+
+    return {
+      email: `${firstName}@medicare.com`,
+      password: `${firstName}@123`
+    };
+  };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // ✅ Always store name WITH "Dr."
+    const finalName = form.name.startsWith("Dr.")
+      ? form.name
+      : `Dr. ${form.name}`;
+
+    // ✅ Generate credentials WITHOUT "Dr."
+    const credentials = generateCredentials(
+      finalName.replace(/^Dr\.\s*/i, "")
+    );
+
     const payload = {
-      name: form.name,
+      name: finalName,
+      email: credentials.email,
+      password: credentials.password,
       department: form.department,
       experience: Number(form.experience),
       education: form.education,
@@ -105,7 +136,13 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
 
         <div>
           <label>Doctor Name</label>
-          <input name="name" value={form.name} onChange={handleChange} required />
+          <input
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            placeholder="Enter Doctor Name"
+            required
+          />
         </div>
 
         <div>
@@ -128,6 +165,7 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
             name="experience"
             value={form.experience}
             onChange={handleChange}
+            placeholder="Enter Doctor Experience"
             required
           />
         </div>
@@ -138,6 +176,7 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
             name="education"
             value={form.education}
             onChange={handleChange}
+            placeholder="Enter Doctor Education"
             required
           />
         </div>
@@ -180,6 +219,7 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
             name="consultationFee"
             value={form.consultationFee}
             onChange={handleChange}
+            placeholder="Enter Doctor Fees"
             required
           />
         </div>

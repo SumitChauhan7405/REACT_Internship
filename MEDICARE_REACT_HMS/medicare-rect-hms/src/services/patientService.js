@@ -1,19 +1,9 @@
-import axios from "axios";
+import api from "./api";
 
-const API_URL = "http://localhost:5000/patients";
+export const getPatients = () => api.get("/patients");
+export const addPatient = (data) => api.post("/patients", data);
+export const deletePatient = (id) =>
+  api.delete(`/patients/${id}`);
 
-export const getPatients = () => {
-  return axios.get(API_URL);
-};
-
-export const addPatient = (patient) => {
-  return axios.post(API_URL, patient);
-};
-
-export const updatePatient = (id, patient) => {
-  return axios.put(`${API_URL}/${id}`, patient);
-};
-
-export const deletePatient = (id) => {
-  return axios.delete(`${API_URL}/${id}`);
-};
+export const updatePatient = (id, data) =>
+  api.patch(`/patients/${id}`, data); // ✅ ADD

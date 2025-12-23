@@ -10,11 +10,7 @@ const PatientTable = ({ patients, onEdit, onDelete }) => {
   }
 
   const handleDelete = (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this patient?"
-    );
-
-    if (confirmDelete) {
+    if (window.confirm("Are you sure you want to delete this patient?")) {
       onDelete(id);
     }
   };
@@ -37,6 +33,7 @@ const PatientTable = ({ patients, onEdit, onDelete }) => {
             <th>Blood Group</th>
             <th>Doctor</th>
             <th>Timing</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -46,13 +43,7 @@ const PatientTable = ({ patients, onEdit, onDelete }) => {
             <tr key={p.id}>
               <td>{p.id}</td>
               <td>{p.firstName} {p.lastName}</td>
-
-              <td>
-                <span className={`badge ${p.gender.toLowerCase()}`}>
-                  {p.gender}
-                </span>
-              </td>
-
+              <td>{p.gender}</td>
               <td>{p.age}</td>
               <td>{p.phone}</td>
               <td>{p.bloodGroup}</td>
@@ -60,17 +51,17 @@ const PatientTable = ({ patients, onEdit, onDelete }) => {
               <td>{p.timing}</td>
 
               <td>
-                <button
-                  className="view-btn"
-                  onClick={() => onEdit(p)}
-                >
+                <span className={`status-badge ${p.status?.toLowerCase()}`}>
+                  {p.status || "PENDING"}
+                </span>
+              </td>
+
+              <td>
+                <button className="view-btn" onClick={() => onEdit(p)}>
                   <i className="bi bi-pencil-fill text-primary"></i>
                 </button>
-              
-                <button
-                  className="view-btn"
-                  onClick={() => handleDelete(p.id)}  
-                >
+
+                <button className="view-btn" onClick={() => handleDelete(p.id)}>
                   <i className="bi bi-trash-fill text-danger"></i>
                 </button>
               </td>

@@ -6,7 +6,7 @@ const DoctorDashboard = () => {
   return (
     <div>
       <h3>Doctor Dashboard</h3>
-      <p>Welcome Dr. {user?.data?.name}</p>
+      <p>Welcome  {user?.data?.name}</p>
       <p>Department: {user?.data?.department}</p>
       <p>Welcome! Here you will see your assigned patients.</p>
     </div>
