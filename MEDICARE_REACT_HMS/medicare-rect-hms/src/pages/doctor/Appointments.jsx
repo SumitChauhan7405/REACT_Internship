@@ -1,84 +1,139 @@
-import { useEffect, useState, useCallback } from "react";
-import { useAuth } from "../../context/AuthContext";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { useAuth } from "../../context/AuthContext";
+import PrescriptionModal from "../../components/doctors/PrescriptionModal";
+import "../../assets/css/components/patient-table.css";
 
 const DoctorAppointments = () => {
   const { user } = useAuth();
-  const [appointments, setAppointments] = useState([]);
-
   const doctorId = user?.data?.id;
 
-  // ✅ FIX 1: make function stable
-  const loadAppointments = useCallback(async () => {
-    if (!doctorId) return; // ✅ FIX 2: guard
+  const [appointments, setAppointments] = useState([]);
+  const [patients, setPatients] = useState([]);
 
-    const [aptRes, patientRes] = await Promise.all([
+  // Prescription modal state
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
+  const [existingPrescription, setExistingPrescription] = useState(null);
+
+  /* ======================
+     LOAD DATA
+  ======================= */
+  const loadAppointments = async () => {
+    const [aptRes, patRes, conRes] = await Promise.all([
       axios.get("http://localhost:5000/appointments"),
       axios.get("http://localhost:5000/patients"),
+      axios.get("http://localhost:5000/consultations")
     ]);
 
-    // filter doctor appointments
+    // Only doctor specific appointments
     const myAppointments = aptRes.data.filter(
       (apt) => apt.doctorId === doctorId
     );
 
-    // attach patient name
-    const merged = myAppointments.map((apt) => {
-      const patient = patientRes.data.find(
-        (p) => p.id === apt.patientId
-      );
+    setAppointments(myAppointments);
+    setPatients(patRes.data);
 
-      return {
-        ...apt,
-        patientName: patient
-          ? `${patient.firstName} ${patient.lastName}`
-          : "N/A",
-      };
-    });
+    // keep consultations to match later
+    setExistingPrescription(conRes.data);
+  };
 
-    setAppointments(merged);
-  }, [doctorId]);
-
-  // ✅ FIX 3: correct dependency
   useEffect(() => {
     loadAppointments();
-  }, [loadAppointments]);
+  }, [doctorId]);
+
+  /* ======================
+     OPEN PRESCRIPTION
+  ======================= */
+  const openPrescriptionModal = (apt) => {
+    const prescription = existingPrescription?.find(
+      (c) => c.appointmentId === apt.id
+    );
+
+    setSelectedAppointment(apt);
+    setExistingPrescription(prescription || null);
+    setOpenModal(true);
+  };
 
   if (appointments.length === 0) {
     return <p>No appointments assigned.</p>;
   }
 
   return (
-    <div className="patient-table-card">
-      <div className="table-header">
-        <h6>My Appointments</h6>
-        <span>Assigned patients</span>
+    <>
+      {/* ===== APPOINTMENT TABLE ===== */}
+      <div className="patient-table-card">
+        <div className="table-header">
+          <h6>My Appointments</h6>
+          <span>Doctor view</span>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Appointment ID</th>
+              <th>Patient</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Status</th>
+              <th>Prescription</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {appointments.map((apt) => {
+              const patient = patients.find(
+                (p) => p.id === apt.patientId
+              );
+
+              return (
+                <tr key={apt.id}>
+                  <td>{apt.id}</td>
+                  <td>
+                    {patient
+                      ? `${patient.firstName} ${patient.lastName}`
+                      : "—"}
+                  </td>
+                  <td>{apt.date}</td>
+                  <td>{apt.time}</td>
+                  <td>
+                    <span
+                      className={`badge ${
+                        apt.status === "CONFIRMED"
+                          ? "male"
+                          : "female"
+                      }`}
+                    >
+                      {apt.status}
+                    </span>
+                  </td>
+                  <td>
+                    <button
+                      className="view-btn"
+                      onClick={() => openPrescriptionModal(apt)}
+                    >
+                      <i className="bi bi-file-earmark-medical"></i>
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Appointment ID</th>
-            <th>Patient</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {appointments.map((apt) => (
-            <tr key={apt.id}>
-              <td>{apt.id}</td>
-              <td>{apt.patientName}</td>
-              <td>{apt.date}</td>
-              <td>{apt.time}</td>
-              <td>{apt.status}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+      {/* ===== PRESCRIPTION MODAL ===== */}
+      <PrescriptionModal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        appointment={selectedAppointment}
+        patient={patients.find(
+          (p) => p.id === selectedAppointment?.patientId
+        )}
+        doctor={user.data}
+        existingPrescription={existingPrescription}
+      />
+    </>
   );
 };
 

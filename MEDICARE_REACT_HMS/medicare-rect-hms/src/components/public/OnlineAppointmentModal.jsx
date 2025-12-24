@@ -113,7 +113,7 @@ const OnlineAppointmentModal = ({ doctor, onClose }) => {
               <i className="bi bi-calendar-plus"></i>
               Book Appointment
             </button>
-
+            <br/>
             <button
               type="button"
               className="btn-cancel"

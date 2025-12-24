@@ -275,6 +275,27 @@
       ],
       "notes": "Reduce salt intake and exercise daily",
       "createdAt": "2025-01-12T11:00:00"
+    },
+    {
+      "id": "CON-2025-1766598760990",
+      "appointmentId": "APT-2025-1766503200703",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "patientId": "PAT-2025-0010",
+      "patientName": "Rahul Bhai",
+      "diagnosis": "High Blood Pressure",
+      "consultation": "Reduce salt and excersice daily",
+      "medicines": [
+        {
+          "name": "ABC",
+          "dosage": "1-1-1"
+        },
+        {
+          "name": "DEF",
+          "dosage": "0-0-1"
+        }
+      ],
+      "createdAt": "2025-12-24T17:52:40.990Z"
     }
   ],
   "labTests": [

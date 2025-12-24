@@ -1,0 +1,58 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 600px;
+}
+
+.modal-card h5 {
+  margin-bottom: 12px;
+}
+
+.modal-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.modal-form-grid input,
+.modal-form-grid textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.modal-form-grid textarea {
+  grid-column: span 2;
+}
+
+.modal-actions {
+  grid-column: span 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-actions button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.btn-cancel {
+  background: #e5e7eb;
+  color: #111;
+}

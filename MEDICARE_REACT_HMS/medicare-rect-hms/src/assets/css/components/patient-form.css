@@ -94,3 +94,7 @@
   width: 800px;
   max-width: 95%;
 }
+
+.btn-cancel {
+  margin-left: 12px;
+}
