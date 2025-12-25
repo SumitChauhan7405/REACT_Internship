@@ -107,3 +107,47 @@
   background: #d4edda;
   color: #155724;
 }
+
+
+/* For Doctor Side appointment Actions Column */
+
+/* ===============================
+   PRESCRIPTION ACTION ICONS
+================================ */
+
+.prescription-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ADD PRESCRIPTION */
+.icon-btn.add {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.icon-btn.add:hover {
+  background: #bbf7d0;
+}
+
+/* EDIT PRESCRIPTION */
+.icon-btn.edit {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.icon-btn.edit:hover {
+  background: #fde68a;
+}
+
+/* COMMON ICON STYLE */
+.icon-btn {
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

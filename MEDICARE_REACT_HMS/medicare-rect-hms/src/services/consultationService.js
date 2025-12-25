@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = "http://localhost:5000/consultations";
 
 /* Get consultation by appointment */
-export const getConsultationByAppointment = (appointmentId) => {
+export const getConsultations = (appointmentId) => {
   return axios.get(`${API_URL}?appointmentId=${appointmentId}`);
 };
 

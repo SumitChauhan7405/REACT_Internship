@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import PrescriptionModal from "../../components/doctors/PrescriptionModal";
@@ -10,49 +10,71 @@ const DoctorAppointments = () => {
 
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState([]);
+  const [consultations, setConsultations] = useState([]);
 
-  // Prescription modal state
+  // Modal state
   const [openModal, setOpenModal] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [existingPrescription, setExistingPrescription] = useState(null);
+  const [modalMode, setModalMode] = useState("ADD"); // ADD | EDIT
 
   /* ======================
-     LOAD DATA
+     LOAD DATA (MEMOIZED)
   ======================= */
-  const loadAppointments = async () => {
+  const loadAppointments = useCallback(async () => {
+    if (!doctorId) return;
+
     const [aptRes, patRes, conRes] = await Promise.all([
       axios.get("http://localhost:5000/appointments"),
       axios.get("http://localhost:5000/patients"),
       axios.get("http://localhost:5000/consultations")
     ]);
 
-    // Only doctor specific appointments
     const myAppointments = aptRes.data.filter(
       (apt) => apt.doctorId === doctorId
     );
 
     setAppointments(myAppointments);
     setPatients(patRes.data);
-
-    // keep consultations to match later
-    setExistingPrescription(conRes.data);
-  };
+    setConsultations(conRes.data);
+  }, [doctorId]);
 
   useEffect(() => {
     loadAppointments();
-  }, [doctorId]);
+  }, [loadAppointments]);
 
   /* ======================
-     OPEN PRESCRIPTION
+     ADD PRESCRIPTION
   ======================= */
-  const openPrescriptionModal = (apt) => {
-    const prescription = existingPrescription?.find(
+  const handleAddPrescription = (apt) => {
+    setSelectedAppointment(apt);
+    setExistingPrescription(null); // ✅ CLEAN STATE
+    setModalMode("ADD");
+    setOpenModal(true);
+  };
+
+  /* ======================
+     EDIT PRESCRIPTION
+  ======================= */
+  const handleEditPrescription = (apt) => {
+    const prescription = consultations.find(
       (c) => c.appointmentId === apt.id
     );
 
     setSelectedAppointment(apt);
     setExistingPrescription(prescription || null);
+    setModalMode("EDIT");
     setOpenModal(true);
+  };
+
+  /* ======================
+     CLOSE MODAL (RESET)
+  ======================= */
+  const closeModal = () => {
+    setOpenModal(false);
+    setSelectedAppointment(null);
+    setExistingPrescription(null);
+    setModalMode("ADD");
   };
 
   if (appointments.length === 0) {
@@ -86,6 +108,10 @@ const DoctorAppointments = () => {
                 (p) => p.id === apt.patientId
               );
 
+              const hasPrescription = consultations.some(
+                (c) => c.appointmentId === apt.id
+              );
+
               return (
                 <tr key={apt.id}>
                   <td>{apt.id}</td>
@@ -107,13 +133,30 @@ const DoctorAppointments = () => {
                       {apt.status}
                     </span>
                   </td>
+
+                  {/* ===== ACTION ICONS ===== */}
                   <td>
-                    <button
-                      className="view-btn"
-                      onClick={() => openPrescriptionModal(apt)}
-                    >
-                      <i className="bi bi-file-earmark-medical"></i>
-                    </button>
+                    <div className="action-icons">
+                      {/* ADD */}
+                      <button
+                        className="icon-btn add"
+                        onClick={() => handleAddPrescription(apt)}
+                        title="Add Prescription"
+                      >
+                        <i className="bi bi-plus-lg"></i>
+                      </button>
+
+                      {/* EDIT */}
+                      {hasPrescription && (
+                        <button
+                          className="icon-btn edit"
+                          onClick={() => handleEditPrescription(apt)}
+                          title="Edit Prescription"
+                        >
+                          <i className="bi bi-pencil-square"></i>
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               );
@@ -125,13 +168,15 @@ const DoctorAppointments = () => {
       {/* ===== PRESCRIPTION MODAL ===== */}
       <PrescriptionModal
         open={openModal}
-        onClose={() => setOpenModal(false)}
+        onClose={closeModal}
         appointment={selectedAppointment}
         patient={patients.find(
           (p) => p.id === selectedAppointment?.patientId
         )}
         doctor={user.data}
         existingPrescription={existingPrescription}
+        mode={modalMode}
+        refreshAppointments={loadAppointments} // ✅ ALWAYS LATEST
       />
     </>
   );
