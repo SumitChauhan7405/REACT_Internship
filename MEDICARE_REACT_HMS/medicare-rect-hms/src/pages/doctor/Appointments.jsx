@@ -149,7 +149,7 @@ const DoctorAppointments = () => {
                       {/* EDIT */}
                       {hasPrescription && (
                         <button
-                          className="icon-btn edit"
+                          className="icon-btn edited"
                           onClick={() => handleEditPrescription(apt)}
                           title="Edit Prescription"
                         >

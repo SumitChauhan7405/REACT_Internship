@@ -9,8 +9,9 @@ import DoctorLayout from "../layouts/DoctorLayout";
 import ProtectedRoute from "./ProtectedRoute";
 
 /* Public Pages */
-import Home from "../pages/public/Home";
+import OurDoctors from "../pages/public/OurDoctors";
 import Login from "../pages/public/Login";
+
 
 /* Admin Pages */
 import Dashboard from "../pages/Dashboard";
@@ -28,19 +29,21 @@ import FollowUp from "../pages/FollowUp";
 import DoctorDashboard from "../pages/doctor/DoctorDashboard";
 import DoctorAppointments from "../pages/doctor/Appointments";
 import DoctorProfile from "../pages/doctor/Profile";
+import Homepage from "../pages/public/Homepage";
 
 
 const AppRoutes = () => {
   return (
     <Routes>
 
-      {/* ================= PUBLIC ROUTES ================= */}
+      {/* ================= Public Routes ================= */}
       <Route element={<PublicLayout />}>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Homepage/>} />
+        <Route path="/doctors" element={<OurDoctors />} />
         <Route path="/login" element={<Login />} />
       </Route>
 
-      {/* ================= ADMIN PROTECTED ROUTES ================= */}
+      {/* ================= Admin Protected Routes ================= */}
       <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="dashboard" element={<Dashboard />} />

@@ -22,8 +22,7 @@ const DoctorCard = ({ doctor, onBook }) => {
         <p><strong>Education:</strong> {doctor.education}</p>
         <p><strong>OPD Days:</strong> {doctor.availableDays.join(", ")}</p>
         <p><strong>OPD Time:</strong> {doctor.timeSlots.join(", ")}</p>
-
-        <p className="doctor-fee">₹{doctor.consultationFee}</p>
+        <p ><strong>Consultation Fee:</strong> ₹{doctor.consultationFee}</p>
 
         <button className="btn-book" onClick={() => onBook(doctor)}>
           Book Appointment

@@ -4,7 +4,7 @@ import DoctorCard from "../../components/public/DoctorCard";
 import OnlineAppointmentModal from "../../components/public/OnlineAppointmentModal";
 import "../../assets/css/public/doctors-public.css";
 
-const Home = () => {
+const OurDoctors = () => {
   const [doctors, setDoctors] = useState([]);
 
   // 🔹 MODAL STATE
@@ -59,4 +59,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default OurDoctors;
