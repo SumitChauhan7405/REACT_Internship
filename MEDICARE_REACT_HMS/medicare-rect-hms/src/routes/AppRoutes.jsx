@@ -11,6 +11,7 @@ import ProtectedRoute from "./ProtectedRoute";
 /* Public Pages */
 import OurDoctors from "../pages/public/OurDoctors";
 import Login from "../pages/public/Login";
+import DoctorDetails from "../pages/public/DoctorDetails";
 
 
 /* Admin Pages */
@@ -40,6 +41,7 @@ const AppRoutes = () => {
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Homepage/>} />
         <Route path="/doctors" element={<OurDoctors />} />
+        <Route path="/doctors/:id" element={<DoctorDetails />} />
         <Route path="/login" element={<Login />} />
       </Route>
 

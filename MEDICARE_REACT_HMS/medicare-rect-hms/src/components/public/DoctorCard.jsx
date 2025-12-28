@@ -1,8 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import "../../assets/css/public/doctors-public.css";
 
 const DoctorCard = ({ doctor, onBook }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="doctor-card">
+    <div
+      className="doctor-card"
+      onClick={() => navigate(`/doctors/${doctor.id}`)}
+    >
       <div className="doctor-image">
         <img
           src={
@@ -22,9 +28,17 @@ const DoctorCard = ({ doctor, onBook }) => {
         <p><strong>Education:</strong> {doctor.education}</p>
         <p><strong>OPD Days:</strong> {doctor.availableDays.join(", ")}</p>
         <p><strong>OPD Time:</strong> {doctor.timeSlots.join(", ")}</p>
-        <p ><strong>Consultation Fee:</strong> ₹{doctor.consultationFee}</p>
 
-        <button className="btn-book" onClick={() => onBook(doctor)}>
+        <p className="doctor-fee">₹{doctor.consultationFee}</p>
+
+        {/* STOP PROPAGATION so card click doesn't trigger */}
+        <button
+          className="btn-book"
+          onClick={(e) => {
+            e.stopPropagation();
+            onBook(doctor);
+          }}
+        >
           Book Appointment
         </button>
       </div>

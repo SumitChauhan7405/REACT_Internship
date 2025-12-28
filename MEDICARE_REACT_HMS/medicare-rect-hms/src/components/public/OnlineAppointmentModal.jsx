@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { addPatient, getPatients } from "../../services/patientService";
 import "../../assets/css/components/patient-form.css";
 
-const OnlineAppointmentModal = ({ doctor, onClose }) => {
+const OnlineAppointmentModal = ({ open, doctor, onClose }) => {
+  // ✅ ALL HOOKS AT TOP (NO CONDITIONS ABOVE)
   const [patients, setPatients] = useState([]);
 
   const [form, setForm] = useState({
@@ -15,14 +16,20 @@ const OnlineAppointmentModal = ({ doctor, onClose }) => {
     timing: ""
   });
 
+  // ✅ useEffect MUST be before return
   useEffect(() => {
-    loadPatients();
-  }, []);
+    if (open) {
+      loadPatients();
+    }
+  }, [open]);
 
   const loadPatients = async () => {
     const res = await getPatients();
     setPatients(res.data);
   };
+
+  // ✅ SAFE RETURN AFTER ALL HOOKS
+  if (!open) return null;
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -70,17 +77,32 @@ const OnlineAppointmentModal = ({ doctor, onClose }) => {
         <form onSubmit={handleSubmit} className="form-grid">
           <div>
             <label>First Name</label>
-            <input name="firstName" value={form.firstName} onChange={handleChange} required />
+            <input
+              name="firstName"
+              value={form.firstName}
+              onChange={handleChange}
+              required
+            />
           </div>
 
           <div>
             <label>Last Name</label>
-            <input name="lastName" value={form.lastName} onChange={handleChange} required />
+            <input
+              name="lastName"
+              value={form.lastName}
+              onChange={handleChange}
+              required
+            />
           </div>
 
           <div>
             <label>Gender</label>
-            <select name="gender" value={form.gender} onChange={handleChange} required>
+            <select
+              name="gender"
+              value={form.gender}
+              onChange={handleChange}
+              required
+            >
               <option value="">Select</option>
               <option>Male</option>
               <option>Female</option>
@@ -90,22 +112,43 @@ const OnlineAppointmentModal = ({ doctor, onClose }) => {
 
           <div>
             <label>Age</label>
-            <input type="number" name="age" value={form.age} onChange={handleChange} required />
+            <input
+              type="number"
+              name="age"
+              value={form.age}
+              onChange={handleChange}
+              required
+            />
           </div>
 
           <div>
             <label>Phone</label>
-            <input name="phone" value={form.phone} onChange={handleChange} required />
+            <input
+              name="phone"
+              value={form.phone}
+              onChange={handleChange}
+              required
+            />
           </div>
 
           <div>
             <label>Blood Group</label>
-            <input name="bloodGroup" value={form.bloodGroup} onChange={handleChange} />
+            <input
+              name="bloodGroup"
+              value={form.bloodGroup}
+              onChange={handleChange}
+            />
           </div>
 
           <div>
             <label>Timing</label>
-            <input type="time" name="timing" value={form.timing} onChange={handleChange} required />
+            <input
+              type="time"
+              name="timing"
+              value={form.timing}
+              onChange={handleChange}
+              required
+            />
           </div>
 
           <div className="form-actions">
@@ -113,7 +156,7 @@ const OnlineAppointmentModal = ({ doctor, onClose }) => {
               <i className="bi bi-calendar-plus"></i>
               Book Appointment
             </button>
-            <br/>
+
             <button
               type="button"
               className="btn-cancel"

@@ -1,0 +1,260 @@
+/* ===============================
+   PAGE CONTAINER
+================================ */
+.doctor-details-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* ===============================
+   MAIN WRAPPER
+================================ */
+.doctor-details-wrapper {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 40px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+/* ===============================
+   LEFT PROFILE CARD
+================================ */
+.doctor-profile-card {
+  background: #f9fbff;
+  border-radius: 14px;
+  padding: 25px 20px;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+}
+
+.doctor-profile-card img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 15px;
+}
+
+.doctor-profile-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #111827;
+}
+
+.doctor-profile-card .education {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+/* ===============================
+   BOOK BUTTON
+================================ */
+.btn-book {
+  width: 100%;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-book:hover {
+  background: #1d4ed8;
+}
+
+/* ===============================
+   RIGHT DETAILS SECTION
+================================ */
+.doctor-info-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.department-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1f2937;
+  margin-bottom: 6px;
+}
+
+.experience {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2563eb;
+  margin-bottom: 18px;
+}
+
+/* ===============================
+   DESCRIPTION
+================================ */
+.doctor-description {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #374151;
+  margin-bottom: 25px;
+  max-width: 700px;
+}
+
+/* ===============================
+   META INFO (OPD, FEES)
+================================ */
+.doctor-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 16px;
+  font-size: 15px;
+  color: #111827;
+}
+
+.doctor-meta div {
+  background: #f9fafb;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+.doctor-meta strong {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 900px) {
+  .doctor-details-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .doctor-profile-card {
+    margin-bottom: 20px;
+  }
+
+  .doctor-meta {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===============================
+   DOCTOR DETAILS LAYOUT
+================================ */
+
+.doctor-details-container {
+  padding: 32px;
+}
+
+.doctor-details-card {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 32px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* LEFT */
+.doctor-details-left {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+}
+
+.doctor-details-left img {
+  width: 180px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.education {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* RIGHT */
+.dept-title {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.experience {
+  color: #2563eb;
+  margin-bottom: 16px;
+}
+
+.doctor-description {
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* OPD INFO */
+.opd-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.info-box {
+  background: #eff6ff;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-box strong {
+  font-size: 13px;
+  color: #1e3a8a;
+}
+
+.info-box span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* EMERGENCY */
+.emergency-box {
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+/* BOOK BAR */
+.book-bar {
+  background: #2563eb;
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+}
+
+.book-bar button {
+  background: #ffffff;
+  color: #2563eb;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
