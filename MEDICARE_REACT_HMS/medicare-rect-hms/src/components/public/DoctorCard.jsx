@@ -9,6 +9,7 @@ const DoctorCard = ({ doctor, onBook }) => {
       className="doctor-card"
       onClick={() => navigate(`/doctors/${doctor.id}`)}
     >
+      {/* IMAGE */}
       <div className="doctor-image">
         <img
           src={
@@ -20,22 +21,28 @@ const DoctorCard = ({ doctor, onBook }) => {
         />
       </div>
 
+      {/* BODY */}
       <div className="doctor-body">
         <h4 className="doctor-name">{doctor.name}</h4>
         <p className="doctor-dept">{doctor.department}</p>
 
-        <p><strong>Experience:</strong> {doctor.experience} yrs</p>
-        <p><strong>Education:</strong> {doctor.education}</p>
-        <p><strong>OPD Days:</strong> {doctor.availableDays.join(", ")}</p>
-        <p><strong>OPD Time:</strong> {doctor.timeSlots.join(", ")}</p>
+        {/* OPD INFO */}
+        <div className="doctor-opd">
+          <p>
+            <strong>OPD Days:</strong>{" "}
+            {doctor.availableDays.join(", ")}
+          </p>
+          <p>
+            <strong>OPD Time:</strong>{" "}
+            {doctor.timeSlots.join(", ")}
+          </p>
+        </div>
 
-        <p className="doctor-fee">₹{doctor.consultationFee}</p>
-
-        {/* STOP PROPAGATION so card click doesn't trigger */}
+        {/* BOOK BUTTON */}
         <button
           className="btn-book"
           onClick={(e) => {
-            e.stopPropagation();
+            e.stopPropagation(); // ✅ VERY IMPORTANT
             onBook(doctor);
           }}
         >

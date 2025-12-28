@@ -17,25 +17,40 @@
   color: #6b7280;
 }
 
+/* ======================
+   DOCTOR GRID
+====================== */
 .doctor-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 24px;
 }
 
+/* ======================
+   DOCTOR CARD
+====================== */
 .doctor-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 14px;
+  border-radius: 16px;
   overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
+.doctor-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* IMAGE */
 .doctor-image img {
   width: 100%;
   height: 200px;
   object-fit: cover;
 }
 
+/* BODY */
 .doctor-body {
   padding: 16px;
 }
@@ -43,25 +58,44 @@
 .doctor-name {
   font-size: 18px;
   font-weight: 600;
+  margin-bottom: 2px;
 }
 
 .doctor-dept {
+  font-size: 14px;
   color: #2563eb;
-  margin-bottom: 8px;
+  font-weight: 500;
+  margin-bottom: 10px;
 }
 
-.doctor-fee {
-  font-weight: 600;
-  margin-top: 6px;
+/* OPD INFO BOX */
+.doctor-opd {
+  background: #f1f5f9;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #374151;
+  margin-bottom: 14px;
 }
 
+.doctor-opd p {
+  margin: 4px 0;
+}
+
+/* BOOK BUTTON */
 .btn-book {
-  margin-top: 12px;
   width: 100%;
   padding: 10px;
   background: #2563eb;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-book:hover {
+  background: #1e40af;
 }

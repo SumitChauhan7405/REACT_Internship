@@ -65,7 +65,7 @@ const DoctorDetails = () => {
         <h4 className="experience">{doctor.experience} Years Experience</h4>
 
         <p className="doctor-description">
-          Dr. {doctor.name} is a highly qualified specialist in {doctor.department}.
+          {doctor.name} is a highly qualified specialist in {doctor.department}.
           With {doctor.experience} years of experience and an education background
           of {doctor.education}, the doctor is known for patient-centric care,
           accurate diagnosis, and long-term treatment planning.

@@ -197,7 +197,6 @@
       "image": ""
     },
     {
-      "id": "DOC-005",
       "name": "Dr. Meet Kacha",
       "email": "meet@medicare.com",
       "password": "meet@123",
@@ -214,7 +213,28 @@
         "10:00-12:00"
       ],
       "consultationFee": 10000,
-      "image": ""
+      "image": "doc.png",
+      "id": "DOC-005"
+    },
+    {
+      "name": "Dr. Krisha Patel",
+      "email": "krisha@medicare.com",
+      "password": "krisha@123",
+      "department": "Orthopedics",
+      "experience": 7,
+      "education": "MBBS",
+      "availableDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Sat"
+      ],
+      "timeSlots": [
+        "17:00-19:00"
+      ],
+      "consultationFee": 1000,
+      "image": "doc1.png",
+      "id": "DOC-006"
     }
   ],
   "appointments": [

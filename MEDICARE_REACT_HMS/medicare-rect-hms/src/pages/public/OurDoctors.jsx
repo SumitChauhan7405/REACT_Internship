@@ -20,7 +20,7 @@ const OurDoctors = () => {
     setDoctors(res.data);
   };
 
-  // 🔹 OPEN MODAL (NO UI CHANGE)
+  // 🔹 OPEN MODAL
   const handleBook = (doctor) => {
     setSelectedDoctor(doctor);
     setShowModal(true);
@@ -48,13 +48,12 @@ const OurDoctors = () => {
         ))}
       </div>
 
-      {/* 🔹 ONLINE APPOINTMENT MODAL */}
-      {showModal && (
-        <OnlineAppointmentModal
-          doctor={selectedDoctor}
-          onClose={closeModal}
-        />
-      )}
+      {/* ✅ ALWAYS RENDER MODAL */}
+      <OnlineAppointmentModal
+        open={showModal}
+        doctor={selectedDoctor}
+        onClose={closeModal}
+      />
     </div>
   );
 };
