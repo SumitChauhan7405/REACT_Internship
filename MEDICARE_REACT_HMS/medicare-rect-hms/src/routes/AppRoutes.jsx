@@ -19,6 +19,7 @@ import Dashboard from "../pages/Dashboard";
 import Doctors from "../pages/Doctors";
 import Patients from "../pages/Patients";
 import Appointments from "../pages/Appointments";
+import Rooms from "../pages/Rooms";
 import Billing from "../pages/Billing";
 import Lab from "../pages/Lab";
 import Admissions from "../pages/Admissions";
@@ -52,6 +53,7 @@ const AppRoutes = () => {
           <Route path="doctors" element={<Doctors />} />
           <Route path="patients" element={<Patients />} />
           <Route path="appointments" element={<Appointments />} />
+          <Route path="rooms" element={<Rooms />} />
           <Route path="billing" element={<Billing />} />
           <Route path="lab" element={<Lab />} />
           <Route path="admissions" element={<Admissions />} />

@@ -48,6 +48,11 @@ const Sidebar = () => {
           <span>Admissions</span>
         </NavLink>
 
+        <NavLink to="/admin/rooms" className="menu-item">
+           <i className="bi bi-door-open"></i>
+           <span>Rooms</span>
+        </NavLink>
+
         {/* SURGERY */}
         <NavLink to="/admin/surgery" className="menu-item">
           <i className="bi bi-scissors"></i>

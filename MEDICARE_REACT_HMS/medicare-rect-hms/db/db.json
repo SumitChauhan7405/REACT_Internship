@@ -381,6 +381,32 @@
       "status": "ADMITTED"
     }
   ],
+  "rooms": [
+    {
+      "id": "ROOM-001",
+      "roomNumber": "101",
+      "type": "General",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "ROOM-002",
+      "roomNumber": "102",
+      "type": "General",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "ROOM-003",
+      "roomNumber": "201",
+      "type": "Private",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "ROOM-004",
+      "roomNumber": "301",
+      "type": "ICU",
+      "status": "AVAILABLE"
+    }
+  ],
   "vitals": [
     {
       "id": "VIT-5001",
