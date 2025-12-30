@@ -1,0 +1,107 @@
+/* ======================
+   DASHBOARD PAGE
+====================== */
+
+.dashboard-page {
+  padding: 20px;
+}
+
+.page-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* ======================
+   DASHBOARD CARDS GRID
+====================== */
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+/* ======================
+   DASHBOARD CARD
+====================== */
+
+.dashboard-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+}
+
+/* ======================
+   CARD INFO
+====================== */
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-title {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.card-info h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* ======================
+   LIVE BADGE
+====================== */
+
+.card-badge {
+  font-size: 12px;
+  font-weight: 600;
+  background: #dcfce7;
+  color: #166534;
+  padding: 4px 10px;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+/* ======================
+   CARD ICON
+====================== */
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  background: #e0ecff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-icon i {
+  font-size: 22px;
+  color: #2563eb;
+}
+
+/* ======================
+   RESPONSIVE
+====================== */
+
+@media (max-width: 768px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+}
