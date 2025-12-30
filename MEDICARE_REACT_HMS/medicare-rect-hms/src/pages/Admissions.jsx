@@ -199,7 +199,7 @@ const Admissions = () => {
           <thead>
             <tr>
               <th>Admission ID</th>
-              <th>Patient</th>
+              <th>Patient Name</th>
               <th>Room</th>
               <th>Type</th>
               <th>Date</th>
