@@ -112,7 +112,7 @@
       "bloodGroup": "Amet vitae quisquam",
       "timing": "11:40",
       "doctorName": "Dr. Amit Verma",
-      "status": "PENDING",
+      "status": "CONFIRMED",
       "source": "ONLINE",
       "createdAt": "2025-12-25T05:43:52.667Z"
     }
@@ -291,6 +291,17 @@
       "time": "10:30",
       "status": "CONFIRMED",
       "source": "ADMIN"
+    },
+    {
+      "id": "APT-2025-1767090759013",
+      "patientId": "PAT-2025-0011",
+      "patientName": "Delilah Swanson",
+      "doctorId": "DOC-001",
+      "doctorName": "Dr. Amit Verma",
+      "date": "2025-12-12",
+      "time": "11:40",
+      "status": "CONFIRMED",
+      "source": "ADMIN"
     }
   ],
   "consultations": [
@@ -374,10 +385,31 @@
   "admissions": [
     {
       "id": "ADM-2001",
-      "patientId": null,
-      "roomNumber": "305",
-      "ward": "ICU",
+      "patientId": "PAT-2025-0005",
+      "roomId": "ROOM-004",
+      "roomNumber": "301",
+      "roomType": "ICU",
       "admissionDate": "2025-01-13",
+      "status": "ADMITTED"
+    },
+    {
+      "id": "ADM-2003",
+      "patientId": "PAT-2025-0007",
+      "patientName": "Krisha Busha",
+      "roomId": null,
+      "roomNumber": "401",
+      "roomType": "DELUXE",
+      "admissionDate": "2025-12-30",
+      "status": "ADMITTED"
+    },
+    {
+      "id": "ADM-2004",
+      "patientId": "PAT-2025-0006",
+      "patientName": "Sumit Chauhan",
+      "roomId": "ROOM-001",
+      "roomNumber": "101",
+      "roomType": "General",
+      "admissionDate": "2025-12-30",
       "status": "ADMITTED"
     }
   ],
@@ -386,7 +418,7 @@
       "id": "ROOM-001",
       "roomNumber": "101",
       "type": "General",
-      "status": "AVAILABLE"
+      "status": "OCCUPIED"
     },
     {
       "id": "ROOM-002",

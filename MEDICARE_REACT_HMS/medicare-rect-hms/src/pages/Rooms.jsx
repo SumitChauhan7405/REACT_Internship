@@ -73,7 +73,7 @@ const Rooms = () => {
       {/* ===== ADD ROOM ===== */}
       <div className="patient-form-card mb-4">
         <div className="form-header">
-          <h5>Add Room</h5>
+          <h4>Add Room</h4>
         </div>
 
         <form onSubmit={handleSubmit} className="form-grid">
@@ -116,7 +116,7 @@ const Rooms = () => {
       {/* ===== ROOM LIST ===== */}
       <div className="patient-table-card">
         <div className="table-header">
-          <h6>Rooms</h6>
+          <h4>Rooms</h4>
         </div>
 
         <table>
