@@ -26,12 +26,12 @@ const PatientTable = ({ patients, onEdit, onDelete }) => {
         <thead>
           <tr>
             <th>Patient ID</th>
-            <th>Name</th>
+            <th>Patient Name</th>
             <th>Gender</th>
             <th>Age</th>
-            <th>Phone</th>
+            <th>Phone No</th>
             <th>Blood Group</th>
-            <th>Doctor</th>
+            <th>Doctor Name</th>
             <th>Timing</th>
             <th>Status</th>
             <th>Action</th>

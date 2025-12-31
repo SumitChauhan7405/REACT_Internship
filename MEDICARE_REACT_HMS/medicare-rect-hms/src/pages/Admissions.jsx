@@ -12,13 +12,9 @@ const Admissions = () => {
     roomId: ""
   });
 
-  // 🔍 SEARCH STATE
   const [search, setSearch] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
-  /* ======================
-     LOAD DATA
-  ======================= */
   const loadData = async () => {
     const [patRes, roomRes, admRes] = await Promise.all([
       axios.get("http://localhost:5000/patients"),
@@ -36,7 +32,7 @@ const Admissions = () => {
   }, []);
 
   /* ======================
-     SEARCH HANDLERS
+     SEARCH
   ======================= */
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -51,9 +47,7 @@ const Admissions = () => {
     const matches = patients.filter(
       (p) =>
         p.id.toLowerCase().includes(value.toLowerCase()) ||
-        `${p.firstName} ${p.lastName}`
-          .toLowerCase()
-          .includes(value.toLowerCase())
+        `${p.firstName} ${p.lastName}`.toLowerCase().includes(value.toLowerCase())
     );
 
     setSuggestions(matches);
@@ -65,9 +59,6 @@ const Admissions = () => {
     setSuggestions([]);
   };
 
-  /* ======================
-     FORM HANDLERS
-  ======================= */
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -79,6 +70,9 @@ const Admissions = () => {
     return `ADM-${String(num + 1).padStart(3, "0")}`;
   };
 
+  /* ======================
+     ADMIT
+  ======================= */
   const handleAdmit = async (e) => {
     e.preventDefault();
 
@@ -87,11 +81,8 @@ const Admissions = () => {
 
     if (!patient || !room) return;
 
-    // 🚫 PREVENT DOUBLE ADMISSION
     const alreadyAdmitted = admissions.some(
-      (a) =>
-        a.patientId === patient.id &&
-        a.status === "ADMITTED"
+      (a) => a.patientId === patient.id && a.status === "ADMITTED"
     );
 
     if (alreadyAdmitted) {
@@ -103,6 +94,7 @@ const Admissions = () => {
       id: generateAdmissionId(),
       patientId: patient.id,
       patientName: `${patient.firstName} ${patient.lastName}`,
+      doctorName: patient.doctorName || "Not Assigned", // ✅ ADDED
       roomId: room.id,
       roomNumber: room.roomNumber,
       roomType: room.type,
@@ -138,12 +130,11 @@ const Admissions = () => {
 
   return (
     <div className="admissions-page">
-      {/* ===== ADMIT PATIENT ===== */}
+      {/* ===== ADMIT ===== */}
       <div className="admissions-card">
         <h4>Admit Patient</h4>
 
         <form className="admissions-form" onSubmit={handleAdmit}>
-          {/* 🔍 SEARCH INPUT */}
           <div className="patient-search">
             <input
               type="text"
@@ -156,19 +147,14 @@ const Admissions = () => {
             {suggestions.length > 0 && (
               <ul className="patient-suggestions">
                 {suggestions.map((p) => (
-                  <li
-                    key={p.id}
-                    onClick={() => selectPatient(p)}
-                  >
-                    <strong>{p.id}</strong> – {p.firstName}{" "}
-                    {p.lastName}
+                  <li key={p.id} onClick={() => selectPatient(p)}>
+                    <strong>{p.id}</strong> – {p.firstName} {p.lastName}
                   </li>
                 ))}
               </ul>
             )}
           </div>
 
-          {/* ROOM */}
           <select
             name="roomId"
             value={form.roomId}
@@ -191,7 +177,7 @@ const Admissions = () => {
         </form>
       </div>
 
-      {/* ===== ADMISSIONS LIST ===== */}
+      {/* ===== LIST ===== */}
       <div className="admissions-card">
         <h4>Admissions</h4>
 
@@ -200,8 +186,9 @@ const Admissions = () => {
             <tr>
               <th>Admission ID</th>
               <th>Patient Name</th>
-              <th>Room</th>
-              <th>Type</th>
+              <th>Doctor Name</th>
+              <th>Room No</th>
+              <th>Room Type</th>
               <th>Date</th>
               <th>Status</th>
               <th>Action</th>
@@ -213,21 +200,23 @@ const Admissions = () => {
               <tr key={adm.id}>
                 <td>{adm.id}</td>
                 <td>{adm.patientName}</td>
+                <td>{adm.doctorName || "—"}</td>
                 <td>{adm.roomNumber}</td>
                 <td>{adm.roomType}</td>
                 <td>{adm.admissionDate}</td>
                 <td>
-                  <span className="admission-badge">
+                  <span className={`admission-badge ${adm.status.toLowerCase()}`}>
                     {adm.status}
                   </span>
                 </td>
                 <td>
                   {adm.status === "ADMITTED" && (
                     <button
-                      className="btn-discharge"
+                      className="btn-discharge-icon"
+                      title="Discharge Patient"
                       onClick={() => handleDischarge(adm)}
                     >
-                      Discharge
+                      <i className="bi bi-box-arrow-right"></i>
                     </button>
                   )}
                 </td>

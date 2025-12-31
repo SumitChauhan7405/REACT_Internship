@@ -390,7 +390,7 @@
       "roomNumber": "301",
       "roomType": "ICU",
       "admissionDate": "2025-01-13",
-      "status": "ADMITTED"
+      "status": "DISCHARGED"
     },
     {
       "id": "ADM-2003",
@@ -400,7 +400,7 @@
       "roomNumber": "401",
       "roomType": "DELUXE",
       "admissionDate": "2025-12-30",
-      "status": "ADMITTED"
+      "status": "DISCHARGED"
     },
     {
       "id": "ADM-2004",
@@ -409,7 +409,38 @@
       "roomId": "ROOM-001",
       "roomNumber": "101",
       "roomType": "General",
-      "admissionDate": "2025-12-30",
+      "admissionDate": "2025-12-31",
+      "status": "DISCHARGED"
+    },
+    {
+      "id": "ADM-2005",
+      "patientId": "PAT-2025-0010",
+      "patientName": "Rahul Bhai",
+      "roomId": "ROOM-002",
+      "roomNumber": "102",
+      "roomType": "General",
+      "admissionDate": "2025-12-31",
+      "status": "DISCHARGED"
+    },
+    {
+      "id": "ADM-2006",
+      "patientId": "PAT-2025-0006",
+      "patientName": "Sumit Chauhan",
+      "roomId": "ROOM-001",
+      "roomNumber": "101",
+      "roomType": "General",
+      "admissionDate": "2025-12-31",
+      "status": "ADMITTED"
+    },
+    {
+      "id": "ADM-2007",
+      "patientId": "PAT-2025-0012",
+      "patientName": "Harry  Potter",
+      "doctorName": "Dr. Namra Pithwa",
+      "roomId": "ROOM-004",
+      "roomNumber": "301",
+      "roomType": "ICU",
+      "admissionDate": "2025-12-31",
       "status": "ADMITTED"
     }
   ],
@@ -436,6 +467,12 @@
       "id": "ROOM-004",
       "roomNumber": "301",
       "type": "ICU",
+      "status": "OCCUPIED"
+    },
+    {
+      "id": "ROOM-005",
+      "roomNumber": "401",
+      "type": "DELUXE",
       "status": "AVAILABLE"
     }
   ],

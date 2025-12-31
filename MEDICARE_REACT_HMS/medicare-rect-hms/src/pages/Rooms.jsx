@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import {
   getRooms,
   addRoom,
@@ -8,6 +9,7 @@ import "../assets/css/pages/rooms.css";
 
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
+  const [admissions, setAdmissions] = useState([]);
 
   const [form, setForm] = useState({
     roomNumber: "",
@@ -16,11 +18,16 @@ const Rooms = () => {
   });
 
   /* ======================
-     LOAD ROOMS
+     LOAD ROOMS + ADMISSIONS
   ======================= */
   const loadRooms = async () => {
-    const res = await getRooms();
-    setRooms(res.data);
+    const [roomRes, admRes] = await Promise.all([
+      getRooms(),
+      axios.get("http://localhost:5000/admissions")
+    ]);
+
+    setRooms(roomRes.data);
+    setAdmissions(admRes.data);
   };
 
   useEffect(() => {
@@ -66,6 +73,18 @@ const Rooms = () => {
   };
 
   /* ======================
+     HELPERS
+  ======================= */
+  const getAssignedPatient = (roomId) => {
+    const admission = admissions.find(
+      (adm) =>
+        adm.roomId === roomId && adm.status === "ADMITTED"
+    );
+
+    return admission ? admission.patientName : "Not Assigned";
+  };
+
+  /* ======================
      UI
   ======================= */
   return (
@@ -94,6 +113,7 @@ const Rooms = () => {
             <option value="">Select Room Type</option>
             <option value="GENERAL">General</option>
             <option value="DELUXE">Deluxe</option>
+            <option value="PRIVATE">Private</option>
             <option value="ICU">ICU</option>
           </select>
 
@@ -125,6 +145,7 @@ const Rooms = () => {
               <th>Room ID</th>
               <th>Room No</th>
               <th>Type</th>
+              <th>Patient Name</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -136,6 +157,11 @@ const Rooms = () => {
                 <td>{room.id}</td>
                 <td>{room.roomNumber}</td>
                 <td>{room.type}</td>
+                <td>
+                  {room.status === "OCCUPIED"
+                    ? getAssignedPatient(room.id)
+                    : "Not Assigned"}
+                </td>
                 <td>
                   <span
                     className={`badge ${
