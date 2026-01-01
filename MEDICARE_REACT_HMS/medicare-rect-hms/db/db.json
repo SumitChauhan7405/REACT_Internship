@@ -115,6 +115,19 @@
       "status": "CONFIRMED",
       "source": "ONLINE",
       "createdAt": "2025-12-30T11:43:52.642Z"
+    },
+    {
+      "id": "PAT-2026-0013",
+      "firstName": "ABC",
+      "lastName": "DEF",
+      "gender": "Male",
+      "age": "20",
+      "phone": "2310654987",
+      "bloodGroup": "B+",
+      "doctorName": "Dr. Namra Pithwa",
+      "timing": "07:00",
+      "status": "CONFIRMED",
+      "createdAt": "2026-01-01T06:22:40.390Z"
     }
   ],
   "doctors": [
@@ -302,6 +315,17 @@
       "time": "10:00",
       "status": "CONFIRMED",
       "source": "ADMIN"
+    },
+    {
+      "id": "APT-2026-1767248610592",
+      "patientId": "PAT-2026-0013",
+      "patientName": "ABC DEF",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "date": "2026-01-01",
+      "time": "07:00",
+      "status": "CONFIRMED",
+      "source": "ADMIN"
     }
   ],
   "consultations": [
@@ -362,6 +386,44 @@
       ],
       "createdAt": "2025-12-25T17:37:42.763Z",
       "id": "CON-2025-1766683248261"
+    },
+    {
+      "appointmentId": "APT-2025-1767095073654",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "patientId": "PAT-2025-0012",
+      "patientName": "Harry  Potter",
+      "diagnosis": "Fracture in legs & too much blood lost",
+      "consultation": "Do not give force while walking & required to admit",
+      "medicines": [
+        {
+          "name": "Dolo 360",
+          "dosage": "1-0-1"
+        },
+        {
+          "name": "Paracetamol",
+          "dosage": "0-0-1"
+        }
+      ],
+      "createdAt": "2025-12-31T16:09:57.974Z",
+      "id": "CON-2025-1767197045302"
+    },
+    {
+      "appointmentId": "APT-0001",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "patientId": "PAT-2025-0005",
+      "patientName": "Serena Hill",
+      "diagnosis": "",
+      "consultation": "",
+      "medicines": [
+        {
+          "name": "",
+          "dosage": ""
+        }
+      ],
+      "createdAt": "2026-01-01T07:10:10.862Z",
+      "id": "CON-2026-1767248812801"
     }
   ],
   "labTests": [
@@ -376,6 +438,51 @@
       "results": [
         {
           "testName": "ECG",
+          "result": "Normal"
+        }
+      ],
+      "status": "COMPLETED"
+    },
+    {
+      "id": "LAB-2025-1767197045325",
+      "consultationId": "CON-2025-1767197045302",
+      "patientId": "PAT-2025-0012",
+      "tests": [
+        "X-Ray",
+        "MRI"
+      ],
+      "results": [
+        {
+          "testName": "X-Ray",
+          "result": "Leg Broken"
+        },
+        {
+          "testName": "MRI",
+          "result": "Normal"
+        }
+      ],
+      "status": "COMPLETED"
+    },
+    {
+      "id": "LAB-2026-1767249953264",
+      "consultationId": "CON-2026-1767248812801",
+      "patientId": "PAT-2025-0005",
+      "tests": [
+        "Blood Sugar",
+        "ECG",
+        "MRI"
+      ],
+      "results": [
+        {
+          "testName": "Blood Sugar",
+          "result": "Normal"
+        },
+        {
+          "testName": "ECG",
+          "result": "Normal"
+        },
+        {
+          "testName": "MRI",
           "result": "Normal"
         }
       ],

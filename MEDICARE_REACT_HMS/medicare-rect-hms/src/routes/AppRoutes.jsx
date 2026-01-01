@@ -22,6 +22,7 @@ import Appointments from "../pages/Appointments";
 import Rooms from "../pages/Rooms";
 import Billing from "../pages/Billing";
 import Lab from "../pages/Lab";
+import LabTests from "../pages/LabTests";
 import Admissions from "../pages/Admissions";
 import Surgery from "../pages/Surgery";
 import Discharge from "../pages/Discharge";
@@ -56,6 +57,7 @@ const AppRoutes = () => {
           <Route path="rooms" element={<Rooms />} />
           <Route path="billing" element={<Billing />} />
           <Route path="lab" element={<Lab />} />
+          <Route path="lab-tests" element={<LabTests/>} />
           <Route path="admissions" element={<Admissions />} />
           <Route path="surgery" element={<Surgery />} />
           <Route path="discharge" element={<Discharge />} />

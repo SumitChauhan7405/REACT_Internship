@@ -116,3 +116,44 @@
 .btn-primary:hover {
   background: #1d4ed8;
 }
+
+/* ======================
+   LAB TEST UI
+====================== */
+
+.lab-test-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.lab-test-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.lab-test-item input {
+  width: 16px;
+  height: 16px;
+  pointer-events: none; /* click handled by parent */
+}
+
+.lab-test-item:hover {
+  border-color: #2563eb;
+  background: #f8fafc;
+}
+
+.lab-test-item.active {
+  border-color: #2563eb;
+  background: #eff6ff;
+  font-weight: 500;
+}

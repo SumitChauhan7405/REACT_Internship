@@ -1,0 +1,133 @@
+/* ===============================
+   PAGE CONTENT
+================================ */
+.page-content {
+  padding: 24px;
+}
+
+/* ===============================
+   CARD (MATCH OTHER ADMIN PAGES)
+================================ */
+.patient-table-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px 24px;
+  border: 1px solid #e5e7eb;
+}
+
+/* HEADER */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.table-header h4 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* ===============================
+   TABLE
+================================ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  text-align: left;
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 600;
+  padding: 12px 0;
+}
+
+tbody td {
+  padding: 14px 0;
+  font-size: 14px;
+  border-top: 1px solid #f1f5f9;
+  vertical-align: top;
+}
+
+/* ===============================
+   LAB TEST LIST
+================================ */
+.lab-test-list {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.lab-test-list li {
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+/* ===============================
+   RESULT INPUTS
+================================ */
+.lab-result-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.lab-result-input:disabled {
+  background: #f3f4f6;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+/* ===============================
+   STATUS BADGES
+================================ */
+.badge.male {
+  background: #dcfce7;
+  color: #16a34a;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge.female {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ===============================
+   ACTION BUTTON
+================================ */
+.btn-primary {
+  background: #2563eb;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-primary i {
+  font-size: 14px;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 900px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}

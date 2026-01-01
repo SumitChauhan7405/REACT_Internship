@@ -37,9 +37,9 @@ const Sidebar = () => {
         </NavLink>
 
         {/* LAB */}
-        <NavLink to="/admin/lab" className="menu-item">
+        <NavLink to="/admin/lab-tests" className="menu-item">
           <i className="bi bi-flask"></i>
-          <span>Laboratory</span>
+          <span>Lab Tests</span>
         </NavLink>
 
         {/* ADMISSIONS */}
