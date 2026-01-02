@@ -2,6 +2,9 @@ import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import PrescriptionModal from "../../components/doctors/PrescriptionModal";
+// ⬇️ LAB MODAL (will be created next)
+import LabTestsModal from "../../components/lab/LabTestsModal";
+
 import "../../assets/css/components/patient-table.css";
 
 const DoctorAppointments = () => {
@@ -12,14 +15,18 @@ const DoctorAppointments = () => {
   const [patients, setPatients] = useState([]);
   const [consultations, setConsultations] = useState([]);
 
-  // Modal state
+  // Prescription modal
   const [openModal, setOpenModal] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [existingPrescription, setExistingPrescription] = useState(null);
-  const [modalMode, setModalMode] = useState("ADD"); // ADD | EDIT
+  const [modalMode, setModalMode] = useState("ADD");
+
+  // 🧪 Lab modal
+  const [openLabModal, setOpenLabModal] = useState(false);
+  const [selectedConsultation, setSelectedConsultation] = useState(null);
 
   /* ======================
-     LOAD DATA (MEMOIZED)
+     LOAD DATA
   ======================= */
   const loadAppointments = useCallback(async () => {
     if (!doctorId) return;
@@ -44,18 +51,15 @@ const DoctorAppointments = () => {
   }, [loadAppointments]);
 
   /* ======================
-     ADD PRESCRIPTION
+     PRESCRIPTION HANDLERS
   ======================= */
   const handleAddPrescription = (apt) => {
     setSelectedAppointment(apt);
-    setExistingPrescription(null); // ✅ CLEAN STATE
+    setExistingPrescription(null);
     setModalMode("ADD");
     setOpenModal(true);
   };
 
-  /* ======================
-     EDIT PRESCRIPTION
-  ======================= */
   const handleEditPrescription = (apt) => {
     const prescription = consultations.find(
       (c) => c.appointmentId === apt.id
@@ -67,14 +71,24 @@ const DoctorAppointments = () => {
     setOpenModal(true);
   };
 
-  /* ======================
-     CLOSE MODAL (RESET)
-  ======================= */
   const closeModal = () => {
     setOpenModal(false);
     setSelectedAppointment(null);
     setExistingPrescription(null);
     setModalMode("ADD");
+  };
+
+  /* ======================
+     🧪 LAB HANDLER
+  ======================= */
+  const handleOpenLabTests = (apt) => {
+    const consultation = consultations.find(
+      (c) => c.appointmentId === apt.id
+    );
+    if (!consultation) return;
+
+    setSelectedConsultation(consultation);
+    setOpenLabModal(true);
   };
 
   if (appointments.length === 0) {
@@ -83,7 +97,6 @@ const DoctorAppointments = () => {
 
   return (
     <>
-      {/* ===== APPOINTMENT TABLE ===== */}
       <div className="patient-table-card">
         <div className="table-header">
           <h6>My Appointments</h6>
@@ -98,7 +111,7 @@ const DoctorAppointments = () => {
               <th>Date</th>
               <th>Time</th>
               <th>Status</th>
-              <th>Prescription</th>
+              <th>Actions</th>
             </tr>
           </thead>
 
@@ -134,7 +147,6 @@ const DoctorAppointments = () => {
                     </span>
                   </td>
 
-                  {/* ===== ACTION ICONS ===== */}
                   <td>
                     <div className="action-icons">
                       {/* ADD */}
@@ -148,13 +160,24 @@ const DoctorAppointments = () => {
 
                       {/* EDIT */}
                       {hasPrescription && (
-                        <button
-                          className="icon-btn edited"
-                          onClick={() => handleEditPrescription(apt)}
-                          title="Edit Prescription"
-                        >
-                          <i className="bi bi-pencil-square"></i>
-                        </button>
+                        <>
+                          <button
+                            className="icon-btn edited"
+                            onClick={() => handleEditPrescription(apt)}
+                            title="Edit Prescription"
+                          >
+                            <i className="bi bi-pencil-square"></i>
+                          </button>
+
+                          {/* 🧪 LAB */}
+                          <button
+                            className="icon-btn lab"
+                            onClick={() => handleOpenLabTests(apt)}
+                            title="Lab Tests"
+                          >
+                            <i className="bi bi-flask"></i>
+                          </button>
+                        </>
                       )}
                     </div>
                   </td>
@@ -165,7 +188,7 @@ const DoctorAppointments = () => {
         </table>
       </div>
 
-      {/* ===== PRESCRIPTION MODAL ===== */}
+      {/* PRESCRIPTION MODAL */}
       <PrescriptionModal
         open={openModal}
         onClose={closeModal}
@@ -176,7 +199,17 @@ const DoctorAppointments = () => {
         doctor={user.data}
         existingPrescription={existingPrescription}
         mode={modalMode}
-        refreshAppointments={loadAppointments} // ✅ ALWAYS LATEST
+        refreshAppointments={loadAppointments}
+      />
+
+      {/* 🧪 LAB TEST MODAL (NEXT STEP) */}
+      <LabTestsModal
+        open={openLabModal}
+        onClose={() => setOpenLabModal(false)}
+        consultation={selectedConsultation}
+        patient={patients.find(
+          (p) => p.id === selectedConsultation?.patientId
+        )}
       />
     </>
   );

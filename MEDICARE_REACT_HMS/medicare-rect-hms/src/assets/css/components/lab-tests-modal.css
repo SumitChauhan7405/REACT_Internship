@@ -1,0 +1,108 @@
+/* ===============================
+   LAB TEST MODAL BACKDROP
+================================ */
+.lab-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* ===============================
+   MODAL CARD
+================================ */
+.lab-modal-card {
+  background: #ffffff;
+  width: 520px;
+  max-width: 95%;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.lab-modal-card h5 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* ===============================
+   INFO
+================================ */
+.lab-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: #374151;
+}
+
+/* ===============================
+   LAB TEST GRID
+================================ */
+.lab-test-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.lab-test-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.lab-test-item input {
+  pointer-events: none;
+}
+
+.lab-test-item:hover {
+  border-color: #2563eb;
+}
+
+.lab-test-item.active {
+  background: #eff6ff;
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+/* ===============================
+   STATUS BADGE
+================================ */
+.lab-status {
+  margin-bottom: 16px;
+}
+
+/* ===============================
+   ACTIONS
+================================ */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 480px) {
+  .lab-test-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .lab-info {
+    flex-direction: column;
+    gap: 4px;
+  }
+}

@@ -9,8 +9,6 @@ import {
   getLabTests
 } from "../../services/labTestService";
 import "../../assets/css/components/prescription-modal.css";
-import DoctorLabTests from "../doctors/DoctorLabTests";
-
 
 const PrescriptionModal = ({
   open,
@@ -65,7 +63,6 @@ const PrescriptionModal = ({
             : [{ name: "", dosage: "" }]
       });
 
-      // ✅ LOAD EXISTING LAB TEST
       loadExistingLabTest(existingPrescription.id);
     }
   }, [open, mode, existingPrescription]);
@@ -147,13 +144,11 @@ const PrescriptionModal = ({
     // 🧪 SAVE / UPDATE LAB TEST
     if (selectedTests.length > 0) {
       if (labTestId) {
-        // ✅ UPDATE
         await updateLabTest(labTestId, {
           tests: selectedTests,
           status: "PENDING"
         });
       } else {
-        // ✅ CREATE
         await addLabTest({
           id: `LAB-${new Date().getFullYear()}-${Date.now()}`,
           consultationId,
@@ -165,7 +160,7 @@ const PrescriptionModal = ({
       }
     }
 
-    alert("Prescription & Lab Tests saved successfully");
+    alert("Prescription saved successfully");
     onClose();
   };
 
@@ -180,14 +175,12 @@ const PrescriptionModal = ({
       >
         <h5>Prescription</h5>
 
-        {/* PATIENT INFO */}
         <div className="form-grid">
           <input value={`${patient.firstName} ${patient.lastName}`} disabled />
           <input value={doctor.name} disabled />
           <input value={appointment.date} disabled />
         </div>
 
-        {/* DIAGNOSIS */}
         <label>Diagnosis</label>
         <textarea
           name="diagnosis"
@@ -196,7 +189,6 @@ const PrescriptionModal = ({
           onChange={handleChange}
         />
 
-        {/* CONSULTATION */}
         <label>Consultation</label>
         <textarea
           name="consultation"
@@ -205,7 +197,6 @@ const PrescriptionModal = ({
           onChange={handleChange}
         />
 
-        {/* MEDICINES */}
         <h6>Medicines</h6>
         {form.medicines.map((m, i) => (
           <div key={i} className="medicine-row">
@@ -229,7 +220,7 @@ const PrescriptionModal = ({
           + Add Medicine
         </button>
 
-        {/* 🧪 LAB TESTS */}
+        {/* 🧪 LAB TEST CHECKBOXES (UNCHANGED) */}
         <h6 style={{ marginTop: 16 }}>Lab Tests</h6>
         <div className="lab-test-grid">
           {LAB_TEST_OPTIONS.map((test) => {
@@ -248,13 +239,6 @@ const PrescriptionModal = ({
           })}
         </div>
 
-        {/* 👨‍⚕️ DOCTOR VIEW – LAB RESULTS */}
-        {mode === "EDIT" && existingPrescription?.id && (
-          <DoctorLabTests consultationId={existingPrescription.id} />
-        )}
-
-
-        {/* ACTIONS */}
         <div className="form-actions">
           <button className="form-btn-secondary" onClick={onClose}>
             Cancel

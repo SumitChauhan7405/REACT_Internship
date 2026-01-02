@@ -407,23 +407,6 @@
       ],
       "createdAt": "2025-12-31T16:09:57.974Z",
       "id": "CON-2025-1767197045302"
-    },
-    {
-      "appointmentId": "APT-0001",
-      "doctorId": "DOC-003",
-      "doctorName": "Dr. Namra Pithwa",
-      "patientId": "PAT-2025-0005",
-      "patientName": "Serena Hill",
-      "diagnosis": "",
-      "consultation": "",
-      "medicines": [
-        {
-          "name": "",
-          "dosage": ""
-        }
-      ],
-      "createdAt": "2026-01-01T07:10:10.862Z",
-      "id": "CON-2026-1767248812801"
     }
   ],
   "labTests": [
@@ -455,31 +438,6 @@
         {
           "testName": "X-Ray",
           "result": "Leg Broken"
-        },
-        {
-          "testName": "MRI",
-          "result": "Normal"
-        }
-      ],
-      "status": "COMPLETED"
-    },
-    {
-      "id": "LAB-2026-1767249953264",
-      "consultationId": "CON-2026-1767248812801",
-      "patientId": "PAT-2025-0005",
-      "tests": [
-        "Blood Sugar",
-        "ECG",
-        "MRI"
-      ],
-      "results": [
-        {
-          "testName": "Blood Sugar",
-          "result": "Normal"
-        },
-        {
-          "testName": "ECG",
-          "result": "Normal"
         },
         {
           "testName": "MRI",
