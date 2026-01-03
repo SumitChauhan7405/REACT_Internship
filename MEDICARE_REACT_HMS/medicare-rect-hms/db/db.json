@@ -128,6 +128,19 @@
       "timing": "07:00",
       "status": "CONFIRMED",
       "createdAt": "2026-01-01T06:22:40.390Z"
+    },
+    {
+      "id": "PAT-2026-0014",
+      "firstName": "Raj",
+      "lastName": "Sanchla",
+      "gender": "Male",
+      "age": "22",
+      "phone": "3366998855",
+      "bloodGroup": "B+",
+      "doctorName": "Dr. Namra Pithwa",
+      "timing": "10:00",
+      "status": "CONFIRMED",
+      "createdAt": "2026-01-03T08:38:52.560Z"
     }
   ],
   "doctors": [
@@ -326,6 +339,17 @@
       "time": "07:00",
       "status": "CONFIRMED",
       "source": "ADMIN"
+    },
+    {
+      "id": "APT-2026-1767429553188",
+      "patientId": "PAT-2026-0014",
+      "patientName": "Raj Sanchla",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "date": "2026-01-03",
+      "time": "10:00",
+      "status": "CONFIRMED",
+      "source": "ADMIN"
     }
   ],
   "consultations": [
@@ -407,6 +431,23 @@
       ],
       "createdAt": "2025-12-31T16:09:57.974Z",
       "id": "CON-2025-1767197045302"
+    },
+    {
+      "id": "CON-2026-1767436492578",
+      "appointmentId": "APT-2026-1767429553188",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "patientId": "PAT-2026-0014",
+      "patientName": "Raj Sanchla",
+      "diagnosis": "Consectetur in corru",
+      "consultation": "Et accusantium corpo",
+      "medicines": [
+        {
+          "name": "Obcaecati magnam eli",
+          "dosage": "Lorem natus reprehen"
+        }
+      ],
+      "createdAt": "2026-01-03T10:34:52.578Z"
     }
   ],
   "labTests": [
@@ -441,6 +482,24 @@
         },
         {
           "testName": "MRI",
+          "result": "Normal"
+        }
+      ],
+      "status": "COMPLETED"
+    },
+    {
+      "id": "LAB-2026-1767436512123",
+      "consultationId": "CON-2026-1767436492578",
+      "patientId": "PAT-2026-0014",
+      "patientName": "Raj Sanchla",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "tests": [
+        "ECG"
+      ],
+      "results": [
+        {
+          "testName": "ECG",
           "result": "Normal"
         }
       ],

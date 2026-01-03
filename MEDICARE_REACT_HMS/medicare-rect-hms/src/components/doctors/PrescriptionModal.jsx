@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   addConsultation,
   updateConsultation
@@ -17,7 +17,8 @@ const PrescriptionModal = ({
   patient,
   doctor,
   existingPrescription,
-  mode // ADD | EDIT
+  mode, // ADD | EDIT
+  refreshAppointments // ✅ IMPORTANT
 }) => {
   const emptyForm = {
     diagnosis: "",
@@ -31,6 +32,10 @@ const PrescriptionModal = ({
   const [selectedTests, setSelectedTests] = useState([]);
   const [labTestId, setLabTestId] = useState(null);
 
+  // ✅ DROPDOWN STATE
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
   const LAB_TEST_OPTIONS = [
     "Blood Sugar",
     "CBC",
@@ -40,6 +45,24 @@ const PrescriptionModal = ({
     "CT Scan",
     "Urine Test"
   ];
+
+  /* ======================
+     CLOSE DROPDOWN ON OUTSIDE CLICK
+  ======================= */
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   /* ======================
      RESET / PREFILL
@@ -141,7 +164,6 @@ const PrescriptionModal = ({
       consultationId = res.data.id;
     }
 
-    // 🧪 SAVE / UPDATE LAB TEST
     if (selectedTests.length > 0) {
       if (labTestId) {
         await updateLabTest(labTestId, {
@@ -160,7 +182,11 @@ const PrescriptionModal = ({
       }
     }
 
+    // ✅ 🔥 THIS IS THE KEY FIX
+    await refreshAppointments();
+
     alert("Prescription saved successfully");
+
     onClose();
   };
 
@@ -220,23 +246,42 @@ const PrescriptionModal = ({
           + Add Medicine
         </button>
 
-        {/* 🧪 LAB TEST CHECKBOXES (UNCHANGED) */}
+        {/* 🧪 LAB TEST DROPDOWN */}
         <h6 style={{ marginTop: 16 }}>Lab Tests</h6>
-        <div className="lab-test-grid">
-          {LAB_TEST_OPTIONS.map((test) => {
-            const checked = selectedTests.includes(test);
 
-            return (
-              <div
-                key={test}
-                className={`lab-test-item ${checked ? "active" : ""}`}
-                onClick={() => toggleLabTest(test)}
-              >
-                <input type="checkbox" checked={checked} readOnly />
-                <span>{test}</span>
-              </div>
-            );
-          })}
+        <div className="lab-dropdown" ref={dropdownRef}>
+          <div
+            className="lab-dropdown-toggle"
+            onClick={() => setIsDropdownOpen((p) => !p)}
+          >
+            {selectedTests.length > 0
+              ? `${selectedTests.length} test(s) selected`
+              : "Select Lab Tests"}
+            <i
+              className={`bi ${
+                isDropdownOpen ? "bi-chevron-up" : "bi-chevron-down"
+              }`}
+            ></i>
+          </div>
+
+          {isDropdownOpen && (
+            <div className="lab-dropdown-menu">
+              {LAB_TEST_OPTIONS.map((test) => (
+                <div
+                  key={test}
+                  className="lab-dropdown-item"
+                  onClick={() => toggleLabTest(test)}
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedTests.includes(test)}
+                    readOnly
+                  />
+                  <span className="lab-test-name">{test}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="form-actions">

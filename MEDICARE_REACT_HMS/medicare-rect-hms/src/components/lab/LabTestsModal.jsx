@@ -16,6 +16,7 @@ const LAB_TEST_OPTIONS = [
 const LabTestsModal = ({ open, onClose, consultation, patient }) => {
   const [labTest, setLabTest] = useState(null);
   const [selectedTests, setSelectedTests] = useState([]);
+  const [openDropdown, setOpenDropdown] = useState(false);
 
   useEffect(() => {
     if (!open || !consultation) return;
@@ -49,6 +50,11 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
   };
 
   const handleSave = async () => {
+    if (selectedTests.length === 0) {
+      alert("Please select at least one lab test");
+      return;
+    }
+
     if (labTest) {
       await axios.patch(
         `http://localhost:5000/labTests/${labTest.id}`,
@@ -59,6 +65,9 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
         id: `LAB-${new Date().getFullYear()}-${Date.now()}`,
         consultationId: consultation.id,
         patientId: patient.id,
+        patientName: `${patient.firstName} ${patient.lastName}`,
+        doctorId: consultation.doctorId,
+        doctorName: consultation.doctorName,
         tests: selectedTests,
         results: [],
         status: "PENDING"
@@ -86,24 +95,36 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
           </p>
         </div>
 
-        <div className="lab-test-grid">
-          {LAB_TEST_OPTIONS.map((test) => {
-            const checked = selectedTests.includes(test);
+        {/* 🔽 DROPDOWN WITH CHECKBOXES */}
+        <div className="lab-dropdown">
+          <button
+            type="button"
+            className="lab-dropdown-btn"
+            onClick={() => setOpenDropdown(!openDropdown)}
+          >
+            {selectedTests.length > 0
+              ? `${selectedTests.length} test(s) selected`
+              : "Select Lab Tests"}
+            <span className="caret">▾</span>
+          </button>
 
-            return (
-              <div
-                key={test}
-                className={`lab-test-item ${checked ? "active" : ""}`}
-                onClick={() => toggleTest(test)}
-              >
-                <input type="checkbox" checked={checked} readOnly />
-                <span>{test}</span>
-              </div>
-            );
-          })}
+          {openDropdown && (
+            <div className="lab-dropdown-menu">
+              {LAB_TEST_OPTIONS.map((test) => (
+                <label key={test} className="lab-dropdown-item">
+                  <input
+                    type="checkbox"
+                    checked={selectedTests.includes(test)}
+                    onChange={() => toggleTest(test)}
+                  />
+                  <span>{test}</span>
+                </label>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* ✅ DOCTOR LAB RESULTS (MOVED HERE) */}
+        {/* ✅ DOCTOR LAB RESULTS (UNCHANGED) */}
         {consultation?.id && (
           <DoctorLabTests consultationId={consultation.id} />
         )}

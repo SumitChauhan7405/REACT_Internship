@@ -94,6 +94,71 @@
 }
 
 /* ===============================
+   LAB TEST DROPDOWN
+================================ */
+.lab-dropdown {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.lab-dropdown-btn {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.lab-dropdown-btn:hover {
+  background: #f9fafb;
+}
+
+.lab-dropdown-menu {
+  position: absolute;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  margin-top: 6px;
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 20;
+  padding: 8px 0;
+}
+
+.lab-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.lab-dropdown-item:hover {
+  background: #f3f4f6;
+}
+
+/* FIX: Ensure checkboxes display properly and don't take 100% width */
+.lab-dropdown-item input[type="checkbox"] {
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  cursor: pointer;
+}
+
+.caret {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ===============================
    RESPONSIVE
 ================================ */
 @media (max-width: 480px) {

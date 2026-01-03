@@ -104,7 +104,7 @@
   cursor: pointer;
 }
 
-.btn-primary {
+.btn-primary, .btn-presave {
   background: #2563eb;
   color: #ffffff;
   border: none;
@@ -113,47 +113,63 @@
   cursor: pointer;
 }
 
-.btn-primary:hover {
+.btn-primary:hover, .btn-presave:hover {
   background: #1d4ed8;
 }
 
-/* ======================
-   LAB TEST UI
-====================== */
-
-.lab-test-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 12px;
+/* ===== LAB TEST DROPDOWN ===== */
+.lab-dropdown {
+  position: relative;
   margin-top: 8px;
 }
 
-.lab-test-item {
+.lab-dropdown-toggle {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.lab-dropdown-menu {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  max-height: 180px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 6px 0;
+  z-index: 20;
+}
+
+.lab-dropdown-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 14px;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
+  padding: 8px 12px;
   cursor: pointer;
+}
+
+.lab-dropdown-item:hover {
+  background-color: #f9fafb;
+}
+
+/* FIX FOR CHECKBOX ALIGNMENT */
+.lab-dropdown-item input[type="checkbox"] {
+  width: auto;      /* Prevents checkbox from stretching to 100% */
+  margin-bottom: 0; /* Removes the bottom spacing from global input rule */
+  cursor: pointer;
+  padding: 0;       /* Removes extra padding */
+}
+
+.lab-test-name {
   font-size: 14px;
-  background: #ffffff;
-  transition: all 0.2s ease;
-}
-
-.lab-test-item input {
-  width: 16px;
-  height: 16px;
-  pointer-events: none; /* click handled by parent */
-}
-
-.lab-test-item:hover {
-  border-color: #2563eb;
-  background: #f8fafc;
-}
-
-.lab-test-item.active {
-  border-color: #2563eb;
-  background: #eff6ff;
-  font-weight: 500;
+  color: #111827;
 }

@@ -208,7 +208,7 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
           >
             <option value="">Select OPD Time</option>
             <option value="10:00-12:00">Morning (10:00 – 12:00)</option>
-            <option value="17:00-19:00">Evening (17:00 – 19:00)</option>
+            <option value="17:00-19:00">Evening (7:00 – 9:00)</option>
           </select>
         </div>
 

@@ -2,7 +2,6 @@ import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import PrescriptionModal from "../../components/doctors/PrescriptionModal";
-// ⬇️ LAB MODAL (will be created next)
 import LabTestsModal from "../../components/lab/LabTestsModal";
 
 import "../../assets/css/components/patient-table.css";
@@ -79,15 +78,20 @@ const DoctorAppointments = () => {
   };
 
   /* ======================
-     🧪 LAB HANDLER
+     🧪 LAB HANDLER (ALWAYS AVAILABLE)
   ======================= */
   const handleOpenLabTests = (apt) => {
+    // find consultation if exists, else pass null
     const consultation = consultations.find(
       (c) => c.appointmentId === apt.id
     );
-    if (!consultation) return;
 
-    setSelectedConsultation(consultation);
+    setSelectedConsultation(consultation || {
+      id: `TEMP-${apt.id}`, // safe fallback
+      appointmentId: apt.id,
+      patientId: apt.patientId
+    });
+
     setOpenLabModal(true);
   };
 
@@ -149,7 +153,7 @@ const DoctorAppointments = () => {
 
                   <td>
                     <div className="action-icons">
-                      {/* ADD */}
+                      {/* ➕ ADD PRESCRIPTION (ALWAYS) */}
                       <button
                         className="icon-btn add"
                         onClick={() => handleAddPrescription(apt)}
@@ -158,27 +162,25 @@ const DoctorAppointments = () => {
                         <i className="bi bi-plus-lg"></i>
                       </button>
 
-                      {/* EDIT */}
+                      {/* ✏️ EDIT PRESCRIPTION (ONLY IF EXISTS) */}
                       {hasPrescription && (
-                        <>
-                          <button
-                            className="icon-btn edited"
-                            onClick={() => handleEditPrescription(apt)}
-                            title="Edit Prescription"
-                          >
-                            <i className="bi bi-pencil-square"></i>
-                          </button>
-
-                          {/* 🧪 LAB */}
-                          <button
-                            className="icon-btn lab"
-                            onClick={() => handleOpenLabTests(apt)}
-                            title="Lab Tests"
-                          >
-                            <i className="bi bi-flask"></i>
-                          </button>
-                        </>
+                        <button
+                          className="icon-btn edited"
+                          onClick={() => handleEditPrescription(apt)}
+                          title="Edit Prescription"
+                        >
+                          <i className="bi bi-pencil-square"></i>
+                        </button>
                       )}
+
+                      {/* 🧪 LAB TESTS (ALWAYS AVAILABLE) */}
+                      <button
+                        className="icon-btn lab"
+                        onClick={() => handleOpenLabTests(apt)}
+                        title="Lab Tests"
+                      >
+                        <i className="bi bi-flask"></i>
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -202,7 +204,7 @@ const DoctorAppointments = () => {
         refreshAppointments={loadAppointments}
       />
 
-      {/* 🧪 LAB TEST MODAL (NEXT STEP) */}
+      {/* 🧪 LAB TEST MODAL */}
       <LabTestsModal
         open={openLabModal}
         onClose={() => setOpenLabModal(false)}
