@@ -1,0 +1,156 @@
+/* ===============================
+   SURGERY MODAL BACKDROP
+================================ */
+.surgery-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* ===============================
+   SURGERY MODAL CARD
+================================ */
+.surgery-card {
+  background: #ffffff;
+  width: 760px;
+  max-width: 95%;
+  border-radius: 14px;
+  padding: 24px 28px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  animation: fadeInScale 0.25s ease-in-out;
+}
+
+/* ===============================
+   ANIMATION
+================================ */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===============================
+   HEADER
+================================ */
+.surgery-card h5 {
+  margin-bottom: 14px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* ===============================
+   INFO TEXT
+================================ */
+.surgery-card p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #374151;
+}
+
+.surgery-card p strong {
+  color: #111827;
+}
+
+/* ===============================
+   FORM GRID
+================================ */
+.surgery-card input,
+.surgery-card textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.surgery-card input:focus,
+.surgery-card textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* ===============================
+   TEXTAREA
+================================ */
+.surgery-card textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* ===============================
+   INLINE ROW (DATE / TIME / OT)
+================================ */
+.surgery-inline-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* ===============================
+   ACTION BUTTONS
+================================ */
+.surgery-card .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+/* Cancel */
+.surgery-card .form-actions button:first-child {
+  background: #f3f4f6;
+  color: #374151;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.surgery-card .form-actions button:first-child:hover {
+  background: #e5e7eb;
+}
+
+/* Schedule Surgery */
+.surgery-card .form-actions button:last-child {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+}
+
+.surgery-card .form-actions button:last-child:hover {
+  background: #1e40af;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+  .surgery-card {
+    padding: 20px;
+  }
+
+  .surgery-inline-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -10,6 +10,13 @@ import {
 } from "../../services/labTestService";
 import "../../assets/css/components/prescription-modal.css";
 
+/* ✅ MOVE OUTSIDE COMPONENT (FIX ESLINT WARNING) */
+const EMPTY_FORM = {
+  diagnosis: "",
+  consultation: "",
+  medicines: [{ name: "", dosage: "" }]
+};
+
 const PrescriptionModal = ({
   open,
   onClose,
@@ -18,15 +25,9 @@ const PrescriptionModal = ({
   doctor,
   existingPrescription,
   mode, // ADD | EDIT
-  refreshAppointments // ✅ IMPORTANT
+  refreshAppointments
 }) => {
-  const emptyForm = {
-    diagnosis: "",
-    consultation: "",
-    medicines: [{ name: "", dosage: "" }]
-  };
-
-  const [form, setForm] = useState(emptyForm);
+  const [form, setForm] = useState(EMPTY_FORM);
 
   // 🧪 LAB TEST STATE
   const [selectedTests, setSelectedTests] = useState([]);
@@ -71,7 +72,7 @@ const PrescriptionModal = ({
     if (!open) return;
 
     if (mode === "ADD") {
-      setForm(emptyForm);
+      setForm(EMPTY_FORM);
       setSelectedTests([]);
       setLabTestId(null);
     }
@@ -182,7 +183,6 @@ const PrescriptionModal = ({
       }
     }
 
-    // ✅ 🔥 THIS IS THE KEY FIX
     await refreshAppointments();
 
     alert("Prescription saved successfully");

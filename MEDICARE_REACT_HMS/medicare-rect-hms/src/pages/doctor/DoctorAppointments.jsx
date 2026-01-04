@@ -1,8 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
+
 import PrescriptionModal from "../../components/doctors/PrescriptionModal";
 import LabTestsModal from "../../components/lab/LabTestsModal";
+import SurgeryModal from "../../components/doctors/SurgeryModal"; // ✅ NEW
 
 import "../../assets/css/components/patient-table.css";
 
@@ -23,6 +25,10 @@ const DoctorAppointments = () => {
   // 🧪 Lab modal
   const [openLabModal, setOpenLabModal] = useState(false);
   const [selectedConsultation, setSelectedConsultation] = useState(null);
+
+  // 🏥 Surgery modal
+  const [openSurgeryModal, setOpenSurgeryModal] = useState(false);
+  const [surgeryConsultation, setSurgeryConsultation] = useState(null);
 
   /* ======================
      LOAD DATA
@@ -50,7 +56,7 @@ const DoctorAppointments = () => {
   }, [loadAppointments]);
 
   /* ======================
-     PRESCRIPTION HANDLERS
+     PRESCRIPTION
   ======================= */
   const handleAddPrescription = (apt) => {
     setSelectedAppointment(apt);
@@ -78,21 +84,39 @@ const DoctorAppointments = () => {
   };
 
   /* ======================
-     🧪 LAB HANDLER (ALWAYS AVAILABLE)
+     🧪 LAB TESTS
   ======================= */
   const handleOpenLabTests = (apt) => {
-    // find consultation if exists, else pass null
     const consultation = consultations.find(
       (c) => c.appointmentId === apt.id
     );
 
-    setSelectedConsultation(consultation || {
-      id: `TEMP-${apt.id}`, // safe fallback
-      appointmentId: apt.id,
-      patientId: apt.patientId
-    });
+    setSelectedConsultation(
+      consultation || {
+        id: `TEMP-${apt.id}`,
+        appointmentId: apt.id,
+        patientId: apt.patientId
+      }
+    );
 
     setOpenLabModal(true);
+  };
+
+  /* ======================
+     🏥 SURGERY
+  ======================= */
+  const handleOpenSurgery = (apt) => {
+    const consultation = consultations.find(
+      (c) => c.appointmentId === apt.id
+    );
+
+    if (!consultation) {
+      alert("Please add prescription before scheduling surgery");
+      return;
+    }
+
+    setSurgeryConsultation(consultation);
+    setOpenSurgeryModal(true);
   };
 
   if (appointments.length === 0) {
@@ -153,7 +177,7 @@ const DoctorAppointments = () => {
 
                   <td>
                     <div className="action-icons">
-                      {/* ➕ ADD PRESCRIPTION (ALWAYS) */}
+                      {/* ➕ PRESCRIPTION */}
                       <button
                         className="icon-btn add"
                         onClick={() => handleAddPrescription(apt)}
@@ -162,7 +186,7 @@ const DoctorAppointments = () => {
                         <i className="bi bi-plus-lg"></i>
                       </button>
 
-                      {/* ✏️ EDIT PRESCRIPTION (ONLY IF EXISTS) */}
+                      {/* ✏️ EDIT */}
                       {hasPrescription && (
                         <button
                           className="icon-btn edited"
@@ -173,13 +197,22 @@ const DoctorAppointments = () => {
                         </button>
                       )}
 
-                      {/* 🧪 LAB TESTS (ALWAYS AVAILABLE) */}
+                      {/* 🧪 LAB */}
                       <button
                         className="icon-btn lab"
                         onClick={() => handleOpenLabTests(apt)}
                         title="Lab Tests"
                       >
                         <i className="bi bi-flask"></i>
+                      </button>
+
+                      {/* 🏥 SURGERY */}
+                      <button
+                        className="icon-btn surgery"
+                        onClick={() => handleOpenSurgery(apt)}
+                        title="Schedule Surgery"
+                      >
+                        <i className="bi bi-heart-pulse"></i>
                       </button>
                     </div>
                   </td>
@@ -204,7 +237,7 @@ const DoctorAppointments = () => {
         refreshAppointments={loadAppointments}
       />
 
-      {/* 🧪 LAB TEST MODAL */}
+      {/* LAB MODAL */}
       <LabTestsModal
         open={openLabModal}
         onClose={() => setOpenLabModal(false)}
@@ -212,6 +245,17 @@ const DoctorAppointments = () => {
         patient={patients.find(
           (p) => p.id === selectedConsultation?.patientId
         )}
+      />
+
+      {/* 🏥 SURGERY MODAL */}
+      <SurgeryModal
+        open={openSurgeryModal}
+        onClose={() => setOpenSurgeryModal(false)}
+        consultation={surgeryConsultation}
+        patient={patients.find(
+          (p) => p.id === surgeryConsultation?.patientId
+        )}
+        doctor={user.data}
       />
     </>
   );

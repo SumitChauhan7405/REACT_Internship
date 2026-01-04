@@ -30,7 +30,7 @@ import FollowUp from "../pages/FollowUp";
 
 /* Doctor Pages */
 import DoctorDashboard from "../pages/doctor/DoctorDashboard";
-import DoctorAppointments from "../pages/doctor/Appointments";
+import DoctorAppointments from "../pages/doctor/DoctorAppointments";
 import DoctorProfile from "../pages/doctor/Profile";
 import Homepage from "../pages/public/Homepage";
 
