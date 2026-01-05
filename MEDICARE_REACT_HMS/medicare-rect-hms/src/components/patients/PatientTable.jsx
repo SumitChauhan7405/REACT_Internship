@@ -51,8 +51,8 @@ const PatientTable = ({ patients, onEdit, onDelete }) => {
               <td>{p.timing}</td>
 
               <td>
-                <span className={`status-badge ${p.status?.toLowerCase()}`}>
-                  {p.status || "PENDING"}
+                <span className={`status-badge ${p.status.toLowerCase()}`}>
+                  {p.status}
                 </span>
               </td>
 

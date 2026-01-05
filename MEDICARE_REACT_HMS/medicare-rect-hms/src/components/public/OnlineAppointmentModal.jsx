@@ -1,11 +1,8 @@
-import { useState, useEffect } from "react";
-import { addPatient, getPatients } from "../../services/patientService";
+import { useEffect, useState } from "react";
+import { addAppointment } from "../../services/appointmentService";
 import "../../assets/css/components/patient-form.css";
 
 const OnlineAppointmentModal = ({ open, doctor, onClose }) => {
-  // ✅ ALL HOOKS AT TOP (NO CONDITIONS ABOVE)
-  const [patients, setPatients] = useState([]);
-
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -16,53 +13,53 @@ const OnlineAppointmentModal = ({ open, doctor, onClose }) => {
     timing: ""
   });
 
-  // ✅ useEffect MUST be before return
   useEffect(() => {
     if (open) {
-      loadPatients();
+      setForm({
+        firstName: "",
+        lastName: "",
+        gender: "",
+        age: "",
+        phone: "",
+        bloodGroup: "",
+        timing: ""
+      });
     }
   }, [open]);
 
-  const loadPatients = async () => {
-    const res = await getPatients();
-    setPatients(res.data);
-  };
-
-  // ✅ SAFE RETURN AFTER ALL HOOKS
-  if (!open) return null;
+  if (!open || !doctor) return null;
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // ✅ SAME ID LOGIC AS ADMIN
-  const generatePatientId = () => {
-    const year = new Date().getFullYear();
-
-    if (patients.length === 0) {
-      return `PAT-${year}-0001`;
-    }
-
-    const lastPatient = patients[patients.length - 1];
-    const lastNumber = Number(lastPatient.id.split("-")[2]);
-    const nextNumber = lastNumber + 1;
-
-    return `PAT-${year}-${String(nextNumber).padStart(4, "0")}`;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await addPatient({
-      id: generatePatientId(),
-      ...form,
+    await addAppointment({
+      id: `APT-${new Date().getFullYear()}-${Date.now()}`,
+
+      // Patient details (TEMP – for confirmation step)
+      firstName: form.firstName,
+      lastName: form.lastName,
+      gender: form.gender,
+      age: form.age,
+      phone: form.phone,
+      bloodGroup: form.bloodGroup,
+
+      doctorId: doctor.id,
       doctorName: doctor.name,
+
+      date: new Date().toISOString().split("T")[0],
+      time: form.timing,
+
       status: "PENDING",
       source: "ONLINE",
+
       createdAt: new Date().toISOString()
     });
 
-    alert("Appointment booked successfully");
+    alert("Appointment request sent successfully");
     onClose();
   };
 
@@ -141,7 +138,7 @@ const OnlineAppointmentModal = ({ open, doctor, onClose }) => {
           </div>
 
           <div>
-            <label>Timing</label>
+            <label>Preferred Time</label>
             <input
               type="time"
               name="timing"
@@ -154,7 +151,7 @@ const OnlineAppointmentModal = ({ open, doctor, onClose }) => {
           <div className="form-actions">
             <button type="submit">
               <i className="bi bi-calendar-plus"></i>
-              Book Appointment
+              Request Appointment
             </button>
 
             <button

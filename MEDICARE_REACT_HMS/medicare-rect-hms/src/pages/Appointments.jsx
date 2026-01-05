@@ -1,41 +1,30 @@
 import { useEffect, useState } from "react";
-import '../assets/css/components/appointment-form.css'
+import "../assets/css/components/appointment-form.css";
+
 import {
   getAppointments,
-  addAppointment,
   deleteAppointment,
   updateAppointment
 } from "../services/appointmentService";
-import { getPatients, updatePatient } from "../services/patientService";
-import { getDoctors } from "../services/doctorService";
+
+import { addPatient, getPatients } from "../services/patientService";
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState([]);
-  const [doctors, setDoctors] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
-
-  const [form, setForm] = useState({
-    patientId: "",
-    doctorId: "",
-    date: "",
-    time: ""
-  });
 
   /* ======================
      LOAD DATA
   ======================= */
   const loadData = async () => {
-    const [aptRes, patRes, docRes] = await Promise.all([
+    const [aptRes, patRes] = await Promise.all([
       getAppointments(),
-      getPatients(),
-      getDoctors()
+      getPatients()
     ]);
 
     setAppointments(aptRes.data);
     setPatients(patRes.data);
-    setDoctors(docRes.data);
   };
 
   useEffect(() => {
@@ -43,42 +32,37 @@ const Appointments = () => {
   }, []);
 
   /* ======================
-     FORM HANDLERS
+     GENERATE PATIENT ID
   ======================= */
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const generatePatientId = () => {
+    const year = new Date().getFullYear();
+    const patOnly = patients.filter((p) => p.id?.startsWith("PAT-"));
+
+    if (patOnly.length === 0) {
+      return `PAT-${year}-0001`;
+    }
+
+    const last = patOnly[patOnly.length - 1];
+    const num = Number(last.id.split("-")[2]) + 1;
+    return `PAT-${year}-${String(num).padStart(4, "0")}`;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  /* ======================
+     GENERATE APPOINTMENT ID
+  ======================= */
+  const generateAppointmentId = () => {
+    const year = new Date().getFullYear();
+    const aptOnly = appointments.filter((a) =>
+      a.id?.startsWith(`APT-${year}-`)
+    );
 
-    const patient = patients.find((p) => p.id === form.patientId);
-    const doctor = doctors.find((d) => d.id === form.doctorId);
+    if (aptOnly.length === 0) {
+      return `APT-${year}-0001`;
+    }
 
-    const payload = {
-      id: `APT-${new Date().getFullYear()}-${Date.now()}`,
-      patientId: form.patientId,
-      patientName: patient
-        ? `${patient.firstName} ${patient.lastName}`
-        : "",
-      doctorId: form.doctorId,
-      doctorName: doctor?.name || "",
-      date: form.date,
-      time: form.time,
-      status: "PENDING", // ✅ ALWAYS PENDING
-      source: "ADMIN"
-    };
-
-    await addAppointment(payload);
-
-    setForm({
-      patientId: "",
-      doctorId: "",
-      date: "",
-      time: ""
-    });
-
-    loadData();
+    const last = aptOnly[aptOnly.length - 1];
+    const num = Number(last.id.split("-")[2]) + 1;
+    return `APT-${year}-${String(num).padStart(4, "0")}`;
   };
 
   /* ======================
@@ -92,127 +76,71 @@ const Appointments = () => {
   };
 
   const handleConfirm = async (apt) => {
-    // 1️⃣ Update appointment
+    const newPatientId = generatePatientId();
+
+    await addPatient({
+      id: newPatientId,
+      firstName: apt.firstName,
+      lastName: apt.lastName,
+      gender: apt.gender,
+      age: apt.age,
+      phone: apt.phone,
+      bloodGroup: apt.bloodGroup || "",
+      doctorName: apt.doctorName,
+      timing: apt.time,
+      status: "CONFIRMED",
+      source: "ONLINE",
+      createdAt: new Date().toISOString()
+    });
+
     await updateAppointment(apt.id, {
       ...apt,
+      id: generateAppointmentId(),
+      patientId: newPatientId,
+      patientName: `${apt.firstName} ${apt.lastName}`,
       status: "CONFIRMED"
     });
 
-    // 2️⃣ Update patient status
-    await updatePatient(apt.patientId, {
-      status: "CONFIRMED"
-    });
-
+    alert("Appointment confirmed and patient registered");
     loadData();
   };
 
+  /* ======================
+     FILTER
+  ======================= */
   const filteredAppointments = appointments.filter((apt) => {
     const term = searchTerm.toLowerCase();
-
     return (
       apt.patientName?.toLowerCase().includes(term) ||
-      apt.patientId?.toLowerCase().includes(term)
+      apt.id?.toLowerCase().includes(term)
     );
   });
 
-
   /* ======================
-     RENDER
+     UI
   ======================= */
   return (
     <div className="page-content">
-      {/* ===== FORM ===== */}
-      <div className="appointment-form-card">
-        <h5>Create OPD Appointment</h5>
-        <p>Assign patient to doctor</p>
-
-        <form onSubmit={handleSubmit} className="appointment-form-grid">
-          <div>
-            <label>Patient</label>
-            <select
-              name="patientId"
-              value={form.patientId}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Patient</option>
-              {patients.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.firstName} {p.lastName}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label>Doctor</label>
-            <select
-              name="doctorId"
-              value={form.doctorId}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Doctor</option>
-              {doctors.map((d) => (
-                <option key={d.id} value={d.id}>
-                  {d.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label>Date</label>
-            <input
-              type="date"
-              name="date"
-              value={form.date}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div>
-            <label>Time</label>
-            <input
-              type="time"
-              name="time"
-              value={form.time}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="appointment-form-actions">
-            <button type="submit">
-              <i className="bi bi-calendar-plus"></i>
-              Create OPD Appointment
-            </button>
-          </div>
-        </form>
-      </div>
-
-      {/* ===== TABLE ===== */}
       <div className="appointment-table-card">
         <div className="appointment-table-header">
-          <h6>OPD Appointments</h6>
+          <h6>Online Appointments</h6>
 
           <div className="table-search">
             <i className="bi bi-search"></i>
             <input
               type="text"
-              placeholder="Search by Patient ID or Name"
+              placeholder="Search by Appointment ID or Name"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
         </div>
 
-
         <table className="appointment-table">
           <thead>
             <tr>
-              <th>Patient</th>
+              <th>Appointment ID</th>
+              <th>Patient Name</th>
               <th>Doctor</th>
               <th>Date</th>
               <th>Time</th>
@@ -224,18 +152,22 @@ const Appointments = () => {
           <tbody>
             {filteredAppointments.map((apt) => (
               <tr key={apt.id}>
-                <td>{apt.patientName || "—"}</td>
-                <td>{apt.doctorName || "—"}</td>
+                <td>{apt.id}</td>
+                <td>
+                  {apt.firstName
+                    ? `${apt.firstName} ${apt.lastName}`
+                    : "—"}
+                </td>
+                <td>{apt.doctorName}</td>
                 <td>{apt.date}</td>
                 <td>{apt.time}</td>
                 <td>
                   <span
-                    className={`status-badge ${apt.status === "CONFIRMED"
-                      ? "status-confirmed"
-                      : apt.status === "PENDING"
-                        ? "status-pending"
-                        : "status-cancelled"
-                      }`}
+                    className={`status-badge ${
+                      apt.status === "CONFIRMED"
+                        ? "status-confirmed"
+                        : "status-pending"
+                    }`}
                   >
                     {apt.status}
                   </span>
@@ -261,7 +193,6 @@ const Appointments = () => {
                     </button>
                   </div>
                 </td>
-
               </tr>
             ))}
           </tbody>

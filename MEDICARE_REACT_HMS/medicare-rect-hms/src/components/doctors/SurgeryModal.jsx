@@ -1,9 +1,18 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { addSurgery } from "../../services/surgeryService";
 import "../../assets/css/components/surgery-modal.css";
 
-const SurgeryModal = ({ open, onClose, consultation, patient, doctor }) => {
-  // ✅ HOOKS MUST BE FIRST (NO CONDITIONS ABOVE THIS)
+const SurgeryModal = ({
+  open,
+  onClose,
+  consultation,
+  patient,
+  doctor,
+  refreshAppointments // ✅ OPTIONAL BUT FUTURE-PROOF
+}) => {
+  /* ======================
+     STATE (HOOKS FIRST)
+  ======================= */
   const [form, setForm] = useState({
     department: "",
     surgeryType: "",
@@ -13,9 +22,12 @@ const SurgeryModal = ({ open, onClose, consultation, patient, doctor }) => {
     notes: ""
   });
 
-  // ✅ SAFE EFFECT
+  /* ======================
+     RESET FORM ON OPEN
+  ======================= */
   useEffect(() => {
     if (!open) return;
+
     setForm({
       department: "",
       surgeryType: "",
@@ -26,7 +38,7 @@ const SurgeryModal = ({ open, onClose, consultation, patient, doctor }) => {
     });
   }, [open]);
 
-  // ✅ CONDITIONAL RETURN AFTER HOOKS
+  // ⛔ return AFTER hooks
   if (!open || !consultation || !patient || !doctor) return null;
 
   /* ======================
@@ -37,8 +49,21 @@ const SurgeryModal = ({ open, onClose, consultation, patient, doctor }) => {
   };
 
   const handleSave = async () => {
-    await axios.post("http://localhost:5000/surgeries", {
+    // 🔐 BASIC VALIDATION
+    if (
+      !form.department ||
+      !form.surgeryType ||
+      !form.scheduledDate ||
+      !form.scheduledTime ||
+      !form.operationTheatre
+    ) {
+      alert("Please fill all required fields");
+      return;
+    }
+
+    await addSurgery({
       id: `SUR-${new Date().getFullYear()}-${Date.now()}`,
+
       consultationId: consultation.id,
 
       patientId: patient.id,
@@ -59,6 +84,11 @@ const SurgeryModal = ({ open, onClose, consultation, patient, doctor }) => {
 
       createdAt: new Date().toISOString()
     });
+
+    // 🔄 Refresh parent if provided
+    if (refreshAppointments) {
+      await refreshAppointments();
+    }
 
     alert("Surgery scheduled successfully");
     onClose();
@@ -119,7 +149,7 @@ const SurgeryModal = ({ open, onClose, consultation, patient, doctor }) => {
 
         <textarea
           name="notes"
-          placeholder="Notes"
+          placeholder="Notes (optional)"
           value={form.notes}
           onChange={handleChange}
         />

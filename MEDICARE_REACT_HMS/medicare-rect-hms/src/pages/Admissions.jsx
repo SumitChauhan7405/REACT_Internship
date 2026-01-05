@@ -177,7 +177,7 @@ const Admissions = () => {
         </form>
       </div>
 
-      {/* ===== LIST ===== */}
+      {/* ===== Table ===== */}
       <div className="admissions-card">
         <h4>Admissions</h4>
 

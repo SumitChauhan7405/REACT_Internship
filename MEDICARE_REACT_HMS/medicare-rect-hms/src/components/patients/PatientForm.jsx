@@ -58,14 +58,15 @@ const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
 
   const generatePatientId = () => {
     const year = new Date().getFullYear();
+    const patOnly = patients.filter(p => p.id?.startsWith("PAT-"));
 
-    if (patients.length === 0) {
+    if (patOnly.length === 0) {
       return `PAT-${year}-0001`;
     }
 
-    const lastPatient = patients[patients.length - 1];
+    const lastPatient = patOnly[patOnly.length - 1];
     const lastNumber = Number(lastPatient.id.split("-")[2]);
-    const nextNumber = lastNumber + 1;
+    const nextNumber = isNaN(lastNumber) ? 1 : lastNumber + 1;
 
     return `PAT-${year}-${String(nextNumber).padStart(4, "0")}`;
   };
@@ -82,14 +83,12 @@ const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
       });
       clearEdit();
     } else {
-      // inside handleSubmit (ADD patient case)
       await addPatient({
         id: generatePatientId(),
         ...form,
-        status: "PENDING",   // ✅ ADD THIS
+        status: "CONFIRMED", // ✅ FIXED: walk-in patient
         createdAt: new Date().toISOString()
       });
-
 
       await loadPatients();
     }
@@ -148,7 +147,13 @@ const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
 
         <div>
           <label>Blood Group</label>
-          <input name="bloodGroup" value={form.bloodGroup} onChange={handleChange} />
+          <select name="bloodGroup" value={form.bloodGroup} onChange={handleChange} required>
+            <option value="">Select Group</option>
+            <option>A+</option><option>A-</option>
+            <option>B+</option><option>B-</option>
+            <option>AB+</option><option>AB-</option>
+            <option>O+</option><option>O-</option>
+          </select>
         </div>
 
         <div>

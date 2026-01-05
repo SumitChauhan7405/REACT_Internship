@@ -258,9 +258,8 @@ const PrescriptionModal = ({
               ? `${selectedTests.length} test(s) selected`
               : "Select Lab Tests"}
             <i
-              className={`bi ${
-                isDropdownOpen ? "bi-chevron-up" : "bi-chevron-down"
-              }`}
+              className={`bi ${isDropdownOpen ? "bi-chevron-up" : "bi-chevron-down"
+                }`}
             ></i>
           </div>
 

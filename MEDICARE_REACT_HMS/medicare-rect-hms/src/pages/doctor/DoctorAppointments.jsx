@@ -4,13 +4,14 @@ import { useAuth } from "../../context/AuthContext";
 
 import PrescriptionModal from "../../components/doctors/PrescriptionModal";
 import LabTestsModal from "../../components/lab/LabTestsModal";
-import SurgeryModal from "../../components/doctors/SurgeryModal"; // ✅ NEW
+import SurgeryModal from "../../components/doctors/SurgeryModal";
 
 import "../../assets/css/components/patient-table.css";
 
 const DoctorAppointments = () => {
   const { user } = useAuth();
   const doctorId = user?.data?.id;
+  const doctorName = user?.data?.name;
 
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState([]);
@@ -22,16 +23,16 @@ const DoctorAppointments = () => {
   const [existingPrescription, setExistingPrescription] = useState(null);
   const [modalMode, setModalMode] = useState("ADD");
 
-  // 🧪 Lab modal
+  // Lab modal
   const [openLabModal, setOpenLabModal] = useState(false);
   const [selectedConsultation, setSelectedConsultation] = useState(null);
 
-  // 🏥 Surgery modal
+  // Surgery modal
   const [openSurgeryModal, setOpenSurgeryModal] = useState(false);
   const [surgeryConsultation, setSurgeryConsultation] = useState(null);
 
   /* ======================
-     LOAD DATA
+     LOAD DATA (FINAL FIX)
   ======================= */
   const loadAppointments = useCallback(async () => {
     if (!doctorId) return;
@@ -42,14 +43,35 @@ const DoctorAppointments = () => {
       axios.get("http://localhost:5000/consultations")
     ]);
 
-    const myAppointments = aptRes.data.filter(
+    // 1️⃣ Online appointments
+    const onlineAppointments = aptRes.data.filter(
       (apt) => apt.doctorId === doctorId
     );
 
-    setAppointments(myAppointments);
+    // 2️⃣ Walk-in patients (confirmed + assigned to doctor)
+    const walkInPatients = patRes.data.filter(
+      (p) =>
+        p.doctorName === doctorName &&
+        p.status === "CONFIRMED" &&
+        !onlineAppointments.some((a) => a.patientId === p.id)
+    );
+
+    // 3️⃣ Convert walk-ins → virtual appointments (UI only)
+    const walkInAsAppointments = walkInPatients.map((p) => ({
+      id: `WALKIN-${p.id}`,
+      patientId: p.id,
+      patientName: `${p.firstName} ${p.lastName}`,
+      date: new Date().toISOString().split("T")[0],
+      time: p.timing || "--",
+      status: "CONFIRMED",
+      isWalkIn: true
+    }));
+
+    // 4️⃣ Merge both
+    setAppointments([...onlineAppointments, ...walkInAsAppointments]);
     setPatients(patRes.data);
     setConsultations(conRes.data);
-  }, [doctorId]);
+  }, [doctorId, doctorName]);
 
   useEffect(() => {
     loadAppointments();
@@ -84,7 +106,7 @@ const DoctorAppointments = () => {
   };
 
   /* ======================
-     🧪 LAB TESTS
+     LAB
   ======================= */
   const handleOpenLabTests = (apt) => {
     const consultation = consultations.find(
@@ -103,7 +125,7 @@ const DoctorAppointments = () => {
   };
 
   /* ======================
-     🏥 SURGERY
+     SURGERY
   ======================= */
   const handleOpenSurgery = (apt) => {
     const consultation = consultations.find(
@@ -145,10 +167,6 @@ const DoctorAppointments = () => {
 
           <tbody>
             {appointments.map((apt) => {
-              const patient = patients.find(
-                (p) => p.id === apt.patientId
-              );
-
               const hasPrescription = consultations.some(
                 (c) => c.appointmentId === apt.id
               );
@@ -156,61 +174,43 @@ const DoctorAppointments = () => {
               return (
                 <tr key={apt.id}>
                   <td>{apt.id}</td>
-                  <td>
-                    {patient
-                      ? `${patient.firstName} ${patient.lastName}`
-                      : "—"}
-                  </td>
+                  <td>{apt.patientName}</td>
                   <td>{apt.date}</td>
                   <td>{apt.time}</td>
                   <td>
-                    <span
-                      className={`badge ${
-                        apt.status === "CONFIRMED"
-                          ? "male"
-                          : "female"
-                      }`}
-                    >
+                    <span className="badge male">
                       {apt.status}
                     </span>
                   </td>
 
                   <td>
                     <div className="action-icons">
-                      {/* ➕ PRESCRIPTION */}
                       <button
                         className="icon-btn add"
                         onClick={() => handleAddPrescription(apt)}
-                        title="Add Prescription"
                       >
                         <i className="bi bi-plus-lg"></i>
                       </button>
 
-                      {/* ✏️ EDIT */}
                       {hasPrescription && (
                         <button
                           className="icon-btn edited"
                           onClick={() => handleEditPrescription(apt)}
-                          title="Edit Prescription"
                         >
                           <i className="bi bi-pencil-square"></i>
                         </button>
                       )}
 
-                      {/* 🧪 LAB */}
                       <button
                         className="icon-btn lab"
                         onClick={() => handleOpenLabTests(apt)}
-                        title="Lab Tests"
                       >
                         <i className="bi bi-flask"></i>
                       </button>
 
-                      {/* 🏥 SURGERY */}
                       <button
                         className="icon-btn surgery"
                         onClick={() => handleOpenSurgery(apt)}
-                        title="Schedule Surgery"
                       >
                         <i className="bi bi-heart-pulse"></i>
                       </button>
@@ -223,7 +223,7 @@ const DoctorAppointments = () => {
         </table>
       </div>
 
-      {/* PRESCRIPTION MODAL */}
+      {/* MODALS */}
       <PrescriptionModal
         open={openModal}
         onClose={closeModal}
@@ -237,7 +237,6 @@ const DoctorAppointments = () => {
         refreshAppointments={loadAppointments}
       />
 
-      {/* LAB MODAL */}
       <LabTestsModal
         open={openLabModal}
         onClose={() => setOpenLabModal(false)}
@@ -247,7 +246,6 @@ const DoctorAppointments = () => {
         )}
       />
 
-      {/* 🏥 SURGERY MODAL */}
       <SurgeryModal
         open={openSurgeryModal}
         onClose={() => setOpenSurgeryModal(false)}

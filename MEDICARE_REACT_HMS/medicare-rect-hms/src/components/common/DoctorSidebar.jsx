@@ -26,6 +26,14 @@ const DoctorSidebar = () => {
                     <i className="bi bi-calendar-check"></i>
                     <span>My Appointments</span>
                 </NavLink>
+
+                <li>
+                    <NavLink to="/doctor/surgeries" className="menu-item">
+                        <i className="bi bi-heart-pulse"></i>
+                        <span>My Surgeries</span>
+                    </NavLink>
+                </li>
+
             </nav>
         </aside>
     );

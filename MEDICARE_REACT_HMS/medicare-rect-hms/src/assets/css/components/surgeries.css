@@ -1,0 +1,183 @@
+/* ============================
+   SURGERIES PAGE – COMMON
+============================ */
+
+.surgeries-container {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+/* ============================
+   HEADER
+============================ */
+
+.surgeries-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.surgeries-header h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.surgeries-header span {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ============================
+   TABLE
+============================ */
+
+.surgeries-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.surgeries-table thead th {
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  padding: 12px 10px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.surgeries-table tbody td {
+  padding: 14px 10px;
+  font-size: 14px;
+  color: #374151;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.surgeries-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* ============================
+   BADGES
+============================ */
+
+.surgery-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 999px;
+}
+
+.surgery-badge.scheduled {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.surgery-badge.completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.surgery-badge.cancelled {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ============================
+   NOTES
+============================ */
+
+.surgery-notes {
+  font-size: 13px;
+  color: #6b7280;
+  max-width: 240px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================
+   ACTION BUTTONS
+============================ */
+
+.surgery-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.surgery-btn {
+  border: none;
+  background: #f3f4f6;
+  padding: 7px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.surgery-btn:hover {
+  background: #e5e7eb;
+}
+
+.surgery-btn.edit {
+  color: #f59e0b;
+}
+
+.surgery-btn.delete {
+  color: #ef4444;
+}
+
+/* ============================
+   EMPTY STATE
+============================ */
+
+.surgeries-empty {
+  text-align: center;
+  padding: 40px 10px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ============================
+   RESPONSIVE
+============================ */
+
+@media (max-width: 768px) {
+  .surgeries-table thead {
+    display: none;
+  }
+
+  .surgeries-table,
+  .surgeries-table tbody,
+  .surgeries-table tr,
+  .surgeries-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .surgeries-table tr {
+    margin-bottom: 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 10px;
+  }
+
+  .surgeries-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border: none;
+    font-size: 13px;
+  }
+
+  .surgeries-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #6b7280;
+  }
+}
