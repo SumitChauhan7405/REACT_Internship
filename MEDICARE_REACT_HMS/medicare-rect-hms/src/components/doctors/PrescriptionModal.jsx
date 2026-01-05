@@ -10,7 +10,6 @@ import {
 } from "../../services/labTestService";
 import "../../assets/css/components/prescription-modal.css";
 
-/* ✅ MOVE OUTSIDE COMPONENT (FIX ESLINT WARNING) */
 const EMPTY_FORM = {
   diagnosis: "",
   consultation: "",
@@ -24,16 +23,13 @@ const PrescriptionModal = ({
   patient,
   doctor,
   existingPrescription,
-  mode, // ADD | EDIT
+  mode,
   refreshAppointments
 }) => {
   const [form, setForm] = useState(EMPTY_FORM);
-
-  // 🧪 LAB TEST STATE
   const [selectedTests, setSelectedTests] = useState([]);
   const [labTestId, setLabTestId] = useState(null);
 
-  // ✅ DROPDOWN STATE
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -47,27 +43,17 @@ const PrescriptionModal = ({
     "Urine Test"
   ];
 
-  /* ======================
-     CLOSE DROPDOWN ON OUTSIDE CLICK
-  ======================= */
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setIsDropdownOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () =>
       document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  /* ======================
-     RESET / PREFILL
-  ======================= */
   useEffect(() => {
     if (!open) return;
 
@@ -100,17 +86,11 @@ const PrescriptionModal = ({
     if (existing) {
       setLabTestId(existing.id);
       setSelectedTests(existing.tests || []);
-    } else {
-      setLabTestId(null);
-      setSelectedTests([]);
     }
   };
 
   if (!open || !appointment || !patient || !doctor) return null;
 
-  /* ======================
-     HANDLERS
-  ======================= */
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -136,9 +116,6 @@ const PrescriptionModal = ({
     );
   };
 
-  /* ======================
-     SUBMIT
-  ======================= */
   const handleSubmit = async () => {
     const consultationPayload = {
       appointmentId: appointment.id,
@@ -166,33 +143,33 @@ const PrescriptionModal = ({
     }
 
     if (selectedTests.length > 0) {
+      const labPayload = {
+        consultationId,
+        patientId: patient.id,
+        patientName: `${patient.firstName} ${patient.lastName}`,
+        doctorId: doctor.id,
+        doctorName: doctor.name,
+        tests: selectedTests,
+        results: [],
+        status: "PENDING",
+        createdAt: new Date().toISOString()
+      };
+
       if (labTestId) {
-        await updateLabTest(labTestId, {
-          tests: selectedTests,
-          status: "PENDING"
-        });
+        await updateLabTest(labTestId, labPayload);
       } else {
         await addLabTest({
           id: `LAB-${new Date().getFullYear()}-${Date.now()}`,
-          consultationId,
-          patientId: patient.id,
-          tests: selectedTests,
-          results: [],
-          status: "PENDING"
+          ...labPayload
         });
       }
     }
 
     await refreshAppointments();
-
     alert("Prescription saved successfully");
-
     onClose();
   };
 
-  /* ======================
-     UI
-  ======================= */
   return (
     <div className="prescription-backdrop" onClick={onClose}>
       <div
@@ -242,11 +219,11 @@ const PrescriptionModal = ({
             />
           </div>
         ))}
+
         <button className="btn-add-medicine" onClick={addMedicineRow}>
           + Add Medicine
         </button>
 
-        {/* 🧪 LAB TEST DROPDOWN */}
         <h6 style={{ marginTop: 16 }}>Lab Tests</h6>
 
         <div className="lab-dropdown" ref={dropdownRef}>
@@ -257,10 +234,6 @@ const PrescriptionModal = ({
             {selectedTests.length > 0
               ? `${selectedTests.length} test(s) selected`
               : "Select Lab Tests"}
-            <i
-              className={`bi ${isDropdownOpen ? "bi-chevron-up" : "bi-chevron-down"
-                }`}
-            ></i>
           </div>
 
           {isDropdownOpen && (
@@ -276,7 +249,7 @@ const PrescriptionModal = ({
                     checked={selectedTests.includes(test)}
                     readOnly
                   />
-                  <span className="lab-test-name">{test}</span>
+                  <span>{test}</span>
                 </div>
               ))}
             </div>
@@ -284,9 +257,7 @@ const PrescriptionModal = ({
         </div>
 
         <div className="form-actions">
-          <button className="form-btn-secondary" onClick={onClose}>
-            Cancel
-          </button>
+          <button onClick={onClose}>Cancel</button>
           <button className="btn-presave" onClick={handleSubmit}>
             Save Prescription
           </button>

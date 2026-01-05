@@ -303,40 +303,42 @@
           "dosage": "0-0-1"
         }
       ],
-      "createdAt": "2026-01-05T13:44:43.743Z",
+      "createdAt": "2026-01-05T17:17:25.132Z",
       "id": "CON-2026-1767620619145"
     }
   ],
   "labTests": [
+  ],
+  "admissions": [
     {
-      "id": "LAB-2026-1767620683750",
-      "consultationId": "CON-2026-1767620619145",
+      "id": "ADM-001",
       "patientId": "PAT-2026-0003",
-      "tests": [
-        "X-Ray"
-      ],
-      "results": [],
-      "status": "PENDING"
+      "patientName": "Tom Cruise",
+      "doctorName": "Dr. Namra Pithwa",
+      "roomId": "ROOM-001",
+      "roomNumber": "101",
+      "roomType": "General",
+      "admissionDate": "2026-01-05",
+      "status": "ADMITTED"
     },
     {
-      "id": "LAB-2026-1767622275734",
-      "consultationId": "TEMP-WALKIN-PAT-2026-0004",
-      "patientId": "PAT-2026-0004",
-      "patientName": "Driscoll Arnold",
-      "tests": [
-        "CT Scan"
-      ],
-      "results": [],
-      "status": "PENDING"
+      "id": "ADM-002",
+      "patientId": "PAT-2026-0008",
+      "patientName": "Vin Diesel",
+      "doctorName": "Dr. Namra Pithwa",
+      "roomId": "ROOM-006",
+      "roomNumber": "501",
+      "roomType": "ICU",
+      "admissionDate": "2026-01-05",
+      "status": "ADMITTED"
     }
   ],
-  "admissions": [],
   "rooms": [
     {
       "id": "ROOM-001",
       "roomNumber": "101",
       "type": "General",
-      "status": "AVAILABLE"
+      "status": "OCCUPIED"
     },
     {
       "id": "ROOM-002",
@@ -366,7 +368,7 @@
       "id": "ROOM-006",
       "roomNumber": "501",
       "type": "ICU",
-      "status": "AVAILABLE"
+      "status": "OCCUPIED"
     }
   ],
   "vitals": [
