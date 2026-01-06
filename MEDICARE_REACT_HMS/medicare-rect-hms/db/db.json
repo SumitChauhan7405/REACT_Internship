@@ -2,44 +2,45 @@
   "patients": [
     {
       "id": "PAT-2026-0001",
-      "firstName": "Knox",
-      "lastName": "Herring",
-      "gender": "Female",
-      "age": "89",
-      "phone": "+1 (475) 813-4908",
-      "bloodGroup": "O-",
+      "firstName": "Fallon",
+      "lastName": "Mays",
+      "gender": "Male",
+      "age": "87",
+      "phone": "+1 (266) 965-8763",
+      "bloodGroup": "A+",
       "doctorName": "Dr. Namra Pithwa",
-      "timing": "08:40",
+      "timing": "10:12",
       "status": "CONFIRMED",
       "source": "ONLINE",
-      "createdAt": "2026-01-06T06:46:34.417Z"
+      "createdAt": "2026-01-06T10:52:01.006Z"
     },
     {
       "id": "PAT-2026-0002",
-      "firstName": "Maile",
-      "lastName": "Harvey",
-      "gender": "Female",
-      "age": "42",
-      "phone": "+1 (901) 692-5159",
-      "bloodGroup": "AB-",
+      "firstName": "Violet",
+      "lastName": "Dickson",
+      "gender": "Other",
+      "age": "55",
+      "phone": "+1 (695) 232-3181",
+      "bloodGroup": "A+",
       "doctorName": "Dr.Parth Vipulbhai Chavda",
-      "timing": "05:24",
+      "timing": "21:05",
       "status": "CONFIRMED",
-      "createdAt": "2026-01-06T06:46:56.473Z"
+      "source": "WALKIN",
+      "createdAt": "2026-01-06T10:52:30.386Z"
     },
     {
       "id": "PAT-2026-0003",
-      "firstName": "Ursa",
-      "lastName": "Buckner",
-      "gender": "Other",
-      "age": "18",
-      "phone": "+1 (403) 575-5305",
-      "bloodGroup": "A-",
+      "firstName": "Xyla",
+      "lastName": "Gilliam",
+      "gender": "Male",
+      "age": "65",
+      "phone": "+1 (473) 947-3563",
+      "bloodGroup": "A+",
       "doctorName": "Dr. Namra Pithwa",
-      "timing": "08:00",
+      "timing": "15:29",
       "status": "CONFIRMED",
-      "source": "ONLINE",
-      "createdAt": "2026-01-06T06:47:30.653Z"
+      "source": "WALKIN",
+      "createdAt": "2026-01-06T11:02:52.418Z"
     }
   ],
   "doctors": [
@@ -165,43 +166,65 @@
   "appointments": [
     {
       "id": "APT-2026-0001",
-      "firstName": "Knox",
-      "lastName": "Herring",
-      "gender": "Female",
-      "age": "89",
-      "phone": "+1 (475) 813-4908",
-      "bloodGroup": "O-",
+      "firstName": "Fallon",
+      "lastName": "Mays",
+      "gender": "Male",
+      "age": "87",
+      "phone": "+1 (266) 965-8763",
+      "bloodGroup": "A+",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
-      "date": "2020-03-10",
-      "time": "08:40",
+      "date": "1995-02-12",
+      "time": "10:12",
       "status": "CONFIRMED",
       "source": "ONLINE",
-      "createdAt": "2026-01-06T06:46:03.768Z",
+      "createdAt": "2026-01-06T10:51:42.435Z",
       "patientId": "PAT-2026-0001",
-      "patientName": "Knox Herring"
+      "patientName": "Fallon Mays"
     },
     {
       "id": "APT-2026-0002",
-      "firstName": "Ursa",
-      "lastName": "Buckner",
-      "gender": "Other",
-      "age": "18",
-      "phone": "+1 (403) 575-5305",
-      "bloodGroup": "A-",
+      "patientId": "PAT-2026-0002",
+      "patientName": "Violet Dickson",
+      "doctorId": "DOC-004",
+      "doctorName": "Dr.Parth Vipulbhai Chavda",
+      "date": "2026-01-06",
+      "time": "21:05",
+      "status": "CONFIRMED",
+      "source": "WALKIN",
+      "createdAt": "2026-01-06T10:52:30.408Z"
+    },
+    {
+      "id": "APT-2026-0003",
+      "patientId": "PAT-2026-0003",
+      "patientName": "Xyla Gilliam",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
-      "date": "1979-07-09",
-      "time": "08:00",
+      "date": "2026-01-06",
+      "time": "15:29",
       "status": "CONFIRMED",
-      "source": "ONLINE",
-      "createdAt": "2026-01-06T06:47:09.086Z",
-      "patientId": "PAT-2026-0003",
-      "patientName": "Ursa Buckner"
+      "source": "WALKIN",
+      "createdAt": "2026-01-06T11:02:52.445Z"
     }
   ],
-  "consultations": [],
-  "labTests": [],
+  "consultations": [
+  ],
+  "labTests": [
+    {
+      "id": "LAB-2026-1767698788616",
+      "consultationId": "CON-2026-0001",
+      "patientId": "PAT-2026-0001",
+      "patientName": "Fallon Mays",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "tests": [
+        "Blood Sugar"
+      ],
+      "results": [],
+      "status": "PENDING",
+      "createdAt": "2026-01-06T11:26:28.616Z"
+    }
+  ],
   "admissions": [],
   "rooms": [
     {

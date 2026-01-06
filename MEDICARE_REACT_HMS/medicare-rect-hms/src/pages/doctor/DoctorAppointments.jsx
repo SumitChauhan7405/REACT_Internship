@@ -11,7 +11,6 @@ import "../../assets/css/components/patient-table.css";
 const DoctorAppointments = () => {
   const { user } = useAuth();
   const doctorId = user?.data?.id;
-  const doctorName = user?.data?.name;
 
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState([]);
@@ -32,7 +31,7 @@ const DoctorAppointments = () => {
   const [surgeryConsultation, setSurgeryConsultation] = useState(null);
 
   /* ======================
-     LOAD DATA (FINAL FIX)
+     LOAD DATA (CLEAN + FINAL)
   ======================= */
   const loadAppointments = useCallback(async () => {
     if (!doctorId) return;
@@ -43,35 +42,15 @@ const DoctorAppointments = () => {
       axios.get("http://localhost:5000/consultations")
     ]);
 
-    // 1️⃣ Online appointments
-    const onlineAppointments = aptRes.data.filter(
+    // ✅ Only REAL appointments
+    const myAppointments = aptRes.data.filter(
       (apt) => apt.doctorId === doctorId
     );
 
-    // 2️⃣ Walk-in patients (confirmed + assigned to doctor)
-    const walkInPatients = patRes.data.filter(
-      (p) =>
-        p.doctorName === doctorName &&
-        p.status === "CONFIRMED" &&
-        !onlineAppointments.some((a) => a.patientId === p.id)
-    );
-
-    // 3️⃣ Convert walk-ins → virtual appointments (UI only)
-    const walkInAsAppointments = walkInPatients.map((p) => ({
-      id: `WALKIN-${p.id}`,
-      patientId: p.id,
-      patientName: `${p.firstName} ${p.lastName}`,
-      date: new Date().toISOString().split("T")[0],
-      time: p.timing || "--",
-      status: "CONFIRMED",
-      isWalkIn: true
-    }));
-
-    // 4️⃣ Merge both
-    setAppointments([...onlineAppointments, ...walkInAsAppointments]);
+    setAppointments(myAppointments);
     setPatients(patRes.data);
     setConsultations(conRes.data);
-  }, [doctorId, doctorName]);
+  }, [doctorId]);
 
   useEffect(() => {
     loadAppointments();
@@ -117,7 +96,9 @@ const DoctorAppointments = () => {
       consultation || {
         id: `TEMP-${apt.id}`,
         appointmentId: apt.id,
-        patientId: apt.patientId
+        patientId: apt.patientId,
+        doctorId: apt.doctorId,
+        doctorName: apt.doctorName
       }
     );
 

@@ -1,20 +1,17 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import {
   addConsultation,
-  updateConsultation
+  updateConsultation,
+  getConsultations
 } from "../../services/consultationService";
-import {
-  addLabTest,
-  updateLabTest,
-  getLabTests
-} from "../../services/labTestService";
 import "../../assets/css/components/prescription-modal.css";
 
-const EMPTY_FORM = {
+/* ✅ FIX: always return a fresh object */
+const getEmptyForm = () => ({
   diagnosis: "",
   consultation: "",
   medicines: [{ name: "", dosage: "" }]
-};
+});
 
 const PrescriptionModal = ({
   open,
@@ -26,41 +23,21 @@ const PrescriptionModal = ({
   mode,
   refreshAppointments
 }) => {
-  const [form, setForm] = useState(EMPTY_FORM);
-  const [selectedTests, setSelectedTests] = useState([]);
-  const [labTestId, setLabTestId] = useState(null);
+  const [form, setForm] = useState(getEmptyForm());
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
-
-  const LAB_TEST_OPTIONS = [
-    "Blood Sugar",
-    "CBC",
-    "ECG",
-    "X-Ray",
-    "MRI",
-    "CT Scan",
-    "Urine Test"
-  ];
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
+  /* ======================
+     RESET / PREFILL
+  ======================= */
   useEffect(() => {
     if (!open) return;
 
     if (mode === "ADD") {
-      setForm(EMPTY_FORM);
-      setSelectedTests([]);
-      setLabTestId(null);
+      setForm(getEmptyForm());
+    }
+
+    // ✅ FIX: prescription removed manually from db.json
+    if (mode === "EDIT" && !existingPrescription) {
+      setForm(getEmptyForm());
     }
 
     if (mode === "EDIT" && existingPrescription) {
@@ -72,25 +49,14 @@ const PrescriptionModal = ({
             ? existingPrescription.medicines
             : [{ name: "", dosage: "" }]
       });
-
-      loadExistingLabTest(existingPrescription.id);
     }
   }, [open, mode, existingPrescription]);
 
-  const loadExistingLabTest = async (consultationId) => {
-    const res = await getLabTests();
-    const existing = res.data.find(
-      (l) => l.consultationId === consultationId
-    );
-
-    if (existing) {
-      setLabTestId(existing.id);
-      setSelectedTests(existing.tests || []);
-    }
-  };
-
   if (!open || !appointment || !patient || !doctor) return null;
 
+  /* ======================
+     HANDLERS
+  ======================= */
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -108,14 +74,39 @@ const PrescriptionModal = ({
     });
   };
 
-  const toggleLabTest = (test) => {
-    setSelectedTests((prev) =>
-      prev.includes(test)
-        ? prev.filter((t) => t !== test)
-        : [...prev, test]
-    );
+  const removeMedicineRow = (index) => {
+    const updated = form.medicines.filter((_, i) => i !== index);
+    setForm({
+      ...form,
+      medicines: updated.length > 0 ? updated : [{ name: "", dosage: "" }]
+    });
   };
 
+  /* ======================
+     NORMALIZED CONSULTATION ID
+  ======================= */
+  const generateConsultationId = async () => {
+    const year = new Date().getFullYear();
+    const res = await getConsultations();
+
+    const consOnly = res.data.filter(
+      (c) => c.id && c.id.startsWith(`CON-${year}-`)
+    );
+
+    if (consOnly.length === 0) {
+      return `CON-${year}-0001`;
+    }
+
+    const last = consOnly[consOnly.length - 1];
+    const lastNum = Number(last.id.split("-")[2]) || 0;
+    const next = lastNum + 1;
+
+    return `CON-${year}-${String(next).padStart(4, "0")}`;
+  };
+
+  /* ======================
+     SUBMIT
+  ======================= */
   const handleSubmit = async () => {
     const consultationPayload = {
       appointmentId: appointment.id,
@@ -129,40 +120,14 @@ const PrescriptionModal = ({
       createdAt: new Date().toISOString()
     };
 
-    let consultationId;
-
     if (mode === "EDIT" && existingPrescription) {
       await updateConsultation(existingPrescription.id, consultationPayload);
-      consultationId = existingPrescription.id;
     } else {
-      const res = await addConsultation({
-        id: `CON-${new Date().getFullYear()}-${Date.now()}`,
+      const newId = await generateConsultationId();
+      await addConsultation({
+        id: newId,
         ...consultationPayload
       });
-      consultationId = res.data.id;
-    }
-
-    if (selectedTests.length > 0) {
-      const labPayload = {
-        consultationId,
-        patientId: patient.id,
-        patientName: `${patient.firstName} ${patient.lastName}`,
-        doctorId: doctor.id,
-        doctorName: doctor.name,
-        tests: selectedTests,
-        results: [],
-        status: "PENDING",
-        createdAt: new Date().toISOString()
-      };
-
-      if (labTestId) {
-        await updateLabTest(labTestId, labPayload);
-      } else {
-        await addLabTest({
-          id: `LAB-${new Date().getFullYear()}-${Date.now()}`,
-          ...labPayload
-        });
-      }
     }
 
     await refreshAppointments();
@@ -170,6 +135,9 @@ const PrescriptionModal = ({
     onClose();
   };
 
+  /* ======================
+     UI
+  ======================= */
   return (
     <div className="prescription-backdrop" onClick={onClose}>
       <div
@@ -217,6 +185,15 @@ const PrescriptionModal = ({
                 handleMedicineChange(i, "dosage", e.target.value)
               }
             />
+
+            <button
+              type="button"
+              className="icon-btn delete"
+              onClick={() => removeMedicineRow(i)}
+              title="Remove Medicine"
+            >
+              <i className="bi bi-trash-fill"></i>
+            </button>
           </div>
         ))}
 
@@ -224,40 +201,10 @@ const PrescriptionModal = ({
           + Add Medicine
         </button>
 
-        <h6 style={{ marginTop: 16 }}>Lab Tests</h6>
-
-        <div className="lab-dropdown" ref={dropdownRef}>
-          <div
-            className="lab-dropdown-toggle"
-            onClick={() => setIsDropdownOpen((p) => !p)}
-          >
-            {selectedTests.length > 0
-              ? `${selectedTests.length} test(s) selected`
-              : "Select Lab Tests"}
-          </div>
-
-          {isDropdownOpen && (
-            <div className="lab-dropdown-menu">
-              {LAB_TEST_OPTIONS.map((test) => (
-                <div
-                  key={test}
-                  className="lab-dropdown-item"
-                  onClick={() => toggleLabTest(test)}
-                >
-                  <input
-                    type="checkbox"
-                    checked={selectedTests.includes(test)}
-                    readOnly
-                  />
-                  <span>{test}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
         <div className="form-actions">
-          <button onClick={onClose}>Cancel</button>
+          <button className="form-btn-secondary" onClick={onClose}>
+            Cancel
+          </button>
           <button className="btn-presave" onClick={handleSubmit}>
             Save Prescription
           </button>

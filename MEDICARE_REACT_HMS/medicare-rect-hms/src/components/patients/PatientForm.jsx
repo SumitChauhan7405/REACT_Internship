@@ -5,11 +5,13 @@ import {
   updatePatient
 } from "../../services/patientService";
 import { getDoctors } from "../../services/doctorService";
+import { addAppointment, getAppointments } from "../../services/appointmentService";
 import "../../assets/css/components/patient-form.css";
 
 const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
   const [patients, setPatients] = useState([]);
   const [doctors, setDoctors] = useState([]);
+  const [appointments, setAppointments] = useState([]);
 
   const [form, setForm] = useState({
     firstName: "",
@@ -25,6 +27,7 @@ const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
   useEffect(() => {
     loadPatients();
     loadDoctors();
+    loadAppointments();
   }, []);
 
   useEffect(() => {
@@ -52,10 +55,18 @@ const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
     setDoctors(res.data);
   };
 
+  const loadAppointments = async () => {
+    const res = await getAppointments();
+    setAppointments(res.data);
+  };
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  /* ======================
+     PATIENT ID GENERATOR
+  ======================= */
   const generatePatientId = () => {
     const year = new Date().getFullYear();
     const patOnly = patients.filter(p => p.id?.startsWith("PAT-"));
@@ -64,11 +75,27 @@ const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
       return `PAT-${year}-0001`;
     }
 
-    const lastPatient = patOnly[patOnly.length - 1];
-    const lastNumber = Number(lastPatient.id.split("-")[2]);
-    const nextNumber = isNaN(lastNumber) ? 1 : lastNumber + 1;
+    const last = patOnly[patOnly.length - 1];
+    const num = Number(last.id.split("-")[2]) + 1;
 
-    return `PAT-${year}-${String(nextNumber).padStart(4, "0")}`;
+    return `PAT-${year}-${String(num).padStart(4, "0")}`;
+  };
+
+  /* ======================
+     APPOINTMENT ID GENERATOR
+  ======================= */
+  const generateAppointmentId = () => {
+    const year = new Date().getFullYear();
+    const aptOnly = appointments.filter(a => a.id?.startsWith(`APT-${year}`));
+
+    if (aptOnly.length === 0) {
+      return `APT-${year}-0001`;
+    }
+
+    const last = aptOnly[aptOnly.length - 1];
+    const num = Number(last.id.split("-")[2]) + 1;
+
+    return `APT-${year}-${String(num).padStart(4, "0")}`;
   };
 
   const handleSubmit = async (e) => {
@@ -83,14 +110,39 @@ const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
       });
       clearEdit();
     } else {
+      /* ======================
+         1️⃣ CREATE WALK-IN PATIENT
+      ======================= */
+      const patientId = generatePatientId();
+
       await addPatient({
-        id: generatePatientId(),
+        id: patientId,
         ...form,
-        status: "CONFIRMED", // ✅ FIXED: walk-in patient
+        status: "CONFIRMED",
+        source: "WALKIN",
+        createdAt: new Date().toISOString()
+      });
+
+      /* ======================
+         2️⃣ CREATE REAL APPOINTMENT
+      ======================= */
+      const doctor = doctors.find(d => d.name === form.doctorName);
+
+      await addAppointment({
+        id: generateAppointmentId(),
+        patientId,
+        patientName: `${form.firstName} ${form.lastName}`,
+        doctorId: doctor?.id || "",
+        doctorName: form.doctorName,
+        date: new Date().toISOString().split("T")[0],
+        time: form.timing,
+        status: "CONFIRMED",
+        source: "WALKIN",
         createdAt: new Date().toISOString()
       });
 
       await loadPatients();
+      await loadAppointments();
     }
 
     onSuccess();
