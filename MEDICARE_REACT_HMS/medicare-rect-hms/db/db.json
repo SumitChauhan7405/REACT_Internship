@@ -382,28 +382,20 @@
   ],
   "surgeries": [
     {
-      "id": "SUR-4001",
-      "patientId": null,
-      "type": "Angioplasty",
-      "date": "2025-01-15",
-      "status": "COMPLETED",
-      "notes": "Surgery successful, patient stable"
-    },
-    {
-      "id": "SUR-2026-1767586783151",
-      "consultationId": "CON-2026-1767583497105",
-      "patientId": null,
-      "patientName": "Tate Yates",
+      "id": "SUR-2026-0001",
+      "consultationId": "CON-2026-0001",
+      "patientId": "PAT-2026-0002",
+      "patientName": "Joelle Franklin",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
-      "department": "Ad consequat Placea",
-      "surgeryType": "Iste ad nostrum veri",
-      "scheduledDate": "2024-04-19",
-      "scheduledTime": "22:46",
-      "operationTheatre": "Laboris veritatis po",
-      "status": "CANCELLED",
-      "notes": "Similique maiores er",
-      "createdAt": "2026-01-05T04:19:43.151Z"
+      "department": "Exercitationem paria",
+      "surgeryType": "Ut reprehenderit mol",
+      "scheduledDate": "2007-09-07",
+      "scheduledTime": "20:10",
+      "operationTheatre": "Laboriosam qui obca",
+      "status": "SCHEDULED",
+      "notes": "Aliquip ipsum esse ",
+      "createdAt": "2026-01-07T17:35:36.574Z"
     }
   ],
   "bills": [

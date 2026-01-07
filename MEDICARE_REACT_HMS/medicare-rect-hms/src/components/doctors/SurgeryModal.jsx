@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
-import { addSurgery } from "../../services/surgeryService";
+import {
+  addSurgery,
+  getSurgeries
+} from "../../services/surgeryService";
 import "../../assets/css/components/surgery-modal.css";
 
 const SurgeryModal = ({
@@ -48,6 +51,28 @@ const SurgeryModal = ({
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  /* ======================
+     SURGERY ID NORMALIZER
+  ======================= */
+  const generateSurgeryId = async () => {
+    const year = new Date().getFullYear();
+    const res = await getSurgeries();
+
+    const surOnly = res.data.filter(
+      (s) => s.id && s.id.startsWith(`SUR-${year}-`)
+    );
+
+    if (surOnly.length === 0) {
+      return `SUR-${year}-0001`;
+    }
+
+    const last = surOnly[surOnly.length - 1];
+    const lastNum = Number(last.id.split("-")[2]) || 0;
+    const next = lastNum + 1;
+
+    return `SUR-${year}-${String(next).padStart(4, "0")}`;
+  };
+
   const handleSave = async () => {
     // 🔐 BASIC VALIDATION
     if (
@@ -61,8 +86,10 @@ const SurgeryModal = ({
       return;
     }
 
+    const surgeryId = await generateSurgeryId();
+
     await addSurgery({
-      id: `SUR-${new Date().getFullYear()}-${Date.now()}`,
+      id: surgeryId,
 
       consultationId: consultation.id,
 
