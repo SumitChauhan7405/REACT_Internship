@@ -5,13 +5,11 @@ import {
   updatePatient
 } from "../../services/patientService";
 import { getDoctors } from "../../services/doctorService";
-import { addAppointment, getAppointments } from "../../services/appointmentService";
 import "../../assets/css/components/patient-form.css";
 
 const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
   const [patients, setPatients] = useState([]);
   const [doctors, setDoctors] = useState([]);
-  const [appointments, setAppointments] = useState([]);
 
   const [form, setForm] = useState({
     firstName: "",
@@ -27,7 +25,6 @@ const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
   useEffect(() => {
     loadPatients();
     loadDoctors();
-    loadAppointments();
   }, []);
 
   useEffect(() => {
@@ -55,11 +52,6 @@ const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
     setDoctors(res.data);
   };
 
-  const loadAppointments = async () => {
-    const res = await getAppointments();
-    setAppointments(res.data);
-  };
-
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -81,23 +73,6 @@ const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
     return `PAT-${year}-${String(num).padStart(4, "0")}`;
   };
 
-  /* ======================
-     APPOINTMENT ID GENERATOR
-  ======================= */
-  const generateAppointmentId = () => {
-    const year = new Date().getFullYear();
-    const aptOnly = appointments.filter(a => a.id?.startsWith(`APT-${year}`));
-
-    if (aptOnly.length === 0) {
-      return `APT-${year}-0001`;
-    }
-
-    const last = aptOnly[aptOnly.length - 1];
-    const num = Number(last.id.split("-")[2]) + 1;
-
-    return `APT-${year}-${String(num).padStart(4, "0")}`;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -111,38 +86,17 @@ const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
       clearEdit();
     } else {
       /* ======================
-         1️⃣ CREATE WALK-IN PATIENT
+         CREATE WALK-IN PATIENT ONLY
       ======================= */
-      const patientId = generatePatientId();
-
       await addPatient({
-        id: patientId,
+        id: generatePatientId(),
         ...form,
         status: "CONFIRMED",
         source: "WALKIN",
         createdAt: new Date().toISOString()
       });
 
-      /* ======================
-         2️⃣ CREATE REAL APPOINTMENT
-      ======================= */
-      const doctor = doctors.find(d => d.name === form.doctorName);
-
-      await addAppointment({
-        id: generateAppointmentId(),
-        patientId,
-        patientName: `${form.firstName} ${form.lastName}`,
-        doctorId: doctor?.id || "",
-        doctorName: form.doctorName,
-        date: new Date().toISOString().split("T")[0],
-        time: form.timing,
-        status: "CONFIRMED",
-        source: "WALKIN",
-        createdAt: new Date().toISOString()
-      });
-
       await loadPatients();
-      await loadAppointments();
     }
 
     onSuccess();

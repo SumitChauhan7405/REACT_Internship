@@ -53,7 +53,29 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
   };
 
   /* ======================
-     SAVE LAB TEST (FIXED)
+     🔢 NORMALIZED LAB ID
+  ======================= */
+  const generateLabTestId = async () => {
+    const year = new Date().getFullYear();
+    const res = await axios.get("http://localhost:5000/labTests");
+
+    const labOnly = res.data.filter(
+      (l) => l.id && l.id.startsWith(`LAB-${year}-`)
+    );
+
+    if (labOnly.length === 0) {
+      return `LAB-${year}-0001`;
+    }
+
+    const last = labOnly[labOnly.length - 1];
+    const lastNum = Number(last.id.split("-")[2]) || 0;
+    const next = lastNum + 1;
+
+    return `LAB-${year}-${String(next).padStart(4, "0")}`;
+  };
+
+  /* ======================
+     SAVE LAB TEST
   ======================= */
   const handleSave = async () => {
     if (selectedTests.length === 0) {
@@ -61,12 +83,8 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
       return;
     }
 
-    // ✅ IMPORTANT:
-    // Do NOT create consultation if it does not exist
-    // TEMP consultationId is allowed ONLY for labTests
-
     if (labTest) {
-      // Update existing lab test
+      // Update existing
       await axios.patch(
         `http://localhost:5000/labTests/${labTest.id}`,
         {
@@ -76,10 +94,12 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
         }
       );
     } else {
-      // Create new lab test ONLY
+      // Create new with normalized ID
+      const newId = await generateLabTestId();
+
       await axios.post("http://localhost:5000/labTests", {
-        id: `LAB-${new Date().getFullYear()}-${Date.now()}`,
-        consultationId: consultation.id, // TEMP or REAL – both allowed
+        id: newId,
+        consultationId: consultation.id,
         patientId: patient.id,
         patientName: `${patient.firstName} ${patient.lastName}`,
         doctorId: consultation.doctorId,
@@ -112,7 +132,6 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
           </p>
         </div>
 
-        {/* 🔽 DROPDOWN */}
         <div className="lab-dropdown">
           <button
             type="button"
@@ -141,7 +160,6 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
           )}
         </div>
 
-        {/* 🧪 DOCTOR LAB RESULTS */}
         {consultation?.id && (
           <DoctorLabTests consultationId={consultation.id} />
         )}

@@ -1,46 +1,88 @@
 {
   "patients": [
     {
-      "id": "PAT-2026-0001",
-      "firstName": "Fallon",
-      "lastName": "Mays",
+      "id": "PAT-2026-0002",
+      "firstName": "Joelle",
+      "lastName": "Franklin",
       "gender": "Male",
-      "age": "87",
-      "phone": "+1 (266) 965-8763",
-      "bloodGroup": "A+",
+      "age": "93",
+      "phone": "+1 (745) 275-3147",
+      "bloodGroup": "AB-",
       "doctorName": "Dr. Namra Pithwa",
-      "timing": "10:12",
+      "timing": "18:11",
       "status": "CONFIRMED",
       "source": "ONLINE",
-      "createdAt": "2026-01-06T10:52:01.006Z"
-    },
-    {
-      "id": "PAT-2026-0002",
-      "firstName": "Violet",
-      "lastName": "Dickson",
-      "gender": "Other",
-      "age": "55",
-      "phone": "+1 (695) 232-3181",
-      "bloodGroup": "A+",
-      "doctorName": "Dr.Parth Vipulbhai Chavda",
-      "timing": "21:05",
-      "status": "CONFIRMED",
-      "source": "WALKIN",
-      "createdAt": "2026-01-06T10:52:30.386Z"
+      "createdAt": "2026-01-07T11:48:25.426Z"
     },
     {
       "id": "PAT-2026-0003",
-      "firstName": "Xyla",
-      "lastName": "Gilliam",
-      "gender": "Male",
-      "age": "65",
-      "phone": "+1 (473) 947-3563",
-      "bloodGroup": "A+",
+      "firstName": "Maggy",
+      "lastName": "Crawford",
+      "gender": "Female",
+      "age": "48",
+      "phone": "+1 (514) 642-4094",
+      "bloodGroup": "AB+",
       "doctorName": "Dr. Namra Pithwa",
-      "timing": "15:29",
+      "timing": "12:12",
       "status": "CONFIRMED",
       "source": "WALKIN",
-      "createdAt": "2026-01-06T11:02:52.418Z"
+      "createdAt": "2026-01-07T11:54:48.499Z"
+    },
+    {
+      "id": "PAT-2026-0004",
+      "firstName": "Alice",
+      "lastName": "Massey",
+      "gender": "Male",
+      "age": "17",
+      "phone": "+1 (541) 652-8784",
+      "bloodGroup": "B-",
+      "doctorName": "Dr. Meet Kacha",
+      "timing": "11:24",
+      "status": "CONFIRMED",
+      "source": "WALKIN",
+      "createdAt": "2026-01-07T12:02:22.800Z"
+    },
+    {
+      "id": "PAT-2026-0005",
+      "firstName": "Mira",
+      "lastName": "Tillman",
+      "gender": "Male",
+      "age": "63",
+      "phone": "+1 (982) 548-3825",
+      "bloodGroup": "O+",
+      "doctorName": "Dr. Krisha Patel",
+      "timing": "22:44",
+      "status": "CONFIRMED",
+      "source": "WALKIN",
+      "createdAt": "2026-01-07T12:02:48.847Z"
+    },
+    {
+      "id": "PAT-2026-0006",
+      "firstName": "Abdul",
+      "lastName": "Guy",
+      "gender": "Other",
+      "age": "49",
+      "phone": "+1 (399) 694-7312",
+      "bloodGroup": "B-",
+      "doctorName": "Dr. Meet Kacha",
+      "timing": "16:25",
+      "status": "CONFIRMED",
+      "source": "ONLINE",
+      "createdAt": "2026-01-07T12:05:15.454Z"
+    },
+    {
+      "id": "PAT-2026-0007",
+      "firstName": "Ava",
+      "lastName": "Dyer",
+      "gender": "Other",
+      "age": "21",
+      "phone": "+1 (159) 808-2244",
+      "bloodGroup": "AB-",
+      "doctorName": "Dr. Krisha Patel",
+      "timing": "09:12",
+      "status": "CONFIRMED",
+      "source": "ONLINE",
+      "createdAt": "2026-01-07T12:05:18.300Z"
     }
   ],
   "doctors": [
@@ -166,55 +208,88 @@
   "appointments": [
     {
       "id": "APT-2026-0001",
-      "firstName": "Fallon",
-      "lastName": "Mays",
+      "firstName": "Joelle",
+      "lastName": "Franklin",
       "gender": "Male",
-      "age": "87",
-      "phone": "+1 (266) 965-8763",
-      "bloodGroup": "A+",
+      "age": "93",
+      "phone": "+1 (745) 275-3147",
+      "bloodGroup": "AB-",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
-      "date": "1995-02-12",
-      "time": "10:12",
+      "date": "1987-02-25",
+      "time": "18:11",
       "status": "CONFIRMED",
       "source": "ONLINE",
-      "createdAt": "2026-01-06T10:51:42.435Z",
-      "patientId": "PAT-2026-0001",
-      "patientName": "Fallon Mays"
+      "createdAt": "2026-01-07T11:48:18.815Z",
+      "patientId": "PAT-2026-0002",
+      "patientName": "Joelle Franklin"
     },
     {
       "id": "APT-2026-0002",
-      "patientId": "PAT-2026-0002",
-      "patientName": "Violet Dickson",
-      "doctorId": "DOC-004",
-      "doctorName": "Dr.Parth Vipulbhai Chavda",
-      "date": "2026-01-06",
-      "time": "21:05",
+      "firstName": "Abdul",
+      "lastName": "Guy",
+      "gender": "Other",
+      "age": "49",
+      "phone": "+1 (399) 694-7312",
+      "bloodGroup": "B-",
+      "doctorId": "DOC-005",
+      "doctorName": "Dr. Meet Kacha",
+      "date": "2012-01-11",
+      "time": "16:25",
       "status": "CONFIRMED",
-      "source": "WALKIN",
-      "createdAt": "2026-01-06T10:52:30.408Z"
+      "source": "ONLINE",
+      "createdAt": "2026-01-07T12:03:11.778Z",
+      "patientId": "PAT-2026-0006",
+      "patientName": "Abdul Guy"
     },
     {
       "id": "APT-2026-0003",
-      "patientId": "PAT-2026-0003",
-      "patientName": "Xyla Gilliam",
-      "doctorId": "DOC-003",
-      "doctorName": "Dr. Namra Pithwa",
-      "date": "2026-01-06",
-      "time": "15:29",
+      "firstName": "Ava",
+      "lastName": "Dyer",
+      "gender": "Other",
+      "age": "21",
+      "phone": "+1 (159) 808-2244",
+      "bloodGroup": "AB-",
+      "doctorId": "DOC-006",
+      "doctorName": "Dr. Krisha Patel",
+      "date": "1993-04-15",
+      "time": "09:12",
       "status": "CONFIRMED",
-      "source": "WALKIN",
-      "createdAt": "2026-01-06T11:02:52.445Z"
+      "source": "ONLINE",
+      "createdAt": "2026-01-07T12:03:53.370Z",
+      "patientId": "PAT-2026-0007",
+      "patientName": "Ava Dyer"
     }
   ],
   "consultations": [
+    {
+      "appointmentId": "APT-2026-0001",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "patientId": "PAT-2026-0002",
+      "patientName": "Joelle Franklin",
+      "diagnosis": "Leg Broken & Cold",
+      "consultation": "Do not walk & eat cold items",
+      "medicines": [
+        {
+          "name": "ABC",
+          "dosage": "0-0-1"
+        },
+        {
+          "name": "DEF",
+          "dosage": "1-0-1"
+        }
+      ],
+      "createdAt": "2026-01-07T12:01:20.704Z",
+      "id": "CON-2026-0001"
+    }
   ],
   "labTests": [
     {
-      "id": "LAB-2026-1767698788616",
+      "id": "LAB-2026-0001",
       "consultationId": "CON-2026-0001",
-      "patientId": "PAT-2026-0001",
-      "patientName": "Fallon Mays",
+      "patientId": "PAT-2026-0002",
+      "patientName": "Joelle Franklin",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
       "tests": [
@@ -222,46 +297,77 @@
       ],
       "results": [],
       "status": "PENDING",
-      "createdAt": "2026-01-06T11:26:28.616Z"
+      "createdAt": "2026-01-07T12:24:03.102Z"
+    },
+    {
+      "id": "LAB-2026-0002",
+      "consultationId": "CON-WALKIN-PAT-2026-0003",
+      "patientId": "PAT-2026-0003",
+      "patientName": "Maggy Crawford",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "tests": [
+        "CBC"
+      ],
+      "results": [],
+      "status": "PENDING",
+      "createdAt": "2026-01-07T12:57:34.239Z"
     }
   ],
-  "admissions": [],
+  "admissions": [
+    {
+      "id": "ADM-001",
+      "patientId": "PAT-2026-0006",
+      "patientName": "Abdul Guy",
+      "doctorName": "Dr. Meet Kacha",
+      "roomId": "ROOM-001",
+      "roomNumber": "101",
+      "roomType": "GENERAL",
+      "admissionDate": "2026-01-07",
+      "status": "ADMITTED"
+    },
+    {
+      "id": "ADM-002",
+      "patientId": "PAT-2026-0005",
+      "patientName": "Mira Tillman",
+      "doctorName": "Dr. Krisha Patel",
+      "roomId": "ROOM-004",
+      "roomNumber": "301",
+      "roomType": "PRIVATE",
+      "admissionDate": "2026-01-07",
+      "status": "ADMITTED"
+    }
+  ],
   "rooms": [
     {
       "id": "ROOM-001",
       "roomNumber": "101",
-      "type": "General",
+      "type": "GENERAL",
       "status": "OCCUPIED"
     },
     {
       "id": "ROOM-002",
       "roomNumber": "102",
-      "type": "General",
+      "type": "GENERAL",
       "status": "AVAILABLE"
     },
     {
       "id": "ROOM-003",
       "roomNumber": "201",
-      "type": "Private",
+      "type": "DELUXE",
       "status": "AVAILABLE"
     },
     {
       "id": "ROOM-004",
       "roomNumber": "301",
-      "type": "ICU",
-      "status": "AVAILABLE"
+      "type": "PRIVATE",
+      "status": "OCCUPIED"
     },
     {
       "id": "ROOM-005",
       "roomNumber": "401",
-      "type": "DELUXE",
-      "status": "AVAILABLE"
-    },
-    {
-      "id": "ROOM-006",
-      "roomNumber": "501",
       "type": "ICU",
-      "status": "OCCUPIED"
+      "status": "AVAILABLE"
     }
   ],
   "vitals": [

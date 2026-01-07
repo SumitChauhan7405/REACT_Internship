@@ -11,6 +11,7 @@ import "../../assets/css/components/patient-table.css";
 const DoctorAppointments = () => {
   const { user } = useAuth();
   const doctorId = user?.data?.id;
+  const doctorName = user?.data?.name;
 
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState([]);
@@ -31,7 +32,7 @@ const DoctorAppointments = () => {
   const [surgeryConsultation, setSurgeryConsultation] = useState(null);
 
   /* ======================
-     LOAD DATA (CLEAN + FINAL)
+     LOAD DATA (ONLINE + WALK-IN)
   ======================= */
   const loadAppointments = useCallback(async () => {
     if (!doctorId) return;
@@ -42,15 +43,37 @@ const DoctorAppointments = () => {
       axios.get("http://localhost:5000/consultations")
     ]);
 
-    // ✅ Only REAL appointments
-    const myAppointments = aptRes.data.filter(
+    // ✅ 1️⃣ ONLINE APPOINTMENTS (REAL)
+    const onlineAppointments = aptRes.data.filter(
       (apt) => apt.doctorId === doctorId
     );
 
-    setAppointments(myAppointments);
+    // 🆕 2️⃣ WALK-IN PATIENTS (NO APPOINTMENT RECORD)
+    const walkInPatients = patRes.data.filter(
+      (p) =>
+        p.doctorName === doctorName &&
+        p.status === "CONFIRMED" &&
+        !onlineAppointments.some((a) => a.patientId === p.id)
+    );
+
+    // 🆕 3️⃣ CONVERT WALK-INS → UI-ONLY APPOINTMENTS
+    const walkInAsAppointments = walkInPatients.map((p) => ({
+      id: `WALKIN-${p.id}`,
+      patientId: p.id,
+      patientName: `${p.firstName} ${p.lastName}`,
+      doctorId,
+      doctorName,
+      date: new Date().toISOString().split("T")[0],
+      time: p.timing || "--",
+      status: "CONFIRMED",
+      isWalkIn: true
+    }));
+
+    // 🆕 4️⃣ MERGE BOTH
+    setAppointments([...onlineAppointments, ...walkInAsAppointments]);
     setPatients(patRes.data);
     setConsultations(conRes.data);
-  }, [doctorId]);
+  }, [doctorId, doctorName]);
 
   useEffect(() => {
     loadAppointments();
@@ -94,7 +117,7 @@ const DoctorAppointments = () => {
 
     setSelectedConsultation(
       consultation || {
-        id: `TEMP-${apt.id}`,
+        id: `CON-${apt.id}`,
         appointmentId: apt.id,
         patientId: apt.patientId,
         doctorId: apt.doctorId,
