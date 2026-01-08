@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { getSurgeriesByDoctor } from "../../services/surgeryService";
 import "../../assets/css/components/surgeries.css";
@@ -11,19 +11,48 @@ const DoctorSurgeries = () => {
   const [loading, setLoading] = useState(true);
 
   /* ======================
-     LOAD SURGERIES
+     SORT SURGERIES
   ======================= */
-  useEffect(() => {
+  const sortSurgeries = (list) => {
+    return [...list].sort((a, b) => {
+      const dateA = new Date(`${a.scheduledDate} ${a.scheduledTime}`);
+      const dateB = new Date(`${b.scheduledDate} ${b.scheduledTime}`);
+      return dateA - dateB;
+    });
+  };
+
+  /* ======================
+     LOAD SURGERIES (FIXED)
+  ======================= */
+  const loadSurgeries = useCallback(async () => {
     if (!doctorId) return;
 
-    const loadSurgeries = async () => {
-      const data = await getSurgeriesByDoctor(doctorId);
-      setSurgeries(data);
-      setLoading(false);
+    const data = await getSurgeriesByDoctor(doctorId);
+    setSurgeries(sortSurgeries(data));
+    setLoading(false);
+  }, [doctorId]);
+
+  /* ======================
+     INITIAL LOAD
+  ======================= */
+  useEffect(() => {
+    loadSurgeries();
+  }, [loadSurgeries]);
+
+  /* ======================
+     AUTO REFRESH ON TAB FOCUS
+  ======================= */
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") {
+        loadSurgeries();
+      }
     };
 
-    loadSurgeries();
-  }, [doctorId]);
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () =>
+      document.removeEventListener("visibilitychange", handleVisibility);
+  }, [loadSurgeries]);
 
   if (loading) {
     return <p>Loading surgeries...</p>;

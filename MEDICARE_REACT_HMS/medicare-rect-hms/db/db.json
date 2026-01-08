@@ -83,6 +83,20 @@
       "status": "CONFIRMED",
       "source": "ONLINE",
       "createdAt": "2026-01-07T12:05:18.300Z"
+    },
+    {
+      "id": "PAT-2026-0008",
+      "firstName": "Jameson",
+      "lastName": "Rogers",
+      "gender": "Other",
+      "age": "40",
+      "phone": "+1 (797) 458-1589",
+      "bloodGroup": "A+",
+      "doctorName": "Dr. Namra Pithwa",
+      "timing": "02:06",
+      "status": "CONFIRMED",
+      "source": "ONLINE",
+      "createdAt": "2026-01-08T11:50:18.012Z"
     }
   ],
   "doctors": [
@@ -259,29 +273,94 @@
       "createdAt": "2026-01-07T12:03:53.370Z",
       "patientId": "PAT-2026-0007",
       "patientName": "Ava Dyer"
+    },
+    {
+      "id": "APT-2026-0004",
+      "firstName": "Jameson",
+      "lastName": "Rogers",
+      "gender": "Other",
+      "age": "40",
+      "phone": "+1 (797) 458-1589",
+      "bloodGroup": "A+",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "date": "1982-09-08",
+      "time": "02:06",
+      "status": "CONFIRMED",
+      "source": "ONLINE",
+      "createdAt": "2026-01-08T11:50:10.297Z",
+      "patientId": "PAT-2026-0008",
+      "patientName": "Jameson Rogers"
     }
   ],
   "consultations": [
     {
+      "id": "CON-2026-0001",
       "appointmentId": "APT-2026-0001",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
       "patientId": "PAT-2026-0002",
       "patientName": "Joelle Franklin",
-      "diagnosis": "Leg Broken & Cold",
-      "consultation": "Do not walk & eat cold items",
+      "diagnosis": "Fugiat sint et ull",
+      "consultation": "Iste soluta dolorum ",
       "medicines": [
         {
-          "name": "ABC",
-          "dosage": "0-0-1"
-        },
-        {
-          "name": "DEF",
-          "dosage": "1-0-1"
+          "name": "Illo adipisicing exe",
+          "dosage": "Dicta exercitation a"
         }
       ],
-      "createdAt": "2026-01-07T12:01:20.704Z",
-      "id": "CON-2026-0001"
+      "createdAt": "2026-01-08T11:48:48.524Z"
+    },
+    {
+      "id": "CON-2026-0002",
+      "appointmentId": "WALKIN-PAT-2026-0003",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "patientId": "PAT-2026-0003",
+      "patientName": "Maggy Crawford",
+      "diagnosis": "Sed ab in omnis expl",
+      "consultation": "Mollitia nulla culpa",
+      "medicines": [
+        {
+          "name": "Consequatur recusand",
+          "dosage": "Aut et sed eaque eni"
+        }
+      ],
+      "createdAt": "2026-01-08T11:49:04.215Z"
+    },
+    {
+      "id": "CON-2026-0003",
+      "appointmentId": "APT-2026-0004",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "patientId": "PAT-2026-0008",
+      "patientName": "Jameson Rogers",
+      "diagnosis": "Eius pariatur Dolor",
+      "consultation": "Laboris ab iusto ull",
+      "medicines": [
+        {
+          "name": "Provident nihil ull",
+          "dosage": "Consequatur Nulla v"
+        }
+      ],
+      "createdAt": "2026-01-08T11:52:32.510Z"
+    },
+    {
+      "id": "CON-2026-0004",
+      "appointmentId": "APT-2026-0002",
+      "doctorId": "DOC-005",
+      "doctorName": "Dr. Meet Kacha",
+      "patientId": "PAT-2026-0006",
+      "patientName": "Abdul Guy",
+      "diagnosis": "Pariatur Enim volup",
+      "consultation": "Odio ut voluptates q",
+      "medicines": [
+        {
+          "name": "Quae deserunt et min",
+          "dosage": "Magnam enim consequu"
+        }
+      ],
+      "createdAt": "2026-01-08T11:54:13.921Z"
     }
   ],
   "labTests": [
@@ -295,23 +374,14 @@
       "tests": [
         "Blood Sugar"
       ],
-      "results": [],
-      "status": "PENDING",
-      "createdAt": "2026-01-07T12:24:03.102Z"
-    },
-    {
-      "id": "LAB-2026-0002",
-      "consultationId": "CON-WALKIN-PAT-2026-0003",
-      "patientId": "PAT-2026-0003",
-      "patientName": "Maggy Crawford",
-      "doctorId": "DOC-003",
-      "doctorName": "Dr. Namra Pithwa",
-      "tests": [
-        "CBC"
+      "results": [
+        {
+          "testName": "Blood Sugar",
+          "result": "Normal"
+        }
       ],
-      "results": [],
-      "status": "PENDING",
-      "createdAt": "2026-01-07T12:57:34.239Z"
+      "status": "COMPLETED",
+      "createdAt": "2026-01-07T12:24:03.102Z"
     }
   ],
   "admissions": [
@@ -388,14 +458,46 @@
       "patientName": "Joelle Franklin",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
-      "department": "Exercitationem paria",
-      "surgeryType": "Ut reprehenderit mol",
-      "scheduledDate": "2007-09-07",
-      "scheduledTime": "20:10",
-      "operationTheatre": "Laboriosam qui obca",
+      "department": "Quae autem quo in qu",
+      "surgeryType": "Eos est et et et",
+      "scheduledDate": "2014-06-07",
+      "scheduledTime": "10:52",
+      "operationTheatre": "Molestiae vitae volu",
       "status": "SCHEDULED",
-      "notes": "Aliquip ipsum esse ",
-      "createdAt": "2026-01-07T17:35:36.574Z"
+      "notes": "Neque iste provident",
+      "createdAt": "2026-01-08T11:49:54.212Z"
+    },
+    {
+      "id": "SUR-2026-0002",
+      "consultationId": "CON-2026-0002",
+      "patientId": "PAT-2026-0003",
+      "patientName": "Maggy Crawford",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "department": "Dignissimos sit nost",
+      "surgeryType": "Nobis reiciendis qui",
+      "scheduledDate": "1993-10-14",
+      "scheduledTime": "17:56",
+      "operationTheatre": "Doloremque sequi sit",
+      "status": "SCHEDULED",
+      "notes": "Nobis error illo tem",
+      "createdAt": "2026-01-08T11:52:50.043Z"
+    },
+    {
+      "id": "SUR-2026-0003",
+      "consultationId": "CON-2026-0004",
+      "patientId": "PAT-2026-0006",
+      "patientName": "Abdul Guy",
+      "doctorId": "DOC-005",
+      "doctorName": "Dr. Meet Kacha",
+      "department": "Aliqua Omnis dolor ",
+      "surgeryType": "Rem omnis id molest",
+      "scheduledDate": "2019-03-21",
+      "scheduledTime": "02:35",
+      "operationTheatre": "Nisi nulla et in nos",
+      "status": "SCHEDULED",
+      "notes": "Dolores quis et sint",
+      "createdAt": "2026-01-08T11:54:40.275Z"
     }
   ],
   "bills": [

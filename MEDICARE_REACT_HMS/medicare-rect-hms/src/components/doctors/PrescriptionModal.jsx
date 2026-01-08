@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import {
   addConsultation,
   updateConsultation,
-  getConsultations
+  getAllConsultations
 } from "../../services/consultationService";
 import "../../assets/css/components/prescription-modal.css";
 
-/* ✅ FIX: always return a fresh object */
+/* ✅ Always return a fresh object */
 const getEmptyForm = () => ({
   diagnosis: "",
   consultation: "",
@@ -24,6 +24,30 @@ const PrescriptionModal = ({
   refreshAppointments
 }) => {
   const [form, setForm] = useState(getEmptyForm());
+  const [lastConsultationNumber, setLastConsultationNumber] = useState(0);
+
+  /* ======================
+     LOAD CONSULTATION COUNTER (GLOBAL)
+  ======================= */
+  useEffect(() => {
+    if (!open || mode !== "ADD") return;
+
+    const loadCounter = async () => {
+      const year = new Date().getFullYear();
+      const res = await getAllConsultations();
+
+      const nums = res.data
+        .filter((c) => c.id?.startsWith(`CON-${year}-`))
+        .map((c) => Number(c.id.split("-")[2]))
+        .filter((n) => !isNaN(n));
+
+      setLastConsultationNumber(
+        nums.length > 0 ? Math.max(...nums) : 0
+      );
+    };
+
+    loadCounter();
+  }, [open, mode]);
 
   /* ======================
      RESET / PREFILL
@@ -35,7 +59,6 @@ const PrescriptionModal = ({
       setForm(getEmptyForm());
     }
 
-    // ✅ FIX: prescription removed manually from db.json
     if (mode === "EDIT" && !existingPrescription) {
       setForm(getEmptyForm());
     }
@@ -83,29 +106,7 @@ const PrescriptionModal = ({
   };
 
   /* ======================
-     NORMALIZED CONSULTATION ID
-  ======================= */
-  const generateConsultationId = async () => {
-    const year = new Date().getFullYear();
-    const res = await getConsultations();
-
-    const consOnly = res.data.filter(
-      (c) => c.id && c.id.startsWith(`CON-${year}-`)
-    );
-
-    if (consOnly.length === 0) {
-      return `CON-${year}-0001`;
-    }
-
-    const last = consOnly[consOnly.length - 1];
-    const lastNum = Number(last.id.split("-")[2]) || 0;
-    const next = lastNum + 1;
-
-    return `CON-${year}-${String(next).padStart(4, "0")}`;
-  };
-
-  /* ======================
-     SUBMIT
+     SUBMIT (SAFE + INCREMENTAL)
   ======================= */
   const handleSubmit = async () => {
     const consultationPayload = {
@@ -123,11 +124,15 @@ const PrescriptionModal = ({
     if (mode === "EDIT" && existingPrescription) {
       await updateConsultation(existingPrescription.id, consultationPayload);
     } else {
-      const newId = await generateConsultationId();
+      const year = new Date().getFullYear();
+      const nextNumber = lastConsultationNumber + 1;
+
       await addConsultation({
-        id: newId,
+        id: `CON-${year}-${String(nextNumber).padStart(4, "0")}`,
         ...consultationPayload
       });
+
+      setLastConsultationNumber(nextNumber);
     }
 
     await refreshAppointments();
@@ -140,10 +145,7 @@ const PrescriptionModal = ({
   ======================= */
   return (
     <div className="prescription-backdrop" onClick={onClose}>
-      <div
-        className="prescription-card"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="prescription-card" onClick={(e) => e.stopPropagation()}>
         <h5>Prescription</h5>
 
         <div className="form-grid">
@@ -185,12 +187,10 @@ const PrescriptionModal = ({
                 handleMedicineChange(i, "dosage", e.target.value)
               }
             />
-
             <button
               type="button"
               className="icon-btn delete"
               onClick={() => removeMedicineRow(i)}
-              title="Remove Medicine"
             >
               <i className="bi bi-trash-fill"></i>
             </button>

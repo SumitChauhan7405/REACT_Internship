@@ -73,6 +73,16 @@ const SurgeryModal = ({
     return `SUR-${year}-${String(next).padStart(4, "0")}`;
   };
 
+  /* ======================
+     🆕 CHECK EXISTING SURGERY
+  ======================= */
+  const checkExistingSurgery = async () => {
+    const res = await getSurgeries();
+    return res.data.some(
+      (s) => s.consultationId === consultation.id
+    );
+  };
+
   const handleSave = async () => {
     // 🔐 BASIC VALIDATION
     if (
@@ -83,6 +93,15 @@ const SurgeryModal = ({
       !form.operationTheatre
     ) {
       alert("Please fill all required fields");
+      return;
+    }
+
+    /* ======================
+       🛑 PREVENT DUPLICATE SURGERY
+    ======================= */
+    const alreadyExists = await checkExistingSurgery();
+    if (alreadyExists) {
+      alert("Surgery is already scheduled for this consultation");
       return;
     }
 
