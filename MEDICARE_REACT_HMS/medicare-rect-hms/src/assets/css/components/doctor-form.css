@@ -1,12 +1,12 @@
 /* ===============================
-   DOCTOR FORM – SIMPLE & CLEAN
+   DOCTOR FORM – CLEAN & FIXED
 ================================ */
 
 .doctor-form-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
-  padding: 16px;
+  padding: 20px;
   margin-bottom: 20px;
 }
 
@@ -20,17 +20,21 @@
   margin-bottom: 16px;
 }
 
+/* ===============================
+   GRID
+================================ */
+
 .doctor-form-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 18px;
 }
 
 .doctor-form-grid label {
   font-size: 13px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   display: block;
-  color: black;
+  color: #111827;
 }
 
 .doctor-form-grid input,
@@ -42,25 +46,71 @@
   font-size: 14px;
 }
 
-.opd-item {
+/* ===============================
+   AVAILABLE DAYS (SPACING FIX ✅)
+================================ */
+
+.available-days {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 6px;
-  font-size: 14px;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 12px; /* ✅ MORE SPACE FROM LABEL */
 }
+
+.available-day-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* ✅ SPACE BETWEEN CHECKBOX & TEXT */
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.available-day-item input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+}
+
+/* ===============================
+   OPD TIMINGS (SPACING FIX ✅)
+================================ */
+
+.opd-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 12px; /* ✅ MORE SPACE FROM LABEL */
+}
+
+.opd-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* ✅ SPACE BETWEEN CHECKBOX & TEXT */
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.opd-option input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+}
+
+/* ===============================
+   ACTIONS
+================================ */
 
 .doctor-form-actions {
   grid-column: span 3;
   text-align: right;
-  margin-top: 10px;
+  margin-top: 14px;
 }
 
 .doctor-form-actions button {
   background: #2563eb;
   color: #ffffff;
   border: none;
-  padding: 8px 14px;
+  padding: 8px 16px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
@@ -70,24 +120,27 @@
   margin-right: 6px;
 }
 
-.opd-container {
-  margin-top: 6px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* ===============================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 1024px) {
+  .doctor-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .doctor-form-actions {
+    grid-column: span 2;
+  }
 }
 
-.opd-option {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-}
+@media (max-width: 640px) {
+  .doctor-form-grid {
+    grid-template-columns: 1fr;
+  }
 
-.opd-option input {
-  margin: 0;
+  .doctor-form-actions {
+    grid-column: span 1;
+    text-align: center;
+  }
 }
-
-/* .doctor-form-card {
-  margin: 16px 16px 16px 16px;
-} */

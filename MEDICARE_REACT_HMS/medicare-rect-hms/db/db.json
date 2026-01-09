@@ -217,6 +217,26 @@
       "consultationFee": 1000,
       "image": "doc1.png",
       "id": "DOC-006"
+    },
+    {
+      "id": "DOC-007",
+      "name": "Dr. Raj Sanchla",
+      "email": "raj@medicare.com",
+      "password": "raj@123",
+      "department": "Orthopedics",
+      "experience": 15,
+      "education": "MBBS",
+      "availableDays": [
+        "Mon",
+        "Tue",
+        "Wed"
+      ],
+      "timeSlots": [
+        "10:00-12:00",
+        "5:00-7:00"
+      ],
+      "consultationFee": 600,
+      "image": "doc.png"
     }
   ],
   "appointments": [
@@ -382,6 +402,20 @@
       ],
       "status": "COMPLETED",
       "createdAt": "2026-01-07T12:24:03.102Z"
+    },
+    {
+      "id": "LAB-2026-0002",
+      "consultationId": "CON-2026-0004",
+      "patientId": "PAT-2026-0006",
+      "patientName": "Abdul Guy",
+      "doctorId": "DOC-005",
+      "doctorName": "Dr. Meet Kacha",
+      "tests": [
+        "MRI"
+      ],
+      "results": [],
+      "status": "PENDING",
+      "createdAt": "2026-01-08T12:45:21.566Z"
     }
   ],
   "admissions": [
@@ -490,14 +524,14 @@
       "patientName": "Abdul Guy",
       "doctorId": "DOC-005",
       "doctorName": "Dr. Meet Kacha",
-      "department": "Aliqua Omnis dolor ",
-      "surgeryType": "Rem omnis id molest",
-      "scheduledDate": "2019-03-21",
-      "scheduledTime": "02:35",
-      "operationTheatre": "Nisi nulla et in nos",
+      "department": "Vero nemo magni volu",
+      "surgeryType": "Iusto ea minim qui h",
+      "scheduledDate": "1974-03-15",
+      "scheduledTime": "20:17",
+      "operationTheatre": "Itaque veniam velit",
       "status": "SCHEDULED",
-      "notes": "Dolores quis et sint",
-      "createdAt": "2026-01-08T11:54:40.275Z"
+      "notes": "Et est odit sint lib",
+      "createdAt": "2026-01-08T12:42:25.204Z"
     }
   ],
   "bills": [
