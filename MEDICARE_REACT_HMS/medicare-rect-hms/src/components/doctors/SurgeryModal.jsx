@@ -3,6 +3,7 @@ import {
   addSurgery,
   getSurgeries
 } from "../../services/surgeryService";
+import { getRooms, updateRoom } from "../../services/roomService";
 import "../../assets/css/components/surgery-modal.css";
 
 const SurgeryModal = ({
@@ -11,10 +12,10 @@ const SurgeryModal = ({
   consultation,
   patient,
   doctor,
-  refreshAppointments // ✅ OPTIONAL BUT FUTURE-PROOF
+  refreshAppointments
 }) => {
   /* ======================
-     STATE (HOOKS FIRST)
+     STATE
   ======================= */
   const [form, setForm] = useState({
     department: "",
@@ -25,8 +26,11 @@ const SurgeryModal = ({
     notes: ""
   });
 
+  // ✅ Available Operation Theatres
+  const [availableOTs, setAvailableOTs] = useState([]);
+
   /* ======================
-     RESET FORM ON OPEN
+     RESET + LOAD OTs
   ======================= */
   useEffect(() => {
     if (!open) return;
@@ -39,9 +43,20 @@ const SurgeryModal = ({
       operationTheatre: "",
       notes: ""
     });
+
+    loadAvailableOTs();
   }, [open]);
 
-  // ⛔ return AFTER hooks
+  const loadAvailableOTs = async () => {
+    const res = await getRooms();
+    const ots = res.data.filter(
+      (r) =>
+        r.type === "OPERATION_THEATRE" &&
+        r.status === "AVAILABLE"
+    );
+    setAvailableOTs(ots);
+  };
+
   if (!open || !consultation || !patient || !doctor) return null;
 
   /* ======================
@@ -74,7 +89,7 @@ const SurgeryModal = ({
   };
 
   /* ======================
-     🆕 CHECK EXISTING SURGERY
+     CHECK DUPLICATE SURGERY
   ======================= */
   const checkExistingSurgery = async () => {
     const res = await getSurgeries();
@@ -83,8 +98,10 @@ const SurgeryModal = ({
     );
   };
 
+  /* ======================
+     SAVE
+  ======================= */
   const handleSave = async () => {
-    // 🔐 BASIC VALIDATION
     if (
       !form.department ||
       !form.surgeryType ||
@@ -96,9 +113,6 @@ const SurgeryModal = ({
       return;
     }
 
-    /* ======================
-       🛑 PREVENT DUPLICATE SURGERY
-    ======================= */
     const alreadyExists = await checkExistingSurgery();
     if (alreadyExists) {
       alert("Surgery is already scheduled for this consultation");
@@ -107,31 +121,41 @@ const SurgeryModal = ({
 
     const surgeryId = await generateSurgeryId();
 
+    // 🔐 Validate OT again (real-world safety)
+    const selectedOT = availableOTs.find(
+      (ot) => ot.id === form.operationTheatre
+    );
+
+    if (!selectedOT) {
+      alert("Selected Operation Theatre is no longer available");
+      return;
+    }
+
     await addSurgery({
       id: surgeryId,
-
       consultationId: consultation.id,
-
       patientId: patient.id,
       patientName: `${patient.firstName} ${patient.lastName}`,
-
       doctorId: doctor.id,
       doctorName: doctor.name,
-
       department: form.department,
       surgeryType: form.surgeryType,
-
       scheduledDate: form.scheduledDate,
       scheduledTime: form.scheduledTime,
-
-      operationTheatre: form.operationTheatre,
+      operationTheatre: selectedOT.roomNumber,
       status: "SCHEDULED",
       notes: form.notes,
-
       createdAt: new Date().toISOString()
     });
 
-    // 🔄 Refresh parent if provided
+    // ✅ Mark OT as OCCUPIED + store patient info
+    await updateRoom(selectedOT.id, {
+      status: "OCCUPIED",
+      patientId: patient.id,
+      patientName: `${patient.firstName} ${patient.lastName}`,
+      linkedSurgeryId: surgeryId
+    });
+
     if (refreshAppointments) {
       await refreshAppointments();
     }
@@ -186,12 +210,19 @@ const SurgeryModal = ({
           onChange={handleChange}
         />
 
-        <input
+        {/* ✅ DROPDOWN OT (FINAL & CORRECT) */}
+        <select
           name="operationTheatre"
-          placeholder="Operation Theatre"
           value={form.operationTheatre}
           onChange={handleChange}
-        />
+        >
+          <option value="">Select Operation Theatre</option>
+          {availableOTs.map((ot) => (
+            <option key={ot.id} value={ot.id}>
+              {ot.roomNumber} - {ot.type}
+            </option>
+          ))}
+        </select>
 
         <textarea
           name="notes"

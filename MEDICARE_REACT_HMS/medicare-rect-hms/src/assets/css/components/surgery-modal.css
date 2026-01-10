@@ -65,7 +65,8 @@
    FORM GRID
 ================================ */
 .surgery-card input,
-.surgery-card textarea {
+.surgery-card textarea,
+.surgery-card select {
   width: 100%;
   padding: 10px 12px;
   margin-top: 12px;
@@ -77,7 +78,8 @@
 }
 
 .surgery-card input:focus,
-.surgery-card textarea:focus {
+.surgery-card textarea:focus,
+.surgery-card select:focus {
   outline: none;
   border-color: #2563eb;
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);

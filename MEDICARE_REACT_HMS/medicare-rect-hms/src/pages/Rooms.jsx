@@ -75,14 +75,21 @@ const Rooms = () => {
   /* ======================
      HELPERS
   ======================= */
-  const getAssignedPatient = (roomId) => {
+  const getAssignedPatient = (room) => {
+    // ✅ NEW: Operation Theatre patient comes from room itself
+    if (room.type === "OPERATION_THEATRE") {
+      return room.patientName || "Not Assigned";
+    }
+
+    // 🔁 EXISTING ADMISSION LOGIC (UNCHANGED)
     const admission = admissions.find(
       (adm) =>
-        adm.roomId === roomId && adm.status === "ADMITTED"
+        adm.roomId === room.id && adm.status === "ADMITTED"
     );
 
     return admission ? admission.patientName : "Not Assigned";
   };
+
 
   /* ======================
      UI
@@ -115,6 +122,7 @@ const Rooms = () => {
             <option value="DELUXE">Deluxe</option>
             <option value="PRIVATE">Private</option>
             <option value="ICU">ICU</option>
+            <option value="OPERATION_THEATRE">OPERATION_THEATRE</option>
           </select>
 
           <select
@@ -159,16 +167,16 @@ const Rooms = () => {
                 <td>{room.type}</td>
                 <td>
                   {room.status === "OCCUPIED"
-                    ? getAssignedPatient(room.id)
+                    ? getAssignedPatient(room)
                     : "Not Assigned"}
                 </td>
+
                 <td>
                   <span
-                    className={`badge ${
-                      room.status === "AVAILABLE"
-                        ? "male"
-                        : "female"
-                    }`}
+                    className={`badge ${room.status === "AVAILABLE"
+                      ? "male"
+                      : "female"
+                      }`}
                   >
                     {room.status}
                   </span>

@@ -172,7 +172,7 @@ const Admissions = () => {
           </select>
 
           <button type="submit" className="btn-primary">
-            <i className="bi bi-hospital"></i> Admit Patient
+            <i className="bi bi-person-add"></i> Admit Patient
           </button>
         </form>
       </div>
