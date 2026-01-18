@@ -1,6 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import "../../assets/css/public/doctors-public.css";
 
+/* ✅ LOAD IMAGE FROM src/assets */
+const getDoctorImage = (imageName) => {
+  try {
+    return require(`../../assets/images/doctors/${imageName}`);
+  } catch (err) {
+    return require(`../../assets/images/doctors/doc.png`);
+  }
+};
+
 const DoctorCard = ({ doctor, onBook }) => {
   const navigate = useNavigate();
 
@@ -12,11 +21,7 @@ const DoctorCard = ({ doctor, onBook }) => {
       {/* IMAGE */}
       <div className="doctor-image">
         <img
-          src={
-            doctor.image
-              ? `/images/doctors/${doctor.image}`
-              : "/images/doctors/default-doctor.png"
-          }
+          src={getDoctorImage(doctor.image)}
           alt={doctor.name}
         />
       </div>

@@ -3,57 +3,62 @@ import axios from "axios";
 import DoctorLabTests from "../doctors/DoctorLabTests";
 import "../../assets/css/components/lab-tests-modal.css";
 
-const LAB_TEST_OPTIONS = [
-  "Blood Sugar",
-  "CBC",
-  "ECG",
-  "X-Ray",
-  "MRI",
-  "CT Scan",
-  "Urine Test"
-];
-
 const LabTestsModal = ({ open, onClose, consultation, patient }) => {
   const [labTest, setLabTest] = useState(null);
   const [selectedTests, setSelectedTests] = useState([]);
+  const [labMasters, setLabMasters] = useState([]);
   const [openDropdown, setOpenDropdown] = useState(false);
 
   /* ======================
-     LOAD EXISTING LAB TEST
+     LOAD LAB MASTER + EXISTING LAB TEST
   ======================= */
   useEffect(() => {
     if (!open || !consultation) return;
 
-    const loadLabTest = async () => {
-      const res = await axios.get("http://localhost:5000/labTests");
-      const existing = res.data.find(
+    const loadData = async () => {
+      const [labRes, masterRes] = await Promise.all([
+        axios.get("http://localhost:5000/labTests"),
+        axios.get("http://localhost:5000/labTestMasters")
+      ]);
+
+      const existing = labRes.data.find(
         (l) => l.consultationId === consultation.id
       );
 
       if (existing) {
         setLabTest(existing);
-        setSelectedTests(existing.tests || []);
+
+        // ✅ Support OLD + NEW format
+        const tests = Array.isArray(existing.tests)
+          ? existing.tests.map((t) =>
+              typeof t === "string" ? t : t.testName
+            )
+          : [];
+
+        setSelectedTests(tests);
       } else {
         setLabTest(null);
         setSelectedTests([]);
       }
+
+      setLabMasters(masterRes.data);
     };
 
-    loadLabTest();
+    loadData();
   }, [open, consultation]);
 
   if (!open || !consultation || !patient) return null;
 
-  const toggleTest = (test) => {
+  const toggleTest = (testName) => {
     setSelectedTests((prev) =>
-      prev.includes(test)
-        ? prev.filter((t) => t !== test)
-        : [...prev, test]
+      prev.includes(testName)
+        ? prev.filter((t) => t !== testName)
+        : [...prev, testName]
     );
   };
 
   /* ======================
-     🔢 NORMALIZED LAB ID
+     NORMALIZED LAB ID
   ======================= */
   const generateLabTestId = async () => {
     const year = new Date().getFullYear();
@@ -63,13 +68,10 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
       (l) => l.id && l.id.startsWith(`LAB-${year}-`)
     );
 
-    if (labOnly.length === 0) {
-      return `LAB-${year}-0001`;
-    }
+    if (labOnly.length === 0) return `LAB-${year}-0001`;
 
     const last = labOnly[labOnly.length - 1];
-    const lastNum = Number(last.id.split("-")[2]) || 0;
-    const next = lastNum + 1;
+    const next = Number(last.id.split("-")[2]) + 1;
 
     return `LAB-${year}-${String(next).padStart(4, "0")}`;
   };
@@ -83,18 +85,26 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
       return;
     }
 
+    // ✅ Convert selection → priced objects
+    const pricedTests = selectedTests.map((name) => {
+      const master = labMasters.find((m) => m.name === name);
+      return {
+        testId: master?.id || "",
+        testName: name,
+        charge: master?.charge || 0
+      };
+    });
+
     if (labTest) {
-      // Update existing
       await axios.patch(
         `http://localhost:5000/labTests/${labTest.id}`,
         {
-          tests: selectedTests,
+          tests: pricedTests,
           doctorId: consultation.doctorId,
           doctorName: consultation.doctorName
         }
       );
     } else {
-      // Create new with normalized ID
       const newId = await generateLabTestId();
 
       await axios.post("http://localhost:5000/labTests", {
@@ -104,7 +114,7 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
         patientName: `${patient.firstName} ${patient.lastName}`,
         doctorId: consultation.doctorId,
         doctorName: consultation.doctorName,
-        tests: selectedTests,
+        tests: pricedTests,
         results: [],
         status: "PENDING",
         createdAt: new Date().toISOString()
@@ -124,12 +134,8 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
         <h5>Lab Tests</h5>
 
         <div className="lab-info">
-          <p>
-            <strong>Patient:</strong> {patient.firstName} {patient.lastName}
-          </p>
-          <p>
-            <strong>Consultation ID:</strong> {consultation.id}
-          </p>
+          <p><strong>Patient:</strong> {patient.firstName} {patient.lastName}</p>
+          <p><strong>Consultation ID:</strong> {consultation.id}</p>
         </div>
 
         <div className="lab-dropdown">
@@ -146,14 +152,16 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
 
           {openDropdown && (
             <div className="lab-dropdown-menu">
-              {LAB_TEST_OPTIONS.map((test) => (
-                <label key={test} className="lab-dropdown-item">
+              {labMasters.map((test) => (
+                <label key={test.id} className="lab-dropdown-item">
                   <input
                     type="checkbox"
-                    checked={selectedTests.includes(test)}
-                    onChange={() => toggleTest(test)}
+                    checked={selectedTests.includes(test.name)}
+                    onChange={() => toggleTest(test.name)}
                   />
-                  <span>{test}</span>
+                  <span>
+                    {test.name} — ₹{test.charge}
+                  </span>
                 </label>
               ))}
             </div>

@@ -84,7 +84,7 @@ tbody td {
 /* ===============================
    STATUS BADGES
 ================================ */
-.badge.male {
+.badge.Completed {
   background: #dcfce7;
   color: #16a34a;
   padding: 4px 10px;
@@ -93,7 +93,7 @@ tbody td {
   font-weight: 600;
 }
 
-.badge.female {
+.badge.Pending {
   background: #fee2e2;
   color: #dc2626;
   padding: 4px 10px;

@@ -136,8 +136,8 @@
    SURGERY ACTION BUTTONS
 ============================ */
 
-.btn-success,
-.btn-danger {
+.btn-success-surgery,
+.btn-danger-surgery {
   border: none;
   padding: 7px 14px;
   font-size: 13px;
@@ -148,22 +148,22 @@
 }
 
 /* COMPLETE */
-.btn-success {
+.btn-success-surgery {
   background: #dcfce7;
   color: #166534;
 }
 
-.btn-success:hover {
+.btn-success-surgery:hover {
   background: #bbf7d0;
 }
 
 /* CANCEL */
-.btn-danger {
+.btn-danger-surgery {
   background: #fee2e2;
   color: #991b1b;
 }
 
-.btn-danger:hover {
+.btn-danger-surgery:hover {
   background: #fecaca;
 }
 

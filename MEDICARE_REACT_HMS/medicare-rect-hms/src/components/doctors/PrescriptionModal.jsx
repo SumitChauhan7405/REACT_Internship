@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   addConsultation,
-  updateConsultation,
   getAllConsultations
 } from "../../services/consultationService";
 import "../../assets/css/components/prescription-modal.css";
@@ -19,18 +18,19 @@ const PrescriptionModal = ({
   appointment,
   patient,
   doctor,
-  existingPrescription,
-  mode,
   refreshAppointments
 }) => {
   const [form, setForm] = useState(getEmptyForm());
   const [lastConsultationNumber, setLastConsultationNumber] = useState(0);
 
+  /* 🆕 Prescription History */
+  const [history, setHistory] = useState([]);
+
   /* ======================
      LOAD CONSULTATION COUNTER (GLOBAL)
   ======================= */
   useEffect(() => {
-    if (!open || mode !== "ADD") return;
+    if (!open) return;
 
     const loadCounter = async () => {
       const year = new Date().getFullYear();
@@ -47,33 +47,36 @@ const PrescriptionModal = ({
     };
 
     loadCounter();
-  }, [open, mode]);
+  }, [open]);
 
   /* ======================
-     RESET / PREFILL
+     LOAD PRESCRIPTION HISTORY
   ======================= */
   useEffect(() => {
-    if (!open) return;
+    if (!open || !patient) return;
 
-    if (mode === "ADD") {
+    const loadHistory = async () => {
+      const res = await getAllConsultations();
+      const filtered = res.data
+        .filter((c) => c.patientId === patient.id)
+        .sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+
+      setHistory(filtered);
+    };
+
+    loadHistory();
+  }, [open, patient]);
+
+  /* ======================
+     FORCE RESET FORM ON OPEN
+  ======================= */
+  useEffect(() => {
+    if (open) {
       setForm(getEmptyForm());
     }
-
-    if (mode === "EDIT" && !existingPrescription) {
-      setForm(getEmptyForm());
-    }
-
-    if (mode === "EDIT" && existingPrescription) {
-      setForm({
-        diagnosis: existingPrescription.diagnosis || "",
-        consultation: existingPrescription.consultation || "",
-        medicines:
-          existingPrescription.medicines?.length > 0
-            ? existingPrescription.medicines
-            : [{ name: "", dosage: "" }]
-      });
-    }
-  }, [open, mode, existingPrescription]);
+  }, [open]);
 
   if (!open || !appointment || !patient || !doctor) return null;
 
@@ -106,10 +109,14 @@ const PrescriptionModal = ({
   };
 
   /* ======================
-     SUBMIT (SAFE + INCREMENTAL)
+     SUBMIT (ADD ONLY)
   ======================= */
   const handleSubmit = async () => {
+    const year = new Date().getFullYear();
+    const nextNumber = lastConsultationNumber + 1;
+
     const consultationPayload = {
+      id: `CON-${year}-${String(nextNumber).padStart(4, "0")}`,
       appointmentId: appointment.id,
       doctorId: doctor.id,
       doctorName: doctor.name,
@@ -117,25 +124,16 @@ const PrescriptionModal = ({
       patientName: `${patient.firstName} ${patient.lastName}`,
       diagnosis: form.diagnosis,
       consultation: form.consultation,
+      consultationFee: doctor.consultationFee,
       medicines: form.medicines,
       createdAt: new Date().toISOString()
     };
 
-    if (mode === "EDIT" && existingPrescription) {
-      await updateConsultation(existingPrescription.id, consultationPayload);
-    } else {
-      const year = new Date().getFullYear();
-      const nextNumber = lastConsultationNumber + 1;
+    await addConsultation(consultationPayload);
 
-      await addConsultation({
-        id: `CON-${year}-${String(nextNumber).padStart(4, "0")}`,
-        ...consultationPayload
-      });
-
-      setLastConsultationNumber(nextNumber);
-    }
-
+    setLastConsultationNumber(nextNumber);
     await refreshAppointments();
+
     alert("Prescription saved successfully");
     onClose();
   };
@@ -145,70 +143,111 @@ const PrescriptionModal = ({
   ======================= */
   return (
     <div className="prescription-backdrop" onClick={onClose}>
-      <div className="prescription-card" onClick={(e) => e.stopPropagation()}>
-        <h5>Prescription</h5>
+      <div
+        className="prescription-card prescription-split"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* ===== LEFT FORM ===== */}
+        <div className="prescription-left">
+          <h5>Prescription</h5>
 
-        <div className="form-grid">
-          <input value={`${patient.firstName} ${patient.lastName}`} disabled />
-          <input value={doctor.name} disabled />
-          <input value={appointment.date} disabled />
-        </div>
+          <div className="form-grid">
+            <input value={`${patient.firstName} ${patient.lastName}`} disabled />
+            <input value={doctor.name} disabled />
+            <input value={appointment.date} disabled />
+          </div>
 
-        <label>Diagnosis</label>
-        <textarea
-          name="diagnosis"
-          rows="3"
-          value={form.diagnosis}
-          onChange={handleChange}
-        />
+          <label>Diagnosis</label>
+          <textarea
+            name="diagnosis"
+            rows="3"
+            value={form.diagnosis}
+            onChange={handleChange}
+          />
 
-        <label>Consultation</label>
-        <textarea
-          name="consultation"
-          rows="3"
-          value={form.consultation}
-          onChange={handleChange}
-        />
+          <label>Consultation</label>
+          <textarea
+            name="consultation"
+            rows="3"
+            value={form.consultation}
+            onChange={handleChange}
+          />
 
-        <h6>Medicines</h6>
-        {form.medicines.map((m, i) => (
-          <div key={i} className="medicine-row">
-            <input
-              placeholder="Medicine"
-              value={m.name}
-              onChange={(e) =>
-                handleMedicineChange(i, "name", e.target.value)
-              }
-            />
-            <input
-              placeholder="Dosage (1-0-1)"
-              value={m.dosage}
-              onChange={(e) =>
-                handleMedicineChange(i, "dosage", e.target.value)
-              }
-            />
-            <button
-              type="button"
-              className="icon-btn delete"
-              onClick={() => removeMedicineRow(i)}
-            >
-              <i className="bi bi-trash-fill"></i>
+          <h6>Medicines</h6>
+          {form.medicines.map((m, i) => (
+            <div key={i} className="medicine-row">
+              <input
+                placeholder="Medicine"
+                value={m.name}
+                onChange={(e) =>
+                  handleMedicineChange(i, "name", e.target.value)
+                }
+              />
+              <input
+                placeholder="Dosage (1-0-1)"
+                value={m.dosage}
+                onChange={(e) =>
+                  handleMedicineChange(i, "dosage", e.target.value)
+                }
+              />
+              <button
+                type="button"
+                className="icon-btn delete"
+                onClick={() => removeMedicineRow(i)}
+              >
+                <i className="bi bi-trash-fill"></i>
+              </button>
+            </div>
+          ))}
+
+          <button className="btn-add-medicine" onClick={addMedicineRow}>
+            + Add Medicine
+          </button>
+
+          <div className="form-actions">
+            <button className="form-btn-secondary" onClick={onClose}>
+              Cancel
+            </button>
+            <button className="btn-presave" onClick={handleSubmit}>
+              Save Prescription
             </button>
           </div>
-        ))}
-
-        <button className="btn-add-medicine" onClick={addMedicineRow}>
-          + Add Medicine
-        </button>
-
-        <div className="form-actions">
-          <button className="form-btn-secondary" onClick={onClose}>
-            Cancel
-          </button>
-          <button className="btn-presave" onClick={handleSubmit}>
-            Save Prescription
-          </button>
         </div>
+
+        {/* ===== RIGHT HISTORY ===== */}
+        <div className="prescription-history">
+          <h6>Prescription History</h6>
+
+          {history.length === 0 && (
+            <p className="history-empty">No previous prescriptions</p>
+          )}
+
+          {history.map((item) => (
+            <div key={item.id} className="history-card">
+              <div className="history-header">
+                <strong>{item.patientName}</strong>
+                <span>
+                  {new Date(item.createdAt).toLocaleDateString()}
+                </span>
+              </div>
+
+              <p><strong>Diagnosis:</strong> {item.diagnosis}</p>
+              <p><strong>Consultation:</strong> {item.consultation}</p>
+
+              <div className="history-meds">
+                <strong>Medicines:</strong>
+                <ul>
+                  {item.medicines?.map((m, i) => (
+                    <li key={i}>
+                      {m.name} – {m.dosage}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+
       </div>
     </div>
   );

@@ -29,17 +29,27 @@ const DoctorList = ({ onEdit }) => {
     );
   }
 
-  // ✅ GROUP BY DEPARTMENT
+  /* ✅ GROUP BY DEPARTMENT */
   const groupedDoctors = doctors.reduce((acc, doc) => {
     acc[doc.department] = acc[doc.department] || [];
     acc[doc.department].push(doc);
     return acc;
   }, {});
 
+  /* ✅ SAFE IMAGE LOADER FROM src/assets */
+  const getDoctorImage = (imageName) => {
+    try {
+      return require(`../../assets/images/doctors/${imageName}`);
+    } catch (err) {
+      return require(`../../assets/images/doctors/doc.png`);
+    }
+  };
+
   return (
     <div className="doctor-list-wrapper">
       {Object.keys(groupedDoctors).map((dept) => (
         <div key={dept} className="doctor-table-card">
+          
           {/* Header */}
           <div className="doctor-table-header">
             <h6>{dept}</h6>
@@ -51,7 +61,7 @@ const DoctorList = ({ onEdit }) => {
             <thead>
               <tr>
                 <th>Doctor</th>
-                <th>Department</th> {/* ✅ NEW */}
+                <th>Department</th>
                 <th>Experience / Education</th>
                 <th>Available Days</th>
                 <th>OPD Time</th>
@@ -63,11 +73,12 @@ const DoctorList = ({ onEdit }) => {
             <tbody>
               {groupedDoctors[dept].map((doc) => (
                 <tr key={doc.id}>
+                  
                   {/* Doctor */}
                   <td>
                     <div className="doctor-info">
                       <img
-                        src={`/images/doctors/${doc.image || "doc.png"}`}
+                        src={getDoctorImage(doc.image)}
                         alt={doc.name}
                         className="doctor-avatar"
                       />
@@ -75,25 +86,20 @@ const DoctorList = ({ onEdit }) => {
                     </div>
                   </td>
 
-                  {/* ✅ Department Column */}
                   <td>{doc.department}</td>
 
-                  {/* Experience / Education */}
                   <td>
                     {doc.experience} yrs · {doc.education}
                   </td>
 
-                  {/* Available Days */}
                   <td>
-                    {doc.availableDays && doc.availableDays.length > 0
+                    {doc.availableDays?.length
                       ? doc.availableDays.join(", ")
                       : "-"}
                   </td>
 
-                  {/* OPD Time */}
                   <td>{doc.timeSlots?.join(", ")}</td>
 
-                  {/* Fee */}
                   <td>₹{doc.consultationFee}</td>
 
                   {/* Action */}
@@ -113,6 +119,7 @@ const DoctorList = ({ onEdit }) => {
                       </button>
                     </div>
                   </td>
+
                 </tr>
               ))}
             </tbody>

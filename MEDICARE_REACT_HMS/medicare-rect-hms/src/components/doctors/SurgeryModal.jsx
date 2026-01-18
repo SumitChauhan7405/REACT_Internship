@@ -26,7 +26,6 @@ const SurgeryModal = ({
     notes: ""
   });
 
-  // ✅ Available Operation Theatres
   const [availableOTs, setAvailableOTs] = useState([]);
 
   /* ======================
@@ -67,7 +66,7 @@ const SurgeryModal = ({
   };
 
   /* ======================
-     SURGERY ID NORMALIZER
+     SURGERY ID
   ======================= */
   const generateSurgeryId = async () => {
     const year = new Date().getFullYear();
@@ -83,13 +82,12 @@ const SurgeryModal = ({
 
     const last = surOnly[surOnly.length - 1];
     const lastNum = Number(last.id.split("-")[2]) || 0;
-    const next = lastNum + 1;
 
-    return `SUR-${year}-${String(next).padStart(4, "0")}`;
+    return `SUR-${year}-${String(lastNum + 1).padStart(4, "0")}`;
   };
 
   /* ======================
-     CHECK DUPLICATE SURGERY
+     DUPLICATE CHECK
   ======================= */
   const checkExistingSurgery = async () => {
     const res = await getSurgeries();
@@ -121,7 +119,6 @@ const SurgeryModal = ({
 
     const surgeryId = await generateSurgeryId();
 
-    // 🔐 Validate OT again (real-world safety)
     const selectedOT = availableOTs.find(
       (ot) => ot.id === form.operationTheatre
     );
@@ -143,12 +140,16 @@ const SurgeryModal = ({
       scheduledDate: form.scheduledDate,
       scheduledTime: form.scheduledTime,
       operationTheatre: selectedOT.roomNumber,
+
+      // ✅ NEW: SURGERY CHARGE
+      surgeryCharge: selectedOT.charge,
+
       status: "SCHEDULED",
       notes: form.notes,
       createdAt: new Date().toISOString()
     });
 
-    // ✅ Mark OT as OCCUPIED + store patient info
+    // ✅ Mark OT as occupied
     await updateRoom(selectedOT.id, {
       status: "OCCUPIED",
       patientId: patient.id,
@@ -175,12 +176,8 @@ const SurgeryModal = ({
       >
         <h5>Schedule Surgery</h5>
 
-        <p>
-          <strong>Patient:</strong> {patient.firstName} {patient.lastName}
-        </p>
-        <p>
-          <strong>Doctor:</strong> {doctor.name}
-        </p>
+        <p><strong>Patient:</strong> {patient.firstName} {patient.lastName}</p>
+        <p><strong>Doctor:</strong> {doctor.name}</p>
 
         <input
           name="department"
@@ -210,7 +207,6 @@ const SurgeryModal = ({
           onChange={handleChange}
         />
 
-        {/* ✅ DROPDOWN OT (FINAL & CORRECT) */}
         <select
           name="operationTheatre"
           value={form.operationTheatre}
@@ -219,7 +215,7 @@ const SurgeryModal = ({
           <option value="">Select Operation Theatre</option>
           {availableOTs.map((ot) => (
             <option key={ot.id} value={ot.id}>
-              {ot.roomNumber} - {ot.type}
+              {ot.roomNumber} {ot.type} — ₹{ot.charge}
             </option>
           ))}
         </select>

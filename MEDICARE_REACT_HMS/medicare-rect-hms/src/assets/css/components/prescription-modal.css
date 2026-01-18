@@ -18,9 +18,27 @@
 
 .prescription-card {
   background: #ffffff;
-  width: 560px;
   border-radius: 12px;
   padding: 20px;
+}
+
+/* ===============================
+   SPLIT LAYOUT
+================================ */
+
+.prescription-split {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 20px;
+  width: 900px;
+}
+
+/* ===============================
+   LEFT FORM
+================================ */
+
+.prescription-left {
+  padding-right: 10px;
 }
 
 /* ===============================
@@ -39,7 +57,7 @@
 }
 
 .prescription-card textarea {
-  min-height: 90px; /* ✅ BIG TEXT BOX */
+  min-height: 90px;
 }
 
 /* ===============================
@@ -93,7 +111,7 @@
 .form-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 14px; /* ✅ SPACE BETWEEN CANCEL & SAVE */
+  gap: 14px;
 }
 
 .form-btn-secondary {
@@ -104,7 +122,8 @@
   cursor: pointer;
 }
 
-.btn-primary, .btn-presave {
+.btn-primary,
+.btn-presave {
   background: #2563eb;
   color: #ffffff;
   border: none;
@@ -113,63 +132,58 @@
   cursor: pointer;
 }
 
-.btn-primary:hover, .btn-presave:hover {
+.btn-primary:hover,
+.btn-presave:hover {
   background: #1d4ed8;
 }
 
-/* ===== LAB TEST DROPDOWN ===== */
-.lab-dropdown {
-  position: relative;
-  margin-top: 8px;
+/* ===============================
+   HISTORY PANEL
+================================ */
+
+.prescription-history {
+  border-left: 1px solid #e5e7eb;
+  padding-left: 16px;
+  max-height: 520px;
+  overflow-y: auto;
 }
 
-.lab-dropdown-toggle {
+.prescription-history h6 {
+  margin-bottom: 12px;
+  color: #111827;
+}
+
+.history-empty {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ===============================
+   HISTORY CARD
+================================ */
+
+.history-card {
+  background: #f9fafb;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  padding: 10px 12px;
-  cursor: pointer;
-  background: #fff;
+  padding: 10px;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.history-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: #374151;
 }
 
-.lab-dropdown-menu {
-  position: absolute;
-  top: 110%;
-  left: 0;
-  width: 100%;
-  max-height: 180px;
-  overflow-y: auto;
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 6px 0;
-  z-index: 20;
+.history-meds ul {
+  padding-left: 16px;
+  margin-top: 4px;
 }
 
-.lab-dropdown-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-.lab-dropdown-item:hover {
-  background-color: #f9fafb;
-}
-
-/* FIX FOR CHECKBOX ALIGNMENT */
-.lab-dropdown-item input[type="checkbox"] {
-  width: auto;      /* Prevents checkbox from stretching to 100% */
-  margin-bottom: 0; /* Removes the bottom spacing from global input rule */
-  cursor: pointer;
-  padding: 0;       /* Removes extra padding */
-}
-
-.lab-test-name {
-  font-size: 14px;
-  color: #111827;
+.history-meds li {
+  font-size: 13px;
 }

@@ -31,6 +31,11 @@ const LabTests = () => {
     return p ? `${p.firstName} ${p.lastName}` : "Unknown";
   };
 
+  const getTestName = (test) => {
+    // ✅ Supports BOTH old & new format
+    return typeof test === "string" ? test : test.testName;
+  };
+
   const updateResult = (labId, testName, value) => {
     setLabTests((prev) =>
       prev.map((lab) =>
@@ -91,27 +96,30 @@ const LabTests = () => {
 
                 <td>
                   <ul className="lab-test-list">
-                    {lab.tests.map((t) => (
-                      <li key={t}>{t}</li>
+                    {lab.tests.map((t, index) => (
+                      <li key={index}>
+                        {getTestName(t)}
+                      </li>
                     ))}
                   </ul>
                 </td>
 
                 <td>
-                  {lab.tests.map((test) => {
+                  {lab.tests.map((t, index) => {
+                    const testName = getTestName(t);
                     const existing = lab.results.find(
-                      (r) => r.testName === test
+                      (r) => r.testName === testName
                     );
 
                     return (
                       <input
-                        key={test}
+                        key={index}
                         className="lab-result-input"
-                        placeholder={`${test} result`}
+                        placeholder={`${testName} result`}
                         value={existing?.result || ""}
                         disabled={lab.status === "COMPLETED"}
                         onChange={(e) =>
-                          updateResult(lab.id, test, e.target.value)
+                          updateResult(lab.id, testName, e.target.value)
                         }
                       />
                     );
@@ -121,7 +129,7 @@ const LabTests = () => {
                 <td>
                   <span
                     className={`badge ${
-                      lab.status === "COMPLETED" ? "male" : "female"
+                      lab.status === "COMPLETED" ? "Completed" : "Pending"
                     }`}
                   >
                     {lab.status}

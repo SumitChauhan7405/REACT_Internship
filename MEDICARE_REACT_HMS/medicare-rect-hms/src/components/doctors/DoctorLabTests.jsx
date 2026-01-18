@@ -20,39 +20,48 @@ const DoctorLabTests = ({ consultationId }) => {
     <>
       <h6 style={{ marginTop: 20 }}>Lab Tests</h6>
 
-      {labTests.map((lab) => (
-        <div
-          key={lab.id}
-          style={{
-            border: "1px solid #e5e7eb",
-            borderRadius: 10,
-            padding: 12,
-            marginBottom: 12
-          }}
-        >
-          <p>
-            <strong>Tests:</strong> {lab.tests.join(", ")}
-          </p>
+      {labTests.map((lab) => {
+        // ✅ NORMALIZE TEST NAMES (OLD + NEW FORMAT SUPPORT)
+        const testNames = Array.isArray(lab.tests)
+          ? lab.tests.map((t) =>
+              typeof t === "string" ? t : t.testName
+            )
+          : [];
 
-          <span
-            className={`badge ${
-              lab.status === "COMPLETED" ? "male" : "female"
-            }`}
+        return (
+          <div
+            key={lab.id}
+            style={{
+              border: "1px solid #e5e7eb",
+              borderRadius: 10,
+              padding: 12,
+              marginBottom: 12
+            }}
           >
-            {lab.status}
-          </span>
+            <p>
+              <strong>Tests:</strong> {testNames.join(", ")}
+            </p>
 
-          {lab.status === "COMPLETED" && (
-            <ul style={{ marginTop: 10 }}>
-              {lab.results.map((r, i) => (
-                <li key={i}>
-                  <strong>{r.testName}:</strong> {r.result}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      ))}
+            <span
+              className={`badge ${
+                lab.status === "COMPLETED" ? "male" : "female"
+              }`}
+            >
+              {lab.status}
+            </span>
+
+            {lab.status === "COMPLETED" && (
+              <ul style={{ marginTop: 10 }}>
+                {lab.results.map((r, i) => (
+                  <li key={i}>
+                    <strong>{r.testName}:</strong> {r.result}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        );
+      })}
     </>
   );
 };

@@ -96,8 +96,9 @@ const Admissions = () => {
       patientName: `${patient.firstName} ${patient.lastName}`,
       doctorName: patient.doctorName || "Not Assigned", // ✅ ADDED
       roomId: room.id,
-      roomNumber: room.roomNumber,
+      roomNumber: room.roomNumber,  
       roomType: room.type,
+      roomCharge: room.charge,
       admissionDate: new Date().toISOString().split("T")[0],
       status: "ADMITTED"
     });

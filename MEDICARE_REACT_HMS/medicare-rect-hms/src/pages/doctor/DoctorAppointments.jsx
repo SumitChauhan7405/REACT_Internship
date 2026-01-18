@@ -20,8 +20,6 @@ const DoctorAppointments = () => {
   // Prescription modal
   const [openModal, setOpenModal] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
-  const [existingPrescription, setExistingPrescription] = useState(null);
-  const [modalMode, setModalMode] = useState("ADD");
 
   // Lab modal
   const [openLabModal, setOpenLabModal] = useState(false);
@@ -32,7 +30,7 @@ const DoctorAppointments = () => {
   const [surgeryConsultation, setSurgeryConsultation] = useState(null);
 
   /* ======================
-     LOAD DATA (ONLINE + WALK-IN)
+     LOAD DATA
   ======================= */
   const loadAppointments = useCallback(async () => {
     if (!doctorId) return;
@@ -43,12 +41,10 @@ const DoctorAppointments = () => {
       axios.get("http://localhost:5000/consultations")
     ]);
 
-    // ✅ 1️⃣ ONLINE APPOINTMENTS (REAL)
     const onlineAppointments = aptRes.data.filter(
       (apt) => apt.doctorId === doctorId
     );
 
-    // 🆕 2️⃣ WALK-IN PATIENTS (NO APPOINTMENT RECORD)
     const walkInPatients = patRes.data.filter(
       (p) =>
         p.doctorName === doctorName &&
@@ -56,7 +52,6 @@ const DoctorAppointments = () => {
         !onlineAppointments.some((a) => a.patientId === p.id)
     );
 
-    // 🆕 3️⃣ CONVERT WALK-INS → UI-ONLY APPOINTMENTS
     const walkInAsAppointments = walkInPatients.map((p) => ({
       id: `WALKIN-${p.id}`,
       patientId: p.id,
@@ -69,7 +64,6 @@ const DoctorAppointments = () => {
       isWalkIn: true
     }));
 
-    // 🆕 4️⃣ MERGE BOTH
     setAppointments([...onlineAppointments, ...walkInAsAppointments]);
     setPatients(patRes.data);
     setConsultations(conRes.data);
@@ -80,31 +74,16 @@ const DoctorAppointments = () => {
   }, [loadAppointments]);
 
   /* ======================
-     PRESCRIPTION
+     PRESCRIPTION (ADD ONLY)
   ======================= */
   const handleAddPrescription = (apt) => {
     setSelectedAppointment(apt);
-    setExistingPrescription(null);
-    setModalMode("ADD");
-    setOpenModal(true);
-  };
-
-  const handleEditPrescription = (apt) => {
-    const prescription = consultations.find(
-      (c) => c.appointmentId === apt.id
-    );
-
-    setSelectedAppointment(apt);
-    setExistingPrescription(prescription || null);
-    setModalMode("EDIT");
     setOpenModal(true);
   };
 
   const closeModal = () => {
     setOpenModal(false);
     setSelectedAppointment(null);
-    setExistingPrescription(null);
-    setModalMode("ADD");
   };
 
   /* ======================
@@ -117,7 +96,6 @@ const DoctorAppointments = () => {
 
     setSelectedConsultation(
       consultation || {
-        id: `CON-${apt.id}`,
         appointmentId: apt.id,
         patientId: apt.patientId,
         doctorId: apt.doctorId,
@@ -136,12 +114,14 @@ const DoctorAppointments = () => {
       (c) => c.appointmentId === apt.id
     );
 
-    if (!consultation) {
-      alert("Please add prescription before scheduling surgery");
-      return;
-    }
+    setSurgeryConsultation(
+      consultation || {
+        appointmentId: apt.id,
+        patientId: apt.patientId,
+        doctorId: apt.doctorId
+      }
+    );
 
-    setSurgeryConsultation(consultation);
     setOpenSurgeryModal(true);
   };
 
@@ -170,59 +150,42 @@ const DoctorAppointments = () => {
           </thead>
 
           <tbody>
-            {appointments.map((apt) => {
-              const hasPrescription = consultations.some(
-                (c) => c.appointmentId === apt.id
-              );
+            {appointments.map((apt) => (
+              <tr key={apt.id}>
+                <td>{apt.id}</td>
+                <td>{apt.patientName}</td>
+                <td>{apt.date}</td>
+                <td>{apt.time}</td>
+                <td>
+                  <span className="badge male">{apt.status}</span>
+                </td>
 
-              return (
-                <tr key={apt.id}>
-                  <td>{apt.id}</td>
-                  <td>{apt.patientName}</td>
-                  <td>{apt.date}</td>
-                  <td>{apt.time}</td>
-                  <td>
-                    <span className="badge male">
-                      {apt.status}
-                    </span>
-                  </td>
+                <td>
+                  <div className="action-icons">
+                    <button
+                      className="icon-btn add"
+                      onClick={() => handleAddPrescription(apt)}
+                    >
+                      <i className="bi bi-plus-lg"></i>
+                    </button>
 
-                  <td>
-                    <div className="action-icons">
-                      <button
-                        className="icon-btn add"
-                        onClick={() => handleAddPrescription(apt)}
-                      >
-                        <i className="bi bi-plus-lg"></i>
-                      </button>
+                    <button
+                      className="icon-btn lab"
+                      onClick={() => handleOpenLabTests(apt)}
+                    >
+                      <i className="bi bi-flask"></i>
+                    </button>
 
-                      {hasPrescription && (
-                        <button
-                          className="icon-btn edited"
-                          onClick={() => handleEditPrescription(apt)}
-                        >
-                          <i className="bi bi-pencil-square"></i>
-                        </button>
-                      )}
-
-                      <button
-                        className="icon-btn lab"
-                        onClick={() => handleOpenLabTests(apt)}
-                      >
-                        <i className="bi bi-flask"></i>
-                      </button>
-
-                      <button
-                        className="icon-btn surgery"
-                        onClick={() => handleOpenSurgery(apt)}
-                      >
-                        <i className="bi bi-heart-pulse"></i>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
+                    <button
+                      className="icon-btn surgery"
+                      onClick={() => handleOpenSurgery(apt)}
+                    >
+                      <i className="bi bi-heart-pulse"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -236,8 +199,6 @@ const DoctorAppointments = () => {
           (p) => p.id === selectedAppointment?.patientId
         )}
         doctor={user.data}
-        existingPrescription={existingPrescription}
-        mode={modalMode}
         refreshAppointments={loadAppointments}
       />
 

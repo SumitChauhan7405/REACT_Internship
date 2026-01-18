@@ -59,16 +59,16 @@ const Sidebar = () => {
           <span>Surgery</span>
         </NavLink>
 
-        {/* BILLING */}
-        <NavLink to="/admin/billing" className="menu-item">
-          <i className="bi bi-receipt"></i>
-          <span>Billing</span>
-        </NavLink>
-
         {/* DISCHARGE */}
         <NavLink to="/admin/discharge" className="menu-item">
           <i className="bi bi-box-arrow-right"></i>
           <span>Discharge</span>
+        </NavLink>
+
+        {/* BILLING */}
+        <NavLink to="/admin/billing" className="menu-item">
+          <i className="bi bi-receipt"></i>
+          <span>Billing</span>
         </NavLink>
 
         {/* FOLLOW UP */}

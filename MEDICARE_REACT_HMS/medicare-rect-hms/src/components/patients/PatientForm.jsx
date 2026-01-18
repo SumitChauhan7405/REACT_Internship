@@ -85,9 +85,6 @@ const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
       });
       clearEdit();
     } else {
-      /* ======================
-         CREATE WALK-IN PATIENT ONLY
-      ======================= */
       await addPatient({
         id: generatePatientId(),
         ...form,
@@ -116,7 +113,7 @@ const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
   return (
     <div className="patient-form-card">
       <div className="form-header">
-        <h5>{editPatient ? "Edit Patient" : "Patient Registration"}</h5>
+        <h5>{editPatient ? "Edit Patient" : "OPD Patient Registration"}</h5>
         <p>Enter patient personal information</p>
       </div>
 
@@ -174,9 +171,23 @@ const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
           </select>
         </div>
 
+        {/* ✅ UPDATED: OPD Schedule Dropdown */}
         <div>
-          <label>Timing</label>
-          <input type="time" name="timing" value={form.timing} onChange={handleChange} required />
+          <label>OPD Schedule</label>
+          <select
+            name="timing"
+            value={form.timing}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Schedule</option>
+            <option value="MORNING (10:00 - 12:00)">
+              Morning (10:00 – 12:00)
+            </option>
+            <option value="EVENING (5:00 - 7:00)">
+              Evening (5:00 – 7:00)
+            </option>
+          </select>
         </div>
 
         <div className="form-actions">

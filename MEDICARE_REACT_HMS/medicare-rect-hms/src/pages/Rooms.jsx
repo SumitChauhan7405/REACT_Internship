@@ -14,7 +14,8 @@ const Rooms = () => {
   const [form, setForm] = useState({
     roomNumber: "",
     type: "",
-    status: "AVAILABLE"
+    status: "AVAILABLE",
+    charge: ""
   });
 
   /* ======================
@@ -53,13 +54,15 @@ const Rooms = () => {
 
     await addRoom({
       id: generateRoomId(),
-      ...form
+      ...form,
+      charge: Number(form.charge)
     });
 
     setForm({
       roomNumber: "",
       type: "",
-      status: "AVAILABLE"
+      status: "AVAILABLE",
+      charge: ""
     });
 
     loadRooms();
@@ -76,12 +79,10 @@ const Rooms = () => {
      HELPERS
   ======================= */
   const getAssignedPatient = (room) => {
-    // ✅ NEW: Operation Theatre patient comes from room itself
     if (room.type === "OPERATION_THEATRE") {
       return room.patientName || "Not Assigned";
     }
 
-    // 🔁 EXISTING ADMISSION LOGIC (UNCHANGED)
     const admission = admissions.find(
       (adm) =>
         adm.roomId === room.id && adm.status === "ADMITTED"
@@ -89,7 +90,6 @@ const Rooms = () => {
 
     return admission ? admission.patientName : "Not Assigned";
   };
-
 
   /* ======================
      UI
@@ -125,6 +125,15 @@ const Rooms = () => {
             <option value="OPERATION_THEATRE">OPERATION_THEATRE</option>
           </select>
 
+          <input
+            type="number"
+            name="charge"
+            placeholder="Room Charge (₹)"
+            value={form.charge}
+            onChange={handleChange}
+            required
+          />
+
           <select
             name="status"
             value={form.status}
@@ -153,6 +162,7 @@ const Rooms = () => {
               <th>Room ID</th>
               <th>Room No</th>
               <th>Type</th>
+              <th>Charge (₹)</th>
               <th>Patient Name</th>
               <th>Status</th>
               <th>Action</th>
@@ -165,18 +175,19 @@ const Rooms = () => {
                 <td>{room.id}</td>
                 <td>{room.roomNumber}</td>
                 <td>{room.type}</td>
+                <td>₹ {room.charge}</td>
                 <td>
                   {room.status === "OCCUPIED"
                     ? getAssignedPatient(room)
                     : "Not Assigned"}
                 </td>
-
                 <td>
                   <span
-                    className={`badge ${room.status === "AVAILABLE"
-                      ? "male"
-                      : "female"
-                      }`}
+                    className={`badge ${
+                      room.status === "AVAILABLE"
+                        ? "male"
+                        : "female"
+                    }`}
                   >
                     {room.status}
                   </span>

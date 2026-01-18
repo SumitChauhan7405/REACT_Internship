@@ -1,6 +1,9 @@
+import { useState } from "react";
 import "../../assets/css/components/patient-table.css";
 
 const PatientTable = ({ patients, onEdit, onDelete }) => {
+  const [search, setSearch] = useState("");
+
   if (patients.length === 0) {
     return (
       <div className="patient-table-card">
@@ -15,11 +18,36 @@ const PatientTable = ({ patients, onEdit, onDelete }) => {
     }
   };
 
+  /* 🔍 SEARCH FILTER */
+  const filteredPatients = patients.filter((p) =>
+    `${p.firstName} ${p.lastName}`
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  );
+
   return (
     <div className="patient-table-card">
-      <div className="table-header">
-        <h6>Registered Patients</h6>
-        <span>Total: {patients.length}</span>
+      <div className="table-header table-header-with-search">
+        {/* LEFT */}
+        <div>
+          <h6>Registered Patients</h6>
+        </div>
+
+        {/* RIGHT */}
+        <div className="patient-search-box">
+          <input
+            type="text"
+            placeholder="Search patient..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <i className="bi bi-search"></i>
+
+          {/* ✅ TOTAL AFTER SEARCH */}
+          <span className="search-total">
+            Total: {filteredPatients.length}
+          </span>
+        </div>
       </div>
 
       <table>
@@ -39,11 +67,18 @@ const PatientTable = ({ patients, onEdit, onDelete }) => {
         </thead>
 
         <tbody>
-          {patients.map((p) => (
+          {filteredPatients.map((p) => (
             <tr key={p.id}>
               <td>{p.id}</td>
               <td>{p.firstName} {p.lastName}</td>
-              <td>{p.gender}</td>
+
+              {/* ✅ GENDER BADGE FIX */}
+              <td>
+                <span className={`gender-badge ${p.gender.toLowerCase()}`}>
+                  {p.gender}
+                </span>
+              </td>
+
               <td>{p.age}</td>
               <td>{p.phone}</td>
               <td>{p.bloodGroup}</td>
@@ -67,6 +102,14 @@ const PatientTable = ({ patients, onEdit, onDelete }) => {
               </td>
             </tr>
           ))}
+
+          {filteredPatients.length === 0 && (
+            <tr>
+              <td colSpan="10" className="no-data">
+                No matching patients found
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

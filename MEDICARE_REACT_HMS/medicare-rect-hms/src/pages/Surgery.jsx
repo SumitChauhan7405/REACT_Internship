@@ -87,7 +87,7 @@ const Surgery = () => {
                 <td data-label="Actions">
                   <div className="surgery-actions">
                     <button
-                      className="btn-success"
+                      className="btn-success-surgery"
                       disabled={surgery.status === "COMPLETED"}
                       onClick={() =>
                         handleStatusChange(surgery.id, "COMPLETED")
@@ -97,7 +97,7 @@ const Surgery = () => {
                     </button>
 
                     <button
-                      className="btn-danger"
+                      className="btn-danger-surgery"
                       disabled={surgery.status === "CANCELLED"}
                       onClick={() =>
                         handleStatusChange(surgery.id, "CANCELLED")
