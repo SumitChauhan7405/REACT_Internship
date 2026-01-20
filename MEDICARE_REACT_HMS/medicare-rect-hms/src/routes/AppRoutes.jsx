@@ -21,8 +21,10 @@ import Patients from "../pages/Patients";
 import Appointments from "../pages/Appointments";
 import Rooms from "../pages//Rooms";
 import Billing from "../pages/Billing";
+import LabTestMasters from "../pages/LabTestMasters";
 import Lab from "../pages/Lab";
 import Admissions from "../pages/Admissions";
+import SurgeryMasters from "../pages/SurgeryMasters";
 import Surgery from "../pages/Surgery";
 import Discharge from "../pages/Discharge";
 import FollowUp from "../pages/FollowUp";
@@ -57,8 +59,10 @@ const AppRoutes = () => {
           <Route path="appointments" element={<Appointments />} />
           <Route path="rooms" element={<Rooms />} />
           <Route path="billing" element={<Billing />} />
+          <Route path="lab-test-masters" element={<LabTestMasters />} />
           <Route path="lab" element={<Lab />} />
           <Route path="admissions" element={<Admissions />} />
+          <Route path="surgery-masters" element={<SurgeryMasters />} />
           <Route path="surgery" element={<Surgery />} />
           <Route path="discharge" element={<Discharge />} />
           <Route path="followup" element={<FollowUp />} />

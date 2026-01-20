@@ -55,7 +55,10 @@ const Rooms = () => {
     await addRoom({
       id: generateRoomId(),
       ...form,
-      charge: Number(form.charge)
+      charge:
+        form.type === "OPERATION_THEATRE"
+          ? 0
+          : Number(form.charge)
     });
 
     setForm({
@@ -92,6 +95,15 @@ const Rooms = () => {
   };
 
   /* ======================
+     GROUP ROOMS BY TYPE
+  ======================= */
+  const groupedRooms = rooms.reduce((acc, room) => {
+    acc[room.type] = acc[room.type] || [];
+    acc[room.type].push(room);
+    return acc;
+  }, {});
+
+  /* ======================
      UI
   ======================= */
   return (
@@ -122,17 +134,22 @@ const Rooms = () => {
             <option value="DELUXE">Deluxe</option>
             <option value="PRIVATE">Private</option>
             <option value="ICU">ICU</option>
-            <option value="OPERATION_THEATRE">OPERATION_THEATRE</option>
+            <option value="OPERATION_THEATRE">
+              OPERATION_THEATRE
+            </option>
           </select>
 
-          <input
-            type="number"
-            name="charge"
-            placeholder="Room Charge (₹)"
-            value={form.charge}
-            onChange={handleChange}
-            required
-          />
+          {/* ✅ HIDE CHARGE FOR OT */}
+          {form.type !== "OPERATION_THEATRE" && (
+            <input
+              type="number"
+              name="charge"
+              placeholder="Room Charge (₹)"
+              value={form.charge}
+              onChange={handleChange}
+              required
+            />
+          )}
 
           <select
             name="status"
@@ -150,61 +167,68 @@ const Rooms = () => {
         </form>
       </div>
 
-      {/* ===== ROOM LIST ===== */}
-      <div className="patient-table-card">
-        <div className="table-header">
-          <h4>Rooms</h4>
-        </div>
+      {/* ===== GROUPED ROOM LIST ===== */}
+      {Object.keys(groupedRooms).map((type) => (
+        <div key={type} className="patient-table-card mb-4">
+          <div className="table-header">
+            <h4>{type.replace("_", " ")}</h4>
+            <span>Total: {groupedRooms[type].length}</span>
+          </div>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Room ID</th>
-              <th>Room No</th>
-              <th>Type</th>
-              <th>Charge (₹)</th>
-              <th>Patient Name</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {rooms.map((room) => (
-              <tr key={room.id}>
-                <td>{room.id}</td>
-                <td>{room.roomNumber}</td>
-                <td>{room.type}</td>
-                <td>₹ {room.charge}</td>
-                <td>
-                  {room.status === "OCCUPIED"
-                    ? getAssignedPatient(room)
-                    : "Not Assigned"}
-                </td>
-                <td>
-                  <span
-                    className={`badge ${
-                      room.status === "AVAILABLE"
-                        ? "male"
-                        : "female"
-                    }`}
-                  >
-                    {room.status}
-                  </span>
-                </td>
-                <td>
-                  <button
-                    className="icon-btn delete"
-                    onClick={() => handleDelete(room.id)}
-                  >
-                    <i className="bi bi-trash-fill"></i>
-                  </button>
-                </td>
+          <table>
+            <thead>
+              <tr>
+                <th>Room ID</th>
+                <th>Room No</th>
+                <th>Type</th>
+                <th>Charge (₹)</th>
+                <th>Patient Name</th>
+                <th>Status</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+
+            <tbody>
+              {groupedRooms[type].map((room) => (
+                <tr key={room.id}>
+                  <td>{room.id}</td>
+                  <td>{room.roomNumber}</td>
+                  <td>{room.type}</td>
+                  <td>
+                    {room.type === "OPERATION_THEATRE"
+                      ? "—"
+                      : `₹ ${room.charge}`}
+                  </td>
+                  <td>
+                    {room.status === "OCCUPIED"
+                      ? getAssignedPatient(room)
+                      : "Not Assigned"}
+                  </td>
+                  <td>
+                    <span
+                      className={`badge ${
+                        room.status === "AVAILABLE"
+                          ? "male"
+                          : "female"
+                      }`}
+                    >
+                      {room.status}
+                    </span>
+                  </td>
+                  <td>
+                    <button
+                      className="icon-btn delete"
+                      onClick={() => handleDelete(room.id)}
+                    >
+                      <i className="bi bi-trash-fill"></i>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
     </div>
   );
 };

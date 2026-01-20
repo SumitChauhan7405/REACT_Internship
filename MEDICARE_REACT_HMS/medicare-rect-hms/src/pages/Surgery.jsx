@@ -3,6 +3,7 @@ import {
   getSurgeries,
   updateSurgery
 } from "../services/surgeryService";
+import { getRooms, updateRoom } from "../services/roomService";
 import "../assets/css/components/surgeries.css";
 
 const Surgery = () => {
@@ -23,10 +24,38 @@ const Surgery = () => {
   }, []);
 
   /* ======================
+     RELEASE OPERATION THEATRE
+  ======================= */
+  const releaseOperationTheatre = async (surgeryId) => {
+    const roomRes = await getRooms();
+
+    const linkedOT = roomRes.data.find(
+      (room) =>
+        room.type === "OPERATION_THEATRE" &&
+        room.linkedSurgeryId === surgeryId
+    );
+
+    if (!linkedOT) return;
+
+    await updateRoom(linkedOT.id, {
+      status: "AVAILABLE",
+      patientId: null,
+      patientName: null,
+      linkedSurgeryId: null
+    });
+  };
+
+  /* ======================
      STATUS UPDATE
   ======================= */
   const handleStatusChange = async (id, status) => {
     await updateSurgery(id, { status });
+
+    // ✅ Free OT when surgery ends
+    if (status === "COMPLETED" || status === "CANCELLED") {
+      await releaseOperationTheatre(id);
+    }
+
     loadSurgeries();
   };
 

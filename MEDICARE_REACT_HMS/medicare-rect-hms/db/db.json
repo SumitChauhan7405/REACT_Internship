@@ -1,158 +1,88 @@
 {
   "patients": [
     {
-      "id": "PAT-2026-0002",
-      "firstName": "Joelle",
-      "lastName": "Franklin",
+      "id": "PAT-2026-0001",
+      "firstName": "Rahul",
+      "lastName": "Mehta",
       "gender": "Male",
-      "age": "93",
-      "phone": "+1 (745) 275-3147",
+      "age": "50",
+      "phone": "1234567890",
       "bloodGroup": "AB-",
       "doctorName": "Dr. Namra Pithwa",
-      "timing": "18:11",
+      "timing": "MORNING (10:00 - 12:00)",
       "status": "CONFIRMED",
-      "source": "ONLINE",
-      "createdAt": "2026-01-07T11:48:25.426Z"
+      "source": "WALKIN",
+      "createdAt": "2026-01-19T04:48:44.747Z"
     },
     {
       "id": "PAT-2026-0003",
-      "firstName": "Maggy",
-      "lastName": "Crawford",
+      "firstName": "ABC",
+      "lastName": "DEF",
       "gender": "Female",
-      "age": "48",
-      "phone": "+1 (514) 642-4094",
-      "bloodGroup": "AB+",
-      "doctorName": "Dr. Namra Pithwa",
-      "timing": "12:12",
+      "age": "25",
+      "phone": "9876543210",
+      "bloodGroup": "B+",
+      "doctorName": "Dr. Raj Sanchla",
+      "timing": "EVENING (5:00 - 7:00)",
       "status": "CONFIRMED",
       "source": "WALKIN",
-      "createdAt": "2026-01-07T11:54:48.499Z"
+      "createdAt": "2026-01-19T13:23:35.892Z"
     },
     {
       "id": "PAT-2026-0004",
-      "firstName": "Alice",
-      "lastName": "Massey",
+      "firstName": "Sumit",
+      "lastName": "Chauhan",
       "gender": "Male",
-      "age": "17",
-      "phone": "+1 (541) 652-8784",
-      "bloodGroup": "B-",
-      "doctorName": "Dr. Meet Kacha",
-      "timing": "11:24",
+      "age": "22",
+      "phone": "4569872130",
+      "bloodGroup": "A+",
+      "doctorName": "Dr. Namra Pithwa",
+      "timing": "MORNING (10:00 - 12:00)",
       "status": "CONFIRMED",
       "source": "WALKIN",
-      "createdAt": "2026-01-07T12:02:22.800Z"
+      "createdAt": "2026-01-19T17:26:57.360Z"
     },
     {
       "id": "PAT-2026-0005",
-      "firstName": "Mira",
-      "lastName": "Tillman",
+      "firstName": "Meet",
+      "lastName": "Patel",
       "gender": "Male",
-      "age": "63",
-      "phone": "+1 (982) 548-3825",
-      "bloodGroup": "O+",
-      "doctorName": "Dr. Krisha Patel",
-      "timing": "22:44",
+      "age": "26",
+      "phone": "9638527410",
+      "bloodGroup": "B+",
+      "doctorName": "Dr. Namra Pithwa",
+      "timing": "MORNING (10:00 - 12:00)",
       "status": "CONFIRMED",
-      "source": "WALKIN",
-      "createdAt": "2026-01-07T12:02:48.847Z"
+      "source": "ONLINE",
+      "createdAt": "2026-01-20T11:15:36.442Z"
     },
     {
       "id": "PAT-2026-0006",
-      "firstName": "Abdul",
-      "lastName": "Guy",
-      "gender": "Other",
-      "age": "49",
-      "phone": "+1 (399) 694-7312",
-      "bloodGroup": "B-",
+      "firstName": "Rushita",
+      "lastName": "Patel",
+      "gender": "Female",
+      "age": "22",
+      "phone": "8520316497",
+      "bloodGroup": "A+",
       "doctorName": "Dr. Meet Kacha",
-      "timing": "16:25",
+      "timing": "EVENING (5:00 - 7:00)",
       "status": "CONFIRMED",
-      "source": "ONLINE",
-      "createdAt": "2026-01-07T12:05:15.454Z"
+      "source": "WALKIN",
+      "createdAt": "2026-01-20T14:51:51.468Z"
     },
     {
       "id": "PAT-2026-0007",
-      "firstName": "Ava",
-      "lastName": "Dyer",
+      "firstName": "Sonia",
+      "lastName": "Hyde",
       "gender": "Other",
-      "age": "21",
-      "phone": "+1 (159) 808-2244",
-      "bloodGroup": "AB-",
-      "doctorName": "Dr. Krisha Patel",
-      "timing": "09:12",
+      "age": "84",
+      "phone": "+1 (253) 318-2042",
+      "bloodGroup": "B-",
+      "doctorName": "Dr. Meet Kacha",
+      "timing": "EVENING (5:00 - 7:00)",
       "status": "CONFIRMED",
       "source": "ONLINE",
-      "createdAt": "2026-01-07T12:05:18.300Z"
-    },
-    {
-      "id": "PAT-2026-0008",
-      "firstName": "Jameson",
-      "lastName": "Rogers",
-      "gender": "Other",
-      "age": "40",
-      "phone": "+1 (797) 458-1589",
-      "bloodGroup": "A+",
-      "doctorName": "Dr. Namra Pithwa",
-      "timing": "02:06",
-      "status": "CONFIRMED",
-      "source": "ONLINE",
-      "createdAt": "2026-01-08T11:50:18.012Z"
-    },
-    {
-      "id": "PAT-2026-0009",
-      "firstName": "Neil",
-      "lastName": "Brown",
-      "gender": "Other",
-      "age": "99",
-      "phone": "+1 (928) 969-2254",
-      "bloodGroup": "AB-",
-      "doctorName": "Dr. Namra Pithwa",
-      "timing": "04:19",
-      "status": "CONFIRMED",
-      "source": "WALKIN",
-      "createdAt": "2026-01-11T05:38:15.625Z"
-    },
-    {
-      "id": "PAT-2026-0010",
-      "firstName": "Ira",
-      "lastName": "Owens",
-      "gender": "Other",
-      "age": "65",
-      "phone": "+1 (287) 757-3502",
-      "bloodGroup": "O+",
-      "doctorName": "Dr. Namra Pithwa",
-      "timing": "04:24",
-      "status": "CONFIRMED",
-      "source": "WALKIN",
-      "createdAt": "2026-01-15T17:19:35.344Z"
-    },
-    {
-      "id": "PAT-2026-0011",
-      "firstName": "Premanshu",
-      "lastName": "Pithva",
-      "gender": "Male",
-      "age": "22",
-      "phone": "9173316294",
-      "bloodGroup": "O+",
-      "doctorName": "Dr. Namra Pithwa",
-      "timing": "13:15",
-      "status": "CONFIRMED",
-      "source": "WALKIN",
-      "createdAt": "2026-01-18T05:43:44.578Z"
-    },
-    {
-      "id": "PAT-2026-0012",
-      "firstName": "Quemby",
-      "lastName": "Shepard",
-      "gender": "Other",
-      "age": "69",
-      "phone": "+1 (948) 708-1489",
-      "bloodGroup": "A-",
-      "doctorName": "Dr. Namra Pithwa",
-      "timing": "12:36",
-      "status": "CONFIRMED",
-      "source": "ONLINE",
-      "createdAt": "2026-01-18T05:45:16.757Z"
+      "createdAt": "2026-01-20T17:41:07.167Z"
     }
   ],
   "doctors": [
@@ -275,11 +205,10 @@
       "id": "DOC-006"
     },
     {
-      "id": "DOC-007",
       "name": "Dr. Raj Sanchla",
       "email": "raj@medicare.com",
       "password": "raj@123",
-      "department": "Orthopedics",
+      "department": "Radiology",
       "experience": 15,
       "education": "MBBS",
       "availableDays": [
@@ -292,7 +221,8 @@
         "5:00-7:00"
       ],
       "consultationFee": 600,
-      "image": "doc.png"
+      "image": "doc.png",
+      "id": "DOC-007"
     },
     {
       "id": "DOC-008",
@@ -317,218 +247,185 @@
   "appointments": [
     {
       "id": "APT-2026-0001",
-      "firstName": "Joelle",
-      "lastName": "Franklin",
+      "firstName": "Meet",
+      "lastName": "Patel",
       "gender": "Male",
-      "age": "93",
-      "phone": "+1 (745) 275-3147",
-      "bloodGroup": "AB-",
+      "age": "26",
+      "phone": "9638527410",
+      "bloodGroup": "B+",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
-      "date": "1987-02-25",
-      "time": "18:11",
+      "date": "2026-01-21",
+      "time": "MORNING (10:00 - 12:00)",
       "status": "CONFIRMED",
       "source": "ONLINE",
-      "createdAt": "2026-01-07T11:48:18.815Z",
-      "patientId": "PAT-2026-0002",
-      "patientName": "Joelle Franklin"
+      "createdAt": "2026-01-20T11:15:24.659Z",
+      "patientId": "PAT-2026-0005",
+      "patientName": "Meet Patel"
     },
     {
       "id": "APT-2026-0002",
-      "firstName": "Abdul",
-      "lastName": "Guy",
+      "firstName": "Sonia",
+      "lastName": "Hyde",
       "gender": "Other",
-      "age": "49",
-      "phone": "+1 (399) 694-7312",
+      "age": "84",
+      "phone": "+1 (253) 318-2042",
       "bloodGroup": "B-",
       "doctorId": "DOC-005",
       "doctorName": "Dr. Meet Kacha",
-      "date": "2012-01-11",
-      "time": "16:25",
+      "date": "1993-01-30",
+      "time": "EVENING (5:00 - 7:00)",
       "status": "CONFIRMED",
       "source": "ONLINE",
-      "createdAt": "2026-01-07T12:03:11.778Z",
-      "patientId": "PAT-2026-0006",
-      "patientName": "Abdul Guy"
-    },
-    {
-      "id": "APT-2026-0003",
-      "firstName": "Ava",
-      "lastName": "Dyer",
-      "gender": "Other",
-      "age": "21",
-      "phone": "+1 (159) 808-2244",
-      "bloodGroup": "AB-",
-      "doctorId": "DOC-006",
-      "doctorName": "Dr. Krisha Patel",
-      "date": "1993-04-15",
-      "time": "09:12",
-      "status": "CONFIRMED",
-      "source": "ONLINE",
-      "createdAt": "2026-01-07T12:03:53.370Z",
+      "createdAt": "2026-01-20T17:40:54.746Z",
       "patientId": "PAT-2026-0007",
-      "patientName": "Ava Dyer"
-    },
-    {
-      "id": "APT-2026-0004",
-      "firstName": "Jameson",
-      "lastName": "Rogers",
-      "gender": "Other",
-      "age": "40",
-      "phone": "+1 (797) 458-1589",
-      "bloodGroup": "A+",
-      "doctorId": "DOC-003",
-      "doctorName": "Dr. Namra Pithwa",
-      "date": "1982-09-08",
-      "time": "02:06",
-      "status": "CONFIRMED",
-      "source": "ONLINE",
-      "createdAt": "2026-01-08T11:50:10.297Z",
-      "patientId": "PAT-2026-0008",
-      "patientName": "Jameson Rogers"
-    },
-    {
-      "id": "APT-2026-0005",
-      "firstName": "Quemby",
-      "lastName": "Shepard",
-      "gender": "Other",
-      "age": "69",
-      "phone": "+1 (948) 708-1489",
-      "bloodGroup": "A-",
-      "doctorId": "DOC-003",
-      "doctorName": "Dr. Namra Pithwa",
-      "date": "2014-09-19",
-      "time": "12:36",
-      "status": "CONFIRMED",
-      "source": "ONLINE",
-      "createdAt": "2026-01-18T05:45:03.244Z",
-      "patientId": "PAT-2026-0012",
-      "patientName": "Quemby Shepard"
+      "patientName": "Sonia Hyde"
     }
   ],
   "consultations": [
     {
-      "id": "CON-2026-0001",
-      "appointmentId": "APT-2026-0001",
-      "doctorId": "DOC-003",
-      "doctorName": "Dr. Namra Pithwa",
-      "patientId": "PAT-2026-0002",
-      "patientName": "Joelle Franklin",
-      "diagnosis": "Fugiat sint et ull",
-      "consultation": "Iste soluta dolorum ",
-      "medicines": [
-        {
-          "name": "Illo adipisicing exe",
-          "dosage": "Dicta exercitation a"
-        }
-      ],
-      "createdAt": "2026-01-08T11:48:48.524Z"
-    },
-    {
-      "id": "CON-2026-0002",
-      "appointmentId": "WALKIN-PAT-2026-0003",
-      "doctorId": "DOC-003",
-      "doctorName": "Dr. Namra Pithwa",
-      "patientId": "PAT-2026-0003",
-      "patientName": "Maggy Crawford",
-      "diagnosis": "Sed ab in omnis expl",
-      "consultation": "Mollitia nulla culpa",
-      "medicines": [
-        {
-          "name": "Consequatur recusand",
-          "dosage": "Aut et sed eaque eni"
-        }
-      ],
-      "createdAt": "2026-01-08T11:49:04.215Z"
-    },
-    {
       "id": "CON-2026-0003",
-      "appointmentId": "APT-2026-0004",
+      "appointmentId": "WALKIN-PAT-2026-0001",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
-      "patientId": "PAT-2026-0008",
-      "patientName": "Jameson Rogers",
-      "diagnosis": "Eius pariatur Dolor",
-      "consultation": "Laboris ab iusto ull",
+      "patientId": "PAT-2026-0001",
+      "patientName": "Rahul Mehta",
+      "diagnosis": "Hello",
+      "consultation": "Hii",
+      "consultationFee": 500,
       "medicines": [
         {
-          "name": "Provident nihil ull",
-          "dosage": "Consequatur Nulla v"
+          "name": "API",
+          "dosage": "1-1-1"
         }
       ],
-      "createdAt": "2026-01-08T11:52:32.510Z"
+      "createdAt": "2026-01-19T06:14:30.986Z"
     },
     {
       "id": "CON-2026-0004",
-      "appointmentId": "APT-2026-0002",
-      "doctorId": "DOC-005",
-      "doctorName": "Dr. Meet Kacha",
-      "patientId": "PAT-2026-0006",
-      "patientName": "Abdul Guy",
-      "diagnosis": "Pariatur Enim volup",
-      "consultation": "Odio ut voluptates q",
-      "consultationFee": 900,
+      "appointmentId": "WALKIN-PAT-2026-0003",
+      "doctorId": "DOC-007",
+      "doctorName": "Dr. Raj Sanchla",
+      "patientId": "PAT-2026-0003",
+      "patientName": "ABC DEF",
+      "diagnosis": "Fever",
+      "consultation": "Do not eat cold items",
+      "consultationFee": 600,
       "medicines": [
         {
-          "name": "Quae deserunt et min",
-          "dosage": "Magnam enim consequu"
+          "name": "para",
+          "dosage": "1-0-1"
         }
       ],
-      "createdAt": "2026-01-08T11:54:13.921Z"
+      "createdAt": "2026-01-19T13:24:21.292Z"
     },
     {
       "id": "CON-2026-0005",
-      "appointmentId": "APT-2026-0001",
+      "appointmentId": "WALKIN-PAT-2026-0004",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
-      "patientId": "PAT-2026-0002",
-      "patientName": "Joelle Franklin",
-      "diagnosis": "Fugiat iusto aut la",
-      "consultation": "Nam sed quia volupta",
+      "patientId": "PAT-2026-0004",
+      "patientName": "Sumit Chauhan",
+      "diagnosis": "Fever",
+      "consultation": "Do not eat cold items",
       "consultationFee": 500,
       "medicines": [
         {
-          "name": "Rerum Nam earum est ",
-          "dosage": "Lorem eligendi proid"
+          "name": "Para",
+          "dosage": "1-0-1"
         }
       ],
-      "createdAt": "2026-01-13T04:58:36.415Z"
+      "createdAt": "2026-01-19T17:27:42.144Z"
     },
     {
       "id": "CON-2026-0006",
-      "appointmentId": "WALKIN-PAT-2026-0010",
+      "appointmentId": "WALKIN-PAT-2026-0004",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
-      "patientId": "PAT-2026-0010",
-      "patientName": "Ira Owens",
-      "diagnosis": "Fever",
-      "consultation": "DO not eat cold",
+      "patientId": "PAT-2026-0004",
+      "patientName": "Sumit Chauhan",
+      "diagnosis": "leg broken",
+      "consultation": "do not walk",
       "consultationFee": 500,
       "medicines": [
         {
-          "name": "ABC",
-          "dosage": "1-0-1"
+          "name": "Dolo",
+          "dosage": "0-0-1"
         }
       ],
-      "createdAt": "2026-01-15T17:22:55.797Z"
+      "createdAt": "2026-01-19T17:29:10.700Z"
     },
     {
       "id": "CON-2026-0007",
-      "appointmentId": "WALKIN-PAT-2026-0011",
+      "appointmentId": "WALKIN-PAT-2026-0001",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
-      "patientId": "PAT-2026-0011",
-      "patientName": "Premanshu Pithva",
-      "diagnosis": "AAA",
-      "consultation": "BBB",
+      "patientId": "PAT-2026-0001",
+      "patientName": "Rahul Mehta",
+      "diagnosis": "ABC",
+      "consultation": "ABC",
       "consultationFee": 500,
       "medicines": [
         {
-          "name": "ABC",
+          "name": "AA",
+          "dosage": "1-0-0"
+        }
+      ],
+      "createdAt": "2026-01-20T04:46:59.366Z"
+    },
+    {
+      "id": "CON-2026-0008",
+      "appointmentId": "APT-2026-0001",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "patientId": "PAT-2026-0005",
+      "patientName": "Meet Patel",
+      "diagnosis": "Pain in Eyes",
+      "consultation": "Do not use Mobile",
+      "consultationFee": 500,
+      "medicines": [
+        {
+          "name": "XYZ",
           "dosage": "1-0-1"
         }
       ],
-      "createdAt": "2026-01-18T10:14:14.983Z"
+      "createdAt": "2026-01-20T11:17:16.467Z"
+    },
+    {
+      "id": "CON-2026-0009",
+      "appointmentId": "WALKIN-PAT-2026-0006",
+      "doctorId": "DOC-005",
+      "doctorName": "Dr. Meet Kacha",
+      "patientId": "PAT-2026-0006",
+      "patientName": "Rushita Patel",
+      "diagnosis": "Headache che ",
+      "consultation": "bija ne ocha heran karo",
+      "consultationFee": 900,
+      "medicines": [
+        {
+          "name": "API",
+          "dosage": "1-0-1"
+        }
+      ],
+      "createdAt": "2026-01-20T15:02:27.568Z"
+    },
+    {
+      "id": "CON-2026-0010",
+      "appointmentId": "APT-2026-0002",
+      "doctorId": "DOC-005",
+      "doctorName": "Dr. Meet Kacha",
+      "patientId": "PAT-2026-0007",
+      "patientName": "Sonia Hyde",
+      "diagnosis": "mathu dukhe che ",
+      "consultation": "mobile ocho vapro",
+      "consultationFee": 900,
+      "medicines": [
+        {
+          "name": "dava",
+          "dosage": "0-0-1"
+        }
+      ],
+      "createdAt": "2026-01-20T17:42:08.009Z"
     }
   ],
   "labTestMasters": [
@@ -545,35 +442,50 @@
     {
       "id": "LT-003",
       "name": "ECG",
-      "charge": 500
+      "charge": 500,
+      "visibility": "DEPARTMENT",
+      "department": "Cardiology"
     },
     {
       "id": "LT-004",
       "name": "X-Ray",
-      "charge": 400
+      "charge": 400,
+      "visibility": "DEPARTMENT",
+      "department": "Radiology"
     },
     {
       "id": "LT-005",
       "name": "MRI",
-      "charge": 2500
+      "charge": 2500,
+      "visibility": "DEPARTMENT",
+      "department": "Radiology"
     },
     {
       "id": "LT-006",
       "name": "CT Scan",
-      "charge": 3000
+      "charge": 3000,
+      "visibility": "DEPARTMENT",
+      "department": "Radiology"
     },
     {
       "id": "LT-007",
       "name": "Urine Test",
       "charge": 150
+    },
+    {
+      "id": "LT-008",
+      "name": "NT-Pro BNP",
+      "charge": 2000,
+      "visibility": "DEPARTMENT",
+      "department": "Cardiology"
     }
   ],
   "labTests": [
     {
       "id": "LAB-2026-0001",
-      "consultationId": "CON-2026-0001",
-      "patientId": "PAT-2026-0002",
-      "patientName": "Joelle Franklin",
+      "consultationId": "CON-2026-0007",
+      "patientId": "PAT-2026-0001",
+      "patientName": "Rahul Mehta",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
       "tests": [
@@ -583,62 +495,52 @@
           "charge": 200
         },
         {
-          "testId": "LT-002",
-          "testName": "CBC",
-          "charge": 300
-        },
-        {
           "testId": "LT-003",
           "testName": "ECG",
           "charge": 500
-        },
-        {
-          "testId": "LT-004",
-          "testName": "X-Ray",
-          "charge": 400
-        },
-        {
-          "testId": "LT-005",
-          "testName": "MRI",
-          "charge": 2500
         }
       ],
       "results": [
         {
           "testName": "Blood Sugar",
           "result": "Normal"
+        },
+        {
+          "testName": "ECG",
+          "result": "Normal"
         }
       ],
       "status": "COMPLETED",
-      "createdAt": "2026-01-07T12:24:03.102Z"
+      "createdAt": "2026-01-20T04:48:49.792Z"
     },
     {
       "id": "LAB-2026-0002",
-      "consultationId": "CON-2026-0004",
-      "patientId": "PAT-2026-0006",
-      "patientName": "Abdul Guy",
-      "doctorId": "DOC-005",
-      "doctorName": "Dr. Meet Kacha",
+      "consultationId": "CON-2026-0008",
+      "patientId": "PAT-2026-0005",
+      "patientName": "Meet Patel",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
       "tests": [
         {
-          "testId": "LT-005",
-          "testName": "MRI",
-          "charge": 2500
-        },
-        {
-          "testId": "LT-004",
-          "testName": "X-Ray",
-          "charge": 400
+          "testId": "LT-006",
+          "testName": "CT Scan",
+          "charge": 3000
         }
       ],
-      "results": [],
-      "status": "PENDING",
-      "createdAt": "2026-01-08T12:45:21.566Z"
+      "results": [
+        {
+          "testName": "CT Scan",
+          "result": "Normal"
+        }
+      ],
+      "status": "COMPLETED",
+      "createdAt": "2026-01-20T11:19:09.834Z"
     },
     {
       "id": "LAB-2026-0003",
-      "patientId": "PAT-2026-0010",
-      "patientName": "Ira Owens",
+      "consultationId": "CON-2026-0010",
+      "patientId": "PAT-2026-0007",
+      "patientName": "Sonia Hyde",
       "doctorId": "DOC-005",
       "doctorName": "Dr. Meet Kacha",
       "tests": [
@@ -650,103 +552,63 @@
       ],
       "results": [
         {
-          "testName": "Blood Sugar",
-          "result": "Normal"
-        },
-        {
-          "testName": "X-Ray",
+          "testName": "CT Scan",
           "result": "Normal"
         }
       ],
       "status": "COMPLETED",
-      "createdAt": "2026-01-15T17:19:57.019Z"
+      "createdAt": "2026-01-20T17:42:40.904Z"
     }
   ],
   "admissions": [
     {
       "id": "ADM-001",
-      "patientId": "PAT-2026-0006",
-      "patientName": "Abdul Guy",
-      "doctorName": "Dr. Meet Kacha",
+      "patientId": "PAT-2026-0004",
+      "patientName": "Sumit Chauhan",
+      "doctorName": "Dr. Namra Pithwa",
       "roomId": "ROOM-001",
       "roomNumber": "101",
       "roomType": "GENERAL",
       "roomCharge": 1500,
-      "admissionDate": "2026-01-07",
+      "admissionDate": "2026-01-19",
       "status": "ADMITTED"
     },
     {
       "id": "ADM-002",
       "patientId": "PAT-2026-0005",
-      "patientName": "Mira Tillman",
-      "doctorName": "Dr. Krisha Patel",
-      "roomId": "ROOM-004",
-      "roomNumber": "301",
-      "roomType": "PRIVATE",
-      "roomCharge": 3000,
-      "admissionDate": "2026-01-07",
-      "status": "ADMITTED"
-    },
-    {
-      "id": "ADM-003",
-      "patientId": "PAT-2026-0007",
-      "patientName": "Ava Dyer",
-      "doctorName": "Dr. Krisha Patel",
-      "roomId": "ROOM-002",
-      "roomNumber": "102",
-      "roomType": "GENERAL",
-      "roomCharge": 1500,
-      "admissionDate": "2026-01-10",
-      "status": "DISCHARGED"
-    },
-    {
-      "id": "ADM-004",
-      "patientId": "PAT-2026-0002",
-      "patientName": "Joelle Franklin",
+      "patientName": "Meet Patel",
       "doctorName": "Dr. Namra Pithwa",
       "roomId": "ROOM-002",
       "roomNumber": "102",
       "roomType": "GENERAL",
       "roomCharge": 1500,
-      "admissionDate": "2026-01-13",
-      "status": "ADMITTED"
+      "admissionDate": "2026-01-20",
+      "status": "DISCHARGED",
+      "dischargeDate": "2026-01-20"
     },
     {
-      "id": "ADM-005",
-      "patientId": "PAT-2026-0010",
-      "patientName": "Ira Owens",
+      "id": "ADM-003",
+      "patientId": "PAT-2026-0001",
+      "patientName": "Rahul Mehta",
       "doctorName": "Dr. Namra Pithwa",
       "roomId": "ROOM-008",
       "roomNumber": "103",
       "roomType": "GENERAL",
       "roomCharge": 1500,
-      "admissionDate": "2026-01-15",
-      "status": "DISCHARGED"
-    },
-    {
-      "id": "ADM-006",
-      "patientId": "PAT-2026-0009",
-      "patientName": "Neil Brown",
-      "doctorName": "Dr. Namra Pithwa",
-      "roomId": "ROOM-010",
-      "roomNumber": "104",
-      "roomType": "GENERAL",
-      "roomCharge": 1500,
-      "admissionDate": "2026-01-17",
+      "admissionDate": "2026-01-20",
       "status": "ADMITTED"
     },
     {
-      "id": "ADM-007",
-      "patientId": "PAT-2026-0011",
-      "patientName": "Premanshu Pithva",
-      "doctorName": "Dr. Namra Pithwa",
+      "id": "ADM-004",
+      "patientId": "PAT-2026-0007",
+      "patientName": "Sonia Hyde",
+      "doctorName": "Dr. Meet Kacha",
       "roomId": "ROOM-003",
       "roomNumber": "201",
       "roomType": "DELUXE",
       "roomCharge": 4000,
-      "admissionDate": "2026-01-18",
-      "status": "DISCHARGED",
-      "dischargeDate": "2026-01-18"
+      "admissionDate": "2026-01-20",
+      "status": "ADMITTED"
     }
   ],
   "rooms": [
@@ -761,21 +623,21 @@
       "id": "ROOM-002",
       "roomNumber": "102",
       "type": "GENERAL",
-      "status": "OCCUPIED",
+      "status": "AVAILABLE",
       "charge": 1500
     },
     {
       "id": "ROOM-003",
       "roomNumber": "201",
       "type": "DELUXE",
-      "status": "AVAILABLE",
+      "status": "OCCUPIED",
       "charge": 4000
     },
     {
       "id": "ROOM-004",
       "roomNumber": "301",
       "type": "PRIVATE",
-      "status": "OCCUPIED",
+      "status": "AVAILABLE",
       "charge": 3000
     },
     {
@@ -786,42 +648,32 @@
       "charge": 4500
     },
     {
-      "id": "ROOM-006",
-      "roomNumber": "1001",
-      "type": "OPERATION_THEATRE",
-      "status": "OCCUPIED",
-      "charge": 10000,
-      "patientId": "PAT-2026-0002",
-      "patientName": "Joelle Franklin",
-      "linkedSurgeryId": "SUR-2026-0001"
-    },
-    {
       "id": "ROOM-008",
       "roomNumber": "103",
       "type": "GENERAL",
-      "status": "AVAILABLE",
-      "charge": 1500
-    },
-    {
-      "id": "ROOM-009",
-      "roomNumber": "1002",
-      "type": "OPERATION_THEATRE",
       "status": "OCCUPIED",
-      "charge": 10000,
-      "patientId": "PAT-2026-0009",
-      "patientName": "Neil Brown",
-      "linkedSurgeryId": "SUR-2026-0002"
+      "charge": 1500
     },
     {
       "id": "ROOM-010",
       "roomNumber": "104",
       "type": "GENERAL",
-      "status": "OCCUPIED",
+      "status": "AVAILABLE",
       "charge": 1500
     },
     {
       "id": "ROOM-011",
-      "roomNumber": "OPT1000",
+      "roomNumber": "1001",
+      "type": "OPERATION_THEATRE",
+      "status": "OCCUPIED",
+      "charge": 5000,
+      "patientId": "PAT-2026-0007",
+      "patientName": "Sonia Hyde",
+      "linkedSurgeryId": "SUR-2026-0003"
+    },
+    {
+      "id": "ROOM-012",
+      "roomNumber": "1002",
       "type": "OPERATION_THEATRE",
       "status": "AVAILABLE",
       "charge": 5000
@@ -837,108 +689,140 @@
       "pulse": 78
     }
   ],
+  "surgeryMasters": [
+    {
+      "id": "SM-001",
+      "name": "Appendectomy",
+      "charge": 15000
+    },
+    {
+      "id": "SM-002",
+      "name": "Hernia Repair",
+      "charge": 18000
+    },
+    {
+      "id": "SM-003",
+      "name": "Gall Bladder Removal",
+      "charge": 25000
+    },
+    {
+      "id": "SM-004",
+      "name": "Angioplasty",
+      "charge": 120000,
+      "visibility": "DEPARTMENT",
+      "department": "Cardiology"
+    },
+    {
+      "id": "SM-005",
+      "name": "Bypass Surgery",
+      "charge": 250000,
+      "visibility": "DEPARTMENT",
+      "department": "Cardiology"
+    },
+    {
+      "id": "SM-006",
+      "name": "Knee Replacement",
+      "charge": 180000,
+      "visibility": "DEPARTMENT",
+      "department": "Orthopaedic"
+    },
+    {
+      "id": "SM-007",
+      "name": "Hip Replacement",
+      "charge": 200000,
+      "visibility": "DEPARTMENT",
+      "department": "Orthopaedic"
+    },
+    {
+      "id": "SM-008",
+      "name": "Brain Tumor Surgery",
+      "charge": 175000,
+      "visibility": "DEPARTMENT",
+      "department": "Neurology"
+    }
+  ],
   "surgeries": [
     {
       "id": "SUR-2026-0001",
-      "consultationId": "CON-2026-0001",
-      "patientId": "PAT-2026-0002",
-      "patientName": "Joelle Franklin",
+      "consultationId": "CON-2026-0006",
+      "patientId": "PAT-2026-0004",
+      "patientName": "Sumit Chauhan",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
-      "department": "Orthopedics",
-      "surgeryType": "Knee Replacement",
-      "scheduledDate": "2026-01-20",
-      "scheduledTime": "05:00",
+      "department": "abc",
+      "surgeryType": "abc",
+      "scheduledDate": "2026-01-22",
+      "scheduledTime": "10:00",
       "operationTheatre": "1001",
-      "surgeryCharge": 10000,
-      "status": "SCHEDULED",
-      "notes": "jibibibih",
-      "createdAt": "2026-01-10T14:24:52.610Z"
+      "surgeryCharge": 5000,
+      "status": "COMPLETED",
+      "notes": "iuhhivuiyg",
+      "createdAt": "2026-01-20T06:21:30.919Z"
     },
     {
       "id": "SUR-2026-0002",
-      "patientId": "PAT-2026-0009",
-      "patientName": "Neil Brown",
+      "consultationId": "CON-2026-0007",
+      "patientId": "PAT-2026-0001",
+      "patientName": "Rahul Mehta",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
-      "department": "aaa",
-      "surgeryType": "oooo",
-      "scheduledDate": "2026-01-15",
+      "department": "Cardiology",
+      "surgeryType": "Angioplasty",
+      "surgeryMasterId": "SM-004",
+      "surgeryCharge": 120000,
+      "scheduledDate": "2026-01-27",
+      "scheduledTime": "05:00",
+      "operationTheatre": "1001",
+      "status": "COMPLETED",
+      "notes": "njhoigogiy",
+      "createdAt": "2026-01-20T16:56:26.929Z"
+    },
+    {
+      "id": "SUR-2026-0003",
+      "consultationId": "CON-2026-0010",
+      "patientId": "PAT-2026-0007",
+      "patientName": "Sonia Hyde",
+      "doctorId": "DOC-005",
+      "doctorName": "Dr. Meet Kacha",
+      "department": "Neurology",
+      "surgeryType": "Brain Tumor Surgery",
+      "surgeryMasterId": "SM-008",
+      "surgeryCharge": 175000,
+      "scheduledDate": "2026-01-30",
       "scheduledTime": "10:00",
-      "operationTheatre": "1002",
-      "surgeryCharge": 10000,
+      "operationTheatre": "1001",
       "status": "SCHEDULED",
-      "notes": "jjjjjjjjjjj",
-      "createdAt": "2026-01-11T11:30:54.358Z"
+      "notes": "ktjiejgee",
+      "createdAt": "2026-01-20T17:43:41.924Z"
     }
   ],
   "bills": [
     {
-      "id": "BILL-7001",
-      "patientId": null,
-      "items": [
-        {
-          "type": "Consultation",
-          "amount": 800
-        },
-        {
-          "type": "Lab Tests",
-          "amount": 1200
-        },
-        {
-          "type": "Room Charges",
-          "amount": 5000
-        }
-      ],
-      "total": 7000,
-      "status": "UNPAID"
-    },
-    {
-      "id": "BILL-0002",
-      "admissionId": "ADM-005",
-      "patientId": "PAT-2026-0010",
-      "patientName": "Ira Owens",
+      "id": "BILL-0001",
+      "admissionId": "ADM-002",
+      "patientId": "PAT-2026-0005",
+      "patientName": "Meet Patel",
       "doctorName": "Dr. Namra Pithwa",
-      "billDate": "2026-01-15T17:23:13.070Z",
-      "roomCharge": 1500,
+      "billDate": "2026-01-20T17:54:06.459Z",
+      "room": {
+        "roomId": "ROOM-002",
+        "roomType": "GENERAL",
+        "dailyCharge": 1500,
+        "stayDays": 1,
+        "totalRoomCharge": 1500
+      },
       "consultationCharge": 500,
       "labTests": [
         {
-          "testId": "LT-001",
-          "testName": "Blood Sugar",
-          "charge": 200
-        },
-        {
-          "testId": "LT-004",
-          "testName": "X-Ray",
-          "charge": 400
+          "testId": "LT-006",
+          "testName": "CT Scan",
+          "charge": 3000
         }
       ],
-      "labCharge": 600,
-      "surgeryCharge": 0,
-      "totalAmount": 2600,
-      "status": "UNPAID"
-    },
-    {
-      "id": "BILL-0003",
-      "admissionId": "ADM-007",
-      "patientId": "PAT-2026-0011",
-      "patientName": "Premanshu Pithva",
-      "doctorName": "Dr. Namra Pithwa",
-      "billDate": "2026-01-18T06:00:50.842Z",
-      "room": {
-        "roomId": "ROOM-003",
-        "roomType": "DELUXE",
-        "dailyCharge": 4000,
-        "stayDays": 1,
-        "totalRoomCharge": 4000
-      },
-      "consultationCharge": 1000,
-      "labTests": [],
-      "labCharge": 0,
+      "labCharge": 3000,
       "surgeryCharge": 0,
       "totalAmount": 5000,
-      "status": "PAID"
+      "status": "UNPAID"
     }
   ],
   "payments": [

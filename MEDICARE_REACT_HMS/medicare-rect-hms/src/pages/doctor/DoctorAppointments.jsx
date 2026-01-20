@@ -3,8 +3,6 @@ import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 
 import PrescriptionModal from "../../components/doctors/PrescriptionModal";
-import LabTestsModal from "../../components/lab/LabTestsModal";
-import SurgeryModal from "../../components/doctors/SurgeryModal";
 
 import "../../assets/css/components/patient-table.css";
 
@@ -15,19 +13,10 @@ const DoctorAppointments = () => {
 
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState([]);
-  const [consultations, setConsultations] = useState([]);
 
   // Prescription modal
   const [openModal, setOpenModal] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
-
-  // Lab modal
-  const [openLabModal, setOpenLabModal] = useState(false);
-  const [selectedConsultation, setSelectedConsultation] = useState(null);
-
-  // Surgery modal
-  const [openSurgeryModal, setOpenSurgeryModal] = useState(false);
-  const [surgeryConsultation, setSurgeryConsultation] = useState(null);
 
   /* ======================
      LOAD DATA
@@ -35,10 +24,9 @@ const DoctorAppointments = () => {
   const loadAppointments = useCallback(async () => {
     if (!doctorId) return;
 
-    const [aptRes, patRes, conRes] = await Promise.all([
+    const [aptRes, patRes] = await Promise.all([
       axios.get("http://localhost:5000/appointments"),
-      axios.get("http://localhost:5000/patients"),
-      axios.get("http://localhost:5000/consultations")
+      axios.get("http://localhost:5000/patients")
     ]);
 
     const onlineAppointments = aptRes.data.filter(
@@ -66,7 +54,6 @@ const DoctorAppointments = () => {
 
     setAppointments([...onlineAppointments, ...walkInAsAppointments]);
     setPatients(patRes.data);
-    setConsultations(conRes.data);
   }, [doctorId, doctorName]);
 
   useEffect(() => {
@@ -84,45 +71,6 @@ const DoctorAppointments = () => {
   const closeModal = () => {
     setOpenModal(false);
     setSelectedAppointment(null);
-  };
-
-  /* ======================
-     LAB
-  ======================= */
-  const handleOpenLabTests = (apt) => {
-    const consultation = consultations.find(
-      (c) => c.appointmentId === apt.id
-    );
-
-    setSelectedConsultation(
-      consultation || {
-        appointmentId: apt.id,
-        patientId: apt.patientId,
-        doctorId: apt.doctorId,
-        doctorName: apt.doctorName
-      }
-    );
-
-    setOpenLabModal(true);
-  };
-
-  /* ======================
-     SURGERY
-  ======================= */
-  const handleOpenSurgery = (apt) => {
-    const consultation = consultations.find(
-      (c) => c.appointmentId === apt.id
-    );
-
-    setSurgeryConsultation(
-      consultation || {
-        appointmentId: apt.id,
-        patientId: apt.patientId,
-        doctorId: apt.doctorId
-      }
-    );
-
-    setOpenSurgeryModal(true);
   };
 
   if (appointments.length === 0) {
@@ -145,7 +93,7 @@ const DoctorAppointments = () => {
               <th>Date</th>
               <th>Time</th>
               <th>Status</th>
-              <th>Actions</th>
+              <th>Action</th>
             </tr>
           </thead>
 
@@ -160,29 +108,14 @@ const DoctorAppointments = () => {
                   <span className="badge male">{apt.status}</span>
                 </td>
 
+                {/* ✅ ONLY PRESCRIPTION BUTTON */}
                 <td>
-                  <div className="action-icons">
-                    <button
-                      className="icon-btn add"
-                      onClick={() => handleAddPrescription(apt)}
-                    >
-                      <i className="bi bi-plus-lg"></i>
-                    </button>
-
-                    <button
-                      className="icon-btn lab"
-                      onClick={() => handleOpenLabTests(apt)}
-                    >
-                      <i className="bi bi-flask"></i>
-                    </button>
-
-                    <button
-                      className="icon-btn surgery"
-                      onClick={() => handleOpenSurgery(apt)}
-                    >
-                      <i className="bi bi-heart-pulse"></i>
-                    </button>
-                  </div>
+                  <button
+                    className="icon-btn add"
+                    onClick={() => handleAddPrescription(apt)}
+                  >
+                    <i className="bi bi-plus-lg"></i>
+                  </button>
                 </td>
               </tr>
             ))}
@@ -190,7 +123,7 @@ const DoctorAppointments = () => {
         </table>
       </div>
 
-      {/* MODALS */}
+      {/* PRESCRIPTION MODAL */}
       <PrescriptionModal
         open={openModal}
         onClose={closeModal}
@@ -200,25 +133,6 @@ const DoctorAppointments = () => {
         )}
         doctor={user.data}
         refreshAppointments={loadAppointments}
-      />
-
-      <LabTestsModal
-        open={openLabModal}
-        onClose={() => setOpenLabModal(false)}
-        consultation={selectedConsultation}
-        patient={patients.find(
-          (p) => p.id === selectedConsultation?.patientId
-        )}
-      />
-
-      <SurgeryModal
-        open={openSurgeryModal}
-        onClose={() => setOpenSurgeryModal(false)}
-        consultation={surgeryConsultation}
-        patient={patients.find(
-          (p) => p.id === surgeryConsultation?.patientId
-        )}
-        doctor={user.data}
       />
     </>
   );

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import {
   addSurgery,
   getSurgeries
@@ -19,7 +20,7 @@ const SurgeryModal = ({
   ======================= */
   const [form, setForm] = useState({
     department: "",
-    surgeryType: "",
+    surgeryId: "",
     scheduledDate: "",
     scheduledTime: "",
     operationTheatre: "",
@@ -27,16 +28,17 @@ const SurgeryModal = ({
   });
 
   const [availableOTs, setAvailableOTs] = useState([]);
+  const [surgeryMasters, setSurgeryMasters] = useState([]);
 
   /* ======================
-     RESET + LOAD OTs
+     LOAD DATA
   ======================= */
   useEffect(() => {
-    if (!open) return;
+    if (!open || !doctor) return;
 
     setForm({
-      department: "",
-      surgeryType: "",
+      department: doctor.department || "",
+      surgeryId: "",
       scheduledDate: "",
       scheduledTime: "",
       operationTheatre: "",
@@ -44,19 +46,37 @@ const SurgeryModal = ({
     });
 
     loadAvailableOTs();
-  }, [open]);
+    loadSurgeryMasters();
+  }, [open, doctor]); // ✅ FIXED HERE
 
   const loadAvailableOTs = async () => {
     const res = await getRooms();
-    const ots = res.data.filter(
-      (r) =>
-        r.type === "OPERATION_THEATRE" &&
-        r.status === "AVAILABLE"
+    setAvailableOTs(
+      res.data.filter(
+        r =>
+          r.type === "OPERATION_THEATRE" &&
+          r.status === "AVAILABLE"
+      )
     );
-    setAvailableOTs(ots);
+  };
+
+  const loadSurgeryMasters = async () => {
+    const res = await axios.get(
+      "http://localhost:5000/surgeryMasters"
+    );
+    setSurgeryMasters(res.data);
   };
 
   if (!open || !consultation || !patient || !doctor) return null;
+
+  /* ======================
+     FILTER SURGERIES
+  ======================= */
+  const visibleSurgeries = surgeryMasters.filter(s =>
+    s.visibility === "GENERAL"
+      ? true
+      : s.department === form.department
+  );
 
   /* ======================
      HANDLERS
@@ -72,18 +92,16 @@ const SurgeryModal = ({
     const year = new Date().getFullYear();
     const res = await getSurgeries();
 
-    const surOnly = res.data.filter(
-      (s) => s.id && s.id.startsWith(`SUR-${year}-`)
+    const list = res.data.filter(s =>
+      s.id?.startsWith(`SUR-${year}-`)
     );
 
-    if (surOnly.length === 0) {
-      return `SUR-${year}-0001`;
-    }
+    if (list.length === 0) return `SUR-${year}-0001`;
 
-    const last = surOnly[surOnly.length - 1];
-    const lastNum = Number(last.id.split("-")[2]) || 0;
+    const last = list[list.length - 1];
+    const next = Number(last.id.split("-")[2]) + 1;
 
-    return `SUR-${year}-${String(lastNum + 1).padStart(4, "0")}`;
+    return `SUR-${year}-${String(next).padStart(4, "0")}`;
   };
 
   /* ======================
@@ -92,7 +110,7 @@ const SurgeryModal = ({
   const checkExistingSurgery = async () => {
     const res = await getSurgeries();
     return res.data.some(
-      (s) => s.consultationId === consultation.id
+      s => s.consultationId === consultation.id
     );
   };
 
@@ -101,8 +119,7 @@ const SurgeryModal = ({
   ======================= */
   const handleSave = async () => {
     if (
-      !form.department ||
-      !form.surgeryType ||
+      !form.surgeryId ||
       !form.scheduledDate ||
       !form.scheduledTime ||
       !form.operationTheatre
@@ -111,22 +128,26 @@ const SurgeryModal = ({
       return;
     }
 
-    const alreadyExists = await checkExistingSurgery();
-    if (alreadyExists) {
-      alert("Surgery is already scheduled for this consultation");
+    const exists = await checkExistingSurgery();
+    if (exists) {
+      alert("Surgery already scheduled for this consultation");
+      return;
+    }
+
+    const surgeryMaster = surgeryMasters.find(
+      s => s.id === form.surgeryId
+    );
+
+    const selectedOT = availableOTs.find(
+      ot => ot.id === form.operationTheatre
+    );
+
+    if (!surgeryMaster || !selectedOT) {
+      alert("Invalid selection");
       return;
     }
 
     const surgeryId = await generateSurgeryId();
-
-    const selectedOT = availableOTs.find(
-      (ot) => ot.id === form.operationTheatre
-    );
-
-    if (!selectedOT) {
-      alert("Selected Operation Theatre is no longer available");
-      return;
-    }
 
     await addSurgery({
       id: surgeryId,
@@ -136,20 +157,20 @@ const SurgeryModal = ({
       doctorId: doctor.id,
       doctorName: doctor.name,
       department: form.department,
-      surgeryType: form.surgeryType,
+
+      surgeryType: surgeryMaster.name,
+      surgeryMasterId: surgeryMaster.id,
+      surgeryCharge: surgeryMaster.charge,
+
       scheduledDate: form.scheduledDate,
       scheduledTime: form.scheduledTime,
       operationTheatre: selectedOT.roomNumber,
-
-      // ✅ NEW: SURGERY CHARGE
-      surgeryCharge: selectedOT.charge,
 
       status: "SCHEDULED",
       notes: form.notes,
       createdAt: new Date().toISOString()
     });
 
-    // ✅ Mark OT as occupied
     await updateRoom(selectedOT.id, {
       status: "OCCUPIED",
       patientId: patient.id,
@@ -157,10 +178,7 @@ const SurgeryModal = ({
       linkedSurgeryId: surgeryId
     });
 
-    if (refreshAppointments) {
-      await refreshAppointments();
-    }
-
+    refreshAppointments?.();
     alert("Surgery scheduled successfully");
     onClose();
   };
@@ -180,18 +198,23 @@ const SurgeryModal = ({
         <p><strong>Doctor:</strong> {doctor.name}</p>
 
         <input
-          name="department"
-          placeholder="Department"
           value={form.department}
-          onChange={handleChange}
+          disabled
+          placeholder="Department"
         />
 
-        <input
-          name="surgeryType"
-          placeholder="Surgery Type"
-          value={form.surgeryType}
+        <select
+          name="surgeryId"
+          value={form.surgeryId}
           onChange={handleChange}
-        />
+        >
+          <option value="">Select Surgery</option>
+          {visibleSurgeries.map(s => (
+            <option key={s.id} value={s.id}>
+              {s.name} — ₹{s.charge}
+            </option>
+          ))}
+        </select>
 
         <input
           type="date"
@@ -213,9 +236,9 @@ const SurgeryModal = ({
           onChange={handleChange}
         >
           <option value="">Select Operation Theatre</option>
-          {availableOTs.map((ot) => (
+          {availableOTs.map(ot => (
             <option key={ot.id} value={ot.id}>
-              {ot.roomNumber} {ot.type} — ₹{ot.charge}
+              Operation Theatre {ot.roomNumber}
             </option>
           ))}
         </select>

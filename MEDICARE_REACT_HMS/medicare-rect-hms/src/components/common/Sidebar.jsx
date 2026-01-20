@@ -36,6 +36,12 @@ const Sidebar = () => {
           <span>Doctors</span>
         </NavLink>
 
+        {/* LAB Test Master */}
+        <NavLink to="/admin/lab-test-masters" className="menu-item">
+          <i className="bi bi-list-check"></i>
+          <span>Add Lab Test</span>
+        </NavLink>
+
         {/* LAB */}
         <NavLink to="/admin/lab" className="menu-item">
           <i className="bi bi-flask"></i>
@@ -48,9 +54,16 @@ const Sidebar = () => {
           <span>Admissions</span>
         </NavLink>
 
+        {/* Rooms */}
         <NavLink to="/admin/rooms" className="menu-item">
-           <i className="bi bi-door-open"></i>
-           <span>Rooms</span>
+          <i className="bi bi-door-open"></i>
+          <span>Rooms</span>
+        </NavLink>
+
+        {/* SURGERY MASTER */}
+        <NavLink to="/admin/surgery-masters" className="menu-item">
+          <i className="bi bi-clipboard-plus"></i>
+          <span>Add Surgery</span>
         </NavLink>
 
         {/* SURGERY */}

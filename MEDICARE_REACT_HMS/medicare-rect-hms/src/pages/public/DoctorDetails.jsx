@@ -4,6 +4,15 @@ import { getDoctors } from "../../services/doctorService";
 import OnlineAppointmentModal from "../../components/public/OnlineAppointmentModal";
 import "../../assets/css/public/doctor-details.css";
 
+/* ✅ LOAD IMAGE FROM src/assets */
+const getDoctorImage = (imageName) => {
+  try {
+    return require(`../../assets/images/doctors/${imageName}`);
+  } catch (err) {
+    return require(`../../assets/images/doctors/doc.png`);
+  }
+};
+
 const DoctorDetails = () => {
   const { id } = useParams();
 
@@ -50,11 +59,7 @@ const DoctorDetails = () => {
         {/* LEFT PANEL */}
         <div className="doctor-details-left">
           <img
-            src={
-              doctor.image
-                ? `/images/doctors/${doctor.image}`
-                : "/images/doctors/default-doctor.png"
-            }
+            src={getDoctorImage(doctor.image)}
             alt={doctor.name}
           />
 
@@ -67,7 +72,6 @@ const DoctorDetails = () => {
           <h2 className="dept-title">{doctor.department}</h2>
           <h4 className="experience">{doctor.experience} Years Experience</h4>
 
-          {/* ✅ FUNCTION IS NOW USED */}
           <p className="doctor-description">
             {getDepartmentDescription(doctor.department)}
           </p>

@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { addAppointment, getAppointments } from "../../services/appointmentService";
+import {
+  addAppointment,
+  getAppointments
+} from "../../services/appointmentService";
 import "../../assets/css/components/patient-form.css";
 
 const BLOOD_GROUPS = [
@@ -11,6 +14,18 @@ const BLOOD_GROUPS = [
   "AB-",
   "O+",
   "O-"
+];
+
+/* ✅ SAME OPD SCHEDULE OPTIONS AS ADMIN PATIENT REGISTRATION */
+const OPD_SCHEDULES = [
+  {
+    label: "Morning (10:00 - 12:00)",
+    value: "MORNING (10:00 - 12:00)"
+  },
+  {
+    label: "Evening (5:00 - 7:00)",
+    value: "EVENING (5:00 - 7:00)"
+  }
 ];
 
 const OnlineAppointmentModal = ({ open, doctor, onClose }) => {
@@ -97,7 +112,7 @@ const OnlineAppointmentModal = ({ open, doctor, onClose }) => {
       doctorName: doctor.name,
 
       date: form.date,
-      time: form.timing,
+      time: form.timing, // ✅ SAME FIELD AS BEFORE
 
       status: "PENDING",
       source: "ONLINE",
@@ -119,17 +134,32 @@ const OnlineAppointmentModal = ({ open, doctor, onClose }) => {
         <form onSubmit={handleSubmit} className="form-grid">
           <div>
             <label>First Name</label>
-            <input name="firstName" value={form.firstName} onChange={handleChange} required />
+            <input
+              name="firstName"
+              value={form.firstName}
+              onChange={handleChange}
+              required
+            />
           </div>
 
           <div>
             <label>Last Name</label>
-            <input name="lastName" value={form.lastName} onChange={handleChange} required />
+            <input
+              name="lastName"
+              value={form.lastName}
+              onChange={handleChange}
+              required
+            />
           </div>
 
           <div>
             <label>Gender</label>
-            <select name="gender" value={form.gender} onChange={handleChange} required>
+            <select
+              name="gender"
+              value={form.gender}
+              onChange={handleChange}
+              required
+            >
               <option value="">Select</option>
               <option>Male</option>
               <option>Female</option>
@@ -139,32 +169,69 @@ const OnlineAppointmentModal = ({ open, doctor, onClose }) => {
 
           <div>
             <label>Age</label>
-            <input type="number" name="age" value={form.age} onChange={handleChange} required />
+            <input
+              type="number"
+              name="age"
+              value={form.age}
+              onChange={handleChange}
+              required
+            />
           </div>
 
           <div>
             <label>Phone</label>
-            <input name="phone" value={form.phone} onChange={handleChange} required />
+            <input
+              name="phone"
+              value={form.phone}
+              onChange={handleChange}
+              required
+            />
           </div>
 
           <div>
             <label>Blood Group</label>
-            <select name="bloodGroup" value={form.bloodGroup} onChange={handleChange} required>
+            <select
+              name="bloodGroup"
+              value={form.bloodGroup}
+              onChange={handleChange}
+              required
+            >
               <option value="">Select Blood Group</option>
               {BLOOD_GROUPS.map((bg) => (
-                <option key={bg} value={bg}>{bg}</option>
+                <option key={bg} value={bg}>
+                  {bg}
+                </option>
               ))}
             </select>
           </div>
 
           <div>
             <label>Appointment Date</label>
-            <input type="date" name="date" value={form.date} onChange={handleChange} required />
+            <input
+              type="date"
+              name="date"
+              value={form.date}
+              onChange={handleChange}
+              required
+            />
           </div>
 
+          {/* ✅ OPD SCHEDULE DROPDOWN (NEW CHANGE) */}
           <div>
-            <label>Preferred Time</label>
-            <input type="time" name="timing" value={form.timing} onChange={handleChange} required />
+            <label>OPD Schedule</label>
+            <select
+              name="timing"
+              value={form.timing}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Schedule</option>
+              {OPD_SCHEDULES.map((s) => (
+                <option key={s.value} value={s.value}>
+                  {s.label}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="form-actions">
@@ -173,7 +240,11 @@ const OnlineAppointmentModal = ({ open, doctor, onClose }) => {
               Request Appointment
             </button>
 
-            <button type="button" className="btn-cancel" onClick={onClose}>
+            <button
+              type="button"
+              className="btn-cancel"
+              onClick={onClose}
+            >
               Cancel
             </button>
           </div>

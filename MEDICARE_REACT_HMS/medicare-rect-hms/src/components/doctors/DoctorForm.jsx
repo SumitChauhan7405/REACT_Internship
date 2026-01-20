@@ -181,7 +181,7 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
             <option>Cardiology</option>
             <option>Orthopedics</option>
             <option>Neurology</option>
-            <option>Dermatology</option>
+            <option>Radiology</option>
             <option>ENT</option>
             <option>General Medicine</option>
           </select>
