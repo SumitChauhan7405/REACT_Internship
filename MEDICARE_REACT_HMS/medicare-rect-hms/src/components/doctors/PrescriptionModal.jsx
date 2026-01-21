@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import {
   addConsultation,
-  getAllConsultations
+  getAllConsultations,
+  updateConsultation
 } from "../../services/consultationService";
 
 import LabTestsModal from "../lab/LabTestsModal";
@@ -29,6 +30,8 @@ const PrescriptionModal = ({
 
   /* 🆕 Prescription History */
   const [history, setHistory] = useState([]);
+  const [editingId, setEditingId] = useState(null);
+  const [editingCreatedAt, setEditingCreatedAt] = useState(null); // ✅ ADDED
 
   /* 🧪 LAB */
   const [openLabModal, setOpenLabModal] = useState(false);
@@ -49,13 +52,11 @@ const PrescriptionModal = ({
       const res = await getAllConsultations();
 
       const nums = res.data
-        .filter((c) => c.id?.startsWith(`CON-${year}-`))
-        .map((c) => Number(c.id.split("-")[2]))
-        .filter((n) => !isNaN(n));
+        .filter(c => c.id?.startsWith(`CON-${year}-`))
+        .map(c => Number(c.id.split("-")[2]))
+        .filter(n => !isNaN(n));
 
-      setLastConsultationNumber(
-        nums.length > 0 ? Math.max(...nums) : 0
-      );
+      setLastConsultationNumber(nums.length > 0 ? Math.max(...nums) : 0);
     };
 
     loadCounter();
@@ -64,29 +65,28 @@ const PrescriptionModal = ({
   /* ======================
      LOAD PRESCRIPTION HISTORY
   ======================= */
+  const loadHistory = async () => {
+    const res = await getAllConsultations();
+    const filtered = res.data
+      .filter(c => c.patientId === patient.id)
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    setHistory(filtered);
+  };
+
   useEffect(() => {
     if (!open || !patient) return;
-
-    const loadHistory = async () => {
-      const res = await getAllConsultations();
-      const filtered = res.data
-        .filter((c) => c.patientId === patient.id)
-        .sort(
-          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-        );
-
-      setHistory(filtered);
-    };
-
     loadHistory();
   }, [open, patient]);
 
   /* ======================
-     FORCE RESET FORM
+     RESET FORM
   ======================= */
   useEffect(() => {
     if (open) {
       setForm(getEmptyForm());
+      setEditingId(null);
+      setEditingCreatedAt(null);
     }
   }, [open]);
 
@@ -100,8 +100,9 @@ const PrescriptionModal = ({
   };
 
   const handleMedicineChange = (index, field, value) => {
-    const updated = [...form.medicines];
-    updated[index][field] = value;
+    const updated = form.medicines.map((m, i) =>
+      i === index ? { ...m, [field]: value } : m
+    );
     setForm({ ...form, medicines: updated });
   };
 
@@ -116,7 +117,22 @@ const PrescriptionModal = ({
     const updated = form.medicines.filter((_, i) => i !== index);
     setForm({
       ...form,
-      medicines: updated.length > 0 ? updated : [{ name: "", dosage: "" }]
+      medicines: updated.length ? updated : [{ name: "", dosage: "" }]
+    });
+  };
+
+  /* ======================
+     EDIT HISTORY (NO LIVE MUTATION)
+  ======================= */
+  const editPrescription = (item) => {
+    setEditingId(item.id);
+    setEditingCreatedAt(item.createdAt); // ✅ PRESERVE ORIGINAL DATE
+    setForm({
+      diagnosis: item.diagnosis,
+      consultation: item.consultation,
+      medicines: item.medicines
+        ? item.medicines.map(m => ({ ...m })) // ✅ DEEP COPY
+        : [{ name: "", dosage: "" }]
     });
   };
 
@@ -128,7 +144,9 @@ const PrescriptionModal = ({
     const nextNumber = lastConsultationNumber + 1;
 
     const payload = {
-      id: `CON-${year}-${String(nextNumber).padStart(4, "0")}`,
+      id: editingId
+        ? editingId
+        : `CON-${year}-${String(nextNumber).padStart(4, "0")}`,
       appointmentId: appointment.id,
       doctorId: doctor.id,
       doctorName: doctor.name,
@@ -137,17 +155,25 @@ const PrescriptionModal = ({
       diagnosis: form.diagnosis,
       consultation: form.consultation,
       consultationFee: doctor.consultationFee,
-      medicines: form.medicines,
-      createdAt: new Date().toISOString()
+      medicines: form.medicines.map(m => ({ ...m })), // ✅ SAFE COPY
+      createdAt: editingId ? editingCreatedAt : new Date().toISOString()
     };
 
-    await addConsultation(payload);
+    if (editingId) {
+      await updateConsultation(editingId, payload);
+    } else {
+      await addConsultation(payload);
+      setLastConsultationNumber(nextNumber);
+    }
 
-    setLastConsultationNumber(nextNumber);
     await refreshAppointments();
+    await loadHistory(); // ✅ REFRESH FROM DB
 
-    alert("Prescription saved successfully");
-    onClose();
+    alert(editingId ? "Prescription updated" : "Prescription saved");
+
+    setForm(getEmptyForm());
+    setEditingId(null);
+    setEditingCreatedAt(null);
   };
 
   /* ======================
@@ -230,12 +256,29 @@ const PrescriptionModal = ({
               + Add Medicine
             </button>
 
+            {/* 🔥 LAB & SURGERY ICONS INSIDE FORM */}
+            <div className="history-actions" style={{ marginTop: 10 }}>
+              <button
+                className="icon-btn lab"
+                onClick={() => openLab({ id: editingId })}
+              >
+                <i className="bi bi-flask"></i>
+              </button>
+
+              <button
+                className="icon-btn surgery"
+                onClick={() => openSurgery({ id: editingId })}
+              >
+                <i className="bi bi-heart-pulse"></i>
+              </button>
+            </div>
+
             <div className="form-actions">
               <button className="form-btn-secondary" onClick={onClose}>
                 Cancel
               </button>
               <button className="btn-presave" onClick={handleSubmit}>
-                Save Prescription
+                {editingId ? "Update Prescription" : "Save Prescription"}
               </button>
             </div>
           </div>
@@ -249,12 +292,14 @@ const PrescriptionModal = ({
             )}
 
             {history.map((item) => (
-              <div key={item.id} className="history-card">
+              <div
+                key={item.id}
+                className="history-card"
+              >
+
                 <div className="history-header">
                   <strong>{item.patientName}</strong>
-                  <span>
-                    {new Date(item.createdAt).toLocaleDateString()}
-                  </span>
+                  <span>{new Date(item.createdAt).toLocaleDateString()}</span>
                 </div>
 
                 <p><strong>Diagnosis:</strong> {item.diagnosis}</p>
@@ -264,29 +309,40 @@ const PrescriptionModal = ({
                   <strong>Medicines:</strong>
                   <ul>
                     {item.medicines?.map((m, i) => (
-                      <li key={i}>
-                        {m.name} – {m.dosage}
-                      </li>
+                      <li key={i}>{m.name} – {m.dosage}</li>
                     ))}
                   </ul>
                 </div>
 
-                {/* 🔥 LAB & SURGERY PER PRESCRIPTION */}
                 <div className="history-actions">
                   <button
+                    className="icon-btn edit"
+                    onClick={() => editPrescription(item)}
+                  >
+                    <i className="bi bi-pencil-fill"></i>
+                  </button>
+
+                  <button
                     className="icon-btn lab"
-                    onClick={() => openLab(item)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openLab(item);
+                    }}
                   >
                     <i className="bi bi-flask"></i>
                   </button>
 
                   <button
                     className="icon-btn surgery"
-                    onClick={() => openSurgery(item)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openSurgery(item);
+                    }}
                   >
                     <i className="bi bi-heart-pulse"></i>
                   </button>
                 </div>
+
               </div>
             ))}
           </div>

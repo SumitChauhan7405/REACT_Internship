@@ -191,9 +191,8 @@ const Billing = () => {
                   <td>₹{remaining}</td>
                   <td>
                     <span
-                      className={`badge ${
-                        bill.status === "PAID" ? "male" : "female"
-                      }`}
+                      className={`badge ${bill.status === "PAID" ? "male" : "female"
+                        }`}
                     >
                       {bill.status}
                     </span>
@@ -292,6 +291,8 @@ const Billing = () => {
                 <p><strong>Bill ID:</strong> {viewBill.id}</p>
                 <p><strong>Patient:</strong> {viewBill.patientName}</p>
                 <p><strong>Doctor:</strong> {viewBill.doctorName}</p>
+                <p><strong>Admission Date:</strong> {viewBill.admissionDate}</p>
+                <p><strong>Discharge Date:</strong> {viewBill.dischargeDate}</p>
               </div>
               <div>
                 <p>
@@ -316,16 +317,22 @@ const Billing = () => {
                 </tr>
               </thead>
               <tbody>
+
                 <tr>
                   <td>Room</td>
-                  <td>Room Charges</td>
-                  <td>{viewBill.roomCharge}</td>
+                  <td>
+                    Room Charges [{viewBill.room?.roomType} - ₹{viewBill.room?.dailyCharge}]
+                    (₹{viewBill.room?.dailyCharge} × {viewBill.room?.stayDays} day(s))
+                  </td>
+                  <td>{viewBill.room?.totalRoomCharge}</td>
                 </tr>
+                
                 <tr>
                   <td>Consultation</td>
                   <td>Doctor Consultation</td>
                   <td>{viewBill.consultationCharge}</td>
                 </tr>
+
                 <tr>
                   <td>Surgery</td>
                   <td>Surgical Procedure</td>
@@ -339,6 +346,25 @@ const Billing = () => {
                     <td>{t.charge}</td>
                   </tr>
                 ))}
+
+                <tr>
+                  <td colSpan="2">
+                    <strong>GST ({viewBill.gstRate}%)</strong>
+                  </td>
+                  <td>
+                    <strong>{viewBill.gstAmount}</strong>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td colSpan="2">
+                    <strong>Subtotal</strong>
+                  </td>
+                  <td>
+                    <strong>₹{viewBill.subtotal}</strong>
+                  </td>
+                </tr>
+
               </tbody>
             </table>
 

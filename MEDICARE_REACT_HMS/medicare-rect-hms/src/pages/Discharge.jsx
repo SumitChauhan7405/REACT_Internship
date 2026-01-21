@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "../assets/css/pages/discharge.css";
 
+const GST_RATE = 5; // ✅ 5% GST
+
 const Discharge = () => {
   const [admissions, setAdmissions] = useState([]);
   const [rooms, setRooms] = useState([]);
@@ -57,7 +59,7 @@ const Discharge = () => {
 
     const room = rooms.find(r => r.id === adm.roomId);
 
-    /* 🆕 CALCULATE STAY DAYS */
+    /* 🆕 ADMISSION → DISCHARGE */
     const admissionDate = new Date(adm.admissionDate);
     const dischargeDate = new Date();
 
@@ -67,7 +69,6 @@ const Discharge = () => {
       Math.ceil(diffTime / (1000 * 60 * 60 * 24))
     );
 
-    /* 🆕 DAILY ROOM CHARGE */
     const dailyCharge = room?.charge || 0;
     const totalRoomCharge = dailyCharge * stayDays;
 
@@ -96,14 +97,23 @@ const Discharge = () => {
 
     const surgeryCharge = surgery?.surgeryCharge || 0;
 
-    const totalAmount =
+    /* 🧮 SUBTOTAL */
+    const subtotal =
       totalRoomCharge +
       consultationCharge +
       totalLabCharge +
       surgeryCharge;
 
+    /* 🧾 GST */
+    const gstAmount = Math.round((subtotal * GST_RATE) / 100);
+
+    /* 💰 FINAL TOTAL */
+    const totalAmount = subtotal + gstAmount;
+
     setSelectedAdmission(adm);
     setBillPreview({
+      admissionDate: adm.admissionDate,
+      dischargeDate: dischargeDate.toISOString().split("T")[0],
       stayDays,
       dailyCharge,
       totalRoomCharge,
@@ -111,6 +121,9 @@ const Discharge = () => {
       labItems,
       totalLabCharge,
       surgeryCharge,
+      subtotal,
+      gstRate: GST_RATE,
+      gstAmount,
       totalAmount
     });
   };
@@ -131,7 +144,7 @@ const Discharge = () => {
       doctorName: selectedAdmission.doctorName,
       billDate: new Date().toISOString(),
 
-      /* 🆕 ROOM SNAPSHOT */
+      /* 🏨 ROOM SNAPSHOT */
       room: {
         roomId: selectedAdmission.roomId,
         roomType: selectedAdmission.roomType,
@@ -140,10 +153,18 @@ const Discharge = () => {
         totalRoomCharge: billPreview.totalRoomCharge
       },
 
+      admissionDate: billPreview.admissionDate,
+      dischargeDate: billPreview.dischargeDate,
+
       consultationCharge: billPreview.consultationCharge,
       labTests: billPreview.labItems,
       labCharge: billPreview.totalLabCharge,
       surgeryCharge: billPreview.surgeryCharge,
+
+      subtotal: billPreview.subtotal,
+      gstRate: billPreview.gstRate,
+      gstAmount: billPreview.gstAmount,
+
       totalAmount: billPreview.totalAmount,
       status: "UNPAID"
     });
@@ -152,7 +173,7 @@ const Discharge = () => {
       `http://localhost:5000/admissions/${selectedAdmission.id}`,
       {
         status: "DISCHARGED",
-        dischargeDate: new Date().toISOString().split("T")[0]
+        dischargeDate: billPreview.dischargeDate
       }
     );
 
@@ -212,6 +233,11 @@ const Discharge = () => {
           <h4>Bill Summary</h4>
 
           <p>
+            <strong>Admission Date:</strong> {billPreview.admissionDate} {""}
+            <strong>Discharge Date:</strong> {billPreview.dischargeDate}
+          </p>
+
+          <p>
             Room Charge: ₹{billPreview.dailyCharge} × {billPreview.stayDays} days
             = ₹{billPreview.totalRoomCharge}
           </p>
@@ -225,6 +251,9 @@ const Discharge = () => {
               <li key={i}>{t.testName} — ₹{t.charge}</li>
             ))}
           </ul>
+
+          <p><strong>Subtotal:</strong> ₹{billPreview.subtotal}</p>
+          <p><strong>GST ({billPreview.gstRate}%):</strong> ₹{billPreview.gstAmount}</p>
 
           <h4>Total: ₹{billPreview.totalAmount}</h4>
 
