@@ -27,6 +27,34 @@
       "status": "CONFIRMED",
       "source": "ONLINE",
       "createdAt": "2026-01-21T14:54:58.265Z"
+    },
+    {
+      "id": "PAT-2026-0003",
+      "firstName": "Alyssa",
+      "lastName": "Sharpe",
+      "gender": "Other",
+      "age": "87",
+      "phone": "+1 (888) 613-7139",
+      "bloodGroup": "A-",
+      "doctorName": "Dr. Namra Pithwa",
+      "timing": "MORNING (10:00 - 12:00)",
+      "status": "CONFIRMED",
+      "source": "WALKIN",
+      "createdAt": "2026-01-22T04:23:26.948Z"
+    },
+    {
+      "id": "PAT-2026-0004",
+      "firstName": "Todd",
+      "lastName": "Potts",
+      "gender": "Female",
+      "age": "8",
+      "phone": "+1 (415) 615-5514",
+      "bloodGroup": "AB+",
+      "doctorName": "Dr. Namra Pithwa",
+      "timing": "EVENING (5:00 - 7:00)",
+      "status": "CONFIRMED",
+      "source": "WALKIN",
+      "createdAt": "2026-01-22T04:26:42.327Z"
     }
   ],
   "doctors": [
@@ -216,34 +244,60 @@
       "doctorName": "Dr. Namra Pithwa",
       "patientId": "PAT-2026-0001",
       "patientName": "Robert Gates",
-      "diagnosis": "abcccccccccc",
-      "consultation": "abccccccccc",
+      "diagnosis": "leg broke",
+      "consultation": "x ray needed",
       "consultationFee": 500,
       "medicines": [
         {
-          "name": "abcccccccc",
-          "dosage": "1-1-1"
+          "name": "abc",
+          "dosage": "1-0-1"
         }
       ],
-      "createdAt": "2026-01-21T18:11:16.597Z"
+      "createdAt": "2026-01-22T03:32:04.803Z"
     },
     {
       "id": "CON-2026-0002",
-      "appointmentId": "WALKIN-PAT-2026-0001",
+      "appointmentId": "APT-2026-0001",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
-      "patientId": "PAT-2026-0001",
-      "patientName": "Robert Gates",
-      "diagnosis": "deffffffffffffffff",
-      "consultation": "deffffffffff",
+      "patientId": "PAT-2026-0002",
+      "patientName": "Reed Talley",
+      "diagnosis": "abc",
+      "consultation": "abc",
       "consultationFee": 500,
       "medicines": [
         {
-          "name": "deffffffff",
-          "dosage": "0-0-0"
+          "name": "abc",
+          "dosage": "1"
+        },
+        {
+          "name": "aaa",
+          "dosage": "0"
+        },
+        {
+          "name": "bbbbb",
+          "dosage": "1-0"
         }
       ],
-      "createdAt": "2026-01-21T18:11:28.655Z"
+      "createdAt": "2026-01-22T04:19:19.188Z"
+    },
+    {
+      "id": "CON-2026-0003",
+      "appointmentId": "WALKIN-PAT-2026-0004",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "patientId": "PAT-2026-0004",
+      "patientName": "Todd Potts",
+      "diagnosis": "Et praesentium cillu",
+      "consultation": "Qui officia cupidata",
+      "consultationFee": 500,
+      "medicines": [
+        {
+          "name": "Aspernatur consequat",
+          "dosage": "Id placeat nihil et"
+        }
+      ],
+      "createdAt": "2026-01-22T06:47:32.997Z"
     }
   ],
   "labTestMasters": [
@@ -298,14 +352,88 @@
       "department": "Cardiology"
     }
   ],
-  "labTests": [],
+  "labTests": [
+    {
+      "id": "LAB-2026-0002",
+      "consultationId": "CON-2026-0002",
+      "patientId": "PAT-2026-0002",
+      "patientName": "Reed Talley",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "tests": [
+        {
+          "testId": "LT-004",
+          "testName": "X-Ray",
+          "charge": 400
+        }
+      ],
+      "results": [
+        {
+          "testName": "X-Ray",
+          "result": "Deep Crack"
+        }
+      ],
+      "status": "COMPLETED",
+      "createdAt": "2026-01-22T04:19:07.973Z"
+    },
+    {
+      "id": "LAB-2026-0003",
+      "consultationId": "CON-2026-0003",
+      "patientId": "PAT-2026-0003",
+      "patientName": "Alyssa Sharpe",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "tests": [
+        {
+          "testId": "LT-001",
+          "testName": "Blood Sugar",
+          "charge": 200
+        },
+        {
+          "testId": "LT-002",
+          "testName": "CBC",
+          "charge": 300
+        }
+      ],
+      "results": [
+        {
+          "testName": "Blood Sugar",
+          "result": "68532"
+        },
+        {
+          "testName": "CBC",
+          "result": "erghj"
+        }
+      ],
+      "status": "COMPLETED",
+      "createdAt": "2026-01-22T04:24:15.849Z"
+    },
+    {
+      "id": "LAB-2026-0004",
+      "consultationId": "CON-2026-0004",
+      "patientId": "PAT-2026-0004",
+      "patientName": "Todd Potts",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "tests": [
+        {
+          "testId": "LT-002",
+          "testName": "CBC",
+          "charge": 300
+        }
+      ],
+      "results": [],
+      "status": "PENDING",
+      "createdAt": "2026-01-22T04:27:07.807Z"
+    }
+  ],
   "admissions": [],
   "rooms": [
     {
       "id": "ROOM-001",
       "roomNumber": "101",
       "type": "GENERAL",
-      "status": "OCCUPIED",
+      "status": "AVAILABLE",
       "charge": 1500
     },
     {
@@ -354,18 +482,18 @@
       "id": "ROOM-011",
       "roomNumber": "1001",
       "type": "OPERATION_THEATRE",
-      "status": "OCCUPIED",
-      "charge": 5000,
-      "patientId": "PAT-2026-0001",
-      "patientName": "Robert Gates",
-      "linkedSurgeryId": "SUR-2026-0001"
+      "status": "AVAILABLE",
+      "charge": 5000
     },
     {
       "id": "ROOM-012",
       "roomNumber": "1002",
       "type": "OPERATION_THEATRE",
-      "status": "AVAILABLE",
-      "charge": 5000
+      "status": "OCCUPIED",
+      "charge": 5000,
+      "patientId": "PAT-2026-0004",
+      "patientName": "Todd Potts",
+      "linkedSurgeryId": "SUR-2026-0001"
     }
   ],
   "vitals": [
@@ -433,21 +561,21 @@
   "surgeries": [
     {
       "id": "SUR-2026-0001",
-      "consultationId": "CON-2026-0001",
-      "patientId": "PAT-2026-0001",
-      "patientName": "Robert Gates",
+      "consultationId": "CON-2026-0003",
+      "patientId": "PAT-2026-0004",
+      "patientName": "Todd Potts",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
       "department": "Cardiology",
       "surgeryType": "Angioplasty",
       "surgeryMasterId": "SM-004",
       "surgeryCharge": 120000,
-      "scheduledDate": "2026-01-28",
-      "scheduledTime": "10:00",
-      "operationTheatre": "1001",
+      "scheduledDate": "1970-11-19",
+      "scheduledTime": "05:21",
+      "operationTheatre": "1002",
       "status": "SCHEDULED",
-      "notes": "jbigouig",
-      "createdAt": "2026-01-21T15:47:59.133Z"
+      "notes": "Earum provident fac",
+      "createdAt": "2026-01-22T06:47:05.008Z"
     }
   ],
   "bills": [],

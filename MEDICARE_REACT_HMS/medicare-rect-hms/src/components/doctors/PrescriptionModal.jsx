@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import axios from "axios"; // ✅ ADDED
 import {
   addConsultation,
   getAllConsultations,
@@ -31,7 +32,7 @@ const PrescriptionModal = ({
   /* 🆕 Prescription History */
   const [history, setHistory] = useState([]);
   const [editingId, setEditingId] = useState(null);
-  const [editingCreatedAt, setEditingCreatedAt] = useState(null); // ✅ ADDED
+  const [editingCreatedAt, setEditingCreatedAt] = useState(null);
 
   /* 🧪 LAB */
   const [openLabModal, setOpenLabModal] = useState(false);
@@ -65,19 +66,21 @@ const PrescriptionModal = ({
   /* ======================
      LOAD PRESCRIPTION HISTORY
   ======================= */
-  const loadHistory = async () => {
+  const loadHistory = useCallback(async () => {
+    if (!patient) return;
+
     const res = await getAllConsultations();
     const filtered = res.data
       .filter(c => c.patientId === patient.id)
       .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     setHistory(filtered);
-  };
+  }, [patient]);
 
   useEffect(() => {
-    if (!open || !patient) return;
+    if (!open) return;
     loadHistory();
-  }, [open, patient]);
+  }, [open, loadHistory]);
 
   /* ======================
      RESET FORM
@@ -122,16 +125,16 @@ const PrescriptionModal = ({
   };
 
   /* ======================
-     EDIT HISTORY (NO LIVE MUTATION)
+     EDIT HISTORY
   ======================= */
   const editPrescription = (item) => {
     setEditingId(item.id);
-    setEditingCreatedAt(item.createdAt); // ✅ PRESERVE ORIGINAL DATE
+    setEditingCreatedAt(item.createdAt);
     setForm({
       diagnosis: item.diagnosis,
       consultation: item.consultation,
       medicines: item.medicines
-        ? item.medicines.map(m => ({ ...m })) // ✅ DEEP COPY
+        ? item.medicines.map(m => ({ ...m }))
         : [{ name: "", dosage: "" }]
     });
   };
@@ -143,10 +146,12 @@ const PrescriptionModal = ({
     const year = new Date().getFullYear();
     const nextNumber = lastConsultationNumber + 1;
 
+    const consultationId = editingId
+      ? editingId
+      : `CON-${year}-${String(nextNumber).padStart(4, "0")}`;
+
     const payload = {
-      id: editingId
-        ? editingId
-        : `CON-${year}-${String(nextNumber).padStart(4, "0")}`,
+      id: consultationId,
       appointmentId: appointment.id,
       doctorId: doctor.id,
       doctorName: doctor.name,
@@ -155,7 +160,7 @@ const PrescriptionModal = ({
       diagnosis: form.diagnosis,
       consultation: form.consultation,
       consultationFee: doctor.consultationFee,
-      medicines: form.medicines.map(m => ({ ...m })), // ✅ SAFE COPY
+      medicines: form.medicines.map(m => ({ ...m })),
       createdAt: editingId ? editingCreatedAt : new Date().toISOString()
     };
 
@@ -166,8 +171,48 @@ const PrescriptionModal = ({
       setLastConsultationNumber(nextNumber);
     }
 
+    /* ======================
+       🔥 LINK LAB TESTS
+    ======================= */
+    const labRes = await axios.get("http://localhost:5000/labTests");
+
+    const pendingLabs = labRes.data.filter(
+      l => l.consultationId === null && l.patientId === patient.id
+    );
+
+    for (const lab of pendingLabs) {
+      await axios.patch(
+        `http://localhost:5000/labTests/${lab.id}`,
+        {
+          consultationId,
+          doctorId: doctor.id,
+          doctorName: doctor.name
+        }
+      );
+    }
+
+    /* ======================
+       🔥 LINK SURGERIES (NEW)
+    ======================= */
+    const surgeryRes = await axios.get("http://localhost:5000/surgeries");
+
+    const pendingSurgeries = surgeryRes.data.filter(
+      s => s.consultationId === null && s.patientId === patient.id
+    );
+
+    for (const surgery of pendingSurgeries) {
+      await axios.patch(
+        `http://localhost:5000/surgeries/${surgery.id}`,
+        {
+          consultationId,
+          doctorId: doctor.id,
+          doctorName: doctor.name
+        }
+      );
+    }
+
     await refreshAppointments();
-    await loadHistory(); // ✅ REFRESH FROM DB
+    await loadHistory();
 
     alert(editingId ? "Prescription updated" : "Prescription saved");
 

@@ -13,7 +13,7 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
      LOAD LAB MASTER + EXISTING LAB TEST
   ======================= */
   useEffect(() => {
-    if (!open || !consultation) return;
+    if (!open || !patient) return;
 
     const loadData = async () => {
       const [labRes, masterRes] = await Promise.all([
@@ -22,13 +22,14 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
       ]);
 
       const existing = labRes.data.find(
-        (l) => l.consultationId === consultation.id
+        (l) =>
+          l.consultationId === consultation?.id ||
+          (!l.consultationId && l.patientId === patient.id)
       );
 
       if (existing) {
         setLabTest(existing);
 
-        // ✅ Support OLD + NEW format
         const tests = Array.isArray(existing.tests)
           ? existing.tests.map((t) =>
               typeof t === "string" ? t : t.testName
@@ -45,9 +46,9 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
     };
 
     loadData();
-  }, [open, consultation]);
+  }, [open, consultation, patient]);
 
-  if (!open || !consultation || !patient) return null;
+  if (!open || !patient) return null;
 
   const toggleTest = (testName) => {
     setSelectedTests((prev) =>
@@ -85,7 +86,6 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
       return;
     }
 
-    // ✅ Convert selection → priced objects
     const pricedTests = selectedTests.map((name) => {
       const master = labMasters.find((m) => m.name === name);
       return {
@@ -100,8 +100,8 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
         `http://localhost:5000/labTests/${labTest.id}`,
         {
           tests: pricedTests,
-          doctorId: consultation.doctorId,
-          doctorName: consultation.doctorName
+          doctorId: consultation?.doctorId,
+          doctorName: consultation?.doctorName
         }
       );
     } else {
@@ -109,11 +109,11 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
 
       await axios.post("http://localhost:5000/labTests", {
         id: newId,
-        consultationId: consultation.id,
+        consultationId: consultation?.id || null, // ✅ TEMP NULL
         patientId: patient.id,
         patientName: `${patient.firstName} ${patient.lastName}`,
-        doctorId: consultation.doctorId,
-        doctorName: consultation.doctorName,
+        doctorId: consultation?.doctorId || null,
+        doctorName: consultation?.doctorName || null,
         tests: pricedTests,
         results: [],
         status: "PENDING",
@@ -135,7 +135,7 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
 
         <div className="lab-info">
           <p><strong>Patient:</strong> {patient.firstName} {patient.lastName}</p>
-          <p><strong>Consultation ID:</strong> {consultation.id}</p>
+          <p><strong>Consultation ID:</strong> {consultation?.id || "Pending"}</p>
         </div>
 
         <div className="lab-dropdown">
