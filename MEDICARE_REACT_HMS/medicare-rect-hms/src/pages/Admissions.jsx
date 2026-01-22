@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // ✅ ADDED
 import axios from "axios";
 import "../assets/css/pages/admissions.css";
 
 const Admissions = () => {
+  const navigate = useNavigate(); // ✅ ADDED
+
   const [patients, setPatients] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [admissions, setAdmissions] = useState([]);
@@ -94,9 +97,9 @@ const Admissions = () => {
       id: generateAdmissionId(),
       patientId: patient.id,
       patientName: `${patient.firstName} ${patient.lastName}`,
-      doctorName: patient.doctorName || "Not Assigned", // ✅ ADDED
+      doctorName: patient.doctorName || "Not Assigned",
       roomId: room.id,
-      roomNumber: room.roomNumber,  
+      roomNumber: room.roomNumber,
       roomType: room.type,
       roomCharge: room.charge,
       admissionDate: new Date().toISOString().split("T")[0],
@@ -113,20 +116,14 @@ const Admissions = () => {
   };
 
   /* ======================
-     DISCHARGE
+     DISCHARGE (REDIRECT ONLY)
   ======================= */
-  const handleDischarge = async (adm) => {
-    if (!window.confirm("Discharge this patient?")) return;
-
-    await axios.patch(`http://localhost:5000/admissions/${adm.id}`, {
-      status: "DISCHARGED"
+  const handleDischarge = (adm) => {
+    navigate("/admin/discharge", {
+      state: {
+        admissionId: adm.id
+      }
     });
-
-    await axios.patch(`http://localhost:5000/rooms/${adm.roomId}`, {
-      status: "AVAILABLE"
-    });
-
-    loadData();
   };
 
   return (
@@ -178,7 +175,7 @@ const Admissions = () => {
         </form>
       </div>
 
-      {/* ===== Table ===== */}
+      {/* ===== TABLE ===== */}
       <div className="admissions-card">
         <h4>Admissions</h4>
 

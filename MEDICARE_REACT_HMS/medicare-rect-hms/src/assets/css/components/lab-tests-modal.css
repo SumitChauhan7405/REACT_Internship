@@ -1,5 +1,5 @@
 /* ===============================
-   LAB TEST MODAL BACKDROP
+   BACKDROP
 ================================ */
 .lab-modal-backdrop {
   position: fixed;
@@ -12,13 +12,13 @@
 }
 
 /* ===============================
-   MODAL CARD
+   MODAL
 ================================ */
 .lab-modal-card {
   background: #ffffff;
-  width: 520px;
+  width: 600px;
   max-width: 95%;
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 24px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
@@ -35,53 +35,93 @@
 .lab-info {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 16px;
   font-size: 13px;
+  margin-bottom: 12px;
   color: #374151;
 }
 
 /* ===============================
-   LAB TEST GRID
+   SEARCH
+================================ */
+.lab-search {
+  width: 100%;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  padding: 0 14px;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.lab-search:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* ===============================
+   SCROLLABLE LIST
+================================ */
+.lab-test-scroll {
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 6px;
+  margin-bottom: 16px;
+}
+
+/* ===============================
+   GRID
 ================================ */
 .lab-test-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  margin-bottom: 16px;
-}
-
-.lab-test-item {
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  font-size: 13px;
-  transition: all 0.2s ease;
-  user-select: none;
-}
-
-.lab-test-item input {
-  pointer-events: none;
-}
-
-.lab-test-item:hover {
-  border-color: #2563eb;
-}
-
-.lab-test-item.active {
-  background: #eff6ff;
-  border-color: #2563eb;
-  color: #2563eb;
 }
 
 /* ===============================
-   STATUS BADGE
+   CARD
 ================================ */
-.lab-status {
-  margin-bottom: 16px;
+.lab-test-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.2s ease;
+  background: #ffffff;
+}
+
+.lab-test-card:hover {
+  border-color: #2563eb;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.12);
+}
+
+.lab-test-card.selected {
+  background: #eff6ff;
+  border-color: #2563eb;
+}
+
+/* Checkbox */
+.lab-test-card input {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  pointer-events: none;
+}
+
+/* Name & Price */
+.lab-test-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.lab-test-price {
+  font-size: 13px;
+  color: #2563eb;
+  font-weight: 500;
 }
 
 /* ===============================
@@ -93,77 +133,36 @@
   gap: 12px;
 }
 
-/* ===============================
-   LAB TEST DROPDOWN
-================================ */
-.lab-dropdown {
-  position: relative;
-  margin-bottom: 16px;
-}
-
-.lab-dropdown-btn {
-  width: 100%;
-  height: 44px;
-  padding: 0 14px;
-  border-radius: 10px;
-  border: 1px solid #e5e7eb;
-  background: #ffffff;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-}
-
-.lab-dropdown-btn:hover {
-  background: #f9fafb;
-}
-
-.lab-dropdown-menu {
-  position: absolute;
-  width: 100%;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  margin-top: 6px;
-  max-height: 220px;
-  overflow-y: auto;
-  z-index: 20;
-  padding: 8px 0;
-}
-
-.lab-dropdown-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 14px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.lab-dropdown-item:hover {
+.form-btn-secondary {
   background: #f3f4f6;
-}
-
-/* FIX: Ensure checkboxes display properly and don't take 100% width */
-.lab-dropdown-item input[type="checkbox"] {
-  width: auto !important;
-  height: auto !important;
-  margin: 0 !important;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
-.caret {
-  font-size: 12px;
-  color: #6b7280;
+.btn-savelab-primary {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
 }
+
 
 /* ===============================
    RESPONSIVE
 ================================ */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .lab-test-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .lab-test-grid {
+    grid-template-columns: 1fr;
   }
 
   .lab-info {

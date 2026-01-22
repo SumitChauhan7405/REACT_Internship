@@ -32,8 +32,8 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
 
         const tests = Array.isArray(existing.tests)
           ? existing.tests.map((t) =>
-              typeof t === "string" ? t : t.testName
-            )
+            typeof t === "string" ? t : t.testName
+          )
           : [];
 
         setSelectedTests(tests);
@@ -126,62 +126,79 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
   };
 
   return (
-    <div className="lab-modal-backdrop" onClick={onClose}>
-      <div
-        className="lab-modal-card"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <h5>Lab Tests</h5>
+    <>
+      {/* ======================
+   UI
+====================== */}
+      <div className="lab-modal-backdrop" onClick={onClose}>
+        <div
+          className="lab-modal-card"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <h5>Lab Tests</h5>
 
-        <div className="lab-info">
-          <p><strong>Patient:</strong> {patient.firstName} {patient.lastName}</p>
-          <p><strong>Consultation ID:</strong> {consultation?.id || "Pending"}</p>
-        </div>
+          <div className="lab-info">
+            <p>
+              <strong>Patient:</strong> {patient.firstName} {patient.lastName}
+            </p>
+            <p>
+              <strong>Consultation ID:</strong>{" "}
+              {consultation?.id || "Pending"}
+            </p>
+          </div>
 
-        <div className="lab-dropdown">
-          <button
-            type="button"
-            className="lab-dropdown-btn"
-            onClick={() => setOpenDropdown(!openDropdown)}
-          >
-            {selectedTests.length > 0
-              ? `${selectedTests.length} test(s) selected`
-              : "Select Lab Tests"}
-            <span className="caret">▾</span>
-          </button>
+          {/* 🔍 SEARCH BAR */}
+          <input
+            type="text"
+            className="lab-search"
+            placeholder="Search lab tests..."
+            onChange={(e) => {
+              const value = e.target.value.toLowerCase();
+              setLabMasters((prev) =>
+                prev.map((t) => ({ ...t, hidden: !t.name.toLowerCase().includes(value) }))
+              );
+            }}
+          />
 
-          {openDropdown && (
-            <div className="lab-dropdown-menu">
-              {labMasters.map((test) => (
-                <label key={test.id} className="lab-dropdown-item">
-                  <input
-                    type="checkbox"
-                    checked={selectedTests.includes(test.name)}
-                    onChange={() => toggleTest(test.name)}
-                  />
-                  <span>
-                    {test.name} — ₹{test.charge}
-                  </span>
-                </label>
-              ))}
+          {/* 🧪 SCROLLABLE LAB TEST LIST */}
+          <div className="lab-test-scroll">
+            <div className="lab-test-grid">
+              {labMasters
+                .filter((t) => !t.hidden)
+                .map((test) => {
+                  const selected = selectedTests.includes(test.name);
+                  return (
+                    <div
+                      key={test.id}
+                      className={`lab-test-card ${selected ? "selected" : ""}`}
+                      onClick={() => toggleTest(test.name)}
+                    >
+                      <input type="checkbox" checked={selected} readOnly />
+
+                      <span className="lab-test-name">{test.name}</span>
+                      <span className="lab-test-price">₹{test.charge}</span>
+                    </div>
+                  );
+                })}
             </div>
+          </div>
+
+          {/* EXISTING LAB REPORTS */}
+          {consultation?.id && (
+            <DoctorLabTests consultationId={consultation.id} />
           )}
-        </div>
 
-        {consultation?.id && (
-          <DoctorLabTests consultationId={consultation.id} />
-        )}
-
-        <div className="form-actions">
-          <button className="form-btn-secondary" onClick={onClose}>
-            Cancel
-          </button>
-          <button className="btn-savelab-primary" onClick={handleSave}>
-            Save Lab Tests
-          </button>
+          <div className="form-actions">
+            <button className="form-btn-secondary" onClick={onClose}>
+              Cancel
+            </button>
+            <button className="btn-savelab-primary" onClick={handleSave}>
+              Save Lab Tests
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,48 +1,6 @@
 {
   "patients": [
     {
-      "id": "PAT-2026-0001",
-      "firstName": "Robert",
-      "lastName": "Gates",
-      "gender": "Other",
-      "age": "24",
-      "phone": "+1 (121) 978-5291",
-      "bloodGroup": "A-",
-      "doctorName": "Dr. Namra Pithwa",
-      "timing": "EVENING (5:00 - 7:00)",
-      "status": "CONFIRMED",
-      "source": "WALKIN",
-      "createdAt": "2026-01-21T14:51:28.326Z"
-    },
-    {
-      "id": "PAT-2026-0002",
-      "firstName": "Reed",
-      "lastName": "Talley",
-      "gender": "Other",
-      "age": "13",
-      "phone": "+1 (629) 863-7191",
-      "bloodGroup": "AB-",
-      "doctorName": "Dr. Namra Pithwa",
-      "timing": "MORNING (10:00 - 12:00)",
-      "status": "CONFIRMED",
-      "source": "ONLINE",
-      "createdAt": "2026-01-21T14:54:58.265Z"
-    },
-    {
-      "id": "PAT-2026-0003",
-      "firstName": "Alyssa",
-      "lastName": "Sharpe",
-      "gender": "Other",
-      "age": "87",
-      "phone": "+1 (888) 613-7139",
-      "bloodGroup": "A-",
-      "doctorName": "Dr. Namra Pithwa",
-      "timing": "MORNING (10:00 - 12:00)",
-      "status": "CONFIRMED",
-      "source": "WALKIN",
-      "createdAt": "2026-01-22T04:23:26.948Z"
-    },
-    {
       "id": "PAT-2026-0004",
       "firstName": "Todd",
       "lastName": "Potts",
@@ -55,6 +13,34 @@
       "status": "CONFIRMED",
       "source": "WALKIN",
       "createdAt": "2026-01-22T04:26:42.327Z"
+    },
+    {
+      "id": "PAT-2026-0005",
+      "firstName": "Rocky",
+      "lastName": "Bhai",
+      "gender": "Male",
+      "age": "35",
+      "phone": "9417630825",
+      "bloodGroup": "B+",
+      "doctorName": "Dr. Namra Pithwa",
+      "timing": "MORNING (10:00 - 12:00)",
+      "status": "CONFIRMED",
+      "source": "ONLINE",
+      "createdAt": "2026-01-22T13:41:59.014Z"
+    },
+    {
+      "id": "PAT-2026-0006",
+      "firstName": "Jethalal",
+      "lastName": "Gada",
+      "gender": "Male",
+      "age": "35",
+      "phone": "9713846205",
+      "bloodGroup": "A+",
+      "doctorName": "Dr. Namra Pithwa",
+      "timing": "MORNING (10:00 - 12:00)",
+      "status": "CONFIRMED",
+      "source": "WALKIN",
+      "createdAt": "2026-01-22T14:40:55.819Z"
     }
   ],
   "doctors": [
@@ -115,7 +101,7 @@
       "image": "doc.png"
     },
     {
-      "name": "Dr. Parth Vipulbhai Chavda",
+      "name": "Dr. Parth Chavda",
       "email": "parth@medicare.com",
       "password": "parth@123",
       "department": "Cardiology",
@@ -218,86 +204,78 @@
   ],
   "appointments": [
     {
-      "id": "APT-2026-0001",
-      "firstName": "Reed",
-      "lastName": "Talley",
-      "gender": "Other",
-      "age": "13",
-      "phone": "+1 (629) 863-7191",
-      "bloodGroup": "AB-",
+      "id": "APT-2026-0002",
+      "firstName": "Rocky",
+      "lastName": "Bhai",
+      "gender": "Male",
+      "age": "35",
+      "phone": "9417630825",
+      "bloodGroup": "B+",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
-      "date": "2002-05-26",
+      "date": "2026-01-24",
       "time": "MORNING (10:00 - 12:00)",
       "status": "CONFIRMED",
       "source": "ONLINE",
-      "createdAt": "2026-01-21T14:54:47.884Z",
-      "patientId": "PAT-2026-0002",
-      "patientName": "Reed Talley"
+      "createdAt": "2026-01-22T13:41:47.729Z",
+      "patientId": "PAT-2026-0005",
+      "patientName": "Rocky Bhai"
     }
   ],
   "consultations": [
     {
       "id": "CON-2026-0001",
-      "appointmentId": "WALKIN-PAT-2026-0001",
+      "appointmentId": "APT-2026-0002",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
-      "patientId": "PAT-2026-0001",
-      "patientName": "Robert Gates",
-      "diagnosis": "leg broke",
-      "consultation": "x ray needed",
-      "consultationFee": 500,
-      "medicines": [
-        {
-          "name": "abc",
-          "dosage": "1-0-1"
-        }
-      ],
-      "createdAt": "2026-01-22T03:32:04.803Z"
-    },
-    {
-      "id": "CON-2026-0002",
-      "appointmentId": "APT-2026-0001",
-      "doctorId": "DOC-003",
-      "doctorName": "Dr. Namra Pithwa",
-      "patientId": "PAT-2026-0002",
-      "patientName": "Reed Talley",
+      "patientId": "PAT-2026-0005",
+      "patientName": "Rocky Bhai",
       "diagnosis": "abc",
       "consultation": "abc",
       "consultationFee": 500,
       "medicines": [
         {
-          "name": "abc",
-          "dosage": "1"
-        },
-        {
-          "name": "aaa",
-          "dosage": "0"
-        },
-        {
-          "name": "bbbbb",
-          "dosage": "1-0"
+          "name": "",
+          "dosage": ""
         }
       ],
-      "createdAt": "2026-01-22T04:19:19.188Z"
+      "createdAt": "2026-01-22T13:49:12.502Z"
     },
     {
-      "id": "CON-2026-0003",
+      "id": "CON-2026-0002",
       "appointmentId": "WALKIN-PAT-2026-0004",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
       "patientId": "PAT-2026-0004",
       "patientName": "Todd Potts",
-      "diagnosis": "Et praesentium cillu",
-      "consultation": "Qui officia cupidata",
+      "diagnosis": "Aut at nemo aut quas",
+      "consultation": "Reiciendis saepe har",
       "consultationFee": 500,
       "medicines": [
         {
-          "name": "Aspernatur consequat",
-          "dosage": "Id placeat nihil et"
+          "name": "Necessitatibus sunt",
+          "dosage": "Commodi aut illo ut "
         }
       ],
-      "createdAt": "2026-01-22T06:47:32.997Z"
+      "createdAt": "2026-01-22T13:52:06.141Z"
+    },
+    {
+      "id": "CON-2026-0003",
+      "appointmentId": "WALKIN-PAT-2026-0006",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "patientId": "PAT-2026-0006",
+      "patientName": "Jethalal Gada",
+      "diagnosis": "aaaaaaaaa",
+      "consultation": "aaaaaaaaa",
+      "consultationFee": 500,
+      "medicines": [
+        {
+          "name": "",
+          "dosage": ""
+        }
+      ],
+      "createdAt": "2026-01-22T14:42:13.353Z"
     }
   ],
   "labTestMasters": [
@@ -350,14 +328,28 @@
       "charge": 2000,
       "visibility": "DEPARTMENT",
       "department": "Cardiology"
+    },
+    {
+      "id": "LT-009",
+      "name": "2D Echocardiogram",
+      "charge": 2000,
+      "visibility": "DEPARTMENT",
+      "department": "Cardiology"
+    },
+    {
+      "id": "LT-010",
+      "name": "Serum Calcium",
+      "charge": 300,
+      "visibility": "DEPARTMENT",
+      "department": "Orthopedics"
     }
   ],
   "labTests": [
     {
-      "id": "LAB-2026-0002",
-      "consultationId": "CON-2026-0002",
-      "patientId": "PAT-2026-0002",
-      "patientName": "Reed Talley",
+      "id": "LAB-2026-0001",
+      "consultationId": "CON-2026-0001",
+      "patientId": "PAT-2026-0005",
+      "patientName": "Rocky Bhai",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
       "tests": [
@@ -367,73 +359,90 @@
           "charge": 400
         }
       ],
-      "results": [
-        {
-          "testName": "X-Ray",
-          "result": "Deep Crack"
-        }
-      ],
-      "status": "COMPLETED",
-      "createdAt": "2026-01-22T04:19:07.973Z"
+      "results": [],
+      "status": "PENDING",
+      "createdAt": "2026-01-22T13:48:55.946Z"
     },
     {
-      "id": "LAB-2026-0003",
-      "consultationId": "CON-2026-0003",
-      "patientId": "PAT-2026-0003",
-      "patientName": "Alyssa Sharpe",
-      "doctorId": "DOC-003",
-      "doctorName": "Dr. Namra Pithwa",
-      "tests": [
-        {
-          "testId": "LT-001",
-          "testName": "Blood Sugar",
-          "charge": 200
-        },
-        {
-          "testId": "LT-002",
-          "testName": "CBC",
-          "charge": 300
-        }
-      ],
-      "results": [
-        {
-          "testName": "Blood Sugar",
-          "result": "68532"
-        },
-        {
-          "testName": "CBC",
-          "result": "erghj"
-        }
-      ],
-      "status": "COMPLETED",
-      "createdAt": "2026-01-22T04:24:15.849Z"
-    },
-    {
-      "id": "LAB-2026-0004",
-      "consultationId": "CON-2026-0004",
+      "id": "LAB-2026-0002",
+      "consultationId": "CON-2026-0002",
       "patientId": "PAT-2026-0004",
       "patientName": "Todd Potts",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
       "tests": [
         {
-          "testId": "LT-002",
-          "testName": "CBC",
-          "charge": 300
+          "testId": "LT-006",
+          "testName": "CT Scan",
+          "charge": 3000
         }
       ],
-      "results": [],
-      "status": "PENDING",
-      "createdAt": "2026-01-22T04:27:07.807Z"
+      "results": [
+        {
+          "testName": "CT Scan",
+          "result": "Normal"
+        }
+      ],
+      "status": "COMPLETED",
+      "createdAt": "2026-01-22T13:54:52.544Z"
+    },
+    {
+      "id": "LAB-2026-0003",
+      "consultationId": "CON-2026-0003",
+      "patientId": "PAT-2026-0006",
+      "patientName": "Jethalal Gada",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "tests": [
+        {
+          "testId": "LT-005",
+          "testName": "MRI",
+          "charge": 2500
+        }
+      ],
+      "results": [
+        {
+          "testName": "MRI",
+          "result": "Normal"
+        }
+      ],
+      "status": "COMPLETED",
+      "createdAt": "2026-01-22T14:41:57.089Z"
     }
   ],
-  "admissions": [],
+  "admissions": [
+    {
+      "id": "ADM-001",
+      "patientId": "PAT-2026-0004",
+      "patientName": "Todd Potts",
+      "doctorName": "Dr. Namra Pithwa",
+      "roomId": "ROOM-001",
+      "roomNumber": "101",
+      "roomType": "GENERAL",
+      "roomCharge": 1500,
+      "admissionDate": "2026-01-22",
+      "status": "ADMITTED"
+    },
+    {
+      "id": "ADM-002",
+      "patientId": "PAT-2026-0006",
+      "patientName": "Jethalal Gada",
+      "doctorName": "Dr. Namra Pithwa",
+      "roomId": "ROOM-002",
+      "roomNumber": "102",
+      "roomType": "GENERAL",
+      "roomCharge": 1500,
+      "admissionDate": "2026-01-22",
+      "status": "DISCHARGED",
+      "dischargeDate": "2026-01-22"
+    }
+  ],
   "rooms": [
     {
       "id": "ROOM-001",
       "roomNumber": "101",
       "type": "GENERAL",
-      "status": "AVAILABLE",
+      "status": "OCCUPIED",
       "charge": 1500
     },
     {
@@ -483,17 +492,17 @@
       "roomNumber": "1001",
       "type": "OPERATION_THEATRE",
       "status": "AVAILABLE",
-      "charge": 5000
+      "charge": 5000,
+      "patientId": null,
+      "patientName": null,
+      "linkedSurgeryId": null
     },
     {
       "id": "ROOM-012",
       "roomNumber": "1002",
       "type": "OPERATION_THEATRE",
-      "status": "OCCUPIED",
-      "charge": 5000,
-      "patientId": "PAT-2026-0004",
-      "patientName": "Todd Potts",
-      "linkedSurgeryId": "SUR-2026-0001"
+      "status": "AVAILABLE",
+      "charge": 5000
     }
   ],
   "vitals": [
@@ -561,7 +570,7 @@
   "surgeries": [
     {
       "id": "SUR-2026-0001",
-      "consultationId": "CON-2026-0003",
+      "consultationId": "CON-2026-0002",
       "patientId": "PAT-2026-0004",
       "patientName": "Todd Potts",
       "doctorId": "DOC-003",
@@ -570,15 +579,66 @@
       "surgeryType": "Angioplasty",
       "surgeryMasterId": "SM-004",
       "surgeryCharge": 120000,
-      "scheduledDate": "1970-11-19",
-      "scheduledTime": "05:21",
-      "operationTheatre": "1002",
-      "status": "SCHEDULED",
-      "notes": "Earum provident fac",
-      "createdAt": "2026-01-22T06:47:05.008Z"
+      "scheduledDate": "2018-09-06",
+      "scheduledTime": "14:01",
+      "operationTheatre": "1001",
+      "status": "COMPLETED",
+      "notes": "Quia lorem consequun",
+      "createdAt": "2026-01-22T13:51:44.571Z"
+    },
+    {
+      "id": "SUR-2026-0002",
+      "consultationId": "CON-2026-0003",
+      "patientId": "PAT-2026-0006",
+      "patientName": "Jethalal Gada",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "department": "Cardiology",
+      "surgeryType": "Angioplasty",
+      "surgeryMasterId": "SM-004",
+      "surgeryCharge": 120000,
+      "scheduledDate": "2026-01-24",
+      "scheduledTime": "05:00",
+      "operationTheatre": "1001",
+      "status": "COMPLETED",
+      "notes": "Porro modi velit rep",
+      "createdAt": "2026-01-22T14:43:39.548Z"
     }
   ],
-  "bills": [],
+  "bills": [
+    {
+      "id": "BILL-0001",
+      "admissionId": "ADM-002",
+      "patientId": "PAT-2026-0006",
+      "patientName": "Jethalal Gada",
+      "doctorName": "Dr. Namra Pithwa",
+      "billDate": "2026-01-22T14:46:02.516Z",
+      "room": {
+        "roomId": "ROOM-002",
+        "roomType": "GENERAL",
+        "dailyCharge": 1500,
+        "stayDays": 1,
+        "totalRoomCharge": 1500
+      },
+      "admissionDate": "2026-01-22",
+      "dischargeDate": "2026-01-22",
+      "consultationCharge": 500,
+      "labTests": [
+        {
+          "testId": "LT-005",
+          "testName": "MRI",
+          "charge": 2500
+        }
+      ],
+      "labCharge": 2500,
+      "surgeryCharge": 120000,
+      "subtotal": 124500,
+      "gstRate": 5,
+      "gstAmount": 6225,
+      "totalAmount": 130725,
+      "status": "UNPAID"
+    }
+  ],
   "payments": [],
   "discharges": [
     {

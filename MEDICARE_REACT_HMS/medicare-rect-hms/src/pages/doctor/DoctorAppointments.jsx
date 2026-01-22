@@ -89,10 +89,10 @@ const DoctorAppointments = () => {
           <thead>
             <tr>
               <th>Appointment ID</th>
-              <th>Patient</th>
+              <th>Patient Name</th>
               <th>Date</th>
               <th>Time</th>
-              <th>Status</th>
+              {/* <th>Status</th> */}
               <th>Action</th>
             </tr>
           </thead>
@@ -104,9 +104,9 @@ const DoctorAppointments = () => {
                 <td>{apt.patientName}</td>
                 <td>{apt.date}</td>
                 <td>{apt.time}</td>
-                <td>
+                {/* <td>
                   <span className="badge male">{apt.status}</span>
-                </td>
+                </td> */}
 
                 {/* ✅ ONLY PRESCRIPTION BUTTON */}
                 <td>
