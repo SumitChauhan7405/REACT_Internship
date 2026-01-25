@@ -274,7 +274,7 @@ const Billing = () => {
 
             <div className="invoice-header">
               <img
-                src={require("../assets/images/logo/medicare-logo.png")}
+                src={require("../assets/images/logo/MediCare_Logo.png")}
                 alt="Medicare"
                 className="invoice-logo"
               />

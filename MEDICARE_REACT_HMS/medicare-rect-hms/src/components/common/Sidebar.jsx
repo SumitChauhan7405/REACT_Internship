@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import logo from "../../assets/images/logo/medicare-logo.png";
+import logo from "../../assets/images/logo/MediCare_Logo.png";
 
 const Sidebar = () => {
   return (
