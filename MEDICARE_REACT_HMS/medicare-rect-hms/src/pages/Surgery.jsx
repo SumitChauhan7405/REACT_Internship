@@ -122,7 +122,7 @@ const Surgery = () => {
                         disabled={isFinal}
                         title={
                           isFinal
-                            ? "🚫 Surgery is in final state"
+                            ? "Surgery Completed"
                             : "Mark surgery as completed"
                         }
                         onClick={() =>
@@ -137,7 +137,7 @@ const Surgery = () => {
                         disabled={isFinal}
                         title={
                           isFinal
-                            ? "🚫 Surgery is in final state"
+                            ? "Surgery Cancelled"
                             : "Cancel surgery"
                         }
                         onClick={() =>

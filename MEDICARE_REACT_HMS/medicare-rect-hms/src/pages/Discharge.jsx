@@ -94,7 +94,12 @@ const Discharge = () => {
       s => s.patientId === adm.patientId
     );
 
-    const surgeryCharge = surgery?.surgeryCharge || 0;
+    /* ✅ ADD THIS CONDITION */
+    const surgeryCharge =
+      surgery && surgery.status === "COMPLETED"
+        ? surgery.surgeryCharge || 0
+        : 0;
+
 
     const subtotal =
       totalRoomCharge +
