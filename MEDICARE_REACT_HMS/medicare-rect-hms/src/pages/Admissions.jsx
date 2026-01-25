@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ ADDED
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../assets/css/pages/admissions.css";
 
 const Admissions = () => {
-  const navigate = useNavigate(); // ✅ ADDED
+  const navigate = useNavigate();
 
   const [patients, setPatients] = useState([]);
   const [rooms, setRooms] = useState([]);
@@ -187,7 +187,8 @@ const Admissions = () => {
               <th>Doctor Name</th>
               <th>Room No</th>
               <th>Room Type</th>
-              <th>Date</th>
+              <th>Admission Date</th>
+              <th>Discharge Date</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -201,7 +202,11 @@ const Admissions = () => {
                 <td>{adm.doctorName || "—"}</td>
                 <td>{adm.roomNumber}</td>
                 <td>{adm.roomType}</td>
+
+                {/* ✅ NEW */}
                 <td>{adm.admissionDate}</td>
+                <td>{adm.dischargeDate || "—"}</td>
+
                 <td>
                   <span className={`admission-badge ${adm.status.toLowerCase()}`}>
                     {adm.status}

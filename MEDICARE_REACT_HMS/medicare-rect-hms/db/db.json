@@ -41,6 +41,62 @@
       "status": "CONFIRMED",
       "source": "WALKIN",
       "createdAt": "2026-01-22T14:40:55.819Z"
+    },
+    {
+      "id": "PAT-2026-0007",
+      "firstName": "Steve",
+      "lastName": "Rogers",
+      "gender": "Male",
+      "age": "45",
+      "phone": "6549872310",
+      "bloodGroup": "B+",
+      "doctorName": "Dr. Namra Pithwa",
+      "timing": "MORNING (10:00 - 12:00)",
+      "status": "CONFIRMED",
+      "source": "ONLINE",
+      "createdAt": "2026-01-23T04:39:30.213Z"
+    },
+    {
+      "id": "PAT-2026-0008",
+      "firstName": "Clark",
+      "lastName": "Kidd",
+      "gender": "Male",
+      "age": "59",
+      "phone": "+1 (826) 703-9901",
+      "bloodGroup": "A+",
+      "doctorName": "Dr. Namra Pithwa",
+      "timing": "EVENING (5:00 - 7:00)",
+      "status": "CONFIRMED",
+      "source": "WALKIN",
+      "createdAt": "2026-01-23T04:48:44.434Z"
+    },
+    {
+      "id": "PAT-2026-0009",
+      "firstName": "Bruce",
+      "lastName": "Lee",
+      "gender": "Male",
+      "age": "50",
+      "phone": "6497310528",
+      "bloodGroup": "AB+",
+      "doctorName": "Dr. Namra Pithwa",
+      "timing": "MORNING (10:00 - 12:00)",
+      "status": "CONFIRMED",
+      "source": "WALKIN",
+      "createdAt": "2026-01-23T13:30:24.795Z"
+    },
+    {
+      "id": "PAT-2026-0010",
+      "firstName": "Tom",
+      "lastName": "Cruise",
+      "gender": "Male",
+      "age": "62",
+      "phone": "2468913705",
+      "bloodGroup": "A+",
+      "doctorName": "Dr. Namra Pithwa",
+      "timing": "MORNING (10:00 - 12:00)",
+      "status": "CONFIRMED",
+      "source": "WALKIN",
+      "createdAt": "2026-01-25T06:45:59.366Z"
     }
   ],
   "doctors": [
@@ -220,6 +276,24 @@
       "createdAt": "2026-01-22T13:41:47.729Z",
       "patientId": "PAT-2026-0005",
       "patientName": "Rocky Bhai"
+    },
+    {
+      "id": "APT-2026-0003",
+      "firstName": "Steve",
+      "lastName": "Rogers",
+      "gender": "Male",
+      "age": "45",
+      "phone": "6549872310",
+      "bloodGroup": "B+",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "date": "2026-01-24",
+      "time": "MORNING (10:00 - 12:00)",
+      "status": "CONFIRMED",
+      "source": "ONLINE",
+      "createdAt": "2026-01-23T04:39:21.095Z",
+      "patientId": "PAT-2026-0007",
+      "patientName": "Steve Rogers"
     }
   ],
   "consultations": [
@@ -276,6 +350,82 @@
         }
       ],
       "createdAt": "2026-01-22T14:42:13.353Z"
+    },
+    {
+      "id": "CON-2026-0004",
+      "appointmentId": "APT-2026-0003",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "patientId": "PAT-2026-0007",
+      "patientName": "Steve Rogers",
+      "diagnosis": "pain in legs ",
+      "consultation": "lab test needed",
+      "consultationFee": 500,
+      "medicines": [
+        {
+          "name": "",
+          "dosage": ""
+        }
+      ],
+      "createdAt": "2026-01-23T04:46:19.220Z"
+    },
+    {
+      "id": "CON-2026-0005",
+      "appointmentId": "WALKIN-PAT-2026-0008",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "patientId": "PAT-2026-0008",
+      "patientName": "Clark Kidd",
+      "diagnosis": "nnbh",
+      "consultation": "jbub",
+      "consultationFee": 500,
+      "medicines": [
+        {
+          "name": "",
+          "dosage": ""
+        }
+      ],
+      "createdAt": "2026-01-23T04:49:40.991Z"
+    },
+    {
+      "id": "CON-2026-0006",
+      "appointmentId": "WALKIN-PAT-2026-0009",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "patientId": "PAT-2026-0009",
+      "patientName": "Bruce Lee",
+      "diagnosis": "extreme pain in legs",
+      "consultation": "lab tests needed",
+      "consultationFee": 500,
+      "medicines": [
+        {
+          "name": "",
+          "dosage": ""
+        }
+      ],
+      "createdAt": "2026-01-23T13:33:11.192Z"
+    },
+    {
+      "id": "CON-2026-0007",
+      "appointmentId": "WALKIN-PAT-2026-0010",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "patientId": "PAT-2026-0010",
+      "patientName": "Tom Cruise",
+      "diagnosis": "Pain in Full Body",
+      "consultation": "surgery needed",
+      "consultationFee": 500,
+      "medicines": [
+        {
+          "name": "hii",
+          "dosage": "1-0-1"
+        },
+        {
+          "name": "hello",
+          "dosage": "0-0-1"
+        }
+      ],
+      "createdAt": "2026-01-25T06:47:11.416Z"
     }
   ],
   "labTestMasters": [
@@ -359,8 +509,13 @@
           "charge": 400
         }
       ],
-      "results": [],
-      "status": "PENDING",
+      "results": [
+        {
+          "testName": "X-Ray",
+          "result": "Deep Carck"
+        }
+      ],
+      "status": "COMPLETED",
       "createdAt": "2026-01-22T13:48:55.946Z"
     },
     {
@@ -408,6 +563,93 @@
       ],
       "status": "COMPLETED",
       "createdAt": "2026-01-22T14:41:57.089Z"
+    },
+    {
+      "id": "LAB-2026-0004",
+      "consultationId": "CON-2026-0005",
+      "patientId": "PAT-2026-0008",
+      "patientName": "Clark Kidd",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "tests": [
+        {
+          "testId": "LT-002",
+          "testName": "CBC",
+          "charge": 300
+        }
+      ],
+      "results": [
+        {
+          "testName": "CBC",
+          "result": "Nrmal"
+        }
+      ],
+      "status": "COMPLETED",
+      "createdAt": "2026-01-23T04:49:25.844Z"
+    },
+    {
+      "id": "LAB-2026-0005",
+      "consultationId": "CON-2026-0006",
+      "patientId": "PAT-2026-0009",
+      "patientName": "Bruce Lee",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "tests": [
+        {
+          "testId": "LT-004",
+          "testName": "X-Ray",
+          "charge": 400
+        },
+        {
+          "testId": "LT-005",
+          "testName": "MRI",
+          "charge": 2500
+        }
+      ],
+      "results": [
+        {
+          "testName": "MRI",
+          "result": "Normal"
+        },
+        {
+          "testName": "X-Ray",
+          "result": "Crack in both legs "
+        }
+      ],
+      "status": "COMPLETED",
+      "createdAt": "2026-01-23T13:32:57.552Z"
+    },
+    {
+      "id": "LAB-2026-0006",
+      "consultationId": "CON-2026-0007",
+      "patientId": "PAT-2026-0010",
+      "patientName": "Tom Cruise",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "tests": [
+        {
+          "testId": "LT-004",
+          "testName": "X-Ray",
+          "charge": 400
+        },
+        {
+          "testId": "LT-006",
+          "testName": "CT Scan",
+          "charge": 3000
+        }
+      ],
+      "results": [
+        {
+          "testName": "CT Scan",
+          "result": "Done"
+        },
+        {
+          "testName": "X-Ray",
+          "result": "Crack in Spine"
+        }
+      ],
+      "status": "COMPLETED",
+      "createdAt": "2026-01-25T06:47:07.025Z"
     }
   ],
   "admissions": [
@@ -435,6 +677,44 @@
       "admissionDate": "2026-01-22",
       "status": "DISCHARGED",
       "dischargeDate": "2026-01-22"
+    },
+    {
+      "id": "ADM-003",
+      "patientId": "PAT-2026-0008",
+      "patientName": "Clark Kidd",
+      "doctorName": "Dr. Namra Pithwa",
+      "roomId": "ROOM-002",
+      "roomNumber": "102",
+      "roomType": "GENERAL",
+      "roomCharge": 1500,
+      "admissionDate": "2026-01-23",
+      "status": "DISCHARGED",
+      "dischargeDate": "2026-01-23"
+    },
+    {
+      "id": "ADM-004",
+      "patientId": "PAT-2026-0009",
+      "patientName": "Bruce Lee",
+      "doctorName": "Dr. Namra Pithwa",
+      "roomId": "ROOM-003",
+      "roomNumber": "201",
+      "roomType": "DELUXE",
+      "roomCharge": 4000,
+      "admissionDate": "2026-01-23",
+      "status": "DISCHARGED",
+      "dischargeDate": "2026-01-24"
+    },
+    {
+      "id": "ADM-005",
+      "patientId": "PAT-2026-0010",
+      "patientName": "Tom Cruise",
+      "doctorName": "Dr. Namra Pithwa",
+      "roomId": "ROOM-002",
+      "roomNumber": "102",
+      "roomType": "GENERAL",
+      "roomCharge": 1500,
+      "admissionDate": "2026-01-25",
+      "status": "ADMITTED"
     }
   ],
   "rooms": [
@@ -449,7 +729,7 @@
       "id": "ROOM-002",
       "roomNumber": "102",
       "type": "GENERAL",
-      "status": "AVAILABLE",
+      "status": "OCCUPIED",
       "charge": 1500
     },
     {
@@ -492,17 +772,17 @@
       "roomNumber": "1001",
       "type": "OPERATION_THEATRE",
       "status": "AVAILABLE",
-      "charge": 5000,
-      "patientId": null,
-      "patientName": null,
-      "linkedSurgeryId": null
+      "charge": 5000
     },
     {
       "id": "ROOM-012",
       "roomNumber": "1002",
       "type": "OPERATION_THEATRE",
       "status": "AVAILABLE",
-      "charge": 5000
+      "charge": 5000,
+      "patientId": null,
+      "patientName": null,
+      "linkedSurgeryId": null
     }
   ],
   "vitals": [
@@ -603,6 +883,68 @@
       "status": "COMPLETED",
       "notes": "Porro modi velit rep",
       "createdAt": "2026-01-22T14:43:39.548Z"
+    },
+    {
+      "id": "SUR-2026-0003",
+      "consultationId": "CON-2026-0005",
+      "patientId": "PAT-2026-0008",
+      "patientName": "Clark Kidd",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "department": "Cardiology",
+      "surgeryType": "Angioplasty",
+      "surgeryMasterId": "SM-004",
+      "surgeryCharge": 120000,
+      "scheduledDate": "1971-04-03",
+      "scheduledTime": "11:27",
+      "operationTheatre": "1001",
+      "status": "COMPLETED",
+      "notes": "Voluptatem animi r",
+      "createdAt": "2026-01-23T04:49:56.184Z"
+    },
+    {
+      "id": "SUR-2026-0004",
+      "consultationId": "CON-2026-0006",
+      "patientId": "PAT-2026-0009",
+      "patientName": "Bruce Lee",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "department": "Cardiology",
+      "surgeryType": "Bypass Surgery",
+      "surgeryMasterId": "SM-005",
+      "surgeryCharge": 250000,
+      "scheduledDate": "1976-06-08",
+      "scheduledTime": "20:28",
+      "operationTheatre": "1001",
+      "status": "COMPLETED",
+      "notes": "Qui nostrum possimus",
+      "createdAt": "2026-01-23T13:34:47.120Z"
+    },
+    {
+      "id": "SUR-2026-0005",
+      "consultationId": "CON-2026-0007",
+      "patientId": "PAT-2026-0010",
+      "patientName": "Tom Cruise",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "department": "Cardiology",
+      "surgeryType": "Bypass Surgery",
+      "surgeryMasterId": "SM-005",
+      "surgeryCharge": 250000,
+      "scheduledDate": "2026-01-15",
+      "scheduledTime": "22:26",
+      "operationTheatre": "1002",
+      "status": "CANCELLED",
+      "notes": "Irure exercitationem",
+      "createdAt": "2026-01-25T06:49:05.317Z"
+    }
+  ],
+  "discharges": [
+    {
+      "id": "DIS-6001",
+      "patientId": null,
+      "summary": "Patient recovered well and discharged",
+      "date": "2025-01-16"
     }
   ],
   "bills": [
@@ -637,17 +979,78 @@
       "gstAmount": 6225,
       "totalAmount": 130725,
       "status": "UNPAID"
+    },
+    {
+      "id": "BILL-0002",
+      "admissionId": "ADM-003",
+      "patientId": "PAT-2026-0008",
+      "patientName": "Clark Kidd",
+      "doctorName": "Dr. Namra Pithwa",
+      "billDate": "2026-01-23T04:52:15.641Z",
+      "room": {
+        "roomId": "ROOM-002",
+        "roomType": "GENERAL",
+        "dailyCharge": 1500,
+        "stayDays": 1,
+        "totalRoomCharge": 1500
+      },
+      "admissionDate": "2026-01-23",
+      "dischargeDate": "2026-01-23",
+      "consultationCharge": 500,
+      "labTests": [
+        {
+          "testId": "LT-002",
+          "testName": "CBC",
+          "charge": 300
+        }
+      ],
+      "labCharge": 300,
+      "surgeryCharge": 120000,
+      "subtotal": 122300,
+      "gstRate": 5,
+      "gstAmount": 6115,
+      "totalAmount": 128415,
+      "status": "UNPAID"
+    },
+    {
+      "id": "BILL-0003",
+      "admissionId": "ADM-004",
+      "patientId": "PAT-2026-0009",
+      "patientName": "Bruce Lee",
+      "doctorName": "Dr. Namra Pithwa",
+      "billDate": "2026-01-24T12:30:09.298Z",
+      "room": {
+        "roomId": "ROOM-003",
+        "roomType": "DELUXE",
+        "dailyCharge": 4000,
+        "stayDays": 2,
+        "totalRoomCharge": 8000
+      },
+      "admissionDate": "2026-01-23",
+      "dischargeDate": "2026-01-24",
+      "consultationCharge": 500,
+      "labTests": [
+        {
+          "testId": "LT-004",
+          "testName": "X-Ray",
+          "charge": 400
+        },
+        {
+          "testId": "LT-005",
+          "testName": "MRI",
+          "charge": 2500
+        }
+      ],
+      "labCharge": 2900,
+      "surgeryCharge": 250000,
+      "subtotal": 261400,
+      "gstRate": 5,
+      "gstAmount": 13070,
+      "totalAmount": 274470,
+      "status": "UNPAID"
     }
   ],
   "payments": [],
-  "discharges": [
-    {
-      "id": "DIS-6001",
-      "patientId": null,
-      "summary": "Patient recovered well and discharged",
-      "date": "2025-01-16"
-    }
-  ],
   "feedback": [
     {
       "id": "FDB-9001",

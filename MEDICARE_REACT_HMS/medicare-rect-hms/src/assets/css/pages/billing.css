@@ -102,25 +102,97 @@ tbody tr:hover {
   font-size: 13px;
 }
 
+.btn-closed{
+  background: #e5e7eb;
+  color: #111827;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  margin-left: 5px;
+}
+
+.btn-closed:hover{
+  background: #d1d5db;
+}
+
 .btn-secondary:hover {
   background: #d1d5db;
 }
 
-.btn-success {
-  background: #16a34a;
-  color: white;
+/* 🔵 OVERRIDE: Save Payment & Download PDF */
+.patient-table-card .btn-success {
+  background: #2563eb;
+  color: #ffffff;
   padding: 10px 18px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  margin-top: 15px;
 }
 
-.btn-success:hover {
-  background: #15803d;
+.patient-table-card .btn-success:hover {
+  background: #1d4ed8;
 }
 
-/* ===== BILL DETAILS ===== */
+/* ===== FILTER BAR ===== */
+.billing-filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.billing-filters input,
+.billing-filters select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+/* ===============================
+   ADD PAYMENT PANEL
+=============================== */
+
+.patient-table-card select,
+.patient-table-card input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.patient-table-card select:focus,
+.patient-table-card input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* Payment form layout */
+.patient-table-card h4 + p {
+  margin-top: 10px;
+}
+
+.patient-table-card .payment-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* Action buttons row */
+.patient-table-card .payment-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* ==============================
+   BILL DETAILS
+============================== */
+
 .patient-table-card p {
   margin: 6px 0;
   font-size: 14px;
@@ -140,21 +212,6 @@ tbody tr:hover {
 .patient-table-card li {
   font-size: 14px;
   margin-bottom: 6px;
-}
-
-/* ===== FILTER BAR (FOR NEXT STEP) ===== */
-.billing-filters {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 15px;
-}
-
-.billing-filters input,
-.billing-filters select {
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid #d1d5db;
-  font-size: 14px;
 }
 
 /* ==============================

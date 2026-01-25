@@ -259,7 +259,7 @@ const Billing = () => {
           </button>
 
           <button
-            className="btn-secondary"
+            className="btn-closed"
             onClick={() => setSelectedBill(null)}
           >
             Cancel
@@ -349,15 +349,6 @@ const Billing = () => {
 
                 <tr>
                   <td colSpan="2">
-                    <strong>GST ({viewBill.gstRate}%)</strong>
-                  </td>
-                  <td>
-                    <strong>{viewBill.gstAmount}</strong>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td colSpan="2">
                     <strong>Subtotal</strong>
                   </td>
                   <td>
@@ -365,6 +356,15 @@ const Billing = () => {
                   </td>
                 </tr>
 
+                <tr>
+                  <td colSpan="2">
+                    <strong>GST ({viewBill.gstRate}%)</strong>
+                  </td>
+                  <td>
+                    <strong>{viewBill.gstAmount}</strong>
+                  </td>
+                  
+                </tr>
               </tbody>
             </table>
 
@@ -382,7 +382,7 @@ const Billing = () => {
           </button>
 
           <button
-            className="btn-secondary"
+            className="btn-closed"
             style={{ marginLeft: 10 }}
             onClick={() => setViewBill(null)}
           >

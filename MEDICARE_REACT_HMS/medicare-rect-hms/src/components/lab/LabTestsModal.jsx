@@ -7,7 +7,6 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
   const [labTest, setLabTest] = useState(null);
   const [selectedTests, setSelectedTests] = useState([]);
   const [labMasters, setLabMasters] = useState([]);
-  const [openDropdown, setOpenDropdown] = useState(false);
 
   /* ======================
      LOAD LAB MASTER + EXISTING LAB TEST

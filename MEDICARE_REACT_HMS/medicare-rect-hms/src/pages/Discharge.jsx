@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "../assets/css/pages/discharge.css";
 
-const GST_RATE = 5; // ✅ 5% GST
+const GST_RATE = 5;
 
 const Discharge = () => {
   const [admissions, setAdmissions] = useState([]);
@@ -59,7 +59,6 @@ const Discharge = () => {
 
     const room = rooms.find(r => r.id === adm.roomId);
 
-    /* 🆕 ADMISSION → DISCHARGE */
     const admissionDate = new Date(adm.admissionDate);
     const dischargeDate = new Date();
 
@@ -97,17 +96,13 @@ const Discharge = () => {
 
     const surgeryCharge = surgery?.surgeryCharge || 0;
 
-    /* 🧮 SUBTOTAL */
     const subtotal =
       totalRoomCharge +
       consultationCharge +
       totalLabCharge +
       surgeryCharge;
 
-    /* 🧾 GST */
     const gstAmount = Math.round((subtotal * GST_RATE) / 100);
-
-    /* 💰 FINAL TOTAL */
     const totalAmount = subtotal + gstAmount;
 
     setSelectedAdmission(adm);
@@ -135,7 +130,9 @@ const Discharge = () => {
     if (!selectedAdmission || !billPreview) return;
 
     const billId = `BILL-${String(bills.length + 1).padStart(4, "0")}`;
+    const dischargeId = `DIS-${String(Date.now()).slice(-6)}`;
 
+    /* 🧾 CREATE BILL */
     await axios.post("http://localhost:5000/bills", {
       id: billId,
       admissionId: selectedAdmission.id,
@@ -144,7 +141,6 @@ const Discharge = () => {
       doctorName: selectedAdmission.doctorName,
       billDate: new Date().toISOString(),
 
-      /* 🏨 ROOM SNAPSHOT */
       room: {
         roomId: selectedAdmission.roomId,
         roomType: selectedAdmission.roomType,
@@ -169,6 +165,7 @@ const Discharge = () => {
       status: "UNPAID"
     });
 
+    /* 🏥 UPDATE ADMISSION */
     await axios.patch(
       `http://localhost:5000/admissions/${selectedAdmission.id}`,
       {
@@ -177,12 +174,29 @@ const Discharge = () => {
       }
     );
 
+    /* 🚪 FREE ROOM */
     await axios.patch(
       `http://localhost:5000/rooms/${selectedAdmission.roomId}`,
       { status: "AVAILABLE" }
     );
 
-    alert("Patient discharged & bill generated");
+    /* 🆕 REGISTER DISCHARGE */
+    await axios.post("http://localhost:5000/discharges", {
+      id: dischargeId,
+      admissionId: selectedAdmission.id,
+      patientId: selectedAdmission.patientId,
+      patientName: selectedAdmission.patientName,
+      doctorName: selectedAdmission.doctorName,
+      roomNumber: selectedAdmission.roomNumber,
+      admissionDate: billPreview.admissionDate,
+      dischargeDate: billPreview.dischargeDate,
+      billId,
+      totalAmount: billPreview.totalAmount,
+      summary: "Patient discharged successfully",
+      createdAt: new Date().toISOString()
+    });
+
+    alert("Patient discharged, bill generated & discharge recorded");
 
     setBillPreview(null);
     setSelectedAdmission(null);
@@ -233,7 +247,18 @@ const Discharge = () => {
           <h4>Bill Summary</h4>
 
           <p>
-            <strong>Admission Date:</strong> {billPreview.admissionDate} {""}
+            <strong>Patient:</strong> {selectedAdmission?.patientName}
+          </p>
+
+          <p>
+            <strong>Doctor:</strong> {selectedAdmission?.doctorName}
+          </p>
+
+          <p>
+            <strong>Admission Date:</strong> {billPreview.admissionDate}
+          </p>
+
+          <p>
             <strong>Discharge Date:</strong> {billPreview.dischargeDate}
           </p>
 
