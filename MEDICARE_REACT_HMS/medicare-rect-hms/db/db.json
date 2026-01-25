@@ -779,10 +779,7 @@
       "roomNumber": "1002",
       "type": "OPERATION_THEATRE",
       "status": "AVAILABLE",
-      "charge": 5000,
-      "patientId": null,
-      "patientName": null,
-      "linkedSurgeryId": null
+      "charge": 5000
     }
   ],
   "vitals": [
@@ -939,14 +936,7 @@
       "createdAt": "2026-01-25T06:49:05.317Z"
     }
   ],
-  "discharges": [
-    {
-      "id": "DIS-6001",
-      "patientId": null,
-      "summary": "Patient recovered well and discharged",
-      "date": "2025-01-16"
-    }
-  ],
+  "discharges": [],
   "bills": [
     {
       "id": "BILL-0001",

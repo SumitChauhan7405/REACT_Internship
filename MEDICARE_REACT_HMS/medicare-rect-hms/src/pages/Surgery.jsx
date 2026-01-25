@@ -51,7 +51,6 @@ const Surgery = () => {
   const handleStatusChange = async (id, status) => {
     await updateSurgery(id, { status });
 
-    // ✅ Free OT when surgery ends
     if (status === "COMPLETED" || status === "CANCELLED") {
       await releaseOperationTheatre(id);
     }
@@ -93,37 +92,39 @@ const Surgery = () => {
 
           <tbody>
             {surgeries.map((surgery) => {
-              // ✅ FINAL STATE CHECK
               const isFinal =
                 surgery.status === "COMPLETED" ||
                 surgery.status === "CANCELLED";
 
               return (
                 <tr key={surgery.id}>
-                  <td data-label="Surgery ID">{surgery.id}</td>
-                  <td data-label="Patient">{surgery.patientName}</td>
-                  <td data-label="Doctor">{surgery.doctorName}</td>
-                  <td data-label="Department">{surgery.department}</td>
-                  <td data-label="Surgery Type">{surgery.surgeryType}</td>
-                  <td data-label="Date">{surgery.scheduledDate}</td>
-                  <td data-label="Time">{surgery.scheduledTime}</td>
-                  <td data-label="OT">{surgery.operationTheatre}</td>
+                  <td>{surgery.id}</td>
+                  <td>{surgery.patientName}</td>
+                  <td>{surgery.doctorName}</td>
+                  <td>{surgery.department}</td>
+                  <td>{surgery.surgeryType}</td>
+                  <td>{surgery.scheduledDate}</td>
+                  <td>{surgery.scheduledTime}</td>
+                  <td>{surgery.operationTheatre}</td>
 
-                  <td data-label="Status">
+                  <td>
                     <span
-                      className={`surgery-badge ${
-                        surgery.status?.toLowerCase()
-                      }`}
+                      className={`surgery-badge ${surgery.status?.toLowerCase()}`}
                     >
                       {surgery.status}
                     </span>
                   </td>
 
-                  <td data-label="Actions">
-                    <div className="surgery-actions">
+                  <td>
+                    <div className={`surgery-actions ${isFinal ? "final-disabled" : ""}`}>
                       <button
                         className="btn-success-surgery"
                         disabled={isFinal}
+                        title={
+                          isFinal
+                            ? "🚫 Surgery is in final state"
+                            : "Mark surgery as completed"
+                        }
                         onClick={() =>
                           handleStatusChange(surgery.id, "COMPLETED")
                         }
@@ -134,6 +135,11 @@ const Surgery = () => {
                       <button
                         className="btn-danger-surgery"
                         disabled={isFinal}
+                        title={
+                          isFinal
+                            ? "🚫 Surgery is in final state"
+                            : "Cancel surgery"
+                        }
                         onClick={() =>
                           handleStatusChange(surgery.id, "CANCELLED")
                         }

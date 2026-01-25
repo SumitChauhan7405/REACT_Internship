@@ -156,12 +156,15 @@ tbody tr:hover {
 
 .patient-table-card select,
 .patient-table-card input[type="number"] {
+  display: block;
   width: 100%;
-  padding: 10px 12px;
+  max-width: 420px;
+  height: 38px;
+  padding: 6px 12px;
   border-radius: 8px;
   border: 1px solid #d1d5db;
   font-size: 14px;
-  margin-top: 8px;
+  margin-bottom: 12px;
 }
 
 .patient-table-card select:focus,
