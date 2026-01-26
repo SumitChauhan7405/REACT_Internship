@@ -11,9 +11,11 @@ const Discharge = () => {
   const [labTests, setLabTests] = useState([]);
   const [surgeries, setSurgeries] = useState([]);
   const [bills, setBills] = useState([]);
+  const [discharges, setDischarges] = useState([]); // ✅ NEW
 
   const [selectedAdmission, setSelectedAdmission] = useState(null);
   const [billPreview, setBillPreview] = useState(null);
+  const [dischargeSummary, setDischargeSummary] = useState(""); // ✅ NEW
 
   /* ======================
      LOAD DATA
@@ -25,14 +27,16 @@ const Discharge = () => {
       conRes,
       labRes,
       surRes,
-      billRes
+      billRes,
+      disRes
     ] = await Promise.all([
       axios.get("http://localhost:5000/admissions"),
       axios.get("http://localhost:5000/rooms"),
       axios.get("http://localhost:5000/consultations"),
       axios.get("http://localhost:5000/labTests"),
       axios.get("http://localhost:5000/surgeries"),
-      axios.get("http://localhost:5000/bills")
+      axios.get("http://localhost:5000/bills"),
+      axios.get("http://localhost:5000/discharges") // ✅ NEW
     ]);
 
     setAdmissions(admRes.data.filter(a => a.status === "ADMITTED"));
@@ -41,6 +45,7 @@ const Discharge = () => {
     setLabTests(labRes.data);
     setSurgeries(surRes.data);
     setBills(billRes.data);
+    setDischarges(disRes.data); // ✅ NEW
   };
 
   useEffect(() => {
@@ -94,12 +99,10 @@ const Discharge = () => {
       s => s.patientId === adm.patientId
     );
 
-    /* ✅ ADD THIS CONDITION */
     const surgeryCharge =
       surgery && surgery.status === "COMPLETED"
         ? surgery.surgeryCharge || 0
         : 0;
-
 
     const subtotal =
       totalRoomCharge +
@@ -134,10 +137,10 @@ const Discharge = () => {
   const confirmDischarge = async () => {
     if (!selectedAdmission || !billPreview) return;
 
+    const year = new Date().getFullYear();
+    const dischargeId = `DIS-${year}-${String(discharges.length + 1).padStart(4, "0")}`; // ✅ NORMALIZED
     const billId = `BILL-${String(bills.length + 1).padStart(4, "0")}`;
-    const dischargeId = `DIS-${String(Date.now()).slice(-6)}`;
 
-    /* 🧾 CREATE BILL */
     await axios.post("http://localhost:5000/bills", {
       id: billId,
       admissionId: selectedAdmission.id,
@@ -170,7 +173,6 @@ const Discharge = () => {
       status: "UNPAID"
     });
 
-    /* 🏥 UPDATE ADMISSION */
     await axios.patch(
       `http://localhost:5000/admissions/${selectedAdmission.id}`,
       {
@@ -179,13 +181,11 @@ const Discharge = () => {
       }
     );
 
-    /* 🚪 FREE ROOM */
     await axios.patch(
       `http://localhost:5000/rooms/${selectedAdmission.roomId}`,
       { status: "AVAILABLE" }
     );
 
-    /* 🆕 REGISTER DISCHARGE */
     await axios.post("http://localhost:5000/discharges", {
       id: dischargeId,
       admissionId: selectedAdmission.id,
@@ -197,7 +197,7 @@ const Discharge = () => {
       dischargeDate: billPreview.dischargeDate,
       billId,
       totalAmount: billPreview.totalAmount,
-      summary: "Patient discharged successfully",
+      summary: dischargeSummary || "Patient discharged successfully", // ✅ NEW
       createdAt: new Date().toISOString()
     });
 
@@ -205,6 +205,7 @@ const Discharge = () => {
 
     setBillPreview(null);
     setSelectedAdmission(null);
+    setDischargeSummary(""); // ✅ RESET
     loadData();
   };
 
@@ -273,6 +274,7 @@ const Discharge = () => {
           </p>
 
           <p>Consultation Charge: ₹{billPreview.consultationCharge}</p>
+
           <p>Surgery Charge: ₹{billPreview.surgeryCharge}</p>
 
           <h5>Lab Tests</h5>
@@ -286,6 +288,15 @@ const Discharge = () => {
           <p><strong>GST ({billPreview.gstRate}%):</strong> ₹{billPreview.gstAmount}</p>
 
           <h4>Total: ₹{billPreview.totalAmount}</h4>
+
+          <h5>Discharge Summary</h5>
+          <textarea
+            className="discharge-summary-textarea"
+            rows="4"
+            placeholder="Write discharge notes here..."
+            value={dischargeSummary}
+            onChange={(e) => setDischargeSummary(e.target.value)}
+          />
 
           <button className="btn-success" onClick={confirmDischarge}>
             Confirm Discharge & Generate Bill

@@ -47,6 +47,28 @@ tbody tr:hover {
   background-color: #f9fafb;
 }
 
+/* ===============================
+   DISCHARGE SUMMARY TEXTAREA
+=============================== */
+
+.discharge-summary-textarea {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.discharge-summary-textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.3);
+}
+
+
 .btn-primary {
   background: #2563eb;
   color: white;

@@ -43,20 +43,6 @@
       "createdAt": "2026-01-22T14:40:55.819Z"
     },
     {
-      "id": "PAT-2026-0007",
-      "firstName": "Steve",
-      "lastName": "Rogers",
-      "gender": "Male",
-      "age": "45",
-      "phone": "6549872310",
-      "bloodGroup": "B+",
-      "doctorName": "Dr. Namra Pithwa",
-      "timing": "MORNING (10:00 - 12:00)",
-      "status": "CONFIRMED",
-      "source": "ONLINE",
-      "createdAt": "2026-01-23T04:39:30.213Z"
-    },
-    {
       "id": "PAT-2026-0008",
       "firstName": "Clark",
       "lastName": "Kidd",
@@ -97,6 +83,34 @@
       "status": "CONFIRMED",
       "source": "WALKIN",
       "createdAt": "2026-01-25T06:45:59.366Z"
+    },
+    {
+      "id": "PAT-2026-0011",
+      "firstName": "Iron",
+      "lastName": "Man",
+      "gender": "Male",
+      "age": "67",
+      "phone": "5566441120",
+      "bloodGroup": "AB+",
+      "doctorName": "Dr. Namra Pithwa",
+      "timing": "EVENING (5:00 - 7:00)",
+      "status": "CONFIRMED",
+      "source": "ONLINE",
+      "createdAt": "2026-01-26T12:11:13.437Z"
+    },
+    {
+      "id": "PAT-2026-0012",
+      "firstName": "Captain",
+      "lastName": "America",
+      "gender": "Male",
+      "age": "999",
+      "phone": "5987410236",
+      "bloodGroup": "O+",
+      "doctorName": "Dr. Meet Kacha",
+      "timing": "MORNING (10:00 - 12:00)",
+      "status": "CONFIRMED",
+      "source": "ONLINE",
+      "createdAt": "2026-01-26T12:25:36.793Z"
     }
   ],
   "doctors": [
@@ -279,21 +293,39 @@
     },
     {
       "id": "APT-2026-0003",
-      "firstName": "Steve",
-      "lastName": "Rogers",
+      "firstName": "Iron",
+      "lastName": "Man",
       "gender": "Male",
-      "age": "45",
-      "phone": "6549872310",
-      "bloodGroup": "B+",
+      "age": "67",
+      "phone": "5566441120",
+      "bloodGroup": "AB+",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
-      "date": "2026-01-24",
+      "date": "2026-01-26",
+      "time": "EVENING (5:00 - 7:00)",
+      "status": "CONFIRMED",
+      "source": "ONLINE",
+      "createdAt": "2026-01-26T12:10:55.947Z",
+      "patientId": "PAT-2026-0011",
+      "patientName": "Iron Man"
+    },
+    {
+      "id": "APT-2026-0004",
+      "firstName": "Captain",
+      "lastName": "America",
+      "gender": "Male",
+      "age": "999",
+      "phone": "5987410236",
+      "bloodGroup": "O+",
+      "doctorId": "DOC-005",
+      "doctorName": "Dr. Meet Kacha",
+      "date": "2026-01-26",
       "time": "MORNING (10:00 - 12:00)",
       "status": "CONFIRMED",
       "source": "ONLINE",
-      "createdAt": "2026-01-23T04:39:21.095Z",
-      "patientId": "PAT-2026-0007",
-      "patientName": "Steve Rogers"
+      "createdAt": "2026-01-26T12:25:08.378Z",
+      "patientId": "PAT-2026-0012",
+      "patientName": "Captain America"
     }
   ],
   "consultations": [
@@ -356,7 +388,7 @@
       "appointmentId": "APT-2026-0003",
       "doctorId": "DOC-003",
       "doctorName": "Dr. Namra Pithwa",
-      "patientId": "PAT-2026-0007",
+      "patientId": null,
       "patientName": "Steve Rogers",
       "diagnosis": "pain in legs ",
       "consultation": "lab test needed",
@@ -426,6 +458,42 @@
         }
       ],
       "createdAt": "2026-01-25T06:47:11.416Z"
+    },
+    {
+      "id": "CON-2026-0008",
+      "appointmentId": "APT-2026-0003",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "patientId": "PAT-2026-0011",
+      "patientName": "Iron Man",
+      "diagnosis": "suit destroyed",
+      "consultation": "lab test needed",
+      "consultationFee": 500,
+      "medicines": [
+        {
+          "name": "",
+          "dosage": ""
+        }
+      ],
+      "createdAt": "2026-01-26T12:13:43.414Z"
+    },
+    {
+      "id": "CON-2026-0009",
+      "appointmentId": "APT-2026-0004",
+      "doctorId": "DOC-005",
+      "doctorName": "Dr. Meet Kacha",
+      "patientId": "PAT-2026-0012",
+      "patientName": "Captain America",
+      "diagnosis": "Injured in very brutal fight with Thanos",
+      "consultation": "lab tests needed",
+      "consultationFee": 900,
+      "medicines": [
+        {
+          "name": "",
+          "dosage": ""
+        }
+      ],
+      "createdAt": "2026-01-26T12:27:12.342Z"
     }
   ],
   "labTestMasters": [
@@ -650,6 +718,61 @@
       ],
       "status": "COMPLETED",
       "createdAt": "2026-01-25T06:47:07.025Z"
+    },
+    {
+      "id": "LAB-2026-0007",
+      "consultationId": "CON-2026-0008",
+      "patientId": "PAT-2026-0011",
+      "patientName": "Iron Man",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "tests": [
+        {
+          "testId": "LT-004",
+          "testName": "X-Ray",
+          "charge": 400
+        }
+      ],
+      "results": [
+        {
+          "testName": "X-Ray",
+          "result": "2 bones are broken 1 is leg and 1 is right hand"
+        }
+      ],
+      "status": "COMPLETED",
+      "createdAt": "2026-01-26T12:13:26.072Z"
+    },
+    {
+      "id": "LAB-2026-0008",
+      "consultationId": "CON-2026-0009",
+      "patientId": "PAT-2026-0012",
+      "patientName": "Captain America",
+      "doctorId": "DOC-005",
+      "doctorName": "Dr. Meet Kacha",
+      "tests": [
+        {
+          "testId": "LT-004",
+          "testName": "X-Ray",
+          "charge": 400
+        },
+        {
+          "testId": "LT-006",
+          "testName": "CT Scan",
+          "charge": 3000
+        }
+      ],
+      "results": [
+        {
+          "testName": "CT Scan",
+          "result": "Fracture in left hand "
+        },
+        {
+          "testName": "X-Ray",
+          "result": "right side leg bone broken"
+        }
+      ],
+      "status": "COMPLETED",
+      "createdAt": "2026-01-26T12:27:03.474Z"
     }
   ],
   "admissions": [
@@ -663,7 +786,8 @@
       "roomType": "GENERAL",
       "roomCharge": 1500,
       "admissionDate": "2026-01-22",
-      "status": "ADMITTED"
+      "status": "DISCHARGED",
+      "dischargeDate": "2026-01-26"
     },
     {
       "id": "ADM-002",
@@ -715,6 +839,31 @@
       "roomCharge": 1500,
       "admissionDate": "2026-01-25",
       "status": "ADMITTED"
+    },
+    {
+      "id": "ADM-006",
+      "patientId": "PAT-2026-0011",
+      "patientName": "Iron Man",
+      "doctorName": "Dr. Namra Pithwa",
+      "roomId": "ROOM-003",
+      "roomNumber": "201",
+      "roomType": "DELUXE",
+      "roomCharge": 4000,
+      "admissionDate": "2026-01-26",
+      "status": "ADMITTED"
+    },
+    {
+      "id": "ADM-007",
+      "patientId": "PAT-2026-0012",
+      "patientName": "Captain America",
+      "doctorName": "Dr. Meet Kacha",
+      "roomId": "ROOM-001",
+      "roomNumber": "101",
+      "roomType": "GENERAL",
+      "roomCharge": 1500,
+      "admissionDate": "2026-01-26",
+      "status": "DISCHARGED",
+      "dischargeDate": "2026-01-26"
     }
   ],
   "rooms": [
@@ -722,7 +871,7 @@
       "id": "ROOM-001",
       "roomNumber": "101",
       "type": "GENERAL",
-      "status": "OCCUPIED",
+      "status": "AVAILABLE",
       "charge": 1500
     },
     {
@@ -736,7 +885,7 @@
       "id": "ROOM-003",
       "roomNumber": "201",
       "type": "DELUXE",
-      "status": "AVAILABLE",
+      "status": "OCCUPIED",
       "charge": 4000
     },
     {
@@ -772,7 +921,10 @@
       "roomNumber": "1001",
       "type": "OPERATION_THEATRE",
       "status": "AVAILABLE",
-      "charge": 5000
+      "charge": 5000,
+      "patientId": null,
+      "patientName": null,
+      "linkedSurgeryId": null
     },
     {
       "id": "ROOM-012",
@@ -934,9 +1086,60 @@
       "status": "CANCELLED",
       "notes": "Irure exercitationem",
       "createdAt": "2026-01-25T06:49:05.317Z"
+    },
+    {
+      "id": "SUR-2026-0006",
+      "consultationId": "CON-2026-0008",
+      "patientId": "PAT-2026-0011",
+      "patientName": "Iron Man",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "department": "Cardiology",
+      "surgeryType": "Bypass Surgery",
+      "surgeryMasterId": "SM-005",
+      "surgeryCharge": 250000,
+      "scheduledDate": "2026-01-31",
+      "scheduledTime": "09:00",
+      "operationTheatre": "1001",
+      "status": "COMPLETED",
+      "notes": "surgery is needed compulsary to perform",
+      "createdAt": "2026-01-26T12:17:43.153Z"
+    },
+    {
+      "id": "SUR-2026-0007",
+      "consultationId": "CON-2026-0009",
+      "patientId": "PAT-2026-0012",
+      "patientName": "Captain America",
+      "doctorId": "DOC-005",
+      "doctorName": "Dr. Meet Kacha",
+      "department": "Neurology",
+      "surgeryType": "Brain Tumor Surgery",
+      "surgeryMasterId": "SM-008",
+      "surgeryCharge": 175000,
+      "scheduledDate": "2026-01-28",
+      "scheduledTime": "05:00",
+      "operationTheatre": "1001",
+      "status": "CANCELLED",
+      "notes": "surgery is scheduled all consumables are arranged",
+      "createdAt": "2026-01-26T12:31:01.694Z"
     }
   ],
-  "discharges": [],
+  "discharges": [
+    {
+      "id": "DIS-825717",
+      "admissionId": "ADM-007",
+      "patientId": "PAT-2026-0012",
+      "patientName": "Captain America",
+      "doctorName": "Dr. Meet Kacha",
+      "roomNumber": "101",
+      "admissionDate": "2026-01-26",
+      "dischargeDate": "2026-01-26",
+      "billId": "BILL-0005",
+      "totalAmount": 6090,
+      "summary": "Patient discharged successfully",
+      "createdAt": "2026-01-26T12:33:45.757Z"
+    }
+  ],
   "bills": [
     {
       "id": "BILL-0001",
@@ -1038,9 +1241,86 @@
       "gstAmount": 13070,
       "totalAmount": 274470,
       "status": "UNPAID"
+    },
+    {
+      "id": "BILL-0005",
+      "admissionId": "ADM-001",
+      "patientId": "PAT-2026-0004",
+      "patientName": "Todd Potts",
+      "doctorName": "Dr. Namra Pithwa",
+      "billDate": "2026-01-26T11:55:29.968Z",
+      "room": {
+        "roomId": "ROOM-001",
+        "roomType": "GENERAL",
+        "dailyCharge": 1500,
+        "stayDays": 5,
+        "totalRoomCharge": 7500
+      },
+      "admissionDate": "2026-01-22",
+      "dischargeDate": "2026-01-26",
+      "consultationCharge": 500,
+      "labTests": [
+        {
+          "testId": "LT-006",
+          "testName": "CT Scan",
+          "charge": 3000
+        }
+      ],
+      "labCharge": 3000,
+      "surgeryCharge": 120000,
+      "subtotal": 131000,
+      "gstRate": 5,
+      "gstAmount": 6550,
+      "totalAmount": 137550,
+      "status": "UNPAID"
+    },
+    {
+      "id": "BILL-0005",
+      "admissionId": "ADM-007",
+      "patientId": "PAT-2026-0012",
+      "patientName": "Captain America",
+      "doctorName": "Dr. Meet Kacha",
+      "billDate": "2026-01-26T12:33:45.717Z",
+      "room": {
+        "roomId": "ROOM-001",
+        "roomType": "GENERAL",
+        "dailyCharge": 1500,
+        "stayDays": 1,
+        "totalRoomCharge": 1500
+      },
+      "admissionDate": "2026-01-26",
+      "dischargeDate": "2026-01-26",
+      "consultationCharge": 900,
+      "labTests": [
+        {
+          "testId": "LT-004",
+          "testName": "X-Ray",
+          "charge": 400
+        },
+        {
+          "testId": "LT-006",
+          "testName": "CT Scan",
+          "charge": 3000
+        }
+      ],
+      "labCharge": 3400,
+      "surgeryCharge": 0,
+      "subtotal": 5800,
+      "gstRate": 5,
+      "gstAmount": 290,
+      "totalAmount": 6090,
+      "status": "UNPAID"
     }
   ],
-  "payments": [],
+  "payments": [
+    {
+      "id": "PAY-0001",
+      "billId": "BILL-0004",
+      "mode": "Card",
+      "amount": 5000,
+      "date": "2026-01-26"
+    }
+  ],
   "feedback": [
     {
       "id": "FDB-9001",
