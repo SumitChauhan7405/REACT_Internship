@@ -111,6 +111,20 @@
       "status": "CONFIRMED",
       "source": "ONLINE",
       "createdAt": "2026-01-26T12:25:36.793Z"
+    },
+    {
+      "id": "PAT-2026-0015",
+      "firstName": "Bat",
+      "lastName": "Man",
+      "gender": "Male",
+      "age": "35",
+      "phone": "8846231570",
+      "bloodGroup": "O+",
+      "doctorName": "Dr. Krisha Patel",
+      "timing": "MORNING (10:00 - 12:00)",
+      "status": "CONFIRMED",
+      "source": "WALKIN",
+      "createdAt": "2026-01-27T17:29:26.381Z"
     }
   ],
   "doctors": [
@@ -213,26 +227,6 @@
       "id": "DOC-005"
     },
     {
-      "name": "Dr. Krisha Patel",
-      "email": "krisha@medicare.com",
-      "password": "krisha@123",
-      "department": "Orthopedics",
-      "experience": 7,
-      "education": "MBBS",
-      "availableDays": [
-        "Mon",
-        "Tue",
-        "Wed",
-        "Sat"
-      ],
-      "timeSlots": [
-        "17:00-19:00"
-      ],
-      "consultationFee": 1000,
-      "image": "doc1.png",
-      "id": "DOC-006"
-    },
-    {
       "name": "Dr. Raj Sanchla",
       "email": "raj@medicare.com",
       "password": "raj@123",
@@ -270,6 +264,26 @@
       ],
       "consultationFee": 800,
       "image": "doc2.png"
+    },
+    {
+      "name": "Dr. Krisha Patel",
+      "email": "krisha@medicare.com",
+      "password": "krisha@123",
+      "department": "Orthopedics",
+      "experience": 7,
+      "education": "MBBS, MD",
+      "availableDays": [
+        "Mon",
+        "Tue",
+        "Fri",
+        "Sat"
+      ],
+      "timeSlots": [
+        "5:00-7:00"
+      ],
+      "consultationFee": 1000,
+      "image": "doc1.png",
+      "id": "DOC-009"
     }
   ],
   "appointments": [
@@ -384,24 +398,6 @@
       "createdAt": "2026-01-22T14:42:13.353Z"
     },
     {
-      "id": "CON-2026-0004",
-      "appointmentId": "APT-2026-0003",
-      "doctorId": "DOC-003",
-      "doctorName": "Dr. Namra Pithwa",
-      "patientId": null,
-      "patientName": "Steve Rogers",
-      "diagnosis": "pain in legs ",
-      "consultation": "lab test needed",
-      "consultationFee": 500,
-      "medicines": [
-        {
-          "name": "",
-          "dosage": ""
-        }
-      ],
-      "createdAt": "2026-01-23T04:46:19.220Z"
-    },
-    {
       "id": "CON-2026-0005",
       "appointmentId": "WALKIN-PAT-2026-0008",
       "doctorId": "DOC-003",
@@ -494,6 +490,24 @@
         }
       ],
       "createdAt": "2026-01-26T12:27:12.342Z"
+    },
+    {
+      "id": "CON-2026-0010",
+      "appointmentId": "WALKIN-PAT-2026-0015",
+      "doctorId": "DOC-009",
+      "doctorName": "Dr. Krisha Patel",
+      "patientId": "PAT-2026-0015",
+      "patientName": "Bat Man",
+      "diagnosis": "too much pain",
+      "consultation": "surgery needed",
+      "consultationFee": 1000,
+      "medicines": [
+        {
+          "name": "",
+          "dosage": ""
+        }
+      ],
+      "createdAt": "2026-01-27T17:30:55.089Z"
     }
   ],
   "labTestMasters": [
@@ -921,10 +935,7 @@
       "roomNumber": "1001",
       "type": "OPERATION_THEATRE",
       "status": "AVAILABLE",
-      "charge": 5000,
-      "patientId": null,
-      "patientName": null,
-      "linkedSurgeryId": null
+      "charge": 5000
     },
     {
       "id": "ROOM-012",
@@ -979,19 +990,40 @@
       "name": "Knee Replacement",
       "charge": 180000,
       "visibility": "DEPARTMENT",
-      "department": "Orthopaedic"
+      "department": "Orthopedics"
     },
     {
       "id": "SM-007",
       "name": "Hip Replacement",
       "charge": 200000,
       "visibility": "DEPARTMENT",
-      "department": "Orthopaedic"
+      "department": "Orthopedics"
     },
     {
       "id": "SM-008",
       "name": "Brain Tumor Surgery",
       "charge": 175000,
+      "visibility": "DEPARTMENT",
+      "department": "Neurology"
+    },
+    {
+      "id": "SM-009",
+      "name": "Shoulder Replacement",
+      "charge": 250000,
+      "visibility": "DEPARTMENT",
+      "department": "Orthopedics"
+    },
+    {
+      "id": "SM-010",
+      "name": "Heart Transplant",
+      "charge": 1800000,
+      "visibility": "DEPARTMENT",
+      "department": "Cardiology"
+    },
+    {
+      "id": "SM-011",
+      "name": "Deep Brain Stimulation",
+      "charge": 800000,
       "visibility": "DEPARTMENT",
       "department": "Neurology"
     }
@@ -1122,6 +1154,24 @@
       "status": "CANCELLED",
       "notes": "surgery is scheduled all consumables are arranged",
       "createdAt": "2026-01-26T12:31:01.694Z"
+    },
+    {
+      "id": "SUR-2026-0008",
+      "consultationId": "CON-2026-0010",
+      "patientId": "PAT-2026-0015",
+      "patientName": "Bat Man",
+      "doctorId": "DOC-009",
+      "doctorName": "Dr. Krisha Patel",
+      "department": "Orthopedics",
+      "surgeryType": "Shoulder Replacement",
+      "surgeryMasterId": "SM-009",
+      "surgeryCharge": 250000,
+      "scheduledDate": "2026-01-30",
+      "scheduledTime": "04:00",
+      "operationTheatre": "1001",
+      "status": "COMPLETED",
+      "notes": "wjbdnwdhwd",
+      "createdAt": "2026-01-27T17:30:50.825Z"
     }
   ],
   "discharges": [

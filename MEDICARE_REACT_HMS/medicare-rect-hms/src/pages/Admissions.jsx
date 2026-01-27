@@ -202,8 +202,6 @@ const Admissions = () => {
                 <td>{adm.doctorName || "—"}</td>
                 <td>{adm.roomNumber}</td>
                 <td>{adm.roomType}</td>
-
-                {/* ✅ NEW */}
                 <td>{adm.admissionDate}</td>
                 <td>{adm.dischargeDate || "—"}</td>
 

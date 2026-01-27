@@ -139,7 +139,7 @@ const SurgeryMaster = () => {
             <option value="">Select Department</option>
             <option value="Cardiology">Cardiology</option>
             <option value="Radiology">Radiology</option>
-            <option value="Orthopaedic">Orthopaedic</option>
+            <option value="Orthopedics">Orthopedics</option>
             <option value="Neurology">Neurology</option>
             <option value="General Medicine">General Medicine</option>
           </select>

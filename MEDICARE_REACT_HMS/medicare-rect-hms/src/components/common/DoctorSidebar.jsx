@@ -23,8 +23,8 @@ const DoctorSidebar = () => {
 
 
                 <NavLink to="/doctor/appointments" className="menu-item">
-                    <i className="bi bi-calendar-check"></i>
-                    <span>My Appointments</span>
+                    <i className="bi bi-people"></i>
+                    <span>My Patients</span>
                 </NavLink>
 
                 <li>

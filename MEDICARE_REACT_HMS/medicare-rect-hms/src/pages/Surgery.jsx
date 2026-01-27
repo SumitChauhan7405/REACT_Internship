@@ -1,9 +1,10 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import {
   getSurgeries,
   updateSurgery
 } from "../services/surgeryService";
-import { getRooms, updateRoom } from "../services/roomService";
+import { getRooms } from "../services/roomService";
 import "../assets/css/components/surgeries.css";
 
 const Surgery = () => {
@@ -27,23 +28,29 @@ const Surgery = () => {
      RELEASE OPERATION THEATRE
   ======================= */
   const releaseOperationTheatre = async (surgeryId) => {
-    const roomRes = await getRooms();
+  const roomRes = await getRooms();
 
-    const linkedOT = roomRes.data.find(
-      (room) =>
-        room.type === "OPERATION_THEATRE" &&
-        room.linkedSurgeryId === surgeryId
-    );
+  const linkedOT = roomRes.data.find(
+    room =>
+      room.type === "OPERATION_THEATRE" &&
+      room.linkedSurgeryId === surgeryId
+  );
 
-    if (!linkedOT) return;
+  if (!linkedOT) return;
 
-    await updateRoom(linkedOT.id, {
+  // ✅ FULL OBJECT REPLACEMENT (PUT)
+  await axios.put(
+    `http://localhost:5000/rooms/${linkedOT.id}`,
+    {
+      id: linkedOT.id,
+      roomNumber: linkedOT.roomNumber,
+      type: linkedOT.type,
       status: "AVAILABLE",
-      patientId: null,
-      patientName: null,
-      linkedSurgeryId: null
-    });
-  };
+      charge: linkedOT.charge
+    }
+  );
+};
+
 
   /* ======================
      STATUS UPDATE

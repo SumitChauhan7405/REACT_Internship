@@ -11,11 +11,11 @@ const Discharge = () => {
   const [labTests, setLabTests] = useState([]);
   const [surgeries, setSurgeries] = useState([]);
   const [bills, setBills] = useState([]);
-  const [discharges, setDischarges] = useState([]); // ✅ NEW
+  const [discharges, setDischarges] = useState([]);
 
   const [selectedAdmission, setSelectedAdmission] = useState(null);
   const [billPreview, setBillPreview] = useState(null);
-  const [dischargeSummary, setDischargeSummary] = useState(""); // ✅ NEW
+  const [dischargeSummary, setDischargeSummary] = useState("");
 
   /* ======================
      LOAD DATA
@@ -36,7 +36,7 @@ const Discharge = () => {
       axios.get("http://localhost:5000/labTests"),
       axios.get("http://localhost:5000/surgeries"),
       axios.get("http://localhost:5000/bills"),
-      axios.get("http://localhost:5000/discharges") // ✅ NEW
+      axios.get("http://localhost:5000/discharges")
     ]);
 
     setAdmissions(admRes.data.filter(a => a.status === "ADMITTED"));

@@ -74,7 +74,7 @@ const DoctorAppointments = () => {
   };
 
   if (appointments.length === 0) {
-    return <p>No appointments assigned.</p>;
+    return <p>No Patients assigned.</p>;
   }
 
   return (
