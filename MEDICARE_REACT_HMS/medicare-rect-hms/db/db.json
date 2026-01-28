@@ -125,6 +125,34 @@
       "status": "CONFIRMED",
       "source": "WALKIN",
       "createdAt": "2026-01-27T17:29:26.381Z"
+    },
+    {
+      "id": "PAT-2026-0016",
+      "firstName": "abcde",
+      "lastName": "efghi",
+      "gender": "Male",
+      "age": "23",
+      "phone": "8956230147",
+      "bloodGroup": "B+",
+      "doctorName": "Dr. Namra Pithwa",
+      "timing": "EVENING (5:00 - 7:00)",
+      "status": "CONFIRMED",
+      "source": "ONLINE",
+      "createdAt": "2026-01-28T04:54:30.467Z"
+    },
+    {
+      "id": "PAT-2026-0017",
+      "firstName": "Cara",
+      "lastName": "Cruz",
+      "gender": "Other",
+      "age": "60",
+      "phone": "+1 (895) 755-8654",
+      "bloodGroup": "B-",
+      "doctorName": "Dr. Meet Kacha",
+      "timing": "MORNING (10:00 - 12:00)",
+      "status": "CONFIRMED",
+      "source": "WALKIN",
+      "createdAt": "2026-01-28T05:11:11.823Z"
     }
   ],
   "doctors": [
@@ -340,6 +368,24 @@
       "createdAt": "2026-01-26T12:25:08.378Z",
       "patientId": "PAT-2026-0012",
       "patientName": "Captain America"
+    },
+    {
+      "id": "APT-2026-0005",
+      "firstName": "abcde",
+      "lastName": "efghi",
+      "gender": "Male",
+      "age": "23",
+      "phone": "8956230147",
+      "bloodGroup": "B+",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "date": "2026-01-30",
+      "time": "EVENING (5:00 - 7:00)",
+      "status": "CONFIRMED",
+      "source": "ONLINE",
+      "createdAt": "2026-01-28T04:42:09.792Z",
+      "patientId": "PAT-2026-0016",
+      "patientName": "abcde efghi"
     }
   ],
   "consultations": [
@@ -508,6 +554,42 @@
         }
       ],
       "createdAt": "2026-01-27T17:30:55.089Z"
+    },
+    {
+      "id": "CON-2026-0011",
+      "appointmentId": "APT-2026-0005",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "patientId": "PAT-2026-0016",
+      "patientName": "abcde efghi",
+      "diagnosis": "hiii",
+      "consultation": "helllo",
+      "consultationFee": 500,
+      "medicines": [
+        {
+          "name": "",
+          "dosage": ""
+        }
+      ],
+      "createdAt": "2026-01-28T14:10:37.675Z"
+    },
+    {
+      "id": "CON-2026-0012",
+      "appointmentId": "WALKIN-PAT-2026-0017",
+      "doctorId": "DOC-005",
+      "doctorName": "Dr. Meet Kacha",
+      "patientId": "PAT-2026-0017",
+      "patientName": "Cara Cruz",
+      "diagnosis": "hello hwo are you",
+      "consultation": "i am fine",
+      "consultationFee": 900,
+      "medicines": [
+        {
+          "name": "",
+          "dosage": ""
+        }
+      ],
+      "createdAt": "2026-01-28T20:19:37.449Z"
     }
   ],
   "labTestMasters": [
@@ -787,6 +869,42 @@
       ],
       "status": "COMPLETED",
       "createdAt": "2026-01-26T12:27:03.474Z"
+    },
+    {
+      "id": "LAB-2026-0009",
+      "consultationId": "CON-2026-0011",
+      "patientId": "PAT-2026-0016",
+      "patientName": "abcde efghi",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "tests": [
+        {
+          "testId": "LT-003",
+          "testName": "ECG",
+          "charge": 500
+        }
+      ],
+      "results": [],
+      "status": "PENDING",
+      "createdAt": "2026-01-28T14:10:30.883Z"
+    },
+    {
+      "id": "LAB-2026-0010",
+      "consultationId": "CON-2026-0012",
+      "patientId": "PAT-2026-0017",
+      "patientName": "Cara Cruz",
+      "doctorId": "DOC-005",
+      "doctorName": "Dr. Meet Kacha",
+      "tests": [
+        {
+          "testId": "LT-008",
+          "testName": "NT-Pro BNP",
+          "charge": 2000
+        }
+      ],
+      "results": [],
+      "status": "PENDING",
+      "createdAt": "2026-01-28T20:19:24.361Z"
     }
   ],
   "admissions": [
@@ -943,6 +1061,16 @@
       "type": "OPERATION_THEATRE",
       "status": "AVAILABLE",
       "charge": 5000
+    },
+    {
+      "id": "ROOM-013",
+      "roomNumber": "1003",
+      "type": "OPERATION_THEATRE",
+      "status": "OCCUPIED",
+      "charge": 0,
+      "patientId": "PAT-2026-0017",
+      "patientName": "Cara Cruz",
+      "linkedSurgeryId": "SUR-2026-0009"
     }
   ],
   "vitals": [
@@ -1172,6 +1300,24 @@
       "status": "COMPLETED",
       "notes": "wjbdnwdhwd",
       "createdAt": "2026-01-27T17:30:50.825Z"
+    },
+    {
+      "id": "SUR-2026-0009",
+      "consultationId": "CON-2026-0012",
+      "patientId": "PAT-2026-0017",
+      "patientName": "Cara Cruz",
+      "doctorId": "DOC-005",
+      "doctorName": "Dr. Meet Kacha",
+      "department": "Neurology",
+      "surgeryType": "Brain Tumor Surgery",
+      "surgeryMasterId": "SM-008",
+      "surgeryCharge": 175000,
+      "scheduledDate": "2026-01-31",
+      "scheduledTime": "03:00",
+      "operationTheatre": "1003",
+      "status": "SCHEDULED",
+      "notes": "jnwjdwkdjj",
+      "createdAt": "2026-01-28T20:49:57.081Z"
     }
   ],
   "discharges": [
@@ -1369,6 +1515,13 @@
       "mode": "Card",
       "amount": 5000,
       "date": "2026-01-26"
+    },
+    {
+      "id": "PAY-0002",
+      "billId": "BILL-0005",
+      "mode": "UPI",
+      "amount": 5000,
+      "date": "2026-01-28"
     }
   ],
   "feedback": [

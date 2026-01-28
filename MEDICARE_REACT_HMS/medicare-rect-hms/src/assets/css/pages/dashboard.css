@@ -10,10 +10,11 @@
   font-size: 22px;
   font-weight: 600;
   margin-bottom: 20px;
+  color: #111827;
 }
 
 /* ======================
-   DASHBOARD CARDS GRID
+   DASHBOARD KPI CARDS
 ====================== */
 
 .dashboard-cards {
@@ -21,10 +22,6 @@
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 24px;
 }
-
-/* ======================
-   DASHBOARD CARD
-====================== */
 
 .dashboard-card {
   background: #ffffff;
@@ -64,7 +61,7 @@
 }
 
 /* ======================
-   LIVE BADGE
+   BADGE
 ====================== */
 
 .card-badge {
@@ -96,9 +93,94 @@
   color: #2563eb;
 }
 
+/* ==================================================
+   ADMIN ACTIVITY PANELS (STEP 2)
+================================================== */
+
+.dashboard-activity {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
 /* ======================
-   RESPONSIVE
+   ACTIVITY CARD
 ====================== */
+
+.activity-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.activity-card h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: #111827;
+}
+
+/* ======================
+   ACTIVITY TABLE
+====================== */
+
+.activity-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.activity-card thead {
+  background: #f9fafb;
+}
+
+.activity-card thead th {
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  text-align: left;
+  padding: 8px 6px;
+}
+
+.activity-card tbody td {
+  font-size: 13px;
+  padding: 8px 6px;
+  color: #1f2937;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.activity-card tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.activity-card tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* ======================
+   EMPTY STATE
+====================== */
+
+.activity-card .empty {
+  font-size: 13px;
+  color: #6b7280;
+  padding: 10px 0;
+}
+
+/* ======================
+   RESPONSIVE (MOBILE / TABLET BASE)
+====================== */
+
+@media (max-width: 1024px) {
+  .dashboard-cards {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .dashboard-activity {
+    grid-template-columns: 1fr;
+  }
+}
 
 @media (max-width: 768px) {
   .dashboard-cards {

@@ -81,7 +81,7 @@ const DoctorAppointments = () => {
     <>
       <div className="patient-table-card">
         <div className="table-header">
-          <h6>My Appointments</h6>
+          <h6>My Patients</h6>
           <span>Doctor view</span>
         </div>
 
