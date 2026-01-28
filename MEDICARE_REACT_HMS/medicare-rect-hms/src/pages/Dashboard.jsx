@@ -15,7 +15,6 @@ const Dashboard = () => {
     unpaidBills: 0
   });
 
-  /* 🔹 ACTIVITY DATA */
   const [recentAdmissions, setRecentAdmissions] = useState([]);
   const [pendingSurgeriesList, setPendingSurgeriesList] = useState([]);
   const [pendingLabsList, setPendingLabsList] = useState([]);
@@ -46,53 +45,27 @@ const Dashboard = () => {
         doctors: doctorsRes.data.length,
         rooms: roomsRes.data.length,
         admissions: admissionsRes.data.length,
-
-        admittedPatients: admissionsRes.data.filter(
-          a => a.status === "ADMITTED"
-        ).length,
-
-        pendingLabs: labsRes.data.filter(
-          l => l.status !== "COMPLETED"
-        ).length,
-
-        pendingSurgeries: surgeriesRes.data.filter(
-          s => s.status === "SCHEDULED"
-        ).length,
-
-        pendingDischarges: admissionsRes.data.filter(
-          a => a.status === "ADMITTED"
-        ).length,
-
-        unpaidBills: billsRes.data.filter(
-          b => b.status === "UNPAID"
-        ).length
+        admittedPatients: admissionsRes.data.filter(a => a.status === "ADMITTED").length,
+        pendingLabs: labsRes.data.filter(l => l.status !== "COMPLETED").length,
+        pendingSurgeries: surgeriesRes.data.filter(s => s.status === "SCHEDULED").length,
+        pendingDischarges: admissionsRes.data.filter(a => a.status === "ADMITTED").length,
+        unpaidBills: billsRes.data.filter(b => b.status === "UNPAID").length
       });
 
-      /* 🔹 ACTIVITY PANELS DATA */
-
       setRecentAdmissions(
-        admissionsRes.data
-          .filter(a => a.status === "ADMITTED")
-          .slice(-5)
-          .reverse()
+        admissionsRes.data.filter(a => a.status === "ADMITTED").slice(-5).reverse()
       );
 
       setPendingSurgeriesList(
-        surgeriesRes.data
-          .filter(s => s.status === "SCHEDULED")
-          .slice(0, 5)
+        surgeriesRes.data.filter(s => s.status === "SCHEDULED").slice(0, 5)
       );
 
       setPendingLabsList(
-        labsRes.data
-          .filter(l => l.status !== "COMPLETED")
-          .slice(0, 5)
+        labsRes.data.filter(l => l.status !== "COMPLETED").slice(0, 5)
       );
 
       setUnpaidBillsList(
-        billsRes.data
-          .filter(b => b.status === "UNPAID")
-          .slice(0, 5)
+        billsRes.data.filter(b => b.status === "UNPAID").slice(0, 5)
       );
     } catch (error) {
       console.error("Dashboard load error", error);
@@ -107,7 +80,7 @@ const Dashboard = () => {
     <div className="dashboard-page">
       <h3 className="page-title">Dashboard</h3>
 
-      {/* 🔹 KPI CARDS */}
+      {/* KPI CARDS */}
       <div className="dashboard-cards">
         {[
           ["Patients", counts.patients, "bi-people"],
@@ -115,7 +88,7 @@ const Dashboard = () => {
           ["Rooms", counts.rooms, "bi-door-open"],
           ["Admissions", counts.admissions, "bi-hospital"],
           ["Currently Admitted", counts.admittedPatients, "bi-person-check"],
-          ["Pending Labs", counts.pendingLabs, "bi-beaker"],
+          ["Pending LabTests", counts.pendingLabs, "bi-beaker"],
           ["Pending Surgeries", counts.pendingSurgeries, "bi-scissors"],
           ["Pending Discharges", counts.pendingDischarges, "bi-box-arrow-right"],
           ["Unpaid Bills", counts.unpaidBills, "bi-cash-coin"]
@@ -132,13 +105,20 @@ const Dashboard = () => {
         ))}
       </div>
 
-      {/* 🔹 ACTIVITY PANELS */}
+      {/* ACTIVITY PANELS */}
       <div className="dashboard-activity">
 
         {/* Recent Admissions */}
         <div className="activity-card">
           <h4>Recent Admissions</h4>
           <table>
+            <thead>
+              <tr>
+                <th>Patient</th>
+                <th>Room</th>
+                <th>Doctor</th>
+              </tr>
+            </thead>
             <tbody>
               {recentAdmissions.map(a => (
                 <tr key={a.id}>
@@ -155,12 +135,23 @@ const Dashboard = () => {
         <div className="activity-card">
           <h4>Pending Surgeries</h4>
           <table>
+            <thead>
+              <tr>
+                <th>Patient</th>
+                <th>Surgery</th>
+                <th>Status</th>
+              </tr>
+            </thead>
             <tbody>
               {pendingSurgeriesList.map(s => (
                 <tr key={s.id}>
                   <td>{s.patientName}</td>
                   <td>{s.surgeryType}</td>
-                  <td>{s.status}</td>
+                  <td>
+                    <span className={`status-badge ${s.status.toLowerCase()}`}>
+                      {s.status}
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -171,6 +162,13 @@ const Dashboard = () => {
         <div className="activity-card">
           <h4>Pending Lab Tests</h4>
           <table>
+            <thead>
+              <tr>
+                <th>Patient</th>
+                <th>Test</th>
+                <th>Status</th>
+              </tr>
+            </thead>
             <tbody>
               {pendingLabsList.map(l => (
                 <tr key={l.id}>
@@ -182,6 +180,11 @@ const Dashboard = () => {
                         : l.tests[0].testName
                       : "—"}
                   </td>
+                  <td>
+                    <span className={`status-badge ${l.status.toLowerCase()}`}>
+                      {l.status}
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -192,11 +195,19 @@ const Dashboard = () => {
         <div className="activity-card">
           <h4>Unpaid Bills</h4>
           <table>
+            <thead>
+              <tr>
+                <th>Patient</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
             <tbody>
               {unpaidBillsList.map(b => (
                 <tr key={b.id}>
                   <td>{b.patientName}</td>
-                  <td>₹{b.totalAmount}</td>
+                  <td className={`bill-amount ${b.status?.toLowerCase()}`}>
+                    ₹{b.totalAmount}
+                  </td>
                 </tr>
               ))}
             </tbody>
