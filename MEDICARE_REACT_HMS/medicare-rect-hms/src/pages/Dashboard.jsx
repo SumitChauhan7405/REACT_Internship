@@ -88,7 +88,7 @@ const Dashboard = () => {
           ["Rooms", counts.rooms, "bi-door-open"],
           ["Admissions", counts.admissions, "bi-hospital"],
           ["Currently Admitted", counts.admittedPatients, "bi-person-check"],
-          ["Pending LabTests", counts.pendingLabs, "bi-beaker"],
+          ["Pending LabTests", counts.pendingLabs, "bi-flask-florence"],
           ["Pending Surgeries", counts.pendingSurgeries, "bi-scissors"],
           ["Pending Discharges", counts.pendingDischarges, "bi-box-arrow-right"],
           ["Unpaid Bills", counts.unpaidBills, "bi-cash-coin"]

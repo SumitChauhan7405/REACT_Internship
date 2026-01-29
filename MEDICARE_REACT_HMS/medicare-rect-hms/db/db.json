@@ -644,6 +644,11 @@
           "testId": "LT-005",
           "testName": "MRI",
           "charge": 2500
+        },
+        {
+          "testId": "LT-004",
+          "testName": "X-Ray",
+          "charge": 400
         }
       ],
       "results": [
