@@ -5,7 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // ✅ NEW
+  const [loading, setLoading] = useState(true);
 
   /* ===============================
      RESTORE USER ON REFRESH
@@ -15,14 +15,14 @@ export const AuthProvider = ({ children }) => {
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
-    setLoading(false); // ✅ auth check complete
+    setLoading(false);
   }, []);
 
   /* ===============================
      LOGIN
   =============================== */
   const login = async (email, password) => {
-    // ADMIN
+    // 🔹 ADMIN
     if (email === "admin123@medicare.com" && password === "admin@123") {
       const adminUser = { role: "admin", name: "Admin" };
       setUser(adminUser);
@@ -30,7 +30,15 @@ export const AuthProvider = ({ children }) => {
       return adminUser;
     }
 
-    // DOCTOR
+    // 🔹 LAB (NEW)
+    if (email === "lab@medicare.com" && password === "lab@123") {
+      const labUser = { role: "lab", name: "Lab Technician" };
+      setUser(labUser);
+      localStorage.setItem("user", JSON.stringify(labUser));
+      return labUser;
+    }
+
+    // 🔹 DOCTOR
     const res = await axios.get("http://localhost:5000/doctors");
     const doctor = res.data.find(
       (doc) => doc.email === email && doc.password === password

@@ -14,17 +14,24 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const success = await login(email, password);
+    const user = await login(email, password);
 
-    if (!success) {
+    if (!user) {
       setError("Invalid email or password");
       return;
     }
 
-    if (email === "admin123@medicare.com") {
+    /* ===============================
+       ROLE BASED REDIRECT
+    =============================== */
+    if (user.role === "admin") {
       navigate("/admin/dashboard");
-    } else {
+    } else if (user.role === "doctor") {
       navigate("/doctor/dashboard");
+    } else if (user.role === "lab") {
+      navigate("/lab/dashboard");
+    } else {
+      navigate("/login");
     }
   };
 

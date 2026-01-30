@@ -4,19 +4,17 @@ import { useAuth } from "../context/AuthContext";
 const RoleRoute = ({ role, children }) => {
   const { user } = useAuth();
 
-  // ❌ Safety check
   if (!user) {
     return <Navigate to="/login" replace />;
   }
 
-  // ❌ Wrong role trying to access
+  // ✅ UPDATED: include LAB redirection
   if (user.role !== role) {
-    return user.role === "admin"
-      ? <Navigate to="/admin/dashboard" replace />
-      : <Navigate to="/doctor/dashboard" replace />;
+    if (user.role === "admin") return <Navigate to="/admin/dashboard" replace />;
+    if (user.role === "doctor") return <Navigate to="/doctor/dashboard" replace />;
+    if (user.role === "lab") return <Navigate to="/lab/dashboard" replace />;
   }
 
-  // ✅ Correct role
   return children;
 };
 

@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import PublicLayout from "../layouts/PublicLayout";
 import AdminLayout from "../layouts/AdminLayout";
 import DoctorLayout from "../layouts/DoctorLayout";
+import LabLayout from "../layouts/LabLayout"; 
 
 /* Route Protection */
 import ProtectedRoute from "./ProtectedRoute";
@@ -37,6 +38,9 @@ import DoctorProfile from "../pages/doctor/Profile";
 import Homepage from "../pages/public/Homepage";
 import DoctorSurgeries from "../pages/doctor/DoctorSurgeries";
 
+/* 🧪 LAB Pages (NEW) */
+import LabDashboard from "../pages/lab/LabDashboard";
+// import LabTests from "../pages/lab/LabTests";
 
 const AppRoutes = () => {
   return (
@@ -79,6 +83,13 @@ const AppRoutes = () => {
         </Route>
       </Route>
 
+      ================= 🧪 LAB =================
+      <Route element={<ProtectedRoute allowedRoles={["lab"]} />}>
+        <Route path="/lab" element={<LabLayout />}>
+          <Route path="dashboard" element={<LabDashboard />} />
+          {/* <Route path="tests" element={<LabTests />} /> */}
+        </Route>
+      </Route>
 
     </Routes>
   );
