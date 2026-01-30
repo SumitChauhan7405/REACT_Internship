@@ -1,0 +1,140 @@
+/* ======================
+   LAB DASHBOARD PAGE
+====================== */
+
+.lab-dashboard-page {
+  padding: 20px;
+}
+
+.page-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #111827;
+}
+
+/* ======================
+   KPI CARDS
+====================== */
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.dashboard-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-title {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.card-info h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  background: #e0ecff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-icon i {
+  font-size: 22px;
+  color: #2563eb;
+}
+
+/* ======================
+   ACTIVITY TABLES
+====================== */
+
+.activity-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  margin-top: 32px;
+}
+
+.activity-card h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.activity-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.activity-card th {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  padding: 8px 6px;
+  background: #f9fafb;
+}
+
+.activity-card td {
+  font-size: 13px;
+  padding: 8px 6px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.activity-card tr:last-child td {
+  border-bottom: none;
+}
+
+/* ======================
+   STATUS BADGES
+====================== */
+
+.status-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.status-badge.pending {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ======================
+   HELPERS
+====================== */
+
+.empty {
+  font-size: 13px;
+  color: #6b7280;
+  padding: 12px 0;
+}
+
+.mt-24 {
+  margin-top: 24px;
+}

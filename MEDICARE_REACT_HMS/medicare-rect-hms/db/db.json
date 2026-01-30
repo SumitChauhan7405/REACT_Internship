@@ -153,6 +153,20 @@
       "status": "CONFIRMED",
       "source": "WALKIN",
       "createdAt": "2026-01-30T12:31:24.150Z"
+    },
+    {
+      "id": "PAT-2026-0020",
+      "firstName": "Khushi",
+      "lastName": "Patel",
+      "gender": "Female",
+      "age": "38",
+      "phone": "+1 (388) 225-6605",
+      "bloodGroup": "B+",
+      "doctorName": "Dr. Rushita Patel",
+      "timing": "EVENING (5:00 - 7:00)",
+      "status": "CONFIRMED",
+      "source": "WALKIN",
+      "createdAt": "2026-01-30T17:35:59.399Z"
     }
   ],
   "doctors": [
@@ -591,6 +605,24 @@
         }
       ],
       "createdAt": "2026-01-30T12:32:48.513Z"
+    },
+    {
+      "id": "CON-2026-0015",
+      "appointmentId": "WALKIN-PAT-2026-0020",
+      "doctorId": "DOC-010",
+      "doctorName": "Dr. Rushita Patel",
+      "patientId": "PAT-2026-0020",
+      "patientName": "Khushi Patel",
+      "diagnosis": "headache",
+      "consultation": "lab test needed",
+      "consultationFee": 700,
+      "medicines": [
+        {
+          "name": "",
+          "dosage": ""
+        }
+      ],
+      "createdAt": "2026-01-30T17:36:59.257Z"
     }
   ],
   "labTestMasters": [
@@ -919,6 +951,24 @@
       ],
       "status": "COMPLETED",
       "createdAt": "2026-01-30T12:32:43.601Z"
+    },
+    {
+      "id": "LAB-2026-0013",
+      "consultationId": "CON-2026-0015",
+      "patientId": "PAT-2026-0020",
+      "patientName": "Khushi Patel",
+      "doctorId": "DOC-010",
+      "doctorName": "Dr. Rushita Patel",
+      "tests": [
+        {
+          "testId": "LT-005",
+          "testName": "MRI",
+          "charge": 2500
+        }
+      ],
+      "results": [],
+      "status": "PENDING",
+      "createdAt": "2026-01-30T17:36:55.277Z"
     }
   ],
   "admissions": [
