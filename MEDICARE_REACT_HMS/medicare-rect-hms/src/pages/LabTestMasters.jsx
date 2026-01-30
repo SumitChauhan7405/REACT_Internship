@@ -125,6 +125,7 @@ const LabTestMaster = () => {
             <option value="Radiology">Radiology</option>
             <option value="Orthopedics">Orthopedics</option>
             <option value="Neurology">Neurology</option>
+            <option value="ENT">ENT</option>
             <option value="General Medicine">General Medicine</option>
           </select>
 

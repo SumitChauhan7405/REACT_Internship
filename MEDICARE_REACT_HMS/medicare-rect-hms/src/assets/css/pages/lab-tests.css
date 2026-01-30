@@ -121,6 +121,27 @@ tbody td {
   font-size: 14px;
 }
 
+/* ======================
+   LAB MANAGED BADGE
+====================== */
+
+.lab-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lab-managed-badge {
+  font-size: 12px;
+  font-weight: 600;
+  background: #eef2ff;   /* soft blue */
+  color: #3730a3;
+  padding: 6px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+
 /* ===============================
    RESPONSIVE
 ================================ */

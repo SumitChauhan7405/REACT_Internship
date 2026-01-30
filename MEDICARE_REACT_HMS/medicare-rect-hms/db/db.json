@@ -139,6 +139,20 @@
       "status": "CONFIRMED",
       "source": "WALKIN",
       "createdAt": "2026-01-28T22:06:57.536Z"
+    },
+    {
+      "id": "PAT-2026-0019",
+      "firstName": "Sumit",
+      "lastName": "Chauhan",
+      "gender": "Male",
+      "age": "22",
+      "phone": "9054277510",
+      "bloodGroup": "B-",
+      "doctorName": "Dr. Rushita Patel",
+      "timing": "MORNING (10:00 - 12:00)",
+      "status": "CONFIRMED",
+      "source": "WALKIN",
+      "createdAt": "2026-01-30T12:31:24.150Z"
     }
   ],
   "doctors": [
@@ -298,6 +312,25 @@
       "consultationFee": 1000,
       "image": "doc1.png",
       "id": "DOC-009"
+    },
+    {
+      "id": "DOC-010",
+      "name": "Dr. Rushita Patel",
+      "email": "rushita@medicare.com",
+      "password": "rushita@123",
+      "department": "ENT",
+      "experience": 10,
+      "education": "MBBS, DO",
+      "availableDays": [
+        "Thu",
+        "Sat",
+        "Fri"
+      ],
+      "timeSlots": [
+        "10:00-12:00"
+      ],
+      "consultationFee": 700,
+      "image": "doc1.png"
     }
   ],
   "appointments": [
@@ -540,6 +573,24 @@
         }
       ],
       "createdAt": "2026-01-28T22:10:56.575Z"
+    },
+    {
+      "id": "CON-2026-0014",
+      "appointmentId": "WALKIN-PAT-2026-0019",
+      "doctorId": "DOC-010",
+      "doctorName": "Dr. Rushita Patel",
+      "patientId": "PAT-2026-0019",
+      "patientName": "Sumit Chauhan",
+      "diagnosis": "pain in throat",
+      "consultation": "lab tests needed",
+      "consultationFee": 700,
+      "medicines": [
+        {
+          "name": "",
+          "dosage": ""
+        }
+      ],
+      "createdAt": "2026-01-30T12:32:48.513Z"
     }
   ],
   "labTestMasters": [
@@ -606,6 +657,13 @@
       "charge": 300,
       "visibility": "DEPARTMENT",
       "department": "Orthopedics"
+    },
+    {
+      "id": "LT-011",
+      "name": "Thyroid Profile",
+      "charge": 600,
+      "visibility": "DEPARTMENT",
+      "department": "ENT"
     }
   ],
   "labTests": [
@@ -784,8 +842,13 @@
           "charge": 500
         }
       ],
-      "results": [],
-      "status": "PENDING",
+      "results": [
+        {
+          "testName": "ECG",
+          "result": "completed"
+        }
+      ],
+      "status": "COMPLETED",
       "createdAt": "2026-01-28T14:10:30.883Z"
     },
     {
@@ -833,6 +896,29 @@
       ],
       "status": "COMPLETED",
       "createdAt": "2026-01-28T22:10:10.965Z"
+    },
+    {
+      "id": "LAB-2026-0012",
+      "consultationId": "CON-2026-0014",
+      "patientId": "PAT-2026-0019",
+      "patientName": "Sumit Chauhan",
+      "doctorId": "DOC-010",
+      "doctorName": "Dr. Rushita Patel",
+      "tests": [
+        {
+          "testId": "LT-011",
+          "testName": "Thyroid Profile",
+          "charge": 600
+        }
+      ],
+      "results": [
+        {
+          "testName": "Thyroid Profile",
+          "result": "critical issue"
+        }
+      ],
+      "status": "COMPLETED",
+      "createdAt": "2026-01-30T12:32:43.601Z"
     }
   ],
   "admissions": [
@@ -897,7 +983,8 @@
       "roomType": "DELUXE",
       "roomCharge": 4000,
       "admissionDate": "2026-01-26",
-      "status": "ADMITTED"
+      "status": "DISCHARGED",
+      "dischargeDate": "2026-01-30"
     },
     {
       "id": "ADM-007",
@@ -909,6 +996,18 @@
       "roomType": "PRIVATE",
       "roomCharge": 3000,
       "admissionDate": "2026-01-28",
+      "status": "ADMITTED"
+    },
+    {
+      "id": "ADM-008",
+      "patientId": "PAT-2026-0019",
+      "patientName": "Sumit Chauhan",
+      "doctorName": "Dr. Rushita Patel",
+      "roomId": "ROOM-008",
+      "roomNumber": "103",
+      "roomType": "GENERAL",
+      "roomCharge": 1500,
+      "admissionDate": "2026-01-30",
       "status": "ADMITTED"
     }
   ],
@@ -931,7 +1030,7 @@
       "id": "ROOM-003",
       "roomNumber": "201",
       "type": "DELUXE",
-      "status": "OCCUPIED",
+      "status": "AVAILABLE",
       "charge": 4000
     },
     {
@@ -952,7 +1051,7 @@
       "id": "ROOM-008",
       "roomNumber": "103",
       "type": "GENERAL",
-      "status": "AVAILABLE",
+      "status": "OCCUPIED",
       "charge": 1500
     },
     {
@@ -980,11 +1079,29 @@
       "id": "ROOM-013",
       "roomNumber": "1003",
       "type": "OPERATION_THEATRE",
-      "status": "OCCUPIED",
-      "charge": 0,
-      "patientId": "PAT-2026-0017",
-      "patientName": "Cara Cruz",
-      "linkedSurgeryId": "SUR-2026-0009"
+      "status": "AVAILABLE",
+      "charge": 0
+    },
+    {
+      "id": "ROOM-014",
+      "roomNumber": "202",
+      "type": "DELUXE",
+      "status": "AVAILABLE",
+      "charge": 4000
+    },
+    {
+      "id": "ROOM-015",
+      "roomNumber": "302",
+      "type": "PRIVATE",
+      "status": "AVAILABLE",
+      "charge": 3000
+    },
+    {
+      "id": "ROOM-016",
+      "roomNumber": "402",
+      "type": "ICU",
+      "status": "AVAILABLE",
+      "charge": 4500
     }
   ],
   "vitals": [
@@ -1068,6 +1185,20 @@
       "charge": 800000,
       "visibility": "DEPARTMENT",
       "department": "Neurology"
+    },
+    {
+      "id": "SM-012",
+      "name": "Tonsillectomy (Tonsil Removal)",
+      "charge": 30000,
+      "visibility": "DEPARTMENT",
+      "department": "ENT"
+    },
+    {
+      "id": "SM-013",
+      "name": "FESS (Functional Endoscopic Sinus Surgery)",
+      "charge": 60000,
+      "visibility": "DEPARTMENT",
+      "department": "ENT"
     }
   ],
   "surgeries": [
@@ -1193,7 +1324,7 @@
       "scheduledDate": "2026-01-31",
       "scheduledTime": "03:00",
       "operationTheatre": "1003",
-      "status": "SCHEDULED",
+      "status": "CANCELLED",
       "notes": "jnwjdwkdjj",
       "createdAt": "2026-01-28T20:49:57.081Z"
     },
@@ -1214,9 +1345,42 @@
       "status": "COMPLETED",
       "notes": "hhjvjgyhg",
       "createdAt": "2026-01-28T22:10:50.248Z"
+    },
+    {
+      "id": "SUR-2026-0011",
+      "consultationId": "CON-2026-0014",
+      "patientId": "PAT-2026-0019",
+      "patientName": "Sumit Chauhan",
+      "doctorId": "DOC-010",
+      "doctorName": "Dr. Rushita Patel",
+      "department": "ENT",
+      "surgeryType": "Tonsillectomy (Tonsil Removal)",
+      "surgeryMasterId": "SM-012",
+      "surgeryCharge": 30000,
+      "scheduledDate": "2026-01-31",
+      "scheduledTime": "04:00",
+      "operationTheatre": "1002",
+      "status": "COMPLETED",
+      "notes": "knmdowodwdmn",
+      "createdAt": "2026-01-30T12:43:57.712Z"
     }
   ],
-  "discharges": [],
+  "discharges": [
+    {
+      "id": "DIS-2026-0001",
+      "admissionId": "ADM-006",
+      "patientId": "PAT-2026-0011",
+      "patientName": "Iron Man",
+      "doctorName": "Dr. Namra Pithwa",
+      "roomNumber": "201",
+      "admissionDate": "2026-01-26",
+      "dischargeDate": "2026-01-30",
+      "billId": "BILL-0004",
+      "totalAmount": 284445,
+      "summary": "patient recovered",
+      "createdAt": "2026-01-30T12:45:40.653Z"
+    }
+  ],
   "bills": [
     {
       "id": "BILL-0001",
@@ -1317,6 +1481,38 @@
       "gstRate": 5,
       "gstAmount": 13070,
       "totalAmount": 274470,
+      "status": "UNPAID"
+    },
+    {
+      "id": "BILL-0004",
+      "admissionId": "ADM-006",
+      "patientId": "PAT-2026-0011",
+      "patientName": "Iron Man",
+      "doctorName": "Dr. Namra Pithwa",
+      "billDate": "2026-01-30T12:45:40.618Z",
+      "room": {
+        "roomId": "ROOM-003",
+        "roomType": "DELUXE",
+        "dailyCharge": 4000,
+        "stayDays": 5,
+        "totalRoomCharge": 20000
+      },
+      "admissionDate": "2026-01-26",
+      "dischargeDate": "2026-01-30",
+      "consultationCharge": 500,
+      "labTests": [
+        {
+          "testId": "LT-004",
+          "testName": "X-Ray",
+          "charge": 400
+        }
+      ],
+      "labCharge": 400,
+      "surgeryCharge": 250000,
+      "subtotal": 270900,
+      "gstRate": 5,
+      "gstAmount": 13545,
+      "totalAmount": 284445,
       "status": "UNPAID"
     }
   ],

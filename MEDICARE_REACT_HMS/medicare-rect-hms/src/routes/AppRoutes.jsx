@@ -22,7 +22,6 @@ import Patients from "../pages/Patients";
 import Appointments from "../pages/Appointments";
 import Rooms from "../pages//Rooms";
 import Billing from "../pages/Billing";
-import LabTestMasters from "../pages/LabTestMasters";
 import Lab from "../pages/Lab";
 import Admissions from "../pages/Admissions";
 import SurgeryMasters from "../pages/SurgeryMasters";
@@ -40,7 +39,8 @@ import DoctorSurgeries from "../pages/doctor/DoctorSurgeries";
 
 /* 🧪 LAB Pages (NEW) */
 import LabDashboard from "../pages/lab/LabDashboard";
-// import LabTests from "../pages/lab/LabTests";
+import LabTestMasters from "../pages/LabTestMasters";
+import LabTests from "../pages/lab/LabTests";
 
 const AppRoutes = () => {
   return (
@@ -63,7 +63,6 @@ const AppRoutes = () => {
           <Route path="appointments" element={<Appointments />} />
           <Route path="rooms" element={<Rooms />} />
           <Route path="billing" element={<Billing />} />
-          <Route path="lab-test-masters" element={<LabTestMasters />} />
           <Route path="lab" element={<Lab />} />
           <Route path="admissions" element={<Admissions />} />
           <Route path="surgery-masters" element={<SurgeryMasters />} />
@@ -87,7 +86,8 @@ const AppRoutes = () => {
       <Route element={<ProtectedRoute allowedRoles={["lab"]} />}>
         <Route path="/lab" element={<LabLayout />}>
           <Route path="dashboard" element={<LabDashboard />} />
-          {/* <Route path="tests" element={<LabTests />} /> */}
+          <Route path="lab-test-masters" element={<LabTestMasters />} />
+          <Route path="lab-tests" element={<LabTests />} />
         </Route>
       </Route>
 

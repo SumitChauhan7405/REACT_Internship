@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "../assets/css/pages/lab-tests.css";
+import "../../assets/css/pages/lab-tests.css";
 
-const Lab = () => {
+const LabTests = () => {
   const [labTests, setLabTests] = useState([]);
   const [patients, setPatients] = useState([]);
 
@@ -32,21 +32,47 @@ const Lab = () => {
   };
 
   const getTestName = (test) => {
+    // Supports both old & new formats
     return typeof test === "string" ? test : test.testName;
   };
 
+  const updateResult = (labId, testName, value) => {
+    setLabTests((prev) =>
+      prev.map((lab) =>
+        lab.id === labId
+          ? {
+              ...lab,
+              results: lab.results.some((r) => r.testName === testName)
+                ? lab.results.map((r) =>
+                    r.testName === testName
+                      ? { ...r, result: value }
+                      : r
+                  )
+                : [...lab.results, { testName, result: value }]
+            }
+          : lab
+      )
+    );
+  };
+
+  const saveResults = async (lab) => {
+    await axios.patch(`http://localhost:5000/labTests/${lab.id}`, {
+      results: lab.results,
+      status: "COMPLETED"
+    });
+
+    alert("Lab results saved successfully");
+    loadData();
+  };
+
   /* ======================
-     UI (READ ONLY)
+     UI
   ======================= */
   return (
     <div className="page-content">
       <div className="patient-table-card">
-        <div className="table-header lab-header">
+        <div className="table-header">
           <h4>Laboratory Tests</h4>
-
-          <span className="lab-managed-badge">
-            Managed by Laboratory Department
-          </span>
         </div>
 
         <table>
@@ -57,6 +83,7 @@ const Lab = () => {
               <th>Tests</th>
               <th>Results</th>
               <th>Status</th>
+              <th>Action</th>
             </tr>
           </thead>
 
@@ -75,7 +102,6 @@ const Lab = () => {
                   </ul>
                 </td>
 
-                {/* 🔒 RESULTS – READ ONLY */}
                 <td>
                   {lab.tests.map((t, index) => {
                     const testName = getTestName(t);
@@ -87,8 +113,12 @@ const Lab = () => {
                       <input
                         key={index}
                         className="lab-result-input"
+                        placeholder={`${testName} result`}
                         value={existing?.result || ""}
-                        disabled={true}   // 🔒 ADMIN CANNOT EDIT
+                        disabled={lab.status === "COMPLETED"}
+                        onChange={(e) =>
+                          updateResult(lab.id, testName, e.target.value)
+                        }
                       />
                     );
                   })}
@@ -96,14 +126,24 @@ const Lab = () => {
 
                 <td>
                   <span
-                    className={`badge ${lab.status === "COMPLETED" ? "Completed" : "Pending"
-                      }`}
+                    className={`badge ${
+                      lab.status === "COMPLETED" ? "Completed" : "Pending"
+                    }`}
                   >
                     {lab.status}
                   </span>
                 </td>
 
-                {/* ❌ ACTION COLUMN REMOVED FOR ADMIN */}
+                <td>
+                  {lab.status === "PENDING" && (
+                    <button
+                      className="btn-primary"
+                      onClick={() => saveResults(lab)}
+                    >
+                      <i className="bi bi-save"></i> Save Test
+                    </button>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -113,4 +153,4 @@ const Lab = () => {
   );
 };
 
-export default Lab;
+export default LabTests;
