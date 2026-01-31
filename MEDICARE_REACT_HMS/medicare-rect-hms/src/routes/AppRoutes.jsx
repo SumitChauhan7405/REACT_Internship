@@ -4,12 +4,13 @@ import { Routes, Route } from "react-router-dom";
 import PublicLayout from "../layouts/PublicLayout";
 import AdminLayout from "../layouts/AdminLayout";
 import DoctorLayout from "../layouts/DoctorLayout";
-import LabLayout from "../layouts/LabLayout"; 
+import LabLayout from "../layouts/LabLayout";
 
 /* Route Protection */
 import ProtectedRoute from "./ProtectedRoute";
 
 /* Public Pages */
+import Homepage from "../pages/public/Homepage";
 import OurDoctors from "../pages/public/OurDoctors";
 import Login from "../pages/public/Login";
 import DoctorDetails from "../pages/public/DoctorDetails";
@@ -33,8 +34,9 @@ import FollowUp from "../pages/FollowUp";
 /* Doctor Pages */
 import DoctorDashboard from "../pages/doctor/DoctorDashboard";
 import DoctorAppointments from "../pages/doctor/DoctorAppointments";
+import DoctorAllPatients from "../pages/doctor/DoctorAllPatients";
 import DoctorProfile from "../pages/doctor/Profile";
-import Homepage from "../pages/public/Homepage";
+import DoctorPatientHistory from "../pages/doctor/DoctorPatientHistory";
 import DoctorSurgeries from "../pages/doctor/DoctorSurgeries";
 
 /* 🧪 LAB Pages (NEW) */
@@ -42,13 +44,14 @@ import LabDashboard from "../pages/lab/LabDashboard";
 import LabTestMasters from "../pages/LabTestMasters";
 import LabTests from "../pages/lab/LabTests";
 
+
 const AppRoutes = () => {
   return (
     <Routes>
 
       {/* ================= Public Routes ================= */}
       <Route element={<PublicLayout />}>
-        <Route path="/" element={<Homepage/>} />
+        <Route path="/" element={<Homepage />} />
         <Route path="/doctors" element={<OurDoctors />} />
         <Route path="/doctors/:id" element={<DoctorDetails />} />
         <Route path="/login" element={<Login />} />
@@ -78,11 +81,13 @@ const AppRoutes = () => {
           <Route path="dashboard" element={<DoctorDashboard />} />
           <Route path="profile" element={<DoctorProfile />} />
           <Route path="appointments" element={<DoctorAppointments />} />
-          <Route path="surgeries" element={<DoctorSurgeries/>}/>
+          <Route path="patients" element={<DoctorAllPatients />} />
+          <Route path="patients/:id/history" element={<DoctorPatientHistory />}/>
+          <Route path="surgeries" element={<DoctorSurgeries />} />
         </Route>
       </Route>
 
-      ================= 🧪 LAB =================
+      {/* ================= 🧪 LAB ================= */}
       <Route element={<ProtectedRoute allowedRoles={["lab"]} />}>
         <Route path="/lab" element={<LabLayout />}>
           <Route path="dashboard" element={<LabDashboard />} />

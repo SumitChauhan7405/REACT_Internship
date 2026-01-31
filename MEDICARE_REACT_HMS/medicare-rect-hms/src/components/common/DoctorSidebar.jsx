@@ -27,6 +27,12 @@ const DoctorSidebar = () => {
                     <span>My Patients</span>
                 </NavLink>
 
+                {/* ✅ NEW: ALL PATIENTS */}
+                <NavLink to="/doctor/patients" className="menu-item">
+                    <i className="bi bi-collection"></i>
+                    <span>All Patients</span>
+                </NavLink>
+
                 <li>
                     <NavLink to="/doctor/surgeries" className="menu-item">
                         <i className="bi bi-heart-pulse"></i>

@@ -155,6 +155,7 @@ const PrescriptionModal = ({
       appointmentId: appointment.id,
       doctorId: doctor.id,
       doctorName: doctor.name,
+      department: doctor.department,
       patientId: patient.id,
       patientName: `${patient.firstName} ${patient.lastName}`,
       diagnosis: form.diagnosis,
@@ -214,7 +215,7 @@ const PrescriptionModal = ({
     await refreshAppointments();
     await loadHistory();
 
-    alert(editingId ? "Prescription updated" : "Prescription saved");
+    alert(editingId ? "Prescription updated successfully" : "Prescription saved successfully");
 
     setForm(getEmptyForm());
     setEditingId(null);
