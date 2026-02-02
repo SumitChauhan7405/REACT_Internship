@@ -1570,7 +1570,7 @@
       "gstRate": 5,
       "gstAmount": 13545,
       "totalAmount": 284445,
-      "status": "UNPAID"
+      "status": "PAID"
     }
   ],
   "payments": [
@@ -1594,6 +1594,13 @@
       "mode": "Cash",
       "amount": 1090,
       "date": "2026-01-28"
+    },
+    {
+      "id": "PAY-0004",
+      "billId": "BILL-0004",
+      "mode": "UPI",
+      "amount": 279445,
+      "date": "2026-02-02"
     }
   ],
   "feedback": [

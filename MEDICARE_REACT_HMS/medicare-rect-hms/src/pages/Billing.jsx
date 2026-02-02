@@ -118,7 +118,7 @@ const Billing = () => {
     const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-    pdf.save(`Bill-${viewBill.id}.pdf`);
+    pdf.save(`${viewBill.patientName}_Bill.pdf`);
   };
 
   /* ======================
