@@ -1103,7 +1103,8 @@
       "roomType": "GENERAL",
       "roomCharge": 1500,
       "admissionDate": "2026-01-30",
-      "status": "ADMITTED"
+      "status": "DISCHARGED",
+      "dischargeDate": "2026-02-02"
     }
   ],
   "rooms": [
@@ -1146,7 +1147,7 @@
       "id": "ROOM-008",
       "roomNumber": "103",
       "type": "GENERAL",
-      "status": "OCCUPIED",
+      "status": "AVAILABLE",
       "charge": 1500
     },
     {
@@ -1474,6 +1475,20 @@
       "totalAmount": 284445,
       "summary": "patient recovered",
       "createdAt": "2026-01-30T12:45:40.653Z"
+    },
+    {
+      "id": "DIS-2026-0002",
+      "admissionId": "ADM-008",
+      "patientId": "PAT-2026-0019",
+      "patientName": "Sumit Chauhan",
+      "doctorName": "Dr. Rushita Patel",
+      "roomNumber": "103",
+      "admissionDate": "2026-01-30",
+      "dischargeDate": "2026-02-02",
+      "billId": "BILL-0005",
+      "totalAmount": 39165,
+      "summary": "Patient Recovered....!",
+      "createdAt": "2026-02-02T17:00:39.224Z"
     }
   ],
   "bills": [
@@ -1539,7 +1554,9 @@
       "gstRate": 5,
       "gstAmount": 6115,
       "totalAmount": 128415,
-      "status": "UNPAID"
+      "status": "PARTIAL",
+      "amountPaid": 8415,
+      "remainingAmount": 120000
     },
     {
       "id": "BILL-0003",
@@ -1576,7 +1593,9 @@
       "gstRate": 5,
       "gstAmount": 13070,
       "totalAmount": 274470,
-      "status": "UNPAID"
+      "status": "PAID",
+      "amountPaid": 274470,
+      "remainingAmount": 0
     },
     {
       "id": "BILL-0004",
@@ -1609,6 +1628,40 @@
       "gstAmount": 13545,
       "totalAmount": 284445,
       "status": "PAID"
+    },
+    {
+      "id": "BILL-0005",
+      "admissionId": "ADM-008",
+      "patientId": "PAT-2026-0019",
+      "patientName": "Sumit Chauhan",
+      "doctorName": "Dr. Rushita Patel",
+      "billDate": "2026-02-02T17:00:39.161Z",
+      "room": {
+        "roomId": "ROOM-008",
+        "roomType": "GENERAL",
+        "dailyCharge": 1500,
+        "stayDays": 4,
+        "totalRoomCharge": 6000
+      },
+      "admissionDate": "2026-01-30",
+      "dischargeDate": "2026-02-02",
+      "consultationCharge": 700,
+      "labTests": [
+        {
+          "testId": "LT-011",
+          "testName": "Thyroid Profile",
+          "charge": 600
+        }
+      ],
+      "labCharge": 600,
+      "surgeryCharge": 30000,
+      "subtotal": 37300,
+      "gstRate": 5,
+      "gstAmount": 1865,
+      "totalAmount": 39165,
+      "status": "PARTIAL",
+      "amountPaid": 7165,
+      "remainingAmount": 32000
     }
   ],
   "payments": [
@@ -1638,6 +1691,69 @@
       "billId": "BILL-0004",
       "mode": "UPI",
       "amount": 279445,
+      "date": "2026-02-02"
+    },
+    {
+      "id": "PAY-0005",
+      "billId": "BILL-0003",
+      "patientId": "PAT-2026-0009",
+      "patientName": "Bruce Lee",
+      "mode": "UPI",
+      "amount": 274000,
+      "date": "2026-02-02"
+    },
+    {
+      "id": "PAY-0006",
+      "billId": "BILL-0003",
+      "patientId": "PAT-2026-0009",
+      "patientName": "Bruce Lee",
+      "mode": "Cash",
+      "amount": 470,
+      "date": "2026-02-02"
+    },
+    {
+      "id": "PAY-0007",
+      "billId": "BILL-0005",
+      "patientId": "PAT-2026-0019",
+      "patientName": "Sumit Chauhan",
+      "mode": "Cash",
+      "amount": 75,
+      "date": "2026-02-02"
+    },
+    {
+      "id": "PAY-0008",
+      "billId": "BILL-0005",
+      "patientId": "PAT-2026-0019",
+      "patientName": "Sumit Chauhan",
+      "mode": "Cash",
+      "amount": 1000,
+      "date": "2026-02-02"
+    },
+    {
+      "id": "PAY-0009",
+      "billId": "BILL-0002",
+      "patientId": "PAT-2026-0008",
+      "patientName": "Clark Kidd",
+      "mode": "Cash",
+      "amount": 16415,
+      "date": "2026-02-02"
+    },
+    {
+      "id": "PAY-0010",
+      "billId": "BILL-0002",
+      "patientId": "PAT-2026-0008",
+      "patientName": "Clark Kidd",
+      "mode": "Cash",
+      "amount": 2000,
+      "date": "2026-02-02"
+    },
+    {
+      "id": "PAY-0011",
+      "billId": "BILL-0002",
+      "patientId": "PAT-2026-0008",
+      "patientName": "Clark Kidd",
+      "mode": "UPI",
+      "amount": 6000,
       "date": "2026-02-02"
     }
   ],

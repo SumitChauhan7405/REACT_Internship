@@ -41,15 +41,23 @@ const Billing = () => {
   }, []);
 
   /* ======================
-     HELPERS
+     HELPERS (UPDATED)
   ======================= */
   const getPaidAmount = (billId) => {
+    const bill = bills.find(b => b.id === billId);
+    if (bill?.amountPaid !== undefined) {
+      return Number(bill.amountPaid);
+    }
+
     return payments
       .filter((p) => p.billId === billId)
       .reduce((sum, p) => sum + Number(p.amount), 0);
   };
 
   const getRemainingAmount = (bill) => {
+    if (bill.remainingAmount !== undefined) {
+      return Number(bill.remainingAmount);
+    }
     return bill.totalAmount - getPaidAmount(bill.id);
   };
 
@@ -70,7 +78,7 @@ const Billing = () => {
   });
 
   /* ======================
-     ADD PAYMENT (AUTO PAID)
+     ADD PAYMENT (FIXED)
   ======================= */
   const handleAddPayment = async () => {
     if (!paymentForm.amount || paymentForm.amount <= 0) {
@@ -81,22 +89,44 @@ const Billing = () => {
     const paymentId = `PAY-${String(payments.length + 1).padStart(4, "0")}`;
     const amount = Number(paymentForm.amount);
 
+    /* ======================
+       SAVE PAYMENT (with patient info)
+    ======================= */
     await axios.post("http://localhost:5000/payments", {
       id: paymentId,
       billId: selectedBill.id,
+
+      // 🔥 NEW
+      patientId: selectedBill.patientId,
+      patientName: selectedBill.patientName,
+
       mode: paymentForm.mode,
       amount,
       date: new Date().toISOString().split("T")[0]
     });
 
-    const updatedPaid = getPaidAmount(selectedBill.id) + amount;
+    /* ======================
+       UPDATE BILL TOTALS
+    ======================= */
+    const alreadyPaid = getPaidAmount(selectedBill.id);
+    const newPaidAmount = alreadyPaid + amount;
+    const remainingAmount = selectedBill.totalAmount - newPaidAmount;
 
-    if (updatedPaid >= selectedBill.totalAmount) {
-      await axios.patch(
-        `http://localhost:5000/bills/${selectedBill.id}`,
-        { status: "PAID" }
-      );
+    let newStatus = "UNPAID";
+    if (remainingAmount <= 0) {
+      newStatus = "PAID";
+    } else if (newPaidAmount > 0) {
+      newStatus = "PARTIAL";
     }
+
+    await axios.patch(
+      `http://localhost:5000/bills/${selectedBill.id}`,
+      {
+        amountPaid: newPaidAmount,
+        remainingAmount: Math.max(0, remainingAmount),
+        status: newStatus
+      }
+    );
 
     alert("Payment added successfully");
 
@@ -190,10 +220,7 @@ const Billing = () => {
                   <td>₹{paid}</td>
                   <td>₹{remaining}</td>
                   <td>
-                    <span
-                      className={`badge ${bill.status === "PAID" ? "male" : "female"
-                        }`}
-                    >
+                    <span className={`badge ${bill.status === "PAID" ? "male" : "female"}`}>
                       {bill.status}
                     </span>
                   </td>
@@ -205,7 +232,7 @@ const Billing = () => {
                       View / PDF
                     </button>
 
-                    {bill.status === "UNPAID" && (
+                    {bill.status !== "PAID" && (
                       <button
                         className="btn-primary"
                         style={{ marginLeft: 8 }}
@@ -229,10 +256,7 @@ const Billing = () => {
 
           <p><strong>Bill ID:</strong> {selectedBill.id}</p>
           <p><strong>Patient:</strong> {selectedBill.patientName}</p>
-          <p>
-            <strong>Remaining:</strong> ₹
-            {getRemainingAmount(selectedBill)}
-          </p>
+          <p><strong>Remaining:</strong> ₹{getRemainingAmount(selectedBill)}</p>
 
           <select
             value={paymentForm.mode}

@@ -171,7 +171,6 @@ const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
           </select>
         </div>
 
-        {/* ✅ UPDATED: OPD Schedule Dropdown */}
         <div>
           <label>OPD Schedule</label>
           <select
