@@ -85,7 +85,6 @@ const DoctorAllPatients = () => {
                   <th>Phone</th>
                   <th>Blood Group</th>
                   <th>Doctor</th>
-                  <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -106,12 +105,6 @@ const DoctorAllPatients = () => {
                     <td>{p.phone}</td>
                     <td>{p.bloodGroup}</td>
                     <td>{p.doctorName}</td>
-
-                    <td>
-                      <span className={`status-badge ${p.status.toLowerCase()}`}>
-                        {p.status}
-                      </span>
-                    </td>
 
                     {/* 👁 VIEW HISTORY ONLY */}
                     <td>

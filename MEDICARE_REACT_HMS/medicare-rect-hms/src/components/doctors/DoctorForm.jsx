@@ -86,15 +86,25 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
   };
 
   /* ===============================
-     CREDENTIALS
-  =============================== */
+   CREDENTIALS (UPDATED)
+   firstname.lastname@medicare.com
+================================ */
   const generateCredentials = (name) => {
-    const firstName = name.split(" ")[0].toLowerCase();
+    const parts = name.trim().toLowerCase().split(" ");
+
+    const firstName = parts[0];
+    const lastName = parts.length > 1 ? parts[parts.length - 1] : "";
+
+    const email = lastName
+      ? `${firstName}.${lastName}@medicare.com`
+      : `${firstName}@medicare.com`; // fallback safety
+
     return {
-      email: `${firstName}@medicare.com`,
+      email,
       password: `${firstName}@123`
     };
   };
+
 
   /* ===============================
      SUBMIT

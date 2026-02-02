@@ -173,7 +173,7 @@
     {
       "id": "DOC-001",
       "name": "Dr. Amit Verma",
-      "email": "amit@medicare.com",
+      "email": "amit.verma@medicare.com",
       "password": "amit@123",
       "department": "Cardiology",
       "experience": 10,
@@ -193,7 +193,7 @@
     {
       "id": "DOC-002",
       "name": "Dr. Neha Kapoor",
-      "email": "neha@medicare.com",
+      "email": "neha.kapoor@medicare.com",
       "password": "neha@123",
       "department": "Orthopedics",
       "experience": 7,
@@ -212,7 +212,7 @@
     {
       "id": "DOC-003",
       "name": "Dr. Namra Pithwa",
-      "email": "namra@medicare.com",
+      "email": "namra.pithwa@medicare.com",
       "password": "namra@123",
       "department": "Cardiology",
       "experience": 5,
@@ -228,7 +228,7 @@
     },
     {
       "name": "Dr. Parth Chavda",
-      "email": "parth@medicare.com",
+      "email": "parth.chavda@medicare.com",
       "password": "parth@123",
       "department": "Cardiology",
       "experience": 12,
@@ -250,7 +250,7 @@
     },
     {
       "name": "Dr. Meet Kacha",
-      "email": "meet@medicare.com",
+      "email": "meet.kacha@medicare.com",
       "password": "meet@123",
       "department": "Neurology",
       "experience": 20,
@@ -270,7 +270,7 @@
     },
     {
       "name": "Dr. Raj Sanchla",
-      "email": "raj@medicare.com",
+      "email": "raj.sanchla@medicare.com",
       "password": "raj@123",
       "department": "Radiology",
       "experience": 15,
@@ -291,7 +291,7 @@
     {
       "id": "DOC-008",
       "name": "Dr. Yash Patel",
-      "email": "yash@medicare.com",
+      "email": "yash.patel@medicare.com",
       "password": "yash@123",
       "department": "Neurology",
       "experience": 10,
@@ -309,7 +309,7 @@
     },
     {
       "name": "Dr. Krisha Patel",
-      "email": "krisha@medicare.com",
+      "email": "krisha.patel@medicare.com",
       "password": "krisha@123",
       "department": "Orthopedics",
       "experience": 7,
@@ -330,7 +330,7 @@
     {
       "id": "DOC-010",
       "name": "Dr. Rushita Patel",
-      "email": "rushita@medicare.com",
+      "email": "rushita.patel@medicare.com",
       "password": "rushita@123",
       "department": "ENT",
       "experience": 10,
@@ -345,6 +345,44 @@
       ],
       "consultationFee": 700,
       "image": "doc1.png"
+    },
+    {
+      "name": "Dr. Meet Sharma",
+      "email": "meet.sharma@medicare.com",
+      "password": "meet@123",
+      "department": "Radiology",
+      "experience": 8,
+      "education": "MBBS, DO",
+      "availableDays": [
+        "Tue",
+        "Thu",
+        "Sat"
+      ],
+      "timeSlots": [
+        "10:00-12:00"
+      ],
+      "consultationFee": 600,
+      "image": "doc2.png",
+      "id": "DOC-011"
+    },
+    {
+      "name": "Dr. Vivek Pithwa",
+      "email": "vivek.pithwa@medicare.com",
+      "password": "vivek@123",
+      "department": "ENT",
+      "experience": 9,
+      "education": "MBBS",
+      "availableDays": [
+        "Mon",
+        "Wed",
+        "Fri"
+      ],
+      "timeSlots": [
+        "5:00-7:00"
+      ],
+      "consultationFee": 700,
+      "image": "doc2.png",
+      "id": "DOC-012"
     }
   ],
   "appointments": [

@@ -19,40 +19,47 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   /* ===============================
-     LOGIN
-  =============================== */
-  const login = async (email, password) => {
-    // 🔹 ADMIN
-    if (email === "admin123@medicare.com" && password === "admin@123") {
-      const adminUser = { role: "admin", name: "Admin" };
-      setUser(adminUser);
-      localStorage.setItem("user", JSON.stringify(adminUser));
-      return adminUser;
-    }
+   LOGIN
+=============================== */
+const login = async (email, password) => {
 
-    // 🔹 LAB (NEW)
-    if (email === "lab@medicare.com" && password === "lab@123") {
-      const labUser = { role: "lab", name: "Lab Technician" };
-      setUser(labUser);
-      localStorage.setItem("user", JSON.stringify(labUser));
-      return labUser;
-    }
+  // 🔹 ADMIN
+  if (email === "admin123@medicare.com" && password === "admin@123") {
+    const adminUser = { role: "admin", name: "Admin" };
+    setUser(adminUser);
+    localStorage.setItem("user", JSON.stringify(adminUser));
+    return adminUser;
+  }
 
-    // 🔹 DOCTOR
-    const res = await axios.get("http://localhost:5000/doctors");
-    const doctor = res.data.find(
-      (doc) => doc.email === email && doc.password === password
-    );
+  // 🔹 LAB
+  if (email === "lab@medicare.com" && password === "lab@123") {
+    const labUser = { role: "lab", name: "Lab Technician" };
+    setUser(labUser);
+    localStorage.setItem("user", JSON.stringify(labUser));
+    return labUser;
+  }
 
-    if (doctor) {
-      const doctorUser = { role: "doctor", data: doctor };
-      setUser(doctorUser);
-      localStorage.setItem("user", JSON.stringify(doctorUser));
-      return doctorUser;
-    }
+  // 🔹 DOCTOR
+  const res = await axios.get("http://localhost:5000/doctors");
 
-    return null;
-  };
+  /* ✅ NEW: normalize email for safety */
+  const normalizedEmail = email.toLowerCase();
+
+  const doctor = res.data.find(
+    (doc) =>
+      doc.email.toLowerCase() === normalizedEmail &&
+      doc.password === password
+  );
+
+  if (doctor) {
+    const doctorUser = { role: "doctor", data: doctor };
+    setUser(doctorUser);
+    localStorage.setItem("user", JSON.stringify(doctorUser));
+    return doctorUser;
+  }
+
+  return null;
+};
 
   /* ===============================
      LOGOUT

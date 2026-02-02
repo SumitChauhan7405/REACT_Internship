@@ -176,16 +176,6 @@
   background: #bbf7d0;
 }
 
-/* EDIT PRESCRIPTION */
-.icon-btn.edited {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.icon-btn.edit:hover {
-  background: #b3daff;
-}
-
 /* COMMON ICON STYLE */
 .icon-btn {
   border: none;
