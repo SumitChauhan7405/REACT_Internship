@@ -71,29 +71,26 @@ const DoctorPatientHistory = () => {
 
         // --- Layout Constants ---
         const marginLeft = 14;
-        const marginRight = 196; // 210mm page width - 14mm margin
+        const marginRight = 196;
         const pageWidth = doc.internal.pageSize.width;
         const contentWidth = pageWidth - (marginLeft * 2);
 
         // --- 1. HEADER SECTION ---
         const logo = require("../../assets/images/logo/MediCare_Black_Logo.png");
         
-        // Logo
         doc.addImage(logo, "PNG", marginLeft, 10, 20, 20);
 
-        // Hospital Name & Details (Left aligned next to logo)
         doc.setFont("helvetica", "bold");
         doc.setFontSize(18);
-        doc.setTextColor(0, 0, 0); // Black
+        doc.setTextColor(0, 0, 0);
         doc.text("MEDICARE HOSPITAL", marginLeft + 25, 18);
 
         doc.setFont("helvetica", "normal");
         doc.setFontSize(9);
-        doc.setTextColor(50, 50, 50); // Dark Gray
+        doc.setTextColor(50, 50, 50);
         doc.text("123 Health Avenue, Medical District, NY 10001", marginLeft + 25, 23);
-        doc.text("Ph: +1-202-555-0199 | Email: info@medicare.com", marginLeft + 25, 27);
+        doc.text("Ph: +91 90542-77510 | Email: info@medicare.com", marginLeft + 25, 27);
 
-        // Document Title (Right aligned)
         doc.setFont("helvetica", "bold");
         doc.setFontSize(14);
         doc.setTextColor(0, 0, 0);
@@ -103,7 +100,6 @@ const DoctorPatientHistory = () => {
         doc.setFontSize(10);
         doc.text(`Report Date: ${new Date().toLocaleDateString()}`, marginRight, 25, { align: "right" });
 
-        // Header Divider Line
         doc.setDrawColor(0);
         doc.setLineWidth(0.5);
         doc.line(marginLeft, 32, marginRight, 32);
@@ -112,19 +108,16 @@ const DoctorPatientHistory = () => {
         const boxTopY = 38;
         const boxHeight = 35;
         
-        // Draw Rectangle Border
         doc.setDrawColor(0);
         doc.setLineWidth(0.1);
         doc.rect(marginLeft, boxTopY, contentWidth, boxHeight);
 
-        // Helper to draw bold label and normal value
         const drawField = (label, value, x, y) => {
             doc.setFont("helvetica", "bold");
             doc.setFontSize(9);
             doc.text(`${label}:`, x, y);
             
             doc.setFont("helvetica", "normal");
-            // Offset value by 25mm approx
             doc.text(`${value || "N/A"}`, x + 35, y); 
         };
 
@@ -133,7 +126,6 @@ const DoctorPatientHistory = () => {
         let currentY = boxTopY + 7;
         const rowGap = 6;
 
-        // Fetching doctor/dept from first consultation or defaulting
         const mainDoctor = consultations.length > 0 ? consultations[0].doctorName : "Dr. On Duty";
         const mainDept = consultations.length > 0 ? consultations[0].department : "General";
 
@@ -154,23 +146,17 @@ const DoctorPatientHistory = () => {
         // Row 4
         currentY += rowGap;
         drawField("Contact", patient.phone, col1X, currentY);
-        drawField("Address", "Rajkot, Gujarat", col2X, currentY); // Using static or fetch from patient if exists
+        drawField("Address", "Rajkot, Gujarat", col2X, currentY);
 
-        
         // --- 3. HELPER FOR SECTION HEADERS ---
         let finalY = boxTopY + boxHeight + 10;
 
         const drawSectionHeader = (title, y) => {
-            // Light gray background strip
             doc.setFillColor(245, 245, 245);
             doc.rect(marginLeft, y, contentWidth, 7, "F");
-
-            // Dark vertical bar on left
-            doc.setDrawColor(0); // Black
-            doc.setLineWidth(1); // Thicker line
+            doc.setDrawColor(0);
+            doc.setLineWidth(1);
             doc.line(marginLeft, y, marginLeft, y + 7);
-
-            // Title
             doc.setFont("helvetica", "bold");
             doc.setFontSize(10);
             doc.setTextColor(0);
@@ -179,48 +165,49 @@ const DoctorPatientHistory = () => {
 
         // --- 4. CONSULTATION HISTORY ---
         if (consultations.length > 0) {
-            drawSectionHeader("Clinical History (Prescriptions)", finalY);
+            drawSectionHeader("Consultation History", finalY);
             
             autoTable(doc, {
                 startY: finalY + 8,
                 theme: "grid",
-                head: [["Date", "Diagnosis", "Medicines (Rx)", "Advice"]],
+                // Updated Columns to match your screenshot
+                head: [["Date", "Doctor Name", "Dept", "Diagnosis", "Consultation", "Medicines(Dosage)"]],
                 body: consultations.map(c => [
                     new Date(c.createdAt).toLocaleDateString(),
+                    c.doctorName,
+                    c.department,
                     c.diagnosis,
-                    c.medicines?.map(m => `${m.name} (${m.dosage})`).join(", ") || "-",
-                    "-" // Placeholder for Advice
+                    c.consultation, // This matches the "Consultation" text in your screenshot
+                    c.medicines?.map(m => `${m.name} (${m.dosage})`).join(", ") || "-"
                 ]),
                 headStyles: {
-                    fillColor: [240, 240, 240], // Light Gray
-                    textColor: 0, // Black
-                    fontStyle: "bold",
-                    lineColor: 200, // Light border
-                    lineWidth: 0.1
-                },
-                bodyStyles: {
+                    fillColor: [240, 240, 240],
                     textColor: 0,
+                    fontStyle: "bold",
                     lineColor: 200,
                     lineWidth: 0.1
                 },
-                styles: { fontSize: 9, cellPadding: 3 },
+                bodyStyles: { textColor: 0, lineColor: 200, lineWidth: 0.1 },
+                styles: { fontSize: 8, cellPadding: 2 }, // Reduced font size slightly to fit more columns
             });
             finalY = doc.lastAutoTable.finalY + 10;
         }
 
         // --- 5. LAB INVESTIGATIONS ---
         if (labTests.length > 0) {
-            drawSectionHeader("Laboratory Investigations", finalY);
+            drawSectionHeader("Lab Test History", finalY);
 
             autoTable(doc, {
                 startY: finalY + 8,
                 theme: "grid",
-                head: [["Date", "Investigation Name", "Status", "Findings / Notes"]],
+                // Updated Columns to match your screenshot
+                head: [["Date", "Lab Tests Name", "Ordered By", "Lab Test Results", "Status"]],
                 body: labTests.map(l => [
                     new Date(l.createdAt).toLocaleDateString(),
                     l.tests.map(t => typeof t === "string" ? t : t.testName).join(", "),
-                    l.status,
-                    l.results?.map(r => `${r.testName}: ${r.result}`).join(" | ") || "-"
+                    l.doctorName, // Added "Ordered By"
+                    l.results?.map(r => `${r.testName}: ${r.result}`).join(" | ") || "-",
+                    l.status
                 ]),
                 headStyles: {
                     fillColor: [240, 240, 240],
@@ -237,15 +224,19 @@ const DoctorPatientHistory = () => {
 
         // --- 6. SURGICAL PROCEDURES ---
         if (surgeries.length > 0) {
-            drawSectionHeader("Surgical Procedures", finalY);
+            drawSectionHeader("Surgery History", finalY);
 
             autoTable(doc, {
                 startY: finalY + 8,
                 theme: "grid",
-                head: [["Procedure Type", "Scheduled Date", "Current Status"]],
+                // Updated Columns to match your screenshot
+                head: [["Date", "Surgery Name", "Dept", "Surgeon", "Remarks", "Status"]],
                 body: surgeries.map(s => [
-                    s.surgeryType,
                     new Date(s.createdAt).toLocaleDateString(),
+                    s.surgeryType,
+                    s.department, // Added Department
+                    s.doctorName, // Added Surgeon
+                    s.notes || "-", // Added Remarks (mapped to notes)
                     s.status
                 ]),
                 headStyles: {
@@ -266,24 +257,18 @@ const DoctorPatientHistory = () => {
         for (let i = 1; i <= pageCount; i++) {
             doc.setPage(i);
             const pageHeight = doc.internal.pageSize.height;
-
-            // Footer Line
             doc.setDrawColor(0);
             doc.setLineWidth(0.5);
             doc.line(marginLeft, pageHeight - 20, marginRight, pageHeight - 20);
-
-            // Disclaimer
             doc.setFontSize(8);
             doc.setFont("helvetica", "normal");
             doc.text("* This is a computer-generated medical record and does not require a physical signature.", marginLeft, pageHeight - 14);
             doc.text("* Confidential Medical Record - For authorized personnel only.", marginLeft, pageHeight - 10);
-
-            // Signatory
             doc.setFont("helvetica", "bold");
             doc.text("Authorized Signatory", marginRight, pageHeight - 14, { align: "right" });
         }
 
-        doc.save(`${patient.firstName}_${patient.lastName}_Medical_History.pdf`);
+        doc.save(`${patient.firstName} ${patient.lastName}_Medical_History.pdf`);
     };
 
 
