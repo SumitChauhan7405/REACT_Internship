@@ -138,3 +138,121 @@
 .mt-24 {
   margin-top: 24px;
 }
+
+/* =====================================================
+   MOBILE DEVICES (Small & Large Phones)
+   Up to 767px
+===================================================== */
+@media (max-width: 767px) {
+  .lab-dashboard-page {
+    padding: 14px;
+  }
+
+  .page-title {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  /* KPI Cards */
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .dashboard-card {
+    padding: 16px;
+  }
+
+  .card-info h2 {
+    font-size: 22px;
+  }
+
+  .card-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .card-icon i {
+    font-size: 18px;
+  }
+
+  /* Tables */
+  .activity-card {
+    padding: 16px;
+    overflow-x: auto;
+  }
+
+  .activity-card table {
+    min-width: 600px;
+  }
+
+  .activity-card th,
+  .activity-card td {
+    font-size: 12px;
+    padding: 6px;
+  }
+}
+
+/* =====================================================
+   TABLETS (Portrait & Landscape)
+   768px – 1024px
+===================================================== */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .lab-dashboard-page {
+    padding: 18px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  /* KPI Cards */
+  .dashboard-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .dashboard-card {
+    padding: 18px;
+  }
+
+  .card-info h2 {
+    font-size: 24px;
+  }
+
+  /* Tables */
+  .activity-card {
+    padding: 18px;
+    overflow-x: auto;
+  }
+
+  .activity-card table {
+    min-width: 700px;
+  }
+}
+
+/* =====================================================
+   LAPTOPS & SMALL DESKTOPS
+   1025px – 1366px
+===================================================== */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .dashboard-cards {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+  }
+
+  .card-info h2 {
+    font-size: 26px;
+  }
+}
+
+/* =====================================================
+   LARGE DESKTOP SCREENS
+   1367px and above
+===================================================== */
+@media (min-width: 1367px) {
+  .lab-dashboard-page {
+    max-width: 1400px;
+    margin: auto;
+  }
+}

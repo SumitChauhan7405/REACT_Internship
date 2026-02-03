@@ -32,24 +32,6 @@ const DoctorDetails = () => {
     loadDoctor();
   }, [loadDoctor]);
 
-  /* ======================
-     DEPARTMENT DESCRIPTION
-  ======================= */
-  const getDepartmentDescription = (department) => {
-    switch (department?.toLowerCase()) {
-      case "cardiology":
-        return "Specializes in diagnosing and treating heart-related conditions such as hypertension, heart disease, and cardiac disorders.";
-      case "neurology":
-        return "Expert in treating disorders of the brain, spine, and nervous system including migraines, epilepsy, and stroke.";
-      case "orthopedics":
-        return "Specializes in bones, joints, muscles, fractures, arthritis, and sports injuries.";
-      case "general medicine":
-        return "Provides comprehensive medical care with a holistic, patient-focused approach.";
-      default:
-        return "An experienced medical professional dedicated to accurate diagnosis and compassionate patient care.";
-    }
-  };
-
   if (!doctor) return <p>Loading doctor details...</p>;
 
   return (
@@ -72,12 +54,21 @@ const DoctorDetails = () => {
           <h2 className="dept-title">{doctor.department}</h2>
           <h4 className="experience">{doctor.experience} Years Experience</h4>
 
-          <p className="doctor-description">
-            {getDepartmentDescription(doctor.department)}
-          </p>
+          {/* ABOUT DOCTOR */}
+          {doctor.about && (
+            <p className="doctor-description">
+              {doctor.about}
+            </p>
+          )}
 
           {/* OPD INFO */}
           <div className="opd-info-grid">
+
+            <div className="info-box">
+              <strong>Languages Spoken</strong>
+              <span>{doctor.languages?.join(", ")}</span>
+            </div>
+
             <div className="info-box">
               <strong>OPD Days</strong>
               <span>{doctor.availableDays.join(", ")}</span>

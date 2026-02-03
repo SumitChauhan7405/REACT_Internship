@@ -21,7 +21,9 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
     availableDays: [],
     opdTimings: [],
     consultationFee: "",
-    image: ""
+    image: "",
+    about: "",
+    languages: []
   });
 
   /* ===============================
@@ -37,7 +39,10 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
         availableDays: editDoctor.availableDays || [],
         opdTimings: editDoctor.timeSlots || [],
         consultationFee: editDoctor.consultationFee,
-        image: editDoctor.image || ""
+        image: editDoctor.image || "",
+        about: editDoctor.about || "",
+        languages: editDoctor.languages || []
+
       });
     }
   }, [editDoctor]);
@@ -72,6 +77,19 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
       setForm({ ...form, image: e.target.files[0].name });
     }
   };
+
+  /* ===============================
+   LANGUAGES HANDLER (NEW)
+================================ */
+  const toggleLanguage = (lang) => {
+    setForm((prev) => ({
+      ...prev,
+      languages: prev.languages.includes(lang)
+        ? prev.languages.filter((l) => l !== lang)
+        : [...prev.languages, lang]
+    }));
+  };
+
 
   /* ===============================
      DOCTOR ID GENERATION
@@ -135,7 +153,10 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
       availableDays: form.availableDays,
       timeSlots: form.opdTimings,
       consultationFee: Number(form.consultationFee),
-      image: form.image
+      image: form.image,
+      about: form.about,
+      languages: form.languages
+
     };
 
     if (editDoctor) {
@@ -156,7 +177,10 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
       availableDays: [],
       opdTimings: [],
       consultationFee: "",
-      image: ""
+      image: "",
+      about: "",
+      languages: []
+
     });
   };
 
@@ -259,6 +283,33 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
             onChange={handleChange}
             required
           />
+        </div>
+
+        <div>
+          <label>About Doctor</label>
+          <textarea
+            name="about"
+            rows="3"
+            value={form.about}
+            onChange={handleChange}
+            placeholder="Short professional bio"
+          />
+        </div>
+
+        <div>
+          <label>Languages Spoken</label>
+          <div className="available-days">
+            {["English", "Hindi", "Gujarati", "Marathi", "Tamil"].map((lang) => (
+              <label key={lang} className="available-day-item">
+                <input
+                  type="checkbox"
+                  checked={form.languages.includes(lang)}
+                  onChange={() => toggleLanguage(lang)}
+                />
+                {lang}
+              </label>
+            ))}
+          </div>
         </div>
 
         <div>

@@ -167,6 +167,20 @@
       "status": "CONFIRMED",
       "source": "WALKIN",
       "createdAt": "2026-01-30T17:35:59.399Z"
+    },
+    {
+      "id": "PAT-2026-0021",
+      "firstName": "Brock",
+      "lastName": "Lesner",
+      "gender": "Male",
+      "age": "55",
+      "phone": "7854632109",
+      "bloodGroup": "AB+",
+      "doctorName": "Dr. Rushita Patel",
+      "timing": "EVENING (5:00 - 7:00)",
+      "status": "CONFIRMED",
+      "source": "WALKIN",
+      "createdAt": "2026-02-02T18:04:33.773Z"
     }
   ],
   "doctors": [
@@ -210,7 +224,6 @@
       "image": "dr-neha.jpg"
     },
     {
-      "id": "DOC-003",
       "name": "Dr. Namra Pithwa",
       "email": "namra.pithwa@medicare.com",
       "password": "namra@123",
@@ -224,7 +237,16 @@
         "10:00-12:00"
       ],
       "consultationFee": 500,
-      "image": "doc.png"
+      "image": "doc.png",
+      "about": "Dr.Namra Pithwa is s Cardiology Specialist in MediCare . Dr.Namra has 5 years of Experinecr in Cardiology Department.",
+      "languages": [
+        "English",
+        "Marathi",
+        "Tamil",
+        "Hindi",
+        "Gujarati"
+      ],
+      "id": "DOC-003"
     },
     {
       "name": "Dr. Parth Chavda",
@@ -370,7 +392,7 @@
       "email": "vivek.pithwa@medicare.com",
       "password": "vivek@123",
       "department": "ENT",
-      "experience": 9,
+      "experience": 10,
       "education": "MBBS",
       "availableDays": [
         "Mon",
@@ -382,6 +404,12 @@
       ],
       "consultationFee": 700,
       "image": "doc2.png",
+      "about": "Vivek Pithwa is s Specialist Doctor in ENT Department. Dr.Vivek has 10 years of Experinecr in ENT Department.",
+      "languages": [
+        "English",
+        "Hindi",
+        "Gujarati"
+      ],
       "id": "DOC-012"
     }
   ],
@@ -668,6 +696,25 @@
         }
       ],
       "createdAt": "2026-01-30T17:36:59.257Z"
+    },
+    {
+      "id": "CON-2026-0016",
+      "appointmentId": "WALKIN-PAT-2026-0021",
+      "doctorId": "DOC-010",
+      "doctorName": "Dr. Rushita Patel",
+      "department": "ENT",
+      "patientId": "PAT-2026-0021",
+      "patientName": "Brock Lesner",
+      "diagnosis": "pain in ear",
+      "consultation": "lab tests and surgery needed",
+      "consultationFee": 700,
+      "medicines": [
+        {
+          "name": "abc",
+          "dosage": "1-0-1"
+        }
+      ],
+      "createdAt": "2026-02-02T18:06:55.746Z"
     }
   ],
   "labTestMasters": [
@@ -1014,6 +1061,29 @@
       "results": [],
       "status": "PENDING",
       "createdAt": "2026-01-30T17:36:55.277Z"
+    },
+    {
+      "id": "LAB-2026-0014",
+      "consultationId": "CON-2026-0016",
+      "patientId": "PAT-2026-0021",
+      "patientName": "Brock Lesner",
+      "doctorId": "DOC-010",
+      "doctorName": "Dr. Rushita Patel",
+      "tests": [
+        {
+          "testId": "LT-011",
+          "testName": "Thyroid Profile",
+          "charge": 600
+        }
+      ],
+      "results": [
+        {
+          "testName": "Thyroid Profile",
+          "result": "infection identified...!"
+        }
+      ],
+      "status": "COMPLETED",
+      "createdAt": "2026-02-02T18:05:58.976Z"
     }
   ],
   "admissions": [
@@ -1105,6 +1175,19 @@
       "admissionDate": "2026-01-30",
       "status": "DISCHARGED",
       "dischargeDate": "2026-02-02"
+    },
+    {
+      "id": "ADM-009",
+      "patientId": "PAT-2026-0021",
+      "patientName": "Brock Lesner",
+      "doctorName": "Dr. Rushita Patel",
+      "roomId": "ROOM-001",
+      "roomNumber": "101",
+      "roomType": "GENERAL",
+      "roomCharge": 1500,
+      "admissionDate": "2026-02-02",
+      "status": "DISCHARGED",
+      "dischargeDate": "2026-02-03"
     }
   ],
   "rooms": [
@@ -1459,6 +1542,24 @@
       "status": "COMPLETED",
       "notes": "knmdowodwdmn",
       "createdAt": "2026-01-30T12:43:57.712Z"
+    },
+    {
+      "id": "SUR-2026-0012",
+      "consultationId": "CON-2026-0016",
+      "patientId": "PAT-2026-0021",
+      "patientName": "Brock Lesner",
+      "doctorId": "DOC-010",
+      "doctorName": "Dr. Rushita Patel",
+      "department": "ENT",
+      "surgeryType": "Tonsillectomy (Tonsil Removal)",
+      "surgeryMasterId": "SM-012",
+      "surgeryCharge": 30000,
+      "scheduledDate": "2026-02-05",
+      "scheduledTime": "07:00",
+      "operationTheatre": "1001",
+      "status": "CANCELLED",
+      "notes": "consumables are ready",
+      "createdAt": "2026-02-02T18:06:36.123Z"
     }
   ],
   "discharges": [
@@ -1489,6 +1590,20 @@
       "totalAmount": 39165,
       "summary": "Patient Recovered....!",
       "createdAt": "2026-02-02T17:00:39.224Z"
+    },
+    {
+      "id": "DIS-2026-0003",
+      "admissionId": "ADM-009",
+      "patientId": "PAT-2026-0021",
+      "patientName": "Brock Lesner",
+      "doctorName": "Dr. Rushita Patel",
+      "roomNumber": "101",
+      "admissionDate": "2026-02-02",
+      "dischargeDate": "2026-02-03",
+      "billId": "BILL-0006",
+      "totalAmount": 4515,
+      "summary": "Patient discharged successfully",
+      "createdAt": "2026-02-03T04:57:20.101Z"
     }
   ],
   "bills": [
@@ -1662,6 +1777,40 @@
       "status": "PARTIAL",
       "amountPaid": 7165,
       "remainingAmount": 32000
+    },
+    {
+      "id": "BILL-0006",
+      "admissionId": "ADM-009",
+      "patientId": "PAT-2026-0021",
+      "patientName": "Brock Lesner",
+      "doctorName": "Dr. Rushita Patel",
+      "billDate": "2026-02-03T04:57:20.081Z",
+      "room": {
+        "roomId": "ROOM-001",
+        "roomType": "GENERAL",
+        "dailyCharge": 1500,
+        "stayDays": 2,
+        "totalRoomCharge": 3000
+      },
+      "admissionDate": "2026-02-02",
+      "dischargeDate": "2026-02-03",
+      "consultationCharge": 700,
+      "labTests": [
+        {
+          "testId": "LT-011",
+          "testName": "Thyroid Profile",
+          "charge": 600
+        }
+      ],
+      "labCharge": 600,
+      "surgeryCharge": 0,
+      "subtotal": 4300,
+      "gstRate": 5,
+      "gstAmount": 215,
+      "totalAmount": 4515,
+      "status": "PARTIAL",
+      "amountPaid": 1515,
+      "remainingAmount": 3000
     }
   ],
   "payments": [
@@ -1735,7 +1884,7 @@
       "patientId": "PAT-2026-0008",
       "patientName": "Clark Kidd",
       "mode": "Cash",
-      "amount": 16415,
+      "amount": 415,
       "date": "2026-02-02"
     },
     {
@@ -1755,6 +1904,24 @@
       "mode": "UPI",
       "amount": 6000,
       "date": "2026-02-02"
+    },
+    {
+      "id": "PAY-0012",
+      "billId": "BILL-0006",
+      "patientId": "PAT-2026-0021",
+      "patientName": "Brock Lesner",
+      "mode": "Cash",
+      "amount": 515,
+      "date": "2026-02-03"
+    },
+    {
+      "id": "PAY-0013",
+      "billId": "BILL-0006",
+      "patientId": "PAT-2026-0021",
+      "patientName": "Brock Lesner",
+      "mode": "UPI",
+      "amount": 1000,
+      "date": "2026-02-03"
     }
   ],
   "feedback": [
