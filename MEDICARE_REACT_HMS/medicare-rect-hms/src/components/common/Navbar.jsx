@@ -1,19 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 import adminimg from "../../assets/images/users/admin.jpg";
-import flagimg from "../../assets/images/users/us.png";
 
 const Navbar = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
+  /* ===============================
+     DATE & TIME STATE
+  ================================ */
+  const [dateTime, setDateTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDateTime(new Date());
+    }, 60000); // update every minute
+
+    return () => clearInterval(timer);
+  }, []);
+
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
+
+  /* ===============================
+     FORMATTERS
+  ================================ */
+  const formattedDate = dateTime.toLocaleDateString("en-GB"); // DD/MM/YYYY
+
+  const formattedTime = dateTime.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true
+  });
 
   return (
     <header className="navbar-emr">
@@ -30,17 +53,35 @@ const Navbar = () => {
 
       {/* RIGHT SECTION */}
       <div className="navbar-right">
-        {/* Country / Language */}
-        <div className="navbar-country">
-          <img src={flagimg} alt="India" />
+
+        {/* 📅 DATE & ⏰ TIME (REPLACED FLAG + BELL) */}
+        <div
+          className="navbar-datetime"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "14px",
+            padding: "6px 14px",
+            borderRadius: "999px",
+            background: "#E0ECFF",
+            fontSize: "14px",
+            fontWeight: 500
+          }}
+        >
+          <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <i className="bi bi-calendar"></i>
+            {formattedDate}
+          </span>
+
+          <span style={{ opacity: 0.6 }}>|</span>
+
+          <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <i className="bi bi-clock"></i>
+            {formattedTime}
+          </span>
         </div>
 
-        {/* Notifications */}
-        <button className="nav-icon-btn">
-          <i className="bi bi-bell"></i>
-        </button>
-
-        {/* Admin Profile */}
+        {/* ADMIN PROFILE */}
         <div
           className="navbar-user"
           style={{ position: "relative" }}
