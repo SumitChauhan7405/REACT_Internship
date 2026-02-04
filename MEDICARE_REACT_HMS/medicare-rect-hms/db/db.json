@@ -181,17 +181,30 @@
       "status": "CONFIRMED",
       "source": "WALKIN",
       "createdAt": "2026-02-02T18:04:33.773Z"
+    },
+    {
+      "id": "PAT-2026-0022",
+      "firstName": "Darryl",
+      "lastName": "Schultz",
+      "gender": "Other",
+      "age": "89",
+      "phone": "+1 (891) 194-4831",
+      "bloodGroup": "AB-",
+      "doctorName": "Dr. Namra Pithwa",
+      "timing": "MORNING (10:00 - 12:00)",
+      "status": "CONFIRMED",
+      "source": "WALKIN",
+      "createdAt": "2026-02-04T06:53:47.817Z"
     }
   ],
   "doctors": [
     {
-      "id": "DOC-001",
       "name": "Dr. Amit Verma",
       "email": "amit.verma@medicare.com",
       "password": "amit@123",
       "department": "Cardiology",
       "experience": 10,
-      "education": "MBBS, MD",
+      "education": "DM",
       "availableDays": [
         "Mon",
         "Wed",
@@ -202,10 +215,16 @@
         "17:00-19:00"
       ],
       "consultationFee": 800,
-      "image": "dr-amit.png"
+      "image": "dr-amit.png",
+      "about": "Dr. Amit Verma, DM (Cardiology), is a senior Cardiologist with 9+ years of experience in managing complex heart conditions and cardiac emergencies. He earned his super-specialty degree from Postgraduate Institute of Medical Education & Research (PGIMER), Chandigarh, and is widely respected for his clinical accuracy and patient-focused care.",
+      "languages": [
+        "Gujarati",
+        "Hindi",
+        "English"
+      ],
+      "id": "DOC-001"
     },
     {
-      "id": "DOC-002",
       "name": "Dr. Neha Kapoor",
       "email": "neha.kapoor@medicare.com",
       "password": "neha@123",
@@ -221,7 +240,14 @@
         "10:00-12:00"
       ],
       "consultationFee": 600,
-      "image": "dr-neha.jpg"
+      "image": "dr-neha.jpg",
+      "about": "Dr. Neha Kapoor, MS (Orthopedics), is an experienced Orthopedic Surgeon with 6+ years of clinical expertise in diagnosing and treating musculoskeletal disorders, joint injuries, and trauma cases. He completed his Master of Surgery in Orthopedics from All India Institute of Medical Sciences (AIIMS), New Delhi, and has extensive experience in fracture management, joint replacement, and orthopedic rehabilitation.",
+      "languages": [
+        "Hindi",
+        "Gujarati",
+        "Marathi"
+      ],
+      "id": "DOC-002"
     },
     {
       "name": "Dr. Namra Pithwa",
@@ -229,16 +255,19 @@
       "password": "namra@123",
       "department": "Cardiology",
       "experience": 5,
-      "education": "MBBS",
+      "education": "MD",
       "availableDays": [
-        "Mon"
+        "Mon",
+        "Wed",
+        "Fri"
       ],
       "timeSlots": [
-        "10:00-12:00"
+        "10:00-12:00",
+        "5:00-7:00"
       ],
       "consultationFee": 500,
       "image": "doc.png",
-      "about": "Dr.Namra Pithwa is s Cardiology Specialist in MediCare . Dr.Namra has 5 years of Experinecr in Cardiology Department.",
+      "about": "Dr. Namra Pithwa, MD (Cardiology), is an experienced Cardiologist with 5+ years of clinical expertise in diagnosing and treating a wide range of cardiovascular conditions. He completed his Doctor of Medicine in Cardiology from All India Institute of Medical Sciences (AIIMS), New Delhi.",
       "languages": [
         "English",
         "Marathi",
@@ -254,7 +283,7 @@
       "password": "parth@123",
       "department": "Cardiology",
       "experience": 12,
-      "education": "MBBS, DM",
+      "education": "DM",
       "availableDays": [
         "Mon",
         "Tue",
@@ -268,6 +297,12 @@
       ],
       "consultationFee": 600,
       "image": "",
+      "about": "Dr. Parth Chavda, DM (Cardiology), has over 12 years of experience in treating high-risk cardiac patients. He completed his cardiology specialization from BJ Medical College, Ahmedabad, and is recognized for his ethical practice and precise clinical decision-making.",
+      "languages": [
+        "English",
+        "Gujarati",
+        "Hindi"
+      ],
       "id": "DOC-004"
     },
     {
@@ -275,8 +310,8 @@
       "email": "meet.kacha@medicare.com",
       "password": "meet@123",
       "department": "Neurology",
-      "experience": 20,
-      "education": "MBBS",
+      "experience": 15,
+      "education": "MBBS, DM",
       "availableDays": [
         "Mon",
         "Wed",
@@ -288,6 +323,12 @@
       ],
       "consultationFee": 900,
       "image": "doc.png",
+      "about": "Dr. Meet Kacha, DM (Neurology), is a senior Neurologist with 14+ years of clinical experience in diagnosing and managing neurological disorders such as stroke, epilepsy, migraine, and movement disorders. He completed his super-specialty training from All India Institute of Medical Sciences (AIIMS), New Delhi, and is known for his precise diagnostic skills and evidence-based neurological care.",
+      "languages": [
+        "Gujarati",
+        "Hindi",
+        "English"
+      ],
       "id": "DOC-005"
     },
     {
@@ -296,7 +337,7 @@
       "password": "raj@123",
       "department": "Radiology",
       "experience": 15,
-      "education": "MBBS",
+      "education": "MBBS,MD",
       "availableDays": [
         "Mon",
         "Tue",
@@ -308,16 +349,21 @@
       ],
       "consultationFee": 600,
       "image": "doc.png",
+      "about": "Dr. Raj Sanchla, MD (Radiology), is an experienced Radiologist with 14+ years of clinical expertise in diagnostic imaging, including X-ray, ultrasound, CT, and MRI interpretation. He completed his Doctor of Medicine in Radiology from All India Institute of Medical Sciences (AIIMS), New Delhi, and is known for his accuracy, timely reporting, and collaboration with clinical teams.",
+      "languages": [
+        "Gujarati",
+        "Hindi",
+        "English"
+      ],
       "id": "DOC-007"
     },
     {
-      "id": "DOC-008",
       "name": "Dr. Yash Patel",
       "email": "yash.patel@medicare.com",
       "password": "yash@123",
       "department": "Neurology",
       "experience": 10,
-      "education": "MD",
+      "education": "MD,DM",
       "availableDays": [
         "Mon",
         "Tue",
@@ -327,15 +373,22 @@
         "5:00-7:00"
       ],
       "consultationFee": 800,
-      "image": "doc2.png"
+      "image": "doc2.png",
+      "about": "Dr. Yash Patel, MD, DM (Neurology), has 10+ years of experience in treating complex neurological conditions including neuropathies, multiple sclerosis, and neurodegenerative disorders. She completed her medical education from Christian Medical College (CMC), Vellore, and follows a compassionate, patient-centric approach to long-term neurological management.",
+      "languages": [
+        "Gujarati",
+        "Marathi",
+        "Hindi"
+      ],
+      "id": "DOC-008"
     },
     {
       "name": "Dr. Krisha Patel",
       "email": "krisha.patel@medicare.com",
       "password": "krisha@123",
       "department": "Orthopedics",
-      "experience": 7,
-      "education": "MBBS, MD",
+      "experience": 9,
+      "education": "MBBS, MS",
       "availableDays": [
         "Mon",
         "Tue",
@@ -347,16 +400,21 @@
       ],
       "consultationFee": 1000,
       "image": "doc1.png",
+      "about": "Dr. Krisha Patel, MS, DNB (Orthopedics), has 9+ years of experience in orthopedic care, specializing in sports injuries, arthritis management, and minimally invasive orthopedic procedures. She completed her orthopedic training at Seth GS Medical College, Mumbai, and is known for her patient-focused treatment approach and precise surgical planning.",
+      "languages": [
+        "English",
+        "Hindi",
+        "Gujarati"
+      ],
       "id": "DOC-009"
     },
     {
-      "id": "DOC-010",
       "name": "Dr. Rushita Patel",
       "email": "rushita.patel@medicare.com",
       "password": "rushita@123",
       "department": "ENT",
       "experience": 10,
-      "education": "MBBS, DO",
+      "education": "MBBS, MS",
       "availableDays": [
         "Thu",
         "Sat",
@@ -366,7 +424,14 @@
         "10:00-12:00"
       ],
       "consultationFee": 700,
-      "image": "doc1.png"
+      "image": "doc1.png",
+      "about": "Dr. Rushita Patel, MS, DNB (ENT), has 9+ years of experience in comprehensive ENT care, with special interest in nasal endoscopy, allergy management, and minimally invasive ENT procedures. She completed her medical training at Seth GS Medical College, Mumbai, and follows a compassionate, evidence-based approach to ENT treatment.",
+      "languages": [
+        "Gujarati",
+        "Hindi",
+        "English"
+      ],
+      "id": "DOC-010"
     },
     {
       "name": "Dr. Meet Sharma",
@@ -374,7 +439,7 @@
       "password": "meet@123",
       "department": "Radiology",
       "experience": 8,
-      "education": "MBBS, DO",
+      "education": "MBBS, DNB",
       "availableDays": [
         "Tue",
         "Thu",
@@ -385,6 +450,13 @@
       ],
       "consultationFee": 600,
       "image": "doc2.png",
+      "about": "Dr. Meet Sharma, MD, DNB (Radiology), has 7+ years of experience in advanced medical imaging and image-guided diagnostic procedures. She completed her radiology training from Kasturba Medical College, Manipal, and specializes in high-resolution imaging with a strong focus on patient safety and diagnostic precision.",
+      "languages": [
+        "English",
+        "Hindi",
+        "Gujarati",
+        "Marathi"
+      ],
       "id": "DOC-011"
     },
     {
@@ -393,7 +465,7 @@
       "password": "vivek@123",
       "department": "ENT",
       "experience": 10,
-      "education": "MBBS",
+      "education": "MBBS, MS",
       "availableDays": [
         "Mon",
         "Wed",
@@ -404,7 +476,7 @@
       ],
       "consultationFee": 700,
       "image": "doc2.png",
-      "about": "Vivek Pithwa is s Specialist Doctor in ENT Department. Dr.Vivek has 10 years of Experinecr in ENT Department.",
+      "about": "Dr. Vivek Pithwa, MS (ENT), is an experienced ENT Specialist with 9+ years of clinical expertise in diagnosing and treating ear, nose, and throat disorders, including sinusitis, hearing loss, voice disorders, and head-and-neck infections. He completed his Master of Surgery in ENT from Maulana Azad Medical College, New Delhi, and is known for precise diagnosis and patient-focused treatment.",
       "languages": [
         "English",
         "Hindi",
@@ -715,6 +787,29 @@
         }
       ],
       "createdAt": "2026-02-02T18:06:55.746Z"
+    },
+    {
+      "id": "CON-2026-0017",
+      "appointmentId": "WALKIN-PAT-2026-0022",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "department": "Cardiology",
+      "patientId": "PAT-2026-0022",
+      "patientName": "Darryl Schultz",
+      "diagnosis": "Dolores cupiditate r",
+      "consultation": "Consequat Cupiditat",
+      "consultationFee": 500,
+      "medicines": [
+        {
+          "name": "Vitae blanditiis dol",
+          "dosage": "A minima laboriosam"
+        },
+        {
+          "name": "Ab placeat dolores ",
+          "dosage": "Delectus quo esse r"
+        }
+      ],
+      "createdAt": "2026-02-04T06:54:59.758Z"
     }
   ],
   "labTestMasters": [
@@ -1084,6 +1179,38 @@
       ],
       "status": "COMPLETED",
       "createdAt": "2026-02-02T18:05:58.976Z"
+    },
+    {
+      "id": "LAB-2026-0015",
+      "consultationId": "CON-2026-0017",
+      "patientId": "PAT-2026-0022",
+      "patientName": "Darryl Schultz",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "tests": [
+        {
+          "testId": "LT-004",
+          "testName": "X-Ray",
+          "charge": 400
+        },
+        {
+          "testId": "LT-005",
+          "testName": "MRI",
+          "charge": 2500
+        }
+      ],
+      "results": [
+        {
+          "testName": "X-Ray",
+          "result": "donr"
+        },
+        {
+          "testName": "MRI",
+          "result": "done"
+        }
+      ],
+      "status": "COMPLETED",
+      "createdAt": "2026-02-04T06:54:48.924Z"
     }
   ],
   "admissions": [
@@ -1188,6 +1315,18 @@
       "admissionDate": "2026-02-02",
       "status": "DISCHARGED",
       "dischargeDate": "2026-02-03"
+    },
+    {
+      "id": "ADM-010",
+      "patientId": "PAT-2026-0022",
+      "patientName": "Darryl Schultz",
+      "doctorName": "Dr. Namra Pithwa",
+      "roomId": "ROOM-001",
+      "roomNumber": "101",
+      "roomType": "GENERAL",
+      "roomCharge": 1500,
+      "admissionDate": "2026-02-04",
+      "status": "ADMITTED"
     }
   ],
   "rooms": [
@@ -1195,7 +1334,7 @@
       "id": "ROOM-001",
       "roomNumber": "101",
       "type": "GENERAL",
-      "status": "AVAILABLE",
+      "status": "OCCUPIED",
       "charge": 1500
     },
     {
@@ -1560,6 +1699,24 @@
       "status": "CANCELLED",
       "notes": "consumables are ready",
       "createdAt": "2026-02-02T18:06:36.123Z"
+    },
+    {
+      "id": "SUR-2026-0013",
+      "consultationId": "CON-2026-0017",
+      "patientId": "PAT-2026-0022",
+      "patientName": "Darryl Schultz",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "department": "Cardiology",
+      "surgeryType": "Heart Transplant",
+      "surgeryMasterId": "SM-010",
+      "surgeryCharge": 1800000,
+      "scheduledDate": "2015-11-14",
+      "scheduledTime": "19:28",
+      "operationTheatre": "1001",
+      "status": "COMPLETED",
+      "notes": "Maiores ut quia sunt",
+      "createdAt": "2026-02-04T06:54:57.646Z"
     }
   ],
   "discharges": [
