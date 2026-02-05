@@ -17,7 +17,7 @@ const LabNavbar = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setDateTime(new Date());
-    }, 60000);
+    }, 1000);
 
     return () => clearInterval(timer);
   }, []);
@@ -26,6 +26,7 @@ const LabNavbar = () => {
   const formattedTime = dateTime.toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
+    second: "2-digit",
     hour12: true
   });
 

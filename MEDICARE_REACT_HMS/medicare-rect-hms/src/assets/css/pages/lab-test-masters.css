@@ -185,6 +185,7 @@
 /* ===============================
    RESPONSIVE
 ================================ */
+
 @media (max-width: 900px) {
   .lab-master-form {
     grid-template-columns: 1fr;

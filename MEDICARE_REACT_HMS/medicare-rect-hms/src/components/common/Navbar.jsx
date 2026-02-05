@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-
 import adminimg from "../../assets/images/users/admin.jpg";
 
 const Navbar = () => {
@@ -17,7 +16,7 @@ const Navbar = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setDateTime(new Date());
-    }, 60000); // update every minute
+    }, 1000); // update every minute
 
     return () => clearInterval(timer);
   }, []);
@@ -35,6 +34,7 @@ const Navbar = () => {
   const formattedTime = dateTime.toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
+    second: "2-digit",
     hour12: true
   });
 

@@ -214,6 +214,15 @@
   font-weight: 600;
 }
 
+.activity-card.clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.activity-card.clickable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
+}
 
 /* ======================
    RESPONSIVE (MOBILE / TABLET BASE)

@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../assets/css/pages/dashboard.css";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+
+  const navigate = useNavigate();
+
   const [counts, setCounts] = useState({
     patients: 0,
     doctors: 0,
@@ -19,6 +23,8 @@ const Dashboard = () => {
   const [pendingSurgeriesList, setPendingSurgeriesList] = useState([]);
   const [pendingLabsList, setPendingLabsList] = useState([]);
   const [unpaidBillsList, setUnpaidBillsList] = useState([]);
+  const [pendingConsultations, setPendingConsultations] = useState([]);
+  const [recentPatients, setRecentPatients] = useState([]);
 
   const loadCounts = async () => {
     try {
@@ -29,7 +35,9 @@ const Dashboard = () => {
         admissionsRes,
         labsRes,
         surgeriesRes,
-        billsRes
+        billsRes,
+        appointmentsRes,
+        consultationsRes
       ] = await Promise.all([
         axios.get("http://localhost:5000/patients"),
         axios.get("http://localhost:5000/doctors"),
@@ -37,7 +45,9 @@ const Dashboard = () => {
         axios.get("http://localhost:5000/admissions"),
         axios.get("http://localhost:5000/labTests"),
         axios.get("http://localhost:5000/surgeries"),
-        axios.get("http://localhost:5000/bills")
+        axios.get("http://localhost:5000/bills"),
+        axios.get("http://localhost:5000/appointments"),
+        axios.get("http://localhost:5000/consultations")
       ]);
 
       setCounts({
@@ -67,6 +77,25 @@ const Dashboard = () => {
       setUnpaidBillsList(
         billsRes.data.filter(b => b.status === "UNPAID").slice(0, 5)
       );
+
+      /* ===============================
+         PENDING CONSULTATIONS (NEW)
+      =============================== */
+      const consultedIds = consultationsRes.data.map(c => c.appointmentId);
+
+      setPendingConsultations(
+        appointmentsRes.data
+          .filter(a => !consultedIds.includes(a.id))
+          .slice(0, 5)
+      );
+
+      /* ===============================
+         RECENT PATIENT REGISTRATIONS
+      =============================== */
+      setRecentPatients(
+        patientsRes.data.slice(-5).reverse()
+      );
+
     } catch (error) {
       console.error("Dashboard load error", error);
     }
@@ -109,7 +138,7 @@ const Dashboard = () => {
       <div className="dashboard-activity">
 
         {/* Recent Admissions */}
-        <div className="activity-card">
+        <div className="activity-card clickable" onClick={() => navigate("/admin/admissions")}>
           <h4>Recent Admissions</h4>
           <table>
             <thead>
@@ -132,7 +161,7 @@ const Dashboard = () => {
         </div>
 
         {/* Pending Surgeries */}
-        <div className="activity-card">
+        <div className="activity-card clickable" onClick={() => navigate("/admin/surgery")}>
           <h4>Pending Surgeries</h4>
           <table>
             <thead>
@@ -159,7 +188,7 @@ const Dashboard = () => {
         </div>
 
         {/* Pending Lab Tests */}
-        <div className="activity-card">
+        <div className="activity-card clickable" onClick={() => navigate("/admin/lab")}>
           <h4>Pending Lab Tests</h4>
           <table>
             <thead>
@@ -192,7 +221,7 @@ const Dashboard = () => {
         </div>
 
         {/* Unpaid Bills */}
-        <div className="activity-card">
+        <div className="activity-card clickable" onClick={() => navigate("/admin/billing")}>
           <h4>Unpaid Bills</h4>
           <table>
             <thead>
@@ -208,6 +237,44 @@ const Dashboard = () => {
                   <td className={`bill-amount ${b.status?.toLowerCase()}`}>
                     ₹{b.totalAmount}
                   </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Pending Consultations (NEW) */}
+        <div
+          className="activity-card clickable"
+          onClick={() => navigate("/admin/appointments")}
+        >
+          <h4>Pending Consultations</h4>
+          <table>
+            <tbody>
+              {pendingConsultations.map(a => (
+                <tr key={a.id}>
+                  <td>{a.patientName}</td>
+                  <td>{a.doctorName}</td>
+                  <td>{a.date}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Recent Patient Registrations (NEW) */}
+        <div
+          className="activity-card clickable"
+          onClick={() => navigate("/admin/patients")}
+        >
+          <h4>Recent Patient Registrations</h4>
+          <table>
+            <tbody>
+              {recentPatients.map(p => (
+                <tr key={p.id}>
+                  <td>{p.id}</td>
+                  <td>{p.firstName} {p.lastName}</td>
+                  <td>{p.gender}</td>
                 </tr>
               ))}
             </tbody>
