@@ -6,7 +6,7 @@
 }
 
 /* ===============================
-   CARD (MATCH OTHER ADMIN PAGES)
+   CARD
 ================================ */
 .patient-table-card {
   background: #ffffff;
@@ -15,10 +15,13 @@
   border: 1px solid #e5e7eb;
 }
 
-/* HEADER */
+/* ===============================
+   HEADER
+================================ */
 .table-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 16px;
 }
 
@@ -30,21 +33,22 @@
 /* ===============================
    TABLE
 ================================ */
-table {
+.patient-table-card table {
   width: 100%;
   border-collapse: collapse;
 }
 
-thead th {
+.patient-table-card thead th {
   text-align: left;
   font-size: 13px;
   color: #6b7280;
   font-weight: 600;
-  padding: 12px 0;
+  padding: 12px 8px;
+  white-space: nowrap;
 }
 
-tbody td {
-  padding: 14px 0;
+.patient-table-card tbody td {
+  padding: 14px 8px;
   font-size: 14px;
   border-top: 1px solid #f1f5f9;
   vertical-align: top;
@@ -91,6 +95,7 @@ tbody td {
   border-radius: 999px;
   font-size: 12px;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .badge.Pending {
@@ -100,6 +105,7 @@ tbody td {
   border-radius: 999px;
   font-size: 12px;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 /* ===============================
@@ -115,6 +121,7 @@ tbody td {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
 }
 
 .btn-primary i {
@@ -142,13 +149,108 @@ tbody td {
 }
 
 
-/* ===============================
-   RESPONSIVE
-================================ */
-@media (max-width: 900px) {
-  table {
-    display: block;
+/* =====================================================
+   Desktop 1600px
+===================================================== */
+@media (max-width: 1850px) {
+  .page-content {
+    padding: 24px;
+  }
+}
+
+/* =====================================================
+   Desktop 1440px
+===================================================== */
+@media (max-width: 1440px) {
+  .patient-table-card {
+    padding: 20px;
+  }
+}
+
+/* =====================================================
+   Desktop 1366px
+===================================================== */
+@media (max-width: 1366px) {
+  .patient-table-card table {
+    font-size: 13px;
+  }
+}
+
+/* =====================================================
+   iPad 1199px
+===================================================== */
+@media (max-width: 1150px) {
+  .page-content {
+    padding: 20px;
+  }
+
+  .patient-table-card {
     overflow-x: auto;
-    white-space: nowrap;
+  }
+
+  .patient-table-card table {
+    min-width: 1100px;
+  }
+}
+
+/* =====================================================
+   iPad 991px
+===================================================== */
+@media (max-width: 991px) {
+  .patient-table-card table {
+    min-width: 1000px;
+  }
+}
+
+/* =====================================================
+   iPhone 767px
+===================================================== */
+@media (max-width: 767px) {
+  .page-content {
+    padding: 14px;
+  }
+
+  .patient-table-card {
+    padding: 16px;
+  }
+
+  .patient-table-card table {
+    min-width: 900px;
+  }
+}
+
+/* =====================================================
+   iPhone 567px
+===================================================== */
+@media (max-width: 567px) {
+  .patient-table-card table {
+    min-width: 820px;
+  }
+}
+
+/* =====================================================
+   Mobile 375px
+===================================================== */
+@media (max-width: 375px) {
+  .patient-table-card table {
+    min-width: 760px;
+  }
+}
+
+/* =====================================================
+   Mobile 360px
+===================================================== */
+@media (max-width: 360px) {
+  .page-content {
+    padding: 12px;
+  }
+}
+
+/* =====================================================
+   Mobile 320px
+===================================================== */
+@media (max-width: 320px) {
+  .patient-table-card table {
+    min-width: 700px;
   }
 }

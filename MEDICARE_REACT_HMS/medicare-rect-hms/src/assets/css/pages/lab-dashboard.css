@@ -95,13 +95,13 @@
   font-size: 12px;
   font-weight: 600;
   color: #374151;
-  padding: 8px 6px;
+  padding: 10px 8px;
   background: #f9fafb;
 }
 
 .activity-card td {
   font-size: 13px;
-  padding: 8px 6px;
+  padding: 10px 8px;
   border-bottom: 1px solid #e5e7eb;
 }
 
@@ -140,8 +140,77 @@
 }
 
 /* =====================================================
-   MOBILE DEVICES (Small & Large Phones)
-   Up to 767px
+   Desktop 1600px
+===================================================== */
+@media (max-width: 1850px) {
+  .lab-dashboard-page {
+    padding: 20px;
+  }
+}
+
+/* =====================================================
+   Desktop 1440px
+===================================================== */
+@media (max-width: 1440px) {
+  .dashboard-cards {
+    gap: 22px;
+  }
+
+  .card-info h2 {
+    font-size: 26px;
+  }
+}
+
+/* =====================================================
+   Desktop 1366px
+===================================================== */
+@media (max-width: 1366px) {
+  .dashboard-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* =====================================================
+   iPad 1199px
+===================================================== */
+@media (max-width: 1199px) {
+  .dashboard-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .lab-dashboard-page {
+    padding: 18px;
+  }
+
+  .card-info h2 {
+    font-size: 24px;
+  }
+
+  .activity-card {
+    overflow-x: auto;
+  }
+
+  .activity-card table {
+    min-width: 720px;
+  }
+}
+
+/* =====================================================
+   iPad 991px
+===================================================== */
+@media (max-width: 991px) {
+  .page-title {
+    font-size: 20px;
+  }
+
+  .dashboard-card {
+    padding: 18px;
+  }
+}
+
+/* =====================================================
+   iPhone 767px
 ===================================================== */
 @media (max-width: 767px) {
   .lab-dashboard-page {
@@ -153,7 +222,6 @@
     margin-bottom: 16px;
   }
 
-  /* KPI Cards */
   .dashboard-cards {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -176,7 +244,6 @@
     font-size: 18px;
   }
 
-  /* Tables */
   .activity-card {
     padding: 16px;
     overflow-x: auto;
@@ -185,74 +252,40 @@
   .activity-card table {
     min-width: 600px;
   }
+}
 
-  .activity-card th,
-  .activity-card td {
-    font-size: 12px;
-    padding: 6px;
+/* =====================================================
+   iPhone 567px
+===================================================== */
+@media (max-width: 567px) {
+  .activity-card table {
+    min-width: 520px;
   }
 }
 
 /* =====================================================
-   TABLETS (Portrait & Landscape)
-   768px – 1024px
+   Mobile 375px
 ===================================================== */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .lab-dashboard-page {
-    padding: 18px;
-  }
-
-  .page-title {
+@media (max-width: 375px) {
+  .card-info h2 {
     font-size: 20px;
   }
+}
 
-  /* KPI Cards */
-  .dashboard-cards {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-
-  .dashboard-card {
-    padding: 18px;
-  }
-
-  .card-info h2 {
-    font-size: 24px;
-  }
-
-  /* Tables */
-  .activity-card {
-    padding: 18px;
-    overflow-x: auto;
-  }
-
-  .activity-card table {
-    min-width: 700px;
+/* =====================================================
+   Mobile 360px
+===================================================== */
+@media (max-width: 360px) {
+  .page-title {
+    font-size: 17px;
   }
 }
 
 /* =====================================================
-   LAPTOPS & SMALL DESKTOPS
-   1025px – 1366px
+   Mobile 320px
 ===================================================== */
-@media (min-width: 1025px) and (max-width: 1366px) {
-  .dashboard-cards {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 22px;
-  }
-
-  .card-info h2 {
-    font-size: 26px;
-  }
-}
-
-/* =====================================================
-   LARGE DESKTOP SCREENS
-   1367px and above
-===================================================== */
-@media (min-width: 1367px) {
-  .lab-dashboard-page {
-    max-width: 1400px;
-    margin: auto;
+@media (max-width: 320px) {
+  .card-title {
+    font-size: 12px;
   }
 }

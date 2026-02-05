@@ -182,17 +182,118 @@
   font-size: 14px;
 }
 
-/* ===============================
-   RESPONSIVE
-================================ */
+/* =====================================================
+   Desktop 1600px
+===================================================== */
+@media (max-width: 1850px) {
+  .page-content {
+    padding: 24px;
+  }
+}
 
-@media (max-width: 900px) {
-  .lab-master-form {
+/* =====================================================
+   Desktop 1440px
+===================================================== */
+@media (max-width: 1440px) {
+  .form-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* =====================================================
+   Desktop 1366px
+===================================================== */
+@media (max-width: 1366px) {
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* =====================================================
+   iPad 1199px
+===================================================== */
+@media (max-width: 1199px) {
+  .page-content {
+    padding: 20px;
+  }
+
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .patient-table-card {
+    overflow-x: auto;
+  }
+
+  .patient-table-card table {
+    min-width: 900px;
+  }
+}
+
+/* =====================================================
+   iPad 991px
+===================================================== */
+@media (max-width: 991px) {
+  .form-grid {
     grid-template-columns: 1fr;
   }
 
-  .lab-master-table {
-    display: block;
-    overflow-x: auto;
+  .btn-primary {
+    width: 100%;
+  }
+}
+
+/* =====================================================
+   iPhone 767px
+===================================================== */
+@media (max-width: 767px) {
+  .page-content {
+    padding: 14px;
+  }
+
+  .patient-form-card,
+  .patient-table-card {
+    padding: 16px;
+  }
+
+  .patient-table-card table {
+    min-width: 760px;
+  }
+}
+
+/* =====================================================
+   iPhone 567px
+===================================================== */
+@media (max-width: 567px) {
+  .patient-table-card table {
+    min-width: 680px;
+  }
+}
+
+/* =====================================================
+   Mobile 375px
+===================================================== */
+@media (max-width: 375px) {
+  .patient-table-card table {
+    min-width: 620px;
+  }
+}
+
+/* =====================================================
+   Mobile 360px
+===================================================== */
+@media (max-width: 360px) {
+  .page-content {
+    padding: 12px;
+  }
+}
+
+/* =====================================================
+   Mobile 320px
+===================================================== */
+@media (max-width: 320px) {
+  .patient-table-card table {
+    min-width: 560px;
   }
 }

@@ -29,11 +29,12 @@
 ================================ */
 
 .admin-main {
-  margin-left: 260px; /* sidebar width */
+  margin-left: 260px;
   flex: 1;
   display: flex;
   flex-direction: column;
   height: 100vh;
+  min-width: 0; /* 🔥 CRITICAL FIX */
 }
 
 /* ===============================
@@ -55,6 +56,8 @@
 .admin-content {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden; /* 🔥 PREVENT PAGE SHIFT */
   padding: 20px;
   background: #f9fafb;
+  min-width: 0; /* 🔥 CRITICAL FIX */
 }
