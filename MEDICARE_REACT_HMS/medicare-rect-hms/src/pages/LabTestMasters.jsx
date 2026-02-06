@@ -140,7 +140,7 @@ const LabTestMaster = () => {
           <h4>All Lab Tests</h4>
         </div>
 
-        <table>
+        <table className="lab-master-table">
           <thead>
             <tr>
               <th>ID</th>

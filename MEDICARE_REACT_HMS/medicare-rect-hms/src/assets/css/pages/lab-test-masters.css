@@ -100,6 +100,7 @@
 .lab-master-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .lab-master-table thead th {

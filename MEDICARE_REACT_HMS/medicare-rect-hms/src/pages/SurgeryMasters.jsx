@@ -156,7 +156,7 @@ const SurgeryMaster = () => {
           <h4>All Surgeries</h4>
         </div>
 
-        <table>
+        <table className="surgery-master-table">
           <thead>
             <tr>
               <th>ID</th>

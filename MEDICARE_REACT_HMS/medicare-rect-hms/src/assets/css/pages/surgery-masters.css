@@ -50,7 +50,7 @@
   background: #ffffff;
   border-radius: 14px;
   padding: 20px 24px;
-  border: 1px solid #e5e7eb;
+  table-layout: fixed;
 }
 
 .surgery-master-table .table-header {
