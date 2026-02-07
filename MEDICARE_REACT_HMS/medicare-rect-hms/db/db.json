@@ -209,6 +209,20 @@
       "status": "CONFIRMED",
       "source": "ONLINE",
       "createdAt": "2026-02-05T06:19:52.119Z"
+    },
+    {
+      "id": "PAT-2026-0024",
+      "firstName": "Cody",
+      "lastName": "Rhodes",
+      "gender": "Male",
+      "age": "32",
+      "phone": "1020304050",
+      "bloodGroup": "AB+",
+      "doctorName": "Dr. Krisha Patel",
+      "timing": "EVENING (5:00 - 7:00)",
+      "status": "CONFIRMED",
+      "source": "ONLINE",
+      "createdAt": "2026-02-06T13:36:58.433Z"
     }
   ],
   "doctors": [
@@ -571,6 +585,24 @@
       "createdAt": "2026-02-05T06:19:36.079Z",
       "patientId": "PAT-2026-0023",
       "patientName": "Steve Austin"
+    },
+    {
+      "id": "APT-2026-0007",
+      "firstName": "Cody",
+      "lastName": "Rhodes",
+      "gender": "Male",
+      "age": "32",
+      "phone": "1020304050",
+      "bloodGroup": "AB+",
+      "doctorId": "DOC-009",
+      "doctorName": "Dr. Krisha Patel",
+      "date": "2026-02-07",
+      "time": "EVENING (5:00 - 7:00)",
+      "status": "CONFIRMED",
+      "source": "ONLINE",
+      "createdAt": "2026-02-06T13:36:40.118Z",
+      "patientId": "PAT-2026-0024",
+      "patientName": "Cody Rhodes"
     }
   ],
   "consultations": [
@@ -861,6 +893,25 @@
         }
       ],
       "createdAt": "2026-02-05T06:21:56.327Z"
+    },
+    {
+      "id": "CON-2026-0019",
+      "appointmentId": "APT-2026-0007",
+      "doctorId": "DOC-009",
+      "doctorName": "Dr. Krisha Patel",
+      "department": "Orthopedics",
+      "patientId": "PAT-2026-0024",
+      "patientName": "Cody Rhodes",
+      "diagnosis": "severe pain in knees",
+      "consultation": "surgery needed",
+      "consultationFee": 1000,
+      "medicines": [
+        {
+          "name": "",
+          "dosage": ""
+        }
+      ],
+      "createdAt": "2026-02-06T13:40:14.301Z"
     }
   ],
   "labTestMasters": [
@@ -1285,6 +1336,38 @@
       ],
       "status": "COMPLETED",
       "createdAt": "2026-02-05T06:21:22.866Z"
+    },
+    {
+      "id": "LAB-2026-0017",
+      "consultationId": "CON-2026-0019",
+      "patientId": "PAT-2026-0024",
+      "patientName": "Cody Rhodes",
+      "doctorId": "DOC-009",
+      "doctorName": "Dr. Krisha Patel",
+      "tests": [
+        {
+          "testId": "LT-004",
+          "testName": "X-Ray",
+          "charge": 400
+        },
+        {
+          "testId": "LT-006",
+          "testName": "CT Scan",
+          "charge": 3000
+        }
+      ],
+      "results": [
+        {
+          "testName": "X-Ray",
+          "result": "Knee bone damaged"
+        },
+        {
+          "testName": "CT Scan",
+          "result": "bones are damaged"
+        }
+      ],
+      "status": "COMPLETED",
+      "createdAt": "2026-02-06T13:39:01.813Z"
     }
   ],
   "admissions": [
@@ -1400,6 +1483,19 @@
       "roomType": "GENERAL",
       "roomCharge": 1500,
       "admissionDate": "2026-02-04",
+      "status": "DISCHARGED",
+      "dischargeDate": "2026-02-07"
+    },
+    {
+      "id": "ADM-011",
+      "patientId": "PAT-2026-0024",
+      "patientName": "Cody Rhodes",
+      "doctorName": "Dr. Krisha Patel",
+      "roomId": "ROOM-008",
+      "roomNumber": "103",
+      "roomType": "GENERAL",
+      "roomCharge": 1500,
+      "admissionDate": "2026-02-06",
       "status": "ADMITTED"
     }
   ],
@@ -1408,7 +1504,7 @@
       "id": "ROOM-001",
       "roomNumber": "101",
       "type": "GENERAL",
-      "status": "OCCUPIED",
+      "status": "AVAILABLE",
       "charge": 1500
     },
     {
@@ -1443,7 +1539,7 @@
       "id": "ROOM-008",
       "roomNumber": "103",
       "type": "GENERAL",
-      "status": "AVAILABLE",
+      "status": "OCCUPIED",
       "charge": 1500
     },
     {
@@ -1464,11 +1560,8 @@
       "id": "ROOM-012",
       "roomNumber": "1002",
       "type": "OPERATION_THEATRE",
-      "status": "OCCUPIED",
-      "charge": 5000,
-      "patientId": "PAT-2026-0023",
-      "patientName": "Steve Austin",
-      "linkedSurgeryId": "SUR-2026-0014"
+      "status": "AVAILABLE",
+      "charge": 5000
     },
     {
       "id": "ROOM-013",
@@ -1809,9 +1902,27 @@
       "scheduledDate": "2026-02-12",
       "scheduledTime": "12:00",
       "operationTheatre": "1002",
-      "status": "SCHEDULED",
+      "status": "CANCELLED",
       "notes": "jlguuhhiyojn",
       "createdAt": "2026-02-05T06:21:49.469Z"
+    },
+    {
+      "id": "SUR-2026-0015",
+      "consultationId": "CON-2026-0019",
+      "patientId": "PAT-2026-0024",
+      "patientName": "Cody Rhodes",
+      "doctorId": "DOC-009",
+      "doctorName": "Dr. Krisha Patel",
+      "department": "Orthopedics",
+      "surgeryType": "Knee Replacement",
+      "surgeryMasterId": "SM-006",
+      "surgeryCharge": 180000,
+      "scheduledDate": "2026-02-12",
+      "scheduledTime": "05:00",
+      "operationTheatre": "1001",
+      "status": "COMPLETED",
+      "notes": "anesthesia and consumables arrenged",
+      "createdAt": "2026-02-06T13:42:36.842Z"
     }
   ],
   "discharges": [
@@ -1856,6 +1967,20 @@
       "totalAmount": 4515,
       "summary": "Patient discharged successfully",
       "createdAt": "2026-02-03T04:57:20.101Z"
+    },
+    {
+      "id": "DIS-2026-0004",
+      "admissionId": "ADM-010",
+      "patientId": "PAT-2026-0022",
+      "patientName": "Darryl Schultz",
+      "doctorName": "Dr. Namra Pithwa",
+      "roomNumber": "101",
+      "admissionDate": "2026-02-04",
+      "dischargeDate": "2026-02-07",
+      "billId": "BILL-0007",
+      "totalAmount": 1899870,
+      "summary": "Patient discharged successfully",
+      "createdAt": "2026-02-07T07:12:33.659Z"
     }
   ],
   "bills": [
@@ -2063,6 +2188,45 @@
       "status": "PARTIAL",
       "amountPaid": 1515,
       "remainingAmount": 3000
+    },
+    {
+      "id": "BILL-0007",
+      "admissionId": "ADM-010",
+      "patientId": "PAT-2026-0022",
+      "patientName": "Darryl Schultz",
+      "doctorName": "Dr. Namra Pithwa",
+      "billDate": "2026-02-07T07:12:33.604Z",
+      "room": {
+        "roomId": "ROOM-001",
+        "roomType": "GENERAL",
+        "dailyCharge": 1500,
+        "stayDays": 4,
+        "totalRoomCharge": 6000
+      },
+      "admissionDate": "2026-02-04",
+      "dischargeDate": "2026-02-07",
+      "consultationCharge": 500,
+      "labTests": [
+        {
+          "testId": "LT-004",
+          "testName": "X-Ray",
+          "charge": 400
+        },
+        {
+          "testId": "LT-005",
+          "testName": "MRI",
+          "charge": 2500
+        }
+      ],
+      "labCharge": 2900,
+      "surgeryCharge": 1800000,
+      "subtotal": 1809400,
+      "gstRate": 5,
+      "gstAmount": 90470,
+      "totalAmount": 1899870,
+      "status": "PARTIAL",
+      "amountPaid": 9870,
+      "remainingAmount": 1890000
     }
   ],
   "payments": [
@@ -2174,6 +2338,24 @@
       "mode": "UPI",
       "amount": 1000,
       "date": "2026-02-03"
+    },
+    {
+      "id": "PAY-0014",
+      "billId": "BILL-0007",
+      "patientId": "PAT-2026-0022",
+      "patientName": "Darryl Schultz",
+      "mode": "UPI",
+      "amount": 870,
+      "date": "2026-02-07"
+    },
+    {
+      "id": "PAY-0015",
+      "billId": "BILL-0007",
+      "patientId": "PAT-2026-0022",
+      "patientName": "Darryl Schultz",
+      "mode": "Cash",
+      "amount": 9000,
+      "date": "2026-02-07"
     }
   ],
   "feedback": [
