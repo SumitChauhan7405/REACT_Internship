@@ -1,0 +1,126 @@
+/* ===============================
+   ADMIN NAVBAR BASE
+================================ */
+
+.admin-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  gap: 16px;
+}
+
+/* LEFT */
+.admin-navbar .navbar-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-navbar .search-box {
+  max-width: 420px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f3f4f6;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.admin-navbar .search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+}
+
+/* RIGHT */
+.admin-navbar .navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+/* DATE & TIME */
+.admin-navbar .navbar-datetime {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #e0ecff;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.admin-navbar .navbar-datetime span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* USER */
+.admin-navbar .navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.admin-navbar .navbar-user img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+/* ===============================
+   TABLET (≤ 991px)
+================================ */
+
+@media (max-width: 991px) {
+  .admin-navbar {
+    flex-wrap: wrap;
+  }
+
+  .admin-navbar .navbar-left {
+    width: 100%;
+  }
+
+  .admin-navbar .search-box {
+    max-width: 100%;
+  }
+
+  .admin-navbar .user-info {
+    display: none;
+  }
+}
+
+/* ===============================
+   MOBILE (≤ 767px)
+================================ */
+
+@media (max-width: 767px) {
+  .admin-navbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .admin-navbar .navbar-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .admin-navbar .navbar-datetime {
+    font-size: 12px;
+    padding: 6px 10px;
+    max-width: calc(100% - 48px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

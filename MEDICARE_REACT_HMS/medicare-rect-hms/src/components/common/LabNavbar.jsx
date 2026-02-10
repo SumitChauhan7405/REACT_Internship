@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import "../../assets/css/layout/lab-navbar.css";
 
 import userimg from "../../assets/images/users/admin.jpg";
 
@@ -36,7 +37,7 @@ const LabNavbar = () => {
   };
 
   return (
-    <header className="navbar-emr">
+    <header className="navbar-emr lab-navbar">
       {/* LEFT SECTION */}
       <div className="navbar-left">
         <div className="search-box">
@@ -54,25 +55,15 @@ const LabNavbar = () => {
         {/* 📅 DATE & TIME */}
         <div
           className="navbar-datetime"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "14px",
-            padding: "6px 14px",
-            borderRadius: "999px",
-            background: "#E0ECFF",
-            fontSize: "14px",
-            fontWeight: 500
-          }}
         >
-          <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <span>
             <i className="bi bi-calendar"></i>
             {formattedDate}
           </span>
 
           <span style={{ opacity: 0.6 }}>|</span>
 
-          <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <span>
             <i className="bi bi-clock"></i>
             {formattedTime}
           </span>
@@ -81,7 +72,6 @@ const LabNavbar = () => {
         {/* User */}
         <div
           className="navbar-user"
-          style={{ position: "relative" }}
           onClick={() => setOpen(!open)}
         >
           <img src={userimg} alt="Lab User" />

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import "../../assets/css/layout/doctor-navbar.css";
+
 import doctorImg from "../../assets/images/users/admin.jpg";
 
 const DoctorNavbar = () => {
@@ -35,7 +37,7 @@ const DoctorNavbar = () => {
   };
 
   return (
-    <header className="navbar-emr">
+    <header className="navbar-emr doctor-navbar">
       {/* LEFT */}
       <div className="navbar-left">
         <div className="search-box">
@@ -50,25 +52,15 @@ const DoctorNavbar = () => {
         {/* 📅 DATE & TIME */}
         <div
           className="navbar-datetime"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "14px",
-            padding: "6px 14px",
-            borderRadius: "999px",
-            background: "#E0ECFF",
-            fontSize: "14px",
-            fontWeight: 500
-          }}
         >
-          <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <span>
             <i className="bi bi-calendar"></i>
             {formattedDate}
           </span>
 
           <span style={{ opacity: 0.6 }}>|</span>
 
-          <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <span>
             <i className="bi bi-clock"></i>
             {formattedTime}
           </span>
@@ -78,7 +70,6 @@ const DoctorNavbar = () => {
         <div
           className="navbar-user"
           onClick={() => setOpen(!open)}
-          style={{ position: "relative" }}
         >
           <img src={doctorImg} alt="Doctor" />
           <div className="user-info">
