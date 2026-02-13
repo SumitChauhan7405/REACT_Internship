@@ -168,3 +168,120 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ======================
+   ADMISSIONS TABLE FIX (TABLET & SMALL DESKTOP)
+====================== */
+@media (max-width: 1100px) {
+  .admissions-card {
+    overflow-x: auto;
+  }
+
+  .admissions-table {
+    min-width: 1300px;
+    display: block;
+    white-space: nowrap;
+  }
+}
+
+
+/* ======================
+   ADMISSIONS TABLE – LARGE DESKTOPS
+====================== */
+
+/* Desktop 1600px */
+@media (max-width: 1850px) {
+  .admissions-card {
+    overflow-x: auto;
+  }
+
+  .admissions-table {
+    min-width: 1450px;
+    white-space: nowrap;
+  }
+}
+
+/* Desktop 1440px */
+@media (max-width: 1440px) {
+  .admissions-card {
+    overflow-x: auto;
+  }
+
+  .admissions-table {
+    min-width: 1380px;
+    white-space: nowrap;
+  }
+}
+
+/* Desktop 1366px */
+@media (max-width: 1366px) {
+  .admissions-card {
+    overflow-x: auto;
+  }
+
+  .admissions-table {
+    min-width: 1320px;
+    white-space: nowrap;
+  }
+}
+
+/* Large laptops & small desktops */
+@media (max-width: 1280px) {
+  .admissions-card {
+    overflow-x: auto;
+  }
+
+  .admissions-table {
+    min-width: 1250px;
+    white-space: nowrap;
+  }
+}
+
+/* Small laptops */
+@media (max-width: 1100px) {
+  .admissions-card {
+    overflow-x: auto;
+  }
+
+  .admissions-table {
+    min-width: 1200px;
+    white-space: nowrap;
+  }
+}
+
+/* Tablets landscape */
+@media (max-width: 1024px) {
+  .admissions-card {
+    overflow-x: auto;
+  }
+
+  .admissions-table {
+    min-width: 1150px;
+    white-space: nowrap;
+  }
+}
+
+/* Tablets / large phones landscape */
+@media (max-width: 900px) {
+  .admissions-card {
+    overflow-x: auto;
+  }
+
+  .admissions-table {
+    min-width: 1080px;
+    white-space: nowrap;
+  }
+}
+
+/* Safety buffer before mobile layout */
+@media (max-width: 820px) {
+  .admissions-card {
+    overflow-x: auto;
+  }
+
+  .admissions-table {
+    min-width: 1020px;
+    white-space: nowrap;
+  }
+}
+

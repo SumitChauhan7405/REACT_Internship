@@ -229,3 +229,39 @@
     color: #6b7280;
   }
 }
+
+/* =====================================
+   SURGERIES TABLE RESPONSIVE FIX
+   (Does NOT affect <=768px layout)
+===================================== */
+
+/* Large tablets & small laptops */
+@media (max-width: 1200px) {
+  .surgeries-container {
+    overflow-x: auto;
+  }
+
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .surgeries-container {
+    overflow-x: auto;
+  }
+
+}
+
+/* Small tablets / landscape phones */
+@media (max-width: 900px) {
+  .surgeries-container {
+    overflow-x: auto;
+  }
+
+}
+
+/* Safety layer just before mobile */
+@media (max-width: 820px) {
+  .surgeries-container {
+    overflow-x: auto;
+  }
+}

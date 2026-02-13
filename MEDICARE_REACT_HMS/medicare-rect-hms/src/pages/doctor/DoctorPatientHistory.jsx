@@ -88,8 +88,8 @@ const DoctorPatientHistory = () => {
         doc.setFont("helvetica", "normal");
         doc.setFontSize(9);
         doc.setTextColor(50, 50, 50);
-        doc.text("123 Health Avenue, Medical District, NY 10001", marginLeft + 25, 23);
-        doc.text("Ph: +91 90542-77510 | Email: info@medicare.com", marginLeft + 25, 27);
+        doc.text("150 ft Ring Road, Opp. Om Nagar BRTS, Rajkot, Gujarat.", marginLeft + 25, 23);
+        doc.text("Ph: +91 90542 77510 | Email: info@medicare.com", marginLeft + 25, 27);
 
         doc.setFont("helvetica", "bold");
         doc.setFontSize(14);

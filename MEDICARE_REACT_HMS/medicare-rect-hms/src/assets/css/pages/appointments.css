@@ -1,0 +1,256 @@
+/* ===============================
+   APPOINTMENT TABLE
+================================ */
+
+.appointment-table-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.appointment-table-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.appointment-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.appointment-table th,
+.appointment-table td {
+  padding: 12px;
+  font-size: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* ===============================
+   STATUS BADGES
+================================ */
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status-pending {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.status-confirmed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-cancelled {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ===============================
+   CONFIRM BUTTON
+================================ */
+
+.btn-confirm {
+  background: #16a34a;
+  color: #ffffff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.btn-confirm:hover {
+  background: #15803d;
+}
+
+/* ===============================
+   ICON CONFIRM BUTTON
+================================ */
+
+.icon-btn.confirm {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.icon-btn.confirm:hover {
+  background: #bbf7d0;
+}
+
+/* ===============================
+   ACTION ICON ALIGNMENT
+================================ */
+
+.action-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ===============================
+   TABLE SEARCH BAR
+================================ */
+
+.table-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f9fafb;
+  border: 1px solid var(--border-color);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.table-search i {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.table-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  width: 220px;
+}
+/* ===============================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 900px) {
+  .appointment-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .appointment-table-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .table-search {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .appointment-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .appointment-form-actions {
+    justify-content: center;
+  }
+}
+/* ===============================
+   RESPONSIVE (FIXED)
+================================ */
+
+/* ✅ Tablet & below: allow natural table layout */
+@media (max-width: 900px) {
+  .appointment-table-card {
+    overflow-x: auto;
+  }
+
+  .appointment-table {
+    min-width: 900px; /* 🔥 KEY FIX */
+    white-space: nowrap;
+  }
+
+  .appointment-table-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .table-search {
+    width: 100%;
+  }
+}
+
+/* ✅ Mobile: force scroll */
+@media (max-width: 640px) {
+  .appointment-table {
+    min-width: 720px;
+  }
+}
+
+/* ===============================
+   APPOINTMENTS TABLE – LARGE DESKTOP
+   (Sidebar + content collision zone)
+================================ */
+@media (max-width: 1200px) {
+  .appointment-table-card {
+    overflow-x: auto;
+  }
+
+  .appointment-table {
+    min-width: 1250px;
+    white-space: nowrap;
+  }
+}
+
+/* ===============================
+   APPOINTMENTS TABLE – DESKTOP
+================================ */
+@media (max-width: 1100px) {
+  .appointment-table-card {
+    overflow-x: auto;
+  }
+
+  .appointment-table {
+    min-width: 1150px;
+    white-space: nowrap;
+  }
+}
+
+/* ===============================
+   APPOINTMENTS TABLE – TABLET
+================================ */
+@media (max-width: 900px) {
+  .appointment-table-card {
+    overflow-x: auto;
+  }
+
+  .appointment-table {
+    min-width: 980px;
+    white-space: nowrap;
+  }
+
+  .appointment-table-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .table-search {
+    width: 100%;
+  }
+}
+
+/* Small Tablet */
+@media (max-width: 768px) {
+  .appointment-table {
+    min-width: 900px;
+  }
+}
+
+@media (max-width: 640px) {
+  .appointment-table {
+    min-width: 760px;
+  }
+}

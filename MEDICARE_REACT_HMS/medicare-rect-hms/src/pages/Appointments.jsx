@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../assets/css/components/appointment-form.css";
+import "../assets/css/pages/appointments.css";
 
 import {
   getAppointments,
