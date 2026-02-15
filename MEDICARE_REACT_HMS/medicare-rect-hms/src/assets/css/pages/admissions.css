@@ -184,23 +184,6 @@
   }
 }
 
-
-/* ======================
-   ADMISSIONS TABLE – LARGE DESKTOPS
-====================== */
-
-/* Desktop 1600px */
-@media (max-width: 1850px) {
-  .admissions-card {
-    overflow-x: auto;
-  }
-
-  .admissions-table {
-    min-width: 1450px;
-    white-space: nowrap;
-  }
-}
-
 /* Desktop 1440px */
 @media (max-width: 1440px) {
   .admissions-card {

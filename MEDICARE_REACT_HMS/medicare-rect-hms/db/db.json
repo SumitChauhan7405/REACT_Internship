@@ -784,6 +784,7 @@
       "appointmentId": "WALKIN-PAT-2026-0018",
       "doctorId": "DOC-005",
       "doctorName": "Dr. Meet Kacha",
+      "department": "Neurology",
       "patientId": "PAT-2026-0018",
       "patientName": "John Cena",
       "diagnosis": "too much pain in brain",
@@ -791,8 +792,12 @@
       "consultationFee": 900,
       "medicines": [
         {
-          "name": "",
-          "dosage": ""
+          "name": "AA",
+          "dosage": "1-1-0"
+        },
+        {
+          "name": "STF",
+          "dosage": "0-1-0"
         }
       ],
       "createdAt": "2026-01-28T22:10:56.575Z"

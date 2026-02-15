@@ -1,5 +1,12 @@
+import Login from "./Login";
+
 const Homepage = () => {
-  return <h4>This is public side Homepage</h4>;
+  return (
+    <>
+    {/* Calling the Login component */}
+      <Login/>
+    </>
+  );
 };
 
 export default Homepage;
