@@ -223,6 +223,20 @@
       "status": "CONFIRMED",
       "source": "ONLINE",
       "createdAt": "2026-02-06T13:36:58.433Z"
+    },
+    {
+      "id": "PAT-2026-0025",
+      "firstName": "Alexa",
+      "lastName": "Bliss",
+      "gender": "Female",
+      "age": "27",
+      "phone": "7619430825",
+      "bloodGroup": "O-",
+      "doctorName": "Dr. Krisha Patel",
+      "timing": "EVENING (5:00 - 7:00)",
+      "status": "CONFIRMED",
+      "source": "WALKIN",
+      "createdAt": "2026-02-16T10:31:17.783Z"
     }
   ],
   "doctors": [
@@ -917,6 +931,33 @@
         }
       ],
       "createdAt": "2026-02-06T13:40:14.301Z"
+    },
+    {
+      "id": "CON-2026-0020",
+      "appointmentId": "WALKIN-PAT-2026-0025",
+      "doctorId": "DOC-009",
+      "doctorName": "Dr. Krisha Patel",
+      "department": "Orthopedics",
+      "patientId": "PAT-2026-0025",
+      "patientName": "Alexa Bliss",
+      "diagnosis": "Heavy Pain in Spine",
+      "consultation": "Surgery needed to perform",
+      "consultationFee": 1000,
+      "medicines": [
+        {
+          "name": "mno",
+          "dosage": "1-1-0"
+        },
+        {
+          "name": "api",
+          "dosage": "0-1-0"
+        },
+        {
+          "name": "xyz",
+          "dosage": "0-0-1"
+        }
+      ],
+      "createdAt": "2026-02-16T10:34:17.095Z"
     }
   ],
   "labTestMasters": [
@@ -1373,6 +1414,47 @@
       ],
       "status": "COMPLETED",
       "createdAt": "2026-02-06T13:39:01.813Z"
+    },
+    {
+      "id": "LAB-2026-0018",
+      "consultationId": "CON-2026-0020",
+      "patientId": "PAT-2026-0025",
+      "patientName": "Alexa Bliss",
+      "doctorId": "DOC-009",
+      "doctorName": "Dr. Krisha Patel",
+      "tests": [
+        {
+          "testId": "LT-004",
+          "testName": "X-Ray",
+          "charge": 400
+        },
+        {
+          "testId": "LT-006",
+          "testName": "CT Scan",
+          "charge": 3000
+        },
+        {
+          "testId": "LT-005",
+          "testName": "MRI",
+          "charge": 2500
+        }
+      ],
+      "results": [
+        {
+          "testName": "X-Ray",
+          "result": "Broken Spine"
+        },
+        {
+          "testName": "CT Scan",
+          "result": "Svere Crack"
+        },
+        {
+          "testName": "MRI",
+          "result": "Completed"
+        }
+      ],
+      "status": "COMPLETED",
+      "createdAt": "2026-02-16T10:34:03.012Z"
     }
   ],
   "admissions": [
@@ -1502,6 +1584,18 @@
       "roomCharge": 1500,
       "admissionDate": "2026-02-06",
       "status": "ADMITTED"
+    },
+    {
+      "id": "ADM-012",
+      "patientId": "PAT-2026-0025",
+      "patientName": "Alexa Bliss",
+      "doctorName": "Dr. Krisha Patel",
+      "roomId": "ROOM-003",
+      "roomNumber": "201",
+      "roomType": "DELUXE",
+      "roomCharge": 4000,
+      "admissionDate": "2026-02-16",
+      "status": "ADMITTED"
     }
   ],
   "rooms": [
@@ -1523,7 +1617,7 @@
       "id": "ROOM-003",
       "roomNumber": "201",
       "type": "DELUXE",
-      "status": "AVAILABLE",
+      "status": "OCCUPIED",
       "charge": 4000
     },
     {
@@ -1595,6 +1689,34 @@
       "type": "ICU",
       "status": "AVAILABLE",
       "charge": 4500
+    },
+    {
+      "id": "ROOM-017",
+      "roomNumber": "303",
+      "type": "PRIVATE",
+      "status": "AVAILABLE",
+      "charge": 3000
+    },
+    {
+      "id": "ROOM-018",
+      "roomNumber": "203",
+      "type": "DELUXE",
+      "status": "AVAILABLE",
+      "charge": 4000
+    },
+    {
+      "id": "ROOM-019",
+      "roomNumber": "204",
+      "type": "DELUXE",
+      "status": "AVAILABLE",
+      "charge": 4000
+    },
+    {
+      "id": "ROOM-020",
+      "roomNumber": "304",
+      "type": "PRIVATE",
+      "status": "AVAILABLE",
+      "charge": 3000
     }
   ],
   "vitals": [
@@ -1928,6 +2050,24 @@
       "status": "COMPLETED",
       "notes": "anesthesia and consumables arrenged",
       "createdAt": "2026-02-06T13:42:36.842Z"
+    },
+    {
+      "id": "SUR-2026-0016",
+      "consultationId": "CON-2026-0020",
+      "patientId": "PAT-2026-0025",
+      "patientName": "Alexa Bliss",
+      "doctorId": "DOC-009",
+      "doctorName": "Dr. Krisha Patel",
+      "department": "Orthopedics",
+      "surgeryType": "Hip Replacement",
+      "surgeryMasterId": "SM-007",
+      "surgeryCharge": 200000,
+      "scheduledDate": "2026-02-20",
+      "scheduledTime": "03:00",
+      "operationTheatre": "1003",
+      "status": "COMPLETED",
+      "notes": "All Consumables Are Ready",
+      "createdAt": "2026-02-16T10:40:03.164Z"
     }
   ],
   "discharges": [

@@ -3,13 +3,15 @@ import axios from "axios";
 import {
   getRooms,
   addRoom,
-  deleteRoom
+  deleteRoom,
+  updateRoom
 } from "../services/roomService";
 import "../assets/css/pages/rooms.css";
 
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
   const [admissions, setAdmissions] = useState([]);
+  const [editRoomId, setEditRoomId] = useState(null);
 
   const [form, setForm] = useState({
     roomNumber: "",
@@ -18,9 +20,7 @@ const Rooms = () => {
     charge: ""
   });
 
-  /* ======================
-     LOAD ROOMS + ADMISSIONS
-  ======================= */
+  /* Load Rooms + Admissions */
   const loadRooms = async () => {
     const [roomRes, admRes] = await Promise.all([
       getRooms(),
@@ -35,9 +35,7 @@ const Rooms = () => {
     loadRooms();
   }, []);
 
-  /* ======================
-     FORM HANDLERS
-  ======================= */
+  /*  Form Handelers */
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -52,14 +50,24 @@ const Rooms = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await addRoom({
-      id: generateRoomId(),
+    const payload = {
       ...form,
       charge:
         form.type === "OPERATION_THEATRE"
           ? 0
           : Number(form.charge)
-    });
+    };
+
+    /* Update Logic*/
+    if (editRoomId) {
+      await updateRoom(editRoomId, payload);
+      setEditRoomId(null);
+    } else {
+      await addRoom({
+        id: generateRoomId(),
+        ...payload
+      });
+    }
 
     setForm({
       roomNumber: "",
@@ -78,9 +86,28 @@ const Rooms = () => {
     }
   };
 
-  /* ======================
-     HELPERS
-  ======================= */
+
+  const handleEdit = (room) => {
+    setEditRoomId(room.id);
+    setForm({
+      roomNumber: room.roomNumber,
+      type: room.type,
+      status: room.status,
+      charge: room.charge || ""
+    });
+  };
+
+  const cancelEdit = () => {
+    setEditRoomId(null);
+    setForm({
+      roomNumber: "",
+      type: "",
+      status: "AVAILABLE",
+      charge: ""
+    });
+  };
+
+  /* Helpers */
   const getAssignedPatient = (room) => {
     if (room.type === "OPERATION_THEATRE") {
       return room.patientName || "Not Assigned";
@@ -94,24 +121,18 @@ const Rooms = () => {
     return admission ? admission.patientName : "Not Assigned";
   };
 
-  /* ======================
-     GROUP ROOMS BY TYPE
-  ======================= */
+  /* Grouping Rooms by Type */
   const groupedRooms = rooms.reduce((acc, room) => {
     acc[room.type] = acc[room.type] || [];
     acc[room.type].push(room);
     return acc;
   }, {});
 
-  /* ======================
-     UI
-  ======================= */
   return (
     <div className="page-content">
-      {/* ===== ADD ROOM ===== */}
       <div className="patient-form-card mb-4">
         <div className="form-header">
-          <h4>Add Room</h4>
+          <h4>{editRoomId ? "Edit Room" : "Add Room"}</h4>
         </div>
 
         <form onSubmit={handleSubmit} className="form-grid">
@@ -161,13 +182,23 @@ const Rooms = () => {
           </select>
 
           <button type="submit" className="btn-primary">
-            <i className="bi bi-plus-circle"></i>
-            Add Room
+            <i className={`bi ${editRoomId ? "bi-pencil-square" : "bi-plus-circle"}`}></i>
+            {editRoomId ? "Update Room" : "Add Room"}
           </button>
+
+          {editRoomId && (
+            <button
+              type="button"
+              className="rooms-button btn-secondary"
+              onClick={cancelEdit}
+            >
+              Cancel
+            </button>
+          )}
         </form>
       </div>
 
-      {/* ===== GROUPED ROOM LIST ===== */}
+      {/* Grouping Room List */}
       {Object.keys(groupedRooms).map((type) => (
         <div key={type} className="patient-table-card mb-4">
           <div className="table-header">
@@ -216,6 +247,14 @@ const Rooms = () => {
                     </span>
                   </td>
                   <td>
+
+                    <button
+                      className="icon-btn edit"
+                      onClick={() => handleEdit(room)}
+                    >
+                      <i className="bi bi-pencil-fill"></i>
+                    </button>
+
                     <button
                       className="icon-btn delete"
                       onClick={() => handleDelete(room.id)}

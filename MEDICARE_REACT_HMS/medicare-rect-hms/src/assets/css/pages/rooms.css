@@ -54,6 +54,10 @@
   border-radius: 10px;
 }
 
+.rooms-button{
+  width: 150px;
+}
+
 /* ===============================
    TABLE CARD
 ================================ */
@@ -81,6 +85,7 @@
 table {
   width: 100%;
   border-collapse: collapse;
+  
 }
 
 thead th {
@@ -155,6 +160,11 @@ tbody td.patient-name {
 
 .icon-btn:hover {
   background: #e5e7eb;
+}
+
+.icon-btn.edit {
+  color: #2563eb;
+  margin-right: 6px;
 }
 
 /* ===============================

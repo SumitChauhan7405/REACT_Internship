@@ -44,6 +44,7 @@ import LabDashboard from "../pages/lab/LabDashboard";
 import LabTestMasters from "../pages/LabTestMasters";
 import LabTests from "../pages/lab/LabTests";
 
+import ErrorPage from "../pages/ErrorPage";
 
 const AppRoutes = () => {
   return (
@@ -82,7 +83,7 @@ const AppRoutes = () => {
           <Route path="profile" element={<DoctorProfile />} />
           <Route path="appointments" element={<DoctorAppointments />} />
           <Route path="patients" element={<DoctorAllPatients />} />
-          <Route path="patients/:id/history" element={<DoctorPatientHistory />}/>
+          <Route path="patients/:id/history" element={<DoctorPatientHistory />} />
           <Route path="surgeries" element={<DoctorSurgeries />} />
         </Route>
       </Route>
@@ -95,6 +96,9 @@ const AppRoutes = () => {
           <Route path="lab-tests" element={<LabTests />} />
         </Route>
       </Route>
+
+      {/* ================= 404 NOT FOUND ================= */}
+      <Route path="*" element={<ErrorPage type="404" />} />
 
     </Routes>
   );

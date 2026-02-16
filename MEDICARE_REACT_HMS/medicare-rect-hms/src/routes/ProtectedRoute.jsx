@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import ErrorPage from "../pages/ErrorPage";
 
 const ProtectedRoute = ({ allowedRoles }) => {
   const { user, loading } = useAuth();
@@ -16,7 +17,7 @@ const ProtectedRoute = ({ allowedRoles }) => {
 
   // ❌ Role not allowed
   if (!allowedRoles.includes(user.role)) {
-    return <Navigate to="/login" replace />;
+    return <ErrorPage type="403" />;
   }
 
   // ✅ Access granted
