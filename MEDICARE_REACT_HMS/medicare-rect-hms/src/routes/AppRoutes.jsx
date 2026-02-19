@@ -28,6 +28,7 @@ import Admissions from "../pages/Admissions";
 import SurgeryMasters from "../pages/SurgeryMasters";
 import Surgery from "../pages/Surgery";
 import Discharge from "../pages/Discharge";
+import AllPatients from "../pages/AllPatients";
 import FollowUp from "../pages/FollowUp";
 
 
@@ -72,6 +73,8 @@ const AppRoutes = () => {
           <Route path="surgery-masters" element={<SurgeryMasters />} />
           <Route path="surgery" element={<Surgery />} />
           <Route path="discharge" element={<Discharge />} />
+          <Route path="allpatients" element={<AllPatients />} />
+          <Route path="patients/:id/history" element={<DoctorPatientHistory />} />
           <Route path="followup" element={<FollowUp />} />
         </Route>
       </Route>

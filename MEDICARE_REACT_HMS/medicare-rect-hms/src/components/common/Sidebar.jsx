@@ -78,6 +78,12 @@ const Sidebar = () => {
           <span>Billing</span>
         </NavLink>
 
+        {/* Patient History */}
+        <NavLink to="/admin/allpatients" className="menu-item">
+          <i className="bi bi-list-task"></i>
+          <span>All Patients</span>
+        </NavLink>
+
         {/* FOLLOW UP */}
         <NavLink to="/admin/followup" className="menu-item">
           <i className="bi bi-arrow-repeat"></i>
