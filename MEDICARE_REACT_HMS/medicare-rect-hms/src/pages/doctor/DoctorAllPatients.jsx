@@ -49,14 +49,28 @@ const DoctorAllPatients = () => {
           <span>Department-wise patient directory</span>
         </div>
 
-        <div className="patient-search-box">
+        <div
+          className="patient-search-box"
+          style={{ position: "relative" }}
+        >
           <input
             type="text"
             placeholder="Search patient..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            style={{ paddingRight: "35px" }}
           />
-          <i className="bi bi-search"></i>
+
+          <i
+            className="bi bi-search"
+            style={{
+              position: "absolute",
+              right: "10px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              pointerEvents: "none"
+            }}
+          ></i>
         </div>
       </div>
 
