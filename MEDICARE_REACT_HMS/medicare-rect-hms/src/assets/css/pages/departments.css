@@ -1,0 +1,141 @@
+/* ===============================
+   DEPARTMENTS PAGE ONLY
+   =============================== */
+
+.department-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===== CARD ===== */
+.department-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* ===== HEADER ===== */
+.department-card .form-header h5 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.department-card .form-header p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ===== FORM ===== */
+.department-form {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.department-form input {
+  width: 500px;           /* ✅ shorter input */
+  max-width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
+
+.department-form input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.department-form button {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.department-form button:hover {
+  background: #1e40af;
+}
+
+/* ===== TABLE HEADER ===== */
+.department-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.department-table-header h6 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.department-table-header span {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ===== TABLE (SCOPED) ===== */
+.department-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.department-table thead th {
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.department-table tbody td {
+  padding: 12px;
+  font-size: 14px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.department-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* ===== ACTION BUTTONS ===== */
+.department-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.department-actions button {
+  background: #f3f4f6;          /* ✅ card background */
+  border: none;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.department-actions button:hover {
+  background: #e5e7eb;
+}
+
+.department-actions i {
+  font-size: 15px;
+}
+
+/* ===== NO DATA ===== */
+.department-no-data {
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: #6b7280;
+}

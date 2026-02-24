@@ -18,6 +18,7 @@ import DoctorDetails from "../pages/public/DoctorDetails";
 
 /* Admin Pages */
 import Dashboard from "../pages/Dashboard";
+import Departments from "../pages/Departments";
 import Doctors from "../pages/Doctors";
 import Patients from "../pages/Patients";
 import Appointments from "../pages/Appointments";
@@ -63,6 +64,7 @@ const AppRoutes = () => {
       <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="departments" element={<Departments />} />
           <Route path="doctors" element={<Doctors />} />
           <Route path="patients" element={<Patients />} />
           <Route path="appointments" element={<Appointments />} />

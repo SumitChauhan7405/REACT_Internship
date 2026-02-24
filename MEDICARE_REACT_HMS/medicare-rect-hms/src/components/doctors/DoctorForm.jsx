@@ -4,6 +4,7 @@ import {
   addDoctor,
   updateDoctor
 } from "../../services/doctorService";
+import { getDepartments } from "../../services/departmentService";
 import "../../assets/css/components/doctor-form.css";
 
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -13,6 +14,12 @@ const OPD_TIMINGS = [
 ];
 
 const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
+
+  /* ===============================
+     ✅ NEW STATE (DEPARTMENTS)
+  ================================ */
+  const [departments, setDepartments] = useState([]);
+
   const [form, setForm] = useState({
     name: "",
     department: "",
@@ -25,6 +32,18 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
     about: "",
     languages: []
   });
+
+  /* ===============================
+     ✅ LOAD DEPARTMENTS (NEW)
+  ================================ */
+  useEffect(() => {
+    loadDepartments();
+  }, []);
+
+  const loadDepartments = async () => {
+    const res = await getDepartments();
+    setDepartments(res.data);
+  };
 
   /* ===============================
      PREFILL EDIT
@@ -42,7 +61,6 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
         image: editDoctor.image || "",
         about: editDoctor.about || "",
         languages: editDoctor.languages || []
-
       });
     }
   }, [editDoctor]);
@@ -79,8 +97,8 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
   };
 
   /* ===============================
-   LANGUAGES HANDLER (NEW)
-================================ */
+     LANGUAGES HANDLER
+  =============================== */
   const toggleLanguage = (lang) => {
     setForm((prev) => ({
       ...prev,
@@ -89,7 +107,6 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
         : [...prev.languages, lang]
     }));
   };
-
 
   /* ===============================
      DOCTOR ID GENERATION
@@ -104,25 +121,22 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
   };
 
   /* ===============================
-   CREDENTIALS (UPDATED)
-   firstname.lastname@medicare.com
-================================ */
+     CREDENTIALS
+  =============================== */
   const generateCredentials = (name) => {
     const parts = name.trim().toLowerCase().split(" ");
-
     const firstName = parts[0];
     const lastName = parts.length > 1 ? parts[parts.length - 1] : "";
 
     const email = lastName
       ? `${firstName}.${lastName}@medicare.com`
-      : `${firstName}@medicare.com`; // fallback safety
+      : `${firstName}@medicare.com`;
 
     return {
       email,
       password: `${firstName}@123`
     };
   };
-
 
   /* ===============================
      SUBMIT
@@ -156,7 +170,6 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
       image: form.image,
       about: form.about,
       languages: form.languages
-
     };
 
     if (editDoctor) {
@@ -180,7 +193,6 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
       image: "",
       about: "",
       languages: []
-
     });
   };
 
@@ -212,12 +224,11 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
             required
           >
             <option value="">Select</option>
-            <option>Cardiology</option>
-            <option>Orthopedics</option>
-            <option>Neurology</option>
-            <option>Radiology</option>
-            <option>ENT</option>
-            <option>General Medicine</option>
+            {departments.map((dept) => (
+              <option key={dept.id} value={dept.name}>
+                {dept.name}
+              </option>
+            ))}
           </select>
         </div>
 

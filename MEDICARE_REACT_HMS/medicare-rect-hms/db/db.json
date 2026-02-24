@@ -525,6 +525,98 @@
         "Gujarati"
       ],
       "id": "DOC-012"
+    },
+    {
+      "id": "DOC-013",
+      "name": "Dr. Odette Nelson",
+      "email": "odette.nelson@medicare.com",
+      "password": "odette@123",
+      "department": "Sumit5120",
+      "experience": 29,
+      "education": "Nam dignissimos susc",
+      "availableDays": [
+        "Tue",
+        "Fri"
+      ],
+      "timeSlots": [
+        "10:00-12:00"
+      ],
+      "consultationFee": 71,
+      "image": "doc1.png",
+      "about": "Mollit recusandae A",
+      "languages": [
+        "English",
+        "Hindi",
+        "Gujarati",
+        "Marathi",
+        "Tamil"
+      ]
+    },
+    {
+      "id": "DOC-014",
+      "name": "Dr. Dhruvisha Dhulkotiya",
+      "email": "dhruvisha.dhulkotiya@medicare.com",
+      "password": "dhruvisha@123",
+      "department": "General Medicine",
+      "experience": 17,
+      "education": "MBBS, MD",
+      "availableDays": [
+        "Tue",
+        "Mon",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat"
+      ],
+      "timeSlots": [
+        "10:00-12:00",
+        "5:00-7:00"
+      ],
+      "consultationFee": 450,
+      "image": "doc1.png",
+      "about": "Dhruvisha Dhulkotiya is a specialist General Medicine Doctor. Dhruvisha has 17 years of experience in this field and she is a very professional Doctor.",
+      "languages": [
+        "Gujarati",
+        "Hindi",
+        "English"
+      ]
+    }
+  ],
+  "departments": [
+    {
+      "id": "DEPT-2026-0001",
+      "name": "Cardiology",
+      "createdAt": "2026-02-24T10:00:00.000Z"
+    },
+    {
+      "id": "DEPT-2026-0002",
+      "name": "Orthopedics",
+      "createdAt": "2026-02-24T10:05:00.000Z"
+    },
+    {
+      "id": "DEPT-2026-0003",
+      "name": "Neurology",
+      "createdAt": "2026-02-24T10:10:00.000Z"
+    },
+    {
+      "id": "DEPT-2026-0004",
+      "name": "Radiology",
+      "createdAt": "2026-02-24T10:15:00.000Z"
+    },
+    {
+      "id": "DEPT-2026-0005",
+      "name": "ENT",
+      "createdAt": "2026-02-24T10:20:00.000Z"
+    },
+    {
+      "id": "DEPT-2026-0006",
+      "name": "General Medicine",
+      "createdAt": "2026-02-24T10:25:00.000Z"
+    },
+    {
+      "id": "DEPT-2026-0007",
+      "name": "Sumit5120",
+      "createdAt": "2026-02-24T07:33:57.382Z"
     }
   ],
   "appointments": [

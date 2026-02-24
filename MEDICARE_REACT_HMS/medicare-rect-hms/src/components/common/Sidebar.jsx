@@ -3,34 +3,46 @@ import logo from "../../assets/images/logo/MediCare_Logo.png";
 
 const Sidebar = () => {
   return (
-    <aside className="sidebar-modern">
+    <aside className="sidebar-modern" style={{
+      height: "100vh",
+      overflow: "hidden"
+    }}>
       {/* Logo */}
       <div className="sidebar-brand">
         <img src={logo} alt="MediCare Logo" className="sidebar-logo" />
       </div>
 
       {/* Menu */}
-      <nav className="sidebar-menu">
+      <nav className="sidebar-menu" style={{
+        overflow: "hidden",
+        height: "100%"
+      }}>
 
-        {/* ✅ DASHBOARD */}
+        {/* DASHBOARD */}
         <NavLink to="/admin/dashboard" className="menu-item">
           <i className="bi bi-speedometer2"></i>
           <span>Dashboard</span>
         </NavLink>
 
-        {/* ✅ PATIENTS */}
+        {/* PATIENTS */}
         <NavLink to="/admin/patients" className="menu-item">
           <i className="bi bi-people"></i>
           <span>Patients</span>
         </NavLink>
 
-        {/* ✅ APPOINTMENTS */}
+        {/* APPOINTMENTS */}
         <NavLink to="/admin/appointments" className="menu-item">
           <i className="bi bi-calendar-check"></i>
           <span>Appointments</span>
         </NavLink>
 
-        {/* ✅ DOCTORS (THIS WAS MISSING / WRONG) */}
+        {/* Deprtments*/}
+        <NavLink to="/admin/departments" className="menu-item">
+          <i className="bi bi-diagram-3"></i>
+          <span>Departments</span>
+        </NavLink>
+
+        {/* DOCTORS */}
         <NavLink to="/admin/doctors" className="menu-item">
           <i className="bi bi-person-badge"></i>
           <span>Doctors</span>
