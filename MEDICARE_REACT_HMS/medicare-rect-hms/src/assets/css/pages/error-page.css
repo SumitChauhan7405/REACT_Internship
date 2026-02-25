@@ -7,9 +7,9 @@
 /* =========================================
    SCOPED WRAPPER
 ========================================= */
-.medcore-error-page {
+.medicare-error-page {
   font-family: 'Inter', sans-serif;
-  background-color: #f6f7f8; /* background-light */
+  background-color: #f6f7f8;
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -19,82 +19,72 @@
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  color: #1e293b; /* slate-800 default text */
+  color: #1e293b;
 }
 
-.medcore-error-page * {
+.medicare-error-page * {
   box-sizing: border-box;
 }
 
 /* =========================================
    HEADER
 ========================================= */
-.medcore-error-page header {
+.medicare-error-page header {
   width: 100%;
-  padding: 2rem 0; /* py-8 */
+  padding: 2rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.medcore-error-page .header-content {
+.medicare-error-page .header-content {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* space-x-2 */
 }
 
-.medcore-error-page .logo-icon-box {
-  width: 2.5rem; /* w-10 */
-  height: 2.5rem; /* h-10 */
-  background-color: #42b6f0; /* primary */
-  border-radius: 0.5rem; /* rounded-lg */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 10px 15px -3px rgba(66, 182, 240, 0.2); /* shadow-lg shadow-primary/20 */
+.medicare-error-page .header-logo-img {
+  height: 2.5rem;
+  width: auto;
+  margin-right: 0.75rem; 
+  border-radius: 0.25rem;
 }
 
-.medcore-error-page .logo-icon-box .material-icons {
-  color: white;
-  font-size: 1.5rem; /* text-2xl */
-}
-
-.medcore-error-page h1 {
-  font-size: 1.5rem; /* text-2xl */
-  font-weight: 700; /* font-bold */
-  color: #1e293b; /* slate-800 */
-  letter-spacing: -0.025em; /* tracking-tight */
+.medicare-error-page h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  letter-spacing: -0.025em;
   margin: 0;
 }
 
-.medcore-error-page h1 span {
-  color: #42b6f0; /* text-primary */
+.medicare-error-page h1 span {
+  color: #42b6f0;
 }
 
-.medcore-error-page .header-tagline {
-  color: #64748b; /* text-slate-500 */
-  font-size: 0.875rem; /* text-sm */
+.medicare-error-page .header-tagline {
+  color: #64748b;
+  font-size: 0.875rem;
   margin-top: 0.25rem;
   font-weight: 500;
-  letter-spacing: 0.025em; /* tracking-wide */
+  letter-spacing: 0.025em;
 }
 
 /* =========================================
    MAIN CONTENT
 ========================================= */
-.medcore-error-page main {
+.medicare-error-page main {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 1.5rem; /* px-6 */
+  padding: 0 1.5rem;
   width: 100%;
-  max-width: 72rem; /* max-w-6xl */
+  max-width: 72rem;
 }
 
-.medcore-error-page .content-grid {
+.medicare-error-page .content-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
@@ -103,31 +93,31 @@
 }
 
 @media (min-width: 768px) {
-  .medcore-error-page .content-grid {
-    grid-template-columns: repeat(2, 1fr); /* md:grid-cols-2 */
+  .medicare-error-page .content-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /* Illustration Side */
-.medcore-error-page .illustration-container {
+.medicare-error-page .illustration-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.medcore-error-page .illustration-circle {
+.medicare-error-page .illustration-circle {
   position: relative;
   width: 100%;
-  max-width: 28rem; /* max-w-md */
+  max-width: 28rem;
   aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  background: radial-gradient(circle, rgba(66, 182, 240, 0.1) 0%, rgba(246, 247, 248, 0) 70%); /* illustration-bg */
+  background: radial-gradient(circle, rgba(66, 182, 240, 0.1) 0%, rgba(246, 247, 248, 0) 70%);
 }
 
-.medcore-error-page .icon-split-layout {
+.medicare-error-page .icon-split-layout {
   position: relative;
   display: flex;
   align-items: center;
@@ -136,153 +126,153 @@
   height: 100%;
 }
 
-.medcore-error-page .icon-left,
-.medcore-error-page .icon-right {
+.medicare-error-page .icon-left,
+.medicare-error-page .icon-right {
   width: 50%;
   display: flex;
   position: relative;
 }
 
-.medcore-error-page .icon-left {
+.medicare-error-page .icon-left {
   justify-content: flex-end;
   padding-right: 1rem;
 }
 
-.medcore-error-page .icon-right {
+.medicare-error-page .icon-right {
   justify-content: flex-start;
   padding-left: 1rem;
 }
 
-.medcore-error-page .split-line {
-  height: 6rem; /* h-24 */
+.medicare-error-page .split-line {
+  height: 6rem;
   width: 1px;
-  background-color: #e2e8f0; /* bg-slate-200 */
+  background-color: #e2e8f0;
 }
 
-.medcore-error-page .icon-wrapper {
+.medicare-error-page .icon-wrapper {
   position: relative;
 }
 
-.medcore-error-page .glow-effect {
+.medicare-error-page .glow-effect {
   position: absolute;
   inset: -1rem;
-  background-color: rgba(66, 182, 240, 0.1); /* bg-primary/10 */
-  filter: blur(24px); /* blur-xl */
+  background-color: rgba(66, 182, 240, 0.1);
+  filter: blur(24px);
   border-radius: 9999px;
 }
 
-.medcore-error-page .large-icon {
-  font-size: 4.5rem; /* text-7xl */
+.medicare-error-page .large-icon {
+  font-size: 4.5rem;
   position: relative;
 }
 
 @media (min-width: 1024px) {
-  .medcore-error-page .large-icon {
-    font-size: 6rem; /* lg:text-8xl */
+  .medicare-error-page .large-icon {
+    font-size: 6rem;
   }
 }
 
-.medcore-error-page .icon-lock {
-  color: #42b6f0; /* text-primary/40 */
+.medicare-error-page .icon-lock {
+  color: #42b6f0;
 }
 
-.medcore-error-page .icon-search {
-  color: #42b6f0; /* text-primary */
+.medicare-error-page .icon-search {
+  color: #42b6f0;
 }
 
-.medcore-error-page .code-badge {
+.medicare-error-page .code-badge {
   position: absolute;
   top: 0;
   background-color: white;
   border-radius: 9999px;
   padding: 0.5rem;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
-  border: 1px solid #f1f5f9; /* border-slate-100 */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f5f9;
   font-size: 10px;
   font-weight: 700;
-  color: #42b6f0; /* text-primary */
+  color: #42b6f0;
   line-height: 1;
 }
 
-.medcore-error-page .badge-right { right: 0; }
-.medcore-error-page .badge-left { left: 0; }
+.medicare-error-page .badge-right { right: 0; }
+.medicare-error-page .badge-left { left: 0; }
 
 /* Text Side */
-.medcore-error-page .text-content {
+.medicare-error-page .text-content {
   text-align: left;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.medcore-error-page h2 {
-  font-size: 1.875rem; /* text-3xl */
-  font-weight: 700; /* font-bold */
-  color: #1e293b; /* slate-800 */
-  margin-bottom: 1rem; /* mb-4 */
+.medicare-error-page h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1rem;
   margin-top: 0;
 }
 
 @media (min-width: 1024px) {
-  .medcore-error-page h2 {
-    font-size: 2.25rem; /* lg:text-4xl */
+  .medicare-error-page h2 {
+    font-size: 2.25rem;
   }
 }
 
-.medcore-error-page p {
-  color: #475569; /* text-slate-600 */
-  font-size: 1.125rem; /* text-lg */
-  line-height: 1.625; /* leading-relaxed */
-  margin-bottom: 2rem; /* mb-8 */
+.medicare-error-page p {
+  color: #475569;
+  font-size: 1.125rem;
+  line-height: 1.625;
+  margin-bottom: 2rem;
   margin-top: 0;
 }
 
-.medcore-error-page .gradient-btn {
+.medicare-error-page .gradient-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem 2.5rem; /* px-10 py-4 */
+  padding: 1rem 2.5rem; 
   background: linear-gradient(135deg, #42b6f0 0%, #a0e4ff 100%);
   color: white;
   font-weight: 600;
-  border-radius: 0.5rem; /* rounded-lg */
-  box-shadow: 0 10px 15px -3px rgba(66, 182, 240, 0.3); /* shadow-lg shadow-primary/30 */
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(66, 182, 240, 0.3);
   text-decoration: none;
   transition: all 0.3s ease;
   border: none;
   cursor: pointer;
 }
 
-.medcore-error-page .gradient-btn:hover {
+.medicare-error-page .gradient-btn:hover {
   opacity: 0.9;
   box-shadow: 0 20px 25px -5px rgba(66, 182, 240, 0.4);
   transform: scale(1.02);
 }
 
-.medcore-error-page .gradient-btn:active {
+.medicare-error-page .gradient-btn:active {
   transform: scale(0.95);
 }
 
-.medcore-error-page .btn-icon {
+.medicare-error-page .btn-icon {
   margin-right: 0.5rem;
-  font-size: 1.25rem; /* text-xl */
+  font-size: 1.25rem;
 }
 
 /* =========================================
    FOOTER
 ========================================= */
-.medcore-error-page footer {
+.medicare-error-page footer {
   width: 100%;
-  padding: 2.5rem 0; /* py-10 */
+  padding: 2.5rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.medcore-error-page .copyright {
-  margin-top: 1.5rem; /* mt-6 */
+.medicare-error-page .copyright {
+  margin-top: 1.5rem;
   font-size: 11px;
-  color: #94a3b8; /* text-slate-400 */
+  color: #94a3b8;
   text-transform: uppercase;
-  letter-spacing: 0.2em; /* tracking-[0.2em] */
+  letter-spacing: 0.2em;
 }

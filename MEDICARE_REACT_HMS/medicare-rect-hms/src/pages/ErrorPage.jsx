@@ -1,18 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Assuming you use react-router
+import { Link } from "react-router-dom";
 import "../assets/css/pages/error-page.css";
+import medicareLogo from "../assets/images/logo/MediCare_Plus_Logo.png";
 
 const ErrorPage = () => {
   return (
-    <div className="medcore-error-page">
+    <div className="medicare-error-page">
       {/* Header */}
       <header>
         <div className="header-content">
-          <div className="logo-icon-box">
-            <span className="material-icons">medical_services</span>
-          </div>
+          <img
+            src={medicareLogo}
+            alt="Medicare Logo"
+            className="header-logo-img"
+          />
           <h1>
-            Medicare <span>HMS</span>
+            MediCare <span>HMS</span>
           </h1>
         </div>
         <p className="header-tagline">Your Health, Our Promise</p>
@@ -73,7 +76,7 @@ const ErrorPage = () => {
       {/* Footer */}
       <footer>
         <p className="copyright">
-          © 2024 Medicare Hospital Management System. All Rights Reserved.
+          © 2026 Medicare Hospital Management System. All Rights Reserved.
         </p>
       </footer>
     </div>
