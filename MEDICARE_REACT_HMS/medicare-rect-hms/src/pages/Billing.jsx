@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 import "../assets/css/pages/billing.css";
 
 const Billing = () => {
@@ -11,7 +11,6 @@ const Billing = () => {
   const [selectedBill, setSelectedBill] = useState(null);
   const [viewBill, setViewBill] = useState(null);
 
-  /* 🔍 FILTER STATES */
   const [searchPatient, setSearchPatient] = useState("");
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
@@ -23,9 +22,6 @@ const Billing = () => {
 
   const billRef = useRef();
 
-  /* ======================
-     LOAD DATA
-  ======================= */
   const loadData = async () => {
     const [billRes, payRes] = await Promise.all([
       axios.get("http://localhost:5000/bills"),
@@ -40,9 +36,6 @@ const Billing = () => {
     loadData();
   }, []);
 
-  /* ======================
-     HELPERS (UPDATED)
-  ======================= */
   const getPaidAmount = (billId) => {
     const bill = bills.find(b => b.id === billId);
     if (bill?.amountPaid !== undefined) {
@@ -61,9 +54,6 @@ const Billing = () => {
     return bill.totalAmount - getPaidAmount(bill.id);
   };
 
-  /* ======================
-     FILTERED BILLS
-  ======================= */
   const filteredBills = bills.filter((bill) => {
     const patientMatch = (bill.patientName || "")
       .toLowerCase()
@@ -77,9 +67,6 @@ const Billing = () => {
     return patientMatch && fromMatch && toMatch;
   });
 
-  /* ======================
-     ADD PAYMENT (FIXED)
-  ======================= */
   const handleAddPayment = async () => {
     if (!paymentForm.amount || paymentForm.amount <= 0) {
       alert("Enter valid payment amount");
@@ -89,25 +76,16 @@ const Billing = () => {
     const paymentId = `PAY-${String(payments.length + 1).padStart(4, "0")}`;
     const amount = Number(paymentForm.amount);
 
-    /* ======================
-       SAVE PAYMENT (with patient info)
-    ======================= */
     await axios.post("http://localhost:5000/payments", {
       id: paymentId,
       billId: selectedBill.id,
-
-      // 🔥 NEW
       patientId: selectedBill.patientId,
       patientName: selectedBill.patientName,
-
       mode: paymentForm.mode,
       amount,
       date: new Date().toISOString().split("T")[0]
     });
 
-    /* ======================
-       UPDATE BILL TOTALS
-    ======================= */
     const alreadyPaid = getPaidAmount(selectedBill.id);
     const newPaidAmount = alreadyPaid + amount;
     const remainingAmount = selectedBill.totalAmount - newPaidAmount;
@@ -135,28 +113,188 @@ const Billing = () => {
     loadData();
   };
 
-  /* ======================
-     DOWNLOAD PDF
-  ======================= */
-  const downloadPDF = async () => {
-    const element = billRef.current;
-    const canvas = await html2canvas(element, { scale: 2 });
-    const imgData = canvas.toDataURL("image/png");
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+    const marginLeft = 14;
+    const marginRight = 196;
+    const pageWidth = doc.internal.pageSize.width;
+    const contentWidth = pageWidth - (marginLeft * 2);
 
-    const pdf = new jsPDF("p", "mm", "a4");
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    const logo = require("../assets/images/logo/MediCare_Plus_Logo.png");
+    
+    doc.addImage(logo, "PNG", marginLeft, 10, 20, 20);
 
-    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-    pdf.save(`${viewBill.patientName}_Bill.pdf`);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.setTextColor(29, 78, 216); 
+    doc.text("MEDICARE HOSPITAL", marginLeft + 25, 18);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(50, 50, 50);
+    doc.text("150 ft Ring Road, Opp. Om Nagar BRTS, Rajkot, Gujarat.", marginLeft + 25, 23);
+    doc.text("Ph: +91 90542 77510 | Email: info@medicare.com", marginLeft + 25, 27);
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+    doc.text("PATIENT BILLING INVOICE", marginRight, 18, { align: "right" });
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.text(`Date: ${new Date(viewBill.billDate).toLocaleDateString()}`, marginRight, 25, { align: "right" });
+
+    doc.setDrawColor(0);
+    doc.setLineWidth(0.5);
+    doc.line(marginLeft, 34, marginRight, 34);
+
+    const boxTopY = 40;
+    const boxHeight = 26;
+    
+    doc.setDrawColor(0);
+    doc.setLineWidth(0.1);
+    doc.rect(marginLeft, boxTopY, contentWidth, boxHeight);
+
+    const drawField = (label, value, x, y) => {
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(9);
+        doc.text(`${label}:`, x, y);
+        
+        doc.setFont("helvetica", "normal");
+        doc.text(`${value || "N/A"}`, x + 30, y); 
+    };
+
+    const col1X = marginLeft + 5;
+    const col2X = marginLeft + 100;
+    let currentY = boxTopY + 7;
+    const rowGap = 7;
+
+    drawField("Bill ID", viewBill.id, col1X, currentY);
+    drawField("Admission Date", viewBill.admissionDate, col2X, currentY);
+
+    currentY += rowGap;
+    drawField("Patient Name", viewBill.patientName, col1X, currentY);
+    drawField("Discharge Date", viewBill.dischargeDate, col2X, currentY);
+
+    currentY += rowGap;
+    drawField("Doctor Name", viewBill.doctorName, col1X, currentY);
+
+    // --- Status Pill Rendering ---
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Payment Status:", col2X, currentY);
+
+    const statusText = viewBill.status || "UNPAID";
+    let pillColor = [254, 226, 226]; // Light Red (danger)
+    let textColor = [153, 27, 27];   // Dark Red
+
+    if (statusText === "PAID") {
+        pillColor = [220, 252, 231]; // Light Green (success)
+        textColor = [22, 101, 52];   // Dark Green
+    }
+
+    const pillX = col2X + 30;
+    const pillY = currentY - 4;
+    const pillW = 22;
+    const pillH = 5.5;
+
+    doc.setFillColor(...pillColor);
+    doc.roundedRect(pillX, pillY, pillW, pillH, 1.5, 1.5, "F");
+    
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8);
+    doc.setTextColor(...textColor);
+    doc.text(statusText, pillX + (pillW / 2), currentY, { align: "center" });
+    
+    doc.setTextColor(0, 0, 0); // Reset text color
+
+    let finalY = boxTopY + boxHeight + 10;
+
+    // Replace ₹ with Rs. to fix jsPDF font rendering issues
+    const tableBody = [
+        [
+            "Room", 
+            `Room Charges [${viewBill.room?.roomType || '-'} - Rs. ${viewBill.room?.dailyCharge || 0}] (Rs. ${viewBill.room?.dailyCharge || 0} × ${viewBill.room?.stayDays || 0} day(s))`, 
+            `${viewBill.room?.totalRoomCharge || 0}`,
+            `${viewBill.room?.totalRoomCharge || 0}`
+        ],
+        [
+            "Consultation", 
+            "Doctor Consultation", 
+            `${viewBill.consultationCharge || 0}`,
+            `${viewBill.consultationCharge || 0}`
+        ],
+        [
+            "Surgery", 
+            "Surgical Procedure", 
+            `${viewBill.surgeryCharge || 0}`,
+            `${viewBill.surgeryCharge || 0}`
+        ]
+    ];
+
+    if (viewBill.labTests && viewBill.labTests.length > 0) {
+        viewBill.labTests.forEach(t => {
+            tableBody.push([
+                "Lab Test", 
+                t.testName, 
+                `${t.charge || 0}`,
+                `${t.charge || 0}`
+            ]);
+        });
+    }
+
+    tableBody.push([
+        { content: "Subtotal", colSpan: 3, styles: { halign: 'right', fontStyle: 'bold' } }, 
+        { content: `Rs. ${viewBill.subtotal || 0}`, styles: { fontStyle: 'bold' } }
+    ]);
+
+    tableBody.push([
+        { content: `GST (${viewBill.gstRate || 5}%)`, colSpan: 3, styles: { halign: 'right', fontStyle: 'bold' } }, 
+        { content: `${viewBill.gstAmount || 0}`, styles: { fontStyle: 'bold' } }
+    ]);
+
+    tableBody.push([
+        { content: "Total Amount", colSpan: 3, styles: { halign: 'right', fontStyle: 'bold', fillColor: [240, 240, 240] } }, 
+        { content: `Rs. ${viewBill.totalAmount || 0}`, styles: { fontStyle: 'bold', fillColor: [240, 240, 240] } }
+    ]);
+
+    autoTable(doc, {
+        startY: finalY,
+        theme: "grid",
+        head: [["Service", "Description", "Amount (Rs.)", "Total Amount (Rs.)"]],
+        body: tableBody,
+        headStyles: {
+            fillColor: [240, 240, 240],
+            textColor: 0,
+            fontStyle: "bold",
+            lineColor: 200,
+            lineWidth: 0.1
+        },
+        bodyStyles: { textColor: 0, lineColor: 200, lineWidth: 0.1 },
+        styles: { fontSize: 9, cellPadding: 3 },
+    });
+
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        const pageHeight = doc.internal.pageSize.height;
+        doc.setDrawColor(0);
+        doc.setLineWidth(0.5);
+        doc.line(marginLeft, pageHeight - 20, marginRight, pageHeight - 20);
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "normal");
+        doc.text("* This is a computer-generated invoice and does not require a physical signature.", marginLeft, pageHeight - 14);
+        doc.text("* Confidential Medical Record - For authorized personnel only.", marginLeft, pageHeight - 10);
+        doc.setFont("helvetica", "bold");
+        doc.text("Authorized Signatory", marginRight, pageHeight - 14, { align: "right" });
+    }
+
+    doc.save(`${viewBill.patientName}_Bill.pdf`);
   };
 
-  /* ======================
-     UI
-  ======================= */
   return (
     <div className="page-content">
-      {/* ===== FILTER BAR ===== */}
       <div className="patient-table-card">
         <div className="table-header">
           <h4>Billing History</h4>
@@ -249,7 +387,6 @@ const Billing = () => {
         </table>
       </div>
 
-      {/* ===== PAYMENT PANEL ===== */}
       {selectedBill && (
         <div className="patient-table-card" style={{ marginTop: 20 }}>
           <h4>Add Payment</h4>
@@ -291,40 +428,42 @@ const Billing = () => {
         </div>
       )}
 
-      {/* ===== BILL VIEW / INVOICE ===== */}
       {viewBill && (
         <div className="patient-table-card" style={{ marginTop: 20 }}>
           <div ref={billRef} className="invoice-wrapper">
 
             <div className="invoice-header">
               <img
-                src={require("../assets/images/logo/MediCare_Logo.png")}
+                src={require("../assets/images/logo/MediCare_Plus_Logo.png")}
                 alt="Medicare"
                 className="invoice-logo"
               />
               <div className="invoice-title">
-                <h2>Medicare Hospital</h2>
-                <p>Patient Billing Invoice</p>
+                <h2>MEDICARE HOSPITAL</h2>
+                <p>150 ft Ring Road, Opp. Om Nagar BRTS, Rajkot, Gujarat.</p>
+                <p>Ph: +91 90542 77510 | Email: info@medicare.com</p>
+              </div>
+              <div className="invoice-title-right" style={{ marginLeft: "auto", textAlign: "right" }}>
+                <h3 style={{ margin: 0 }}>PATIENT BILLING INVOICE</h3>
+                <p style={{ margin: 0, fontSize: "14px", color: "#555" }}>
+                  Date: {new Date(viewBill.billDate).toLocaleDateString()}
+                </p>
               </div>
             </div>
 
-            <hr />
+            <hr style={{ margin: "20px 0", border: "1px solid #000" }} />
 
-            <div className="invoice-info">
+            <div className="invoice-info-box" style={{ border: "1px solid #ccc", padding: "15px", display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>
               <div>
                 <p><strong>Bill ID:</strong> {viewBill.id}</p>
-                <p><strong>Patient:</strong> {viewBill.patientName}</p>
-                <p><strong>Doctor:</strong> {viewBill.doctorName}</p>
-                <p><strong>Admission Date:</strong> {viewBill.admissionDate}</p>
-                <p><strong>Discharge Date:</strong> {viewBill.dischargeDate}</p>
+                <p><strong>Patient Name:</strong> {viewBill.patientName}</p>
+                <p><strong>Doctor Name:</strong> {viewBill.doctorName}</p>
               </div>
               <div>
+                <p><strong>Admission Date:</strong> {viewBill.admissionDate}</p>
+                <p><strong>Discharge Date:</strong> {viewBill.dischargeDate}</p>
                 <p>
-                  <strong>Date:</strong>{" "}
-                  {new Date(viewBill.billDate).toDateString()}
-                </p>
-                <p>
-                  <strong>Status:</strong>{" "}
+                  <strong>Payment Status:</strong>{" "}
                   <span className={`badge ${viewBill.status === "PAID" ? "male" : "female"}`}>
                     {viewBill.status}
                   </span>
@@ -338,6 +477,7 @@ const Billing = () => {
                   <th>Service</th>
                   <th>Description</th>
                   <th>Amount (₹)</th>
+                  <th>Total Amount (₹)</th>
                 </tr>
               </thead>
               <tbody>
@@ -348,31 +488,35 @@ const Billing = () => {
                     Room Charges [{viewBill.room?.roomType} - ₹{viewBill.room?.dailyCharge}]
                     (₹{viewBill.room?.dailyCharge} × {viewBill.room?.stayDays} day(s))
                   </td>
-                  <td>{viewBill.room?.totalRoomCharge}</td>
+                  <td>₹{viewBill.room?.totalRoomCharge}</td>
+                  <td>₹{viewBill.room?.totalRoomCharge}</td>
                 </tr>
                 
                 <tr>
                   <td>Consultation</td>
                   <td>Doctor Consultation</td>
-                  <td>{viewBill.consultationCharge}</td>
+                  <td>₹{viewBill.consultationCharge}</td>
+                  <td>₹{viewBill.consultationCharge}</td>
                 </tr>
 
                 <tr>
                   <td>Surgery</td>
                   <td>Surgical Procedure</td>
-                  <td>{viewBill.surgeryCharge}</td>
+                  <td>₹{viewBill.surgeryCharge}</td>
+                  <td>₹{viewBill.surgeryCharge}</td>
                 </tr>
 
-                {viewBill.labTests.map((t, i) => (
+                {viewBill.labTests && viewBill.labTests.map((t, i) => (
                   <tr key={i}>
                     <td>Lab Test</td>
                     <td>{t.testName}</td>
-                    <td>{t.charge}</td>
+                    <td>₹{t.charge}</td>
+                    <td>₹{t.charge}</td>
                   </tr>
                 ))}
 
                 <tr>
-                  <td colSpan="2">
+                  <td colSpan="3" style={{ textAlign: "right" }}>
                     <strong>Subtotal</strong>
                   </td>
                   <td>
@@ -381,37 +525,50 @@ const Billing = () => {
                 </tr>
 
                 <tr>
-                  <td colSpan="2">
+                  <td colSpan="3" style={{ textAlign: "right" }}>
                     <strong>GST ({viewBill.gstRate}%)</strong>
                   </td>
                   <td>
-                    <strong>{viewBill.gstAmount}</strong>
+                    <strong>₹{viewBill.gstAmount}</strong>
                   </td>
-                  
+                </tr>
+
+                <tr style={{ backgroundColor: "#f5f7fa" }}>
+                  <td colSpan="3" style={{ textAlign: "right" }}>
+                    <strong>Total Amount</strong>
+                  </td>
+                  <td>
+                    <strong>₹{viewBill.totalAmount}</strong>
+                  </td>
                 </tr>
               </tbody>
             </table>
 
-            <div className="invoice-total">
-              <h3>Total Amount: ₹{viewBill.totalAmount}</h3>
+            <div className="invoice-footer-line" style={{ marginTop: "40px", borderTop: "1px solid #000", paddingTop: "10px", display: "flex", justifyContent: "space-between" }}>
+              <div style={{ fontSize: "12px", color: "#666" }}>
+                <p style={{ margin: 0 }}>* This is a computer-generated invoice and does not require a physical signature.</p>
+                <p style={{ margin: "5px 0 0 0" }}>* Confidential Medical Record - For authorized personnel only.</p> 
+              </div>
+              <div style={{ fontSize: "14px", fontWeight: "bold" }}>
+                Authorized Signatory
+              </div>
             </div>
 
-            <p className="invoice-footer">
-              This is a computer-generated invoice. No signature required.
-            </p>
           </div>
 
-          <button className="btn-success" onClick={downloadPDF}>
-            Download PDF
-          </button>
+          <div style={{ marginTop: "20px" }}>
+              <button className="btn-success" onClick={downloadPDF}>
+                Download PDF
+              </button>
 
-          <button
-            className="btn-closed"
-            style={{ marginLeft: 10 }}
-            onClick={() => setViewBill(null)}
-          >
-            Close
-          </button>
+              <button
+                className="btn-closed"
+                style={{ marginLeft: 10 }}
+                onClick={() => setViewBill(null)}
+              >
+                Close
+              </button>
+          </div>
         </div>
       )}
     </div>

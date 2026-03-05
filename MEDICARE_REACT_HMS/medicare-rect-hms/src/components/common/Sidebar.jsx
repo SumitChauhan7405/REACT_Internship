@@ -84,12 +84,6 @@ const Sidebar = () => {
           <span>Discharge</span>
         </NavLink>
 
-        {/* BILLING */}
-        <NavLink to="/admin/billing" className="menu-item">
-          <i className="bi bi-receipt"></i>
-          <span>Billing</span>
-        </NavLink>
-
         {/* Patient History */}
         <NavLink to="/admin/allpatients" className="menu-item">
           <i className="bi bi-list-task"></i>

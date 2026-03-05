@@ -13,6 +13,7 @@ const RoleRoute = ({ role, children }) => {
     if (user.role === "admin") return <Navigate to="/admin/dashboard" replace />;
     if (user.role === "doctor") return <Navigate to="/doctor/dashboard" replace />;
     if (user.role === "lab") return <Navigate to="/lab/dashboard" replace />;
+    if (user.role === "bill") return <Navigate to="/bill/dashboard" replace />;
   }
 
   return children;

@@ -1687,7 +1687,8 @@
       "roomType": "DELUXE",
       "roomCharge": 4000,
       "admissionDate": "2026-02-16",
-      "status": "ADMITTED"
+      "status": "DISCHARGED",
+      "dischargeDate": "2026-03-05"
     }
   ],
   "rooms": [
@@ -1709,7 +1710,7 @@
       "id": "ROOM-003",
       "roomNumber": "201",
       "type": "DELUXE",
-      "status": "OCCUPIED",
+      "status": "AVAILABLE",
       "charge": 4000
     },
     {
@@ -1756,7 +1757,7 @@
     },
     {
       "id": "ROOM-013",
-      "roomNumber": "1003",
+      "roomNumber": "OT-1003",
       "type": "OPERATION_THEATRE",
       "status": "AVAILABLE",
       "charge": 0
@@ -1809,6 +1810,13 @@
       "type": "PRIVATE",
       "status": "AVAILABLE",
       "charge": 3000
+    },
+    {
+      "id": "ROOM-021",
+      "roomNumber": "R105",
+      "type": "GENERAL",
+      "status": "AVAILABLE",
+      "charge": 15000
     }
   ],
   "vitals": [
@@ -2218,6 +2226,20 @@
       "totalAmount": 1899870,
       "summary": "Patient discharged successfully",
       "createdAt": "2026-02-07T07:12:33.659Z"
+    },
+    {
+      "id": "DIS-2026-0005",
+      "admissionId": "ADM-012",
+      "patientId": "PAT-2026-0025",
+      "patientName": "Alexa Bliss",
+      "doctorName": "Dr. Krisha Patel",
+      "roomNumber": "201",
+      "admissionDate": "2026-02-16",
+      "dischargeDate": "2026-03-05",
+      "billId": "BILL-0008",
+      "totalAmount": 292845,
+      "summary": "Patient Completely Recovered....!",
+      "createdAt": "2026-03-05T06:24:19.171Z"
     }
   ],
   "bills": [
@@ -2251,7 +2273,9 @@
       "gstRate": 5,
       "gstAmount": 6225,
       "totalAmount": 130725,
-      "status": "UNPAID"
+      "status": "PAID",
+      "amountPaid": 130725,
+      "remainingAmount": 0
     },
     {
       "id": "BILL-0002",
@@ -2464,6 +2488,50 @@
       "status": "PARTIAL",
       "amountPaid": 9870,
       "remainingAmount": 1890000
+    },
+    {
+      "id": "BILL-0008",
+      "admissionId": "ADM-012",
+      "patientId": "PAT-2026-0025",
+      "patientName": "Alexa Bliss",
+      "doctorName": "Dr. Krisha Patel",
+      "billDate": "2026-03-05T06:24:19.146Z",
+      "room": {
+        "roomId": "ROOM-003",
+        "roomType": "DELUXE",
+        "dailyCharge": 4000,
+        "stayDays": 18,
+        "totalRoomCharge": 72000
+      },
+      "admissionDate": "2026-02-16",
+      "dischargeDate": "2026-03-05",
+      "consultationCharge": 1000,
+      "labTests": [
+        {
+          "testId": "LT-004",
+          "testName": "X-Ray",
+          "charge": 400
+        },
+        {
+          "testId": "LT-006",
+          "testName": "CT Scan",
+          "charge": 3000
+        },
+        {
+          "testId": "LT-005",
+          "testName": "MRI",
+          "charge": 2500
+        }
+      ],
+      "labCharge": 5900,
+      "surgeryCharge": 200000,
+      "subtotal": 278900,
+      "gstRate": 5,
+      "gstAmount": 13945,
+      "totalAmount": 292845,
+      "status": "PARTIAL",
+      "amountPaid": 845,
+      "remainingAmount": 292000
     }
   ],
   "payments": [
@@ -2593,6 +2661,24 @@
       "mode": "Cash",
       "amount": 9000,
       "date": "2026-02-07"
+    },
+    {
+      "id": "PAY-0016",
+      "billId": "BILL-0001",
+      "patientId": "PAT-2026-0006",
+      "patientName": "Jethalal Gada",
+      "mode": "Cash",
+      "amount": 130725,
+      "date": "2026-03-05"
+    },
+    {
+      "id": "PAY-0017",
+      "billId": "BILL-0008",
+      "patientId": "PAT-2026-0025",
+      "patientName": "Alexa Bliss",
+      "mode": "UPI",
+      "amount": 845,
+      "date": "2026-03-05"
     }
   ],
   "feedback": [

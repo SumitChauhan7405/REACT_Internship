@@ -5,6 +5,7 @@ import PublicLayout from "../layouts/PublicLayout";
 import AdminLayout from "../layouts/AdminLayout";
 import DoctorLayout from "../layouts/DoctorLayout";
 import LabLayout from "../layouts/LabLayout";
+import BillLayout from "../layouts/BillLayout";
 
 /* Route Protection */
 import ProtectedRoute from "./ProtectedRoute";
@@ -23,7 +24,6 @@ import Doctors from "../pages/Doctors";
 import Patients from "../pages/Patients";
 import Appointments from "../pages/Appointments";
 import Rooms from "../pages//Rooms";
-import Billing from "../pages/Billing";
 import Lab from "../pages/Lab";
 import Admissions from "../pages/Admissions";
 import SurgeryMasters from "../pages/SurgeryMasters";
@@ -45,6 +45,10 @@ import DoctorSurgeries from "../pages/doctor/DoctorSurgeries";
 import LabDashboard from "../pages/lab/LabDashboard";
 import LabTestMasters from "../pages/LabTestMasters";
 import LabTests from "../pages/lab/LabTests";
+
+/* Bill Pages*/
+import BillDashboard from "../pages/bill/BillDashboard";
+import Billing from "../pages/Billing";
 
 import ErrorPage from "../pages/ErrorPage";
 
@@ -69,7 +73,6 @@ const AppRoutes = () => {
           <Route path="patients" element={<Patients />} />
           <Route path="appointments" element={<Appointments />} />
           <Route path="rooms" element={<Rooms />} />
-          <Route path="billing" element={<Billing />} />
           <Route path="lab" element={<Lab />} />
           <Route path="admissions" element={<Admissions />} />
           <Route path="surgery-masters" element={<SurgeryMasters />} />
@@ -99,6 +102,14 @@ const AppRoutes = () => {
           <Route path="dashboard" element={<LabDashboard />} />
           <Route path="lab-test-masters" element={<LabTestMasters />} />
           <Route path="lab-tests" element={<LabTests />} />
+        </Route>
+      </Route>
+
+      {/* ================= BILLING ================= */}
+      <Route element={<ProtectedRoute allowedRoles={["bill"]} />}>
+        <Route path="/bill" element={<BillLayout />}>
+          <Route path="dashboard" element={<BillDashboard />} />
+          <Route path="billing" element={<Billing />} />
         </Route>
       </Route>
 
