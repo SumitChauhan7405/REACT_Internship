@@ -13,6 +13,7 @@ const DoctorAppointments = () => {
 
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Prescription modal
   const [openModal, setOpenModal] = useState(false);
@@ -77,12 +78,33 @@ const DoctorAppointments = () => {
     return <p>No Patients assigned.</p>;
   }
 
+  const filteredAppointments = appointments.filter((apt) =>
+    apt.patientName?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
       <div className="patient-table-card">
-        <div className="table-header">
-          <h6>My Patients</h6>
-          <span>Doctor view</span>
+        <div
+          className="table-header"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center"
+          }}
+        >
+          <h4>My Patients</h4>
+
+          {/* 🔍 SEARCH BAR */}
+          <div className="table-search" style={{ width: "250px" }}>
+            <i className="bi bi-search"></i>
+            <input
+              type="text"
+              placeholder="Search patient name"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
 
         <table>
@@ -98,7 +120,7 @@ const DoctorAppointments = () => {
           </thead>
 
           <tbody>
-            {appointments.map((apt) => (
+            {filteredAppointments.map((apt) => (
               <tr key={apt.id}>
                 <td>{apt.id}</td>
                 <td>{apt.patientName}</td>

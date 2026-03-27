@@ -15,6 +15,7 @@ const SurgeryMaster = () => {
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState(null);
   const [departments, setDepartments] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   /* ======================
      LOAD SURGERY MASTERS
@@ -104,14 +105,41 @@ const SurgeryMaster = () => {
     }
   };
 
+  const filteredSurgeries = surgeries.filter((s) => {
+    const term = searchTerm.toLowerCase();
+
+    return (
+      s.name?.toLowerCase().includes(term) ||
+      s.department?.toLowerCase().includes(term)
+    );
+  });
+
   /* ======================
      UI
   ======================= */
   return (
     <div className="page-content">
       <div className="patient-form-card mb-4">
-        <div className="form-header">
+        <div
+          className="form-header"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center"
+          }}
+        >
           <h4>{editingId ? "Edit Surgery" : "Add New Surgery"}</h4>
+
+          {/* 🔍 SEARCH BAR */}
+          <div className="table-search" style={{ width: "250px" }}>
+            <i className="bi bi-search"></i>
+            <input
+              type="text"
+              placeholder="Search surgery"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
 
         <form className="form-grid" onSubmit={handleSubmit}>
@@ -177,7 +205,7 @@ const SurgeryMaster = () => {
           </thead>
 
           <tbody>
-            {surgeries.map((s) => (
+            {filteredSurgeries.map((s) => (
               <tr key={s.id}>
                 <td>{s.id}</td>
                 <td>{s.name}</td>

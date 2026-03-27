@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import "../assets/css/pages/billing.css";
+import "../../assets/css/pages/billing.css";
 
 const Billing = () => {
   const [bills, setBills] = useState([]);
@@ -14,6 +14,7 @@ const Billing = () => {
   const [searchPatient, setSearchPatient] = useState("");
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
+  const [topSearch, setTopSearch] = useState("");
 
   const [paymentForm, setPaymentForm] = useState({
     mode: "Cash",
@@ -65,6 +66,20 @@ const Billing = () => {
     const toMatch = toDate ? billDate <= toDate : true;
 
     return patientMatch && fromMatch && toMatch;
+  });
+
+  const finalBills = filteredBills.filter((bill) => {
+    const search = topSearch.toLowerCase();
+
+    const patientMatch = (bill.patientName || "")
+      .toLowerCase()
+      .includes(search);
+
+    const statusMatch = (bill.status || "")
+      .toLowerCase()
+      .includes(search);
+
+    return patientMatch || statusMatch;
   });
 
   const handleAddPayment = async () => {
@@ -120,13 +135,13 @@ const Billing = () => {
     const pageWidth = doc.internal.pageSize.width;
     const contentWidth = pageWidth - (marginLeft * 2);
 
-    const logo = require("../assets/images/logo/MediCare_Plus_Logo.png");
-    
+    const logo = require("../../assets/images/logo/MediCare_Plus_Logo.png");
+
     doc.addImage(logo, "PNG", marginLeft, 10, 20, 20);
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
-    doc.setTextColor(29, 78, 216); 
+    doc.setTextColor(29, 78, 216);
     doc.text("MEDICARE HOSPITAL", marginLeft + 25, 18);
 
     doc.setFont("helvetica", "normal");
@@ -150,18 +165,18 @@ const Billing = () => {
 
     const boxTopY = 40;
     const boxHeight = 26;
-    
+
     doc.setDrawColor(0);
     doc.setLineWidth(0.1);
     doc.rect(marginLeft, boxTopY, contentWidth, boxHeight);
 
     const drawField = (label, value, x, y) => {
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(9);
-        doc.text(`${label}:`, x, y);
-        
-        doc.setFont("helvetica", "normal");
-        doc.text(`${value || "N/A"}`, x + 30, y); 
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(9);
+      doc.text(`${label}:`, x, y);
+
+      doc.setFont("helvetica", "normal");
+      doc.text(`${value || "N/A"}`, x + 30, y);
     };
 
     const col1X = marginLeft + 5;
@@ -190,8 +205,8 @@ const Billing = () => {
     let textColor = [153, 27, 27];   // Dark Red
 
     if (statusText === "PAID") {
-        pillColor = [220, 252, 231]; // Light Green (success)
-        textColor = [22, 101, 52];   // Dark Green
+      pillColor = [220, 252, 231]; // Light Green (success)
+      textColor = [22, 101, 52];   // Dark Green
     }
 
     const pillX = col2X + 30;
@@ -201,93 +216,93 @@ const Billing = () => {
 
     doc.setFillColor(...pillColor);
     doc.roundedRect(pillX, pillY, pillW, pillH, 1.5, 1.5, "F");
-    
+
     doc.setFont("helvetica", "bold");
     doc.setFontSize(8);
     doc.setTextColor(...textColor);
     doc.text(statusText, pillX + (pillW / 2), currentY, { align: "center" });
-    
+
     doc.setTextColor(0, 0, 0); // Reset text color
 
     let finalY = boxTopY + boxHeight + 10;
 
     // Replace ₹ with Rs. to fix jsPDF font rendering issues
     const tableBody = [
-        [
-            "Room", 
-            `Room Charges [${viewBill.room?.roomType || '-'} - Rs. ${viewBill.room?.dailyCharge || 0}] (Rs. ${viewBill.room?.dailyCharge || 0} × ${viewBill.room?.stayDays || 0} day(s))`, 
-            `${viewBill.room?.totalRoomCharge || 0}`,
-            `${viewBill.room?.totalRoomCharge || 0}`
-        ],
-        [
-            "Consultation", 
-            "Doctor Consultation", 
-            `${viewBill.consultationCharge || 0}`,
-            `${viewBill.consultationCharge || 0}`
-        ],
-        [
-            "Surgery", 
-            "Surgical Procedure", 
-            `${viewBill.surgeryCharge || 0}`,
-            `${viewBill.surgeryCharge || 0}`
-        ]
+      [
+        "Room",
+        `Room Charges [${viewBill.room?.roomType || '-'} - Rs. ${viewBill.room?.dailyCharge || 0}] (Rs. ${viewBill.room?.dailyCharge || 0} × ${viewBill.room?.stayDays || 0} day(s))`,
+        `${viewBill.room?.totalRoomCharge || 0}`,
+        `${viewBill.room?.totalRoomCharge || 0}`
+      ],
+      [
+        "Consultation",
+        "Doctor Consultation",
+        `${viewBill.consultationCharge || 0}`,
+        `${viewBill.consultationCharge || 0}`
+      ],
+      [
+        "Surgery",
+        "Surgical Procedure",
+        `${viewBill.surgeryCharge || 0}`,
+        `${viewBill.surgeryCharge || 0}`
+      ]
     ];
 
     if (viewBill.labTests && viewBill.labTests.length > 0) {
-        viewBill.labTests.forEach(t => {
-            tableBody.push([
-                "Lab Test", 
-                t.testName, 
-                `${t.charge || 0}`,
-                `${t.charge || 0}`
-            ]);
-        });
+      viewBill.labTests.forEach(t => {
+        tableBody.push([
+          "Lab Test",
+          t.testName,
+          `${t.charge || 0}`,
+          `${t.charge || 0}`
+        ]);
+      });
     }
 
     tableBody.push([
-        { content: "Subtotal", colSpan: 3, styles: { halign: 'right', fontStyle: 'bold' } }, 
-        { content: `Rs. ${viewBill.subtotal || 0}`, styles: { fontStyle: 'bold' } }
+      { content: "Subtotal", colSpan: 3, styles: { halign: 'right', fontStyle: 'bold' } },
+      { content: `Rs. ${viewBill.subtotal || 0}`, styles: { fontStyle: 'bold' } }
     ]);
 
     tableBody.push([
-        { content: `GST (${viewBill.gstRate || 5}%)`, colSpan: 3, styles: { halign: 'right', fontStyle: 'bold' } }, 
-        { content: `${viewBill.gstAmount || 0}`, styles: { fontStyle: 'bold' } }
+      { content: `GST (${viewBill.gstRate || 5}%)`, colSpan: 3, styles: { halign: 'right', fontStyle: 'bold' } },
+      { content: `${viewBill.gstAmount || 0}`, styles: { fontStyle: 'bold' } }
     ]);
 
     tableBody.push([
-        { content: "Total Amount", colSpan: 3, styles: { halign: 'right', fontStyle: 'bold', fillColor: [240, 240, 240] } }, 
-        { content: `Rs. ${viewBill.totalAmount || 0}`, styles: { fontStyle: 'bold', fillColor: [240, 240, 240] } }
+      { content: "Total Amount", colSpan: 3, styles: { halign: 'right', fontStyle: 'bold', fillColor: [240, 240, 240] } },
+      { content: `Rs. ${viewBill.totalAmount || 0}`, styles: { fontStyle: 'bold', fillColor: [240, 240, 240] } }
     ]);
 
     autoTable(doc, {
-        startY: finalY,
-        theme: "grid",
-        head: [["Service", "Description", "Amount (Rs.)", "Total Amount (Rs.)"]],
-        body: tableBody,
-        headStyles: {
-            fillColor: [240, 240, 240],
-            textColor: 0,
-            fontStyle: "bold",
-            lineColor: 200,
-            lineWidth: 0.1
-        },
-        bodyStyles: { textColor: 0, lineColor: 200, lineWidth: 0.1 },
-        styles: { fontSize: 9, cellPadding: 3 },
+      startY: finalY,
+      theme: "grid",
+      head: [["Service", "Description", "Amount (Rs.)", "Total Amount (Rs.)"]],
+      body: tableBody,
+      headStyles: {
+        fillColor: [240, 240, 240],
+        textColor: 0,
+        fontStyle: "bold",
+        lineColor: 200,
+        lineWidth: 0.1
+      },
+      bodyStyles: { textColor: 0, lineColor: 200, lineWidth: 0.1 },
+      styles: { fontSize: 9, cellPadding: 3 },
     });
 
     const pageCount = doc.internal.getNumberOfPages();
     for (let i = 1; i <= pageCount; i++) {
-        doc.setPage(i);
-        const pageHeight = doc.internal.pageSize.height;
-        doc.setDrawColor(0);
-        doc.setLineWidth(0.5);
-        doc.line(marginLeft, pageHeight - 20, marginRight, pageHeight - 20);
-        doc.setFontSize(8);
-        doc.setFont("helvetica", "normal");
-        doc.text("* This is a computer-generated invoice and does not require a physical signature.", marginLeft, pageHeight - 14);
-        doc.text("* Confidential Medical Record - For authorized personnel only.", marginLeft, pageHeight - 10);
-        doc.setFont("helvetica", "bold");
-        doc.text("Authorized Signatory", marginRight, pageHeight - 14, { align: "right" });
+      doc.setPage(i);
+      const pageHeight = doc.internal.pageSize.height;
+      doc.setDrawColor(0);
+      doc.setLineWidth(0.5);
+      doc.line(marginLeft, pageHeight - 20, marginRight, pageHeight - 20);
+      doc.setFontSize(8);
+      doc.setFont("helvetica", "normal");
+      doc.text("* This is a computer-generated invoice and does not require a physical signature.", marginLeft, pageHeight - 14);
+      doc.text("* Confidential Medical Record - For authorized personnel only.", marginLeft, pageHeight - 10);
+      doc.setFont("helvetica", "bold");
+      doc.text("Authorized Signatory", marginRight, pageHeight - 14, { align: "right" });
     }
 
     doc.save(`${viewBill.patientName}_Bill.pdf`);
@@ -296,8 +311,26 @@ const Billing = () => {
   return (
     <div className="page-content">
       <div className="patient-table-card">
-        <div className="table-header">
+        <div
+          className="table-header"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center"
+          }}
+        >
           <h4>Billing History</h4>
+
+          {/* 🔍 SEARCH BAR */}
+          <div className="table-search" style={{ width: "250px" }}>
+            <i className="bi bi-search"></i>
+            <input
+              type="text"
+              placeholder="Search patient or status"
+              value={topSearch}
+              onChange={(e) => setTopSearch(e.target.value)}
+            />
+          </div>
         </div>
 
         <div className="billing-filters">
@@ -346,7 +379,7 @@ const Billing = () => {
           </thead>
 
           <tbody>
-            {filteredBills.map((bill) => {
+            {finalBills.map((bill) => {
               const paid = getPaidAmount(bill.id);
               const remaining = getRemainingAmount(bill);
 
@@ -434,7 +467,7 @@ const Billing = () => {
 
             <div className="invoice-header">
               <img
-                src={require("../assets/images/logo/MediCare_Plus_Logo.png")}
+                src={require("../../assets/images/logo/MediCare_Plus_Logo.png")}
                 alt="Medicare"
                 className="invoice-logo"
               />
@@ -491,7 +524,7 @@ const Billing = () => {
                   <td>₹{viewBill.room?.totalRoomCharge}</td>
                   <td>₹{viewBill.room?.totalRoomCharge}</td>
                 </tr>
-                
+
                 <tr>
                   <td>Consultation</td>
                   <td>Doctor Consultation</td>
@@ -547,7 +580,7 @@ const Billing = () => {
             <div className="invoice-footer-line" style={{ marginTop: "40px", borderTop: "1px solid #000", paddingTop: "10px", display: "flex", justifyContent: "space-between" }}>
               <div style={{ fontSize: "12px", color: "#666" }}>
                 <p style={{ margin: 0 }}>* This is a computer-generated invoice and does not require a physical signature.</p>
-                <p style={{ margin: "5px 0 0 0" }}>* Confidential Medical Record - For authorized personnel only.</p> 
+                <p style={{ margin: "5px 0 0 0" }}>* Confidential Medical Record - For authorized personnel only.</p>
               </div>
               <div style={{ fontSize: "14px", fontWeight: "bold" }}>
                 Authorized Signatory
@@ -557,17 +590,17 @@ const Billing = () => {
           </div>
 
           <div style={{ marginTop: "20px" }}>
-              <button className="btn-success" onClick={downloadPDF}>
-                Download PDF
-              </button>
+            <button className="btn-success" onClick={downloadPDF}>
+              Download PDF
+            </button>
 
-              <button
-                className="btn-closed"
-                style={{ marginLeft: 10 }}
-                onClick={() => setViewBill(null)}
-              >
-                Close
-              </button>
+            <button
+              className="btn-closed"
+              style={{ marginLeft: 10 }}
+              onClick={() => setViewBill(null)}
+            >
+              Close
+            </button>
           </div>
         </div>
       )}

@@ -12,6 +12,7 @@ const Discharge = () => {
   const [surgeries, setSurgeries] = useState([]);
   const [bills, setBills] = useState([]);
   const [discharges, setDischarges] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [selectedAdmission, setSelectedAdmission] = useState(null);
   const [billPreview, setBillPreview] = useState(null);
@@ -209,11 +210,39 @@ const Discharge = () => {
     loadData();
   };
 
+  const filteredAdmissions = admissions.filter((adm) => {
+    const term = searchTerm.toLowerCase();
+
+    return (
+      adm.id?.toLowerCase().includes(term) ||
+      adm.patientName?.toLowerCase().includes(term) ||
+      adm.doctorName?.toLowerCase().includes(term) ||
+      adm.roomNumber?.toString().toLowerCase().includes(term)
+    );
+  });
+
   return (
     <div className="page-content">
       <div className="patient-table-card">
-        <div className="table-header">
+        <div
+          className="table-header"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center"
+          }}
+        >
           <h4>Discharge Patients</h4>
+
+          <div className="table-search" style={{ width: "250px" }}>
+            <i className="bi bi-search"></i>
+            <input
+              type="text"
+              placeholder="Search patient, doctor, room"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
 
         <table>
@@ -228,7 +257,7 @@ const Discharge = () => {
           </thead>
 
           <tbody>
-            {admissions.map(adm => (
+            {filteredAdmissions.map(adm => (
               <tr key={adm.id}>
                 <td>{adm.id}</td>
                 <td>{adm.patientName}</td>

@@ -5,6 +5,7 @@ import "../assets/css/pages/lab-tests.css";
 const Lab = () => {
   const [labTests, setLabTests] = useState([]);
   const [patients, setPatients] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   /* Load Data */
   const loadData = async () => {
@@ -21,9 +22,7 @@ const Lab = () => {
     loadData();
   }, []);
 
-  /* ======================
-     HELPERS
-  ======================= */
+  /* Helpers */
   const getPatientName = (patientId) => {
     const p = patients.find((x) => x.id === patientId);
     return p ? `${p.firstName} ${p.lastName}` : "Unknown";
@@ -33,18 +32,51 @@ const Lab = () => {
     return typeof test === "string" ? test : test.testName;
   };
 
-  /* ======================
-     UI (READ ONLY)
-  ======================= */
+  const filteredLabTests = labTests.filter((lab) => {
+    const term = searchTerm.toLowerCase();
+
+    const patientName = getPatientName(lab.patientId).toLowerCase();
+
+    const testNames = lab.tests
+      .map((t) => getTestName(t).toLowerCase())
+      .join(" ");
+
+    return (
+      patientName.includes(term) ||
+      testNames.includes(term)
+    );
+  });
+
   return (
     <div className="page-content">
       <div className="patient-table-card">
-        <div className="table-header lab-header">
+        <div
+          className="table-header lab-header"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <h4>Laboratory Tests</h4>
 
-          <span className="lab-managed-badge">
-            Managed by Laboratory Department
-          </span>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            {/* 🔍 Search Bar */}
+            <div className="table-search" style={{ width: "250px" }}>
+              <i className="bi bi-search"></i>
+              <input
+                type="text"
+                placeholder="Search patient or test"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+
+            {/* ✅ Existing Text */}
+            <span className="lab-managed-badge">
+              Managed by Laboratory Department
+            </span>
+          </div>
         </div>
 
         <table>
@@ -59,7 +91,7 @@ const Lab = () => {
           </thead>
 
           <tbody>
-            {labTests.map((lab) => (
+            {filteredLabTests.map((lab) => (
               <tr key={lab.id}>
                 <td>{lab.id}</td>
 
@@ -73,7 +105,6 @@ const Lab = () => {
                   </ul>
                 </td>
 
-                {/* 🔒 RESULTS – READ ONLY */}
                 <td>
                   {lab.tests.map((t, index) => {
                     const testName = getTestName(t);
@@ -86,7 +117,7 @@ const Lab = () => {
                         key={index}
                         className="lab-result-input"
                         value={existing?.result || ""}
-                        disabled={true}   // 🔒 ADMIN CANNOT EDIT
+                        disabled={true}
                       />
                     );
                   })}
@@ -100,8 +131,6 @@ const Lab = () => {
                     {lab.status}
                   </span>
                 </td>
-
-                {/* ❌ ACTION COLUMN REMOVED FOR ADMIN */}
               </tr>
             ))}
           </tbody>

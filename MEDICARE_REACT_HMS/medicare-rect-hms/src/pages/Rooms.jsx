@@ -12,6 +12,7 @@ const Rooms = () => {
   const [rooms, setRooms] = useState([]);
   const [admissions, setAdmissions] = useState([]);
   const [editRoomId, setEditRoomId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [form, setForm] = useState({
     roomNumber: "",
@@ -121,8 +122,17 @@ const Rooms = () => {
     return admission ? admission.patientName : "Not Assigned";
   };
 
+  const filteredRooms = rooms.filter((room) => {
+    const term = searchTerm.toLowerCase();
+
+    return (
+      room.roomNumber?.toString().toLowerCase().includes(term) ||
+      room.type?.toLowerCase().includes(term)
+    );
+  });
+
   /* Grouping Rooms by Type */
-  const groupedRooms = rooms.reduce((acc, room) => {
+  const groupedRooms = filteredRooms.reduce((acc, room) => {
     acc[room.type] = acc[room.type] || [];
     acc[room.type].push(room);
     return acc;
@@ -131,8 +141,18 @@ const Rooms = () => {
   return (
     <div className="page-content">
       <div className="patient-form-card mb-4">
-        <div className="form-header">
+        <div className="form-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <h4>{editRoomId ? "Edit Room" : "Add Room"}</h4>
+
+          <div className="table-search" style={{ width: "250px" }}>
+            <i className="bi bi-search"></i>
+            <input
+              type="text"
+              placeholder="Search Room No or Type"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="form-grid">
@@ -237,11 +257,10 @@ const Rooms = () => {
                   </td>
                   <td>
                     <span
-                      className={`badge ${
-                        room.status === "AVAILABLE"
-                          ? "male"
-                          : "female"
-                      }`}
+                      className={`badge ${room.status === "AVAILABLE"
+                        ? "male"
+                        : "female"
+                        }`}
                     >
                       {room.status}
                     </span>

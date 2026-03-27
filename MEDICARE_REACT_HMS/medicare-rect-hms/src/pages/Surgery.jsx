@@ -10,6 +10,7 @@ import "../assets/css/components/surgeries.css";
 const Surgery = () => {
   const [surgeries, setSurgeries] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
 
   /* ======================
      LOAD ALL SURGERIES
@@ -24,32 +25,43 @@ const Surgery = () => {
     loadSurgeries();
   }, []);
 
+  const filteredSurgeries = surgeries.filter((s) => {
+    const term = searchTerm.toLowerCase();
+
+    return (
+      s.patientName?.toLowerCase().includes(term) ||
+      s.doctorName?.toLowerCase().includes(term) ||
+      s.department?.toLowerCase().includes(term) ||
+      s.surgeryType?.toLowerCase().includes(term)
+    );
+  });
+
   /* ======================
      RELEASE OPERATION THEATRE
   ======================= */
   const releaseOperationTheatre = async (surgeryId) => {
-  const roomRes = await getRooms();
+    const roomRes = await getRooms();
 
-  const linkedOT = roomRes.data.find(
-    room =>
-      room.type === "OPERATION_THEATRE" &&
-      room.linkedSurgeryId === surgeryId
-  );
+    const linkedOT = roomRes.data.find(
+      room =>
+        room.type === "OPERATION_THEATRE" &&
+        room.linkedSurgeryId === surgeryId
+    );
 
-  if (!linkedOT) return;
+    if (!linkedOT) return;
 
-  // ✅ FULL OBJECT REPLACEMENT (PUT)
-  await axios.put(
-    `http://localhost:5000/rooms/${linkedOT.id}`,
-    {
-      id: linkedOT.id,
-      roomNumber: linkedOT.roomNumber,
-      type: linkedOT.type,
-      status: "AVAILABLE",
-      charge: linkedOT.charge
-    }
-  );
-};
+    // ✅ FULL OBJECT REPLACEMENT (PUT)
+    await axios.put(
+      `http://localhost:5000/rooms/${linkedOT.id}`,
+      {
+        id: linkedOT.id,
+        roomNumber: linkedOT.roomNumber,
+        type: linkedOT.type,
+        status: "AVAILABLE",
+        charge: linkedOT.charge
+      }
+    );
+  };
 
 
   /* ======================
@@ -71,9 +83,18 @@ const Surgery = () => {
 
   return (
     <div className="surgeries-container">
-      <div className="surgeries-header">
+      <div className="surgeries-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h4>All Surgeries</h4>
-        <span>Admin view</span>
+
+        <div className="table-search" style={{ width: "250px" }}>
+          <i className="bi bi-search"></i>
+          <input
+            type="text"
+            placeholder="Search patient, doctor, dept, type"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
       </div>
 
       {surgeries.length === 0 ? (
@@ -98,7 +119,7 @@ const Surgery = () => {
           </thead>
 
           <tbody>
-            {surgeries.map((surgery) => {
+            {filteredSurgeries.map((surgery) => {
               const isFinal =
                 surgery.status === "COMPLETED" ||
                 surgery.status === "CANCELLED";

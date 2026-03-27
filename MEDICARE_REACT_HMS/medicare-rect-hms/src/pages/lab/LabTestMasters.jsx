@@ -15,6 +15,7 @@ const LabTestMaster = () => {
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState(null);
   const [departments, setDepartments] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   /* Load Lab Test Master */
   const loadLabTests = async () => {
@@ -88,11 +89,37 @@ const LabTestMaster = () => {
     }
   };
 
+  const filteredLabTests = labTests.filter((t) => {
+    const term = searchTerm.toLowerCase();
+
+    return (
+      t.name?.toLowerCase().includes(term) ||
+      t.department?.toLowerCase().includes(term)
+    );
+  });
+
   return (
     <div className="page-content">
       <div className="patient-form-card mb-4">
-        <div className="form-header">
+        <div
+          className="form-header"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center"
+          }}
+        >
           <h4>{editingId ? "Edit Lab Test" : "Add New Lab Test"}</h4>
+
+          <div className="table-search" style={{ width: "250px" }}>
+            <i className="bi bi-search"></i>
+            <input
+              type="text"
+              placeholder="Search test or department"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
 
         <form className="form-grid" onSubmit={handleSubmit}>
@@ -153,7 +180,7 @@ const LabTestMaster = () => {
             </tr>
           </thead>
           <tbody>
-            {labTests.map((t) => (
+            {filteredLabTests.map((t) => (
               <tr key={t.id}>
                 <td>{t.id}</td>
                 <td>{t.name}</td>

@@ -48,7 +48,7 @@ import LabTests from "../pages/lab/LabTests";
 
 /* Bill Pages*/
 import BillDashboard from "../pages/bill/BillDashboard";
-import Billing from "../pages/Billing";
+import Billing from "../pages/bill/Billing";
 
 import ErrorPage from "../pages/ErrorPage";
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getDoctors, deleteDoctor } from "../../services/doctorService";
 import "../../assets/css/components/doctor-list.css";
 
-const DoctorList = ({ onEdit }) => {
+const DoctorList = ({ onEdit, searchTerm }) => {
   const [doctors, setDoctors] = useState([]);
 
   const loadDoctors = async () => {
@@ -29,8 +29,17 @@ const DoctorList = ({ onEdit }) => {
     );
   }
 
+  const filteredDoctors = doctors.filter((doc) => {
+    const term = searchTerm.toLowerCase();
+
+    return (
+      doc.name?.toLowerCase().includes(term) ||
+      doc.department?.toLowerCase().includes(term)
+    );
+  });
+
   /* Group by DepartMent */
-  const groupedDoctors = doctors.reduce((acc, doc) => {
+  const groupedDoctors = filteredDoctors.reduce((acc, doc) => {
     acc[doc.department] = acc[doc.department] || [];
     acc[doc.department].push(doc);
     return acc;

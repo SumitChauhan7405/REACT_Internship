@@ -5,6 +5,7 @@ import "../../assets/css/pages/lab-tests.css";
 const LabTests = () => {
   const [labTests, setLabTests] = useState([]);
   const [patients, setPatients] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   /* ======================
      LOAD DATA
@@ -41,15 +42,15 @@ const LabTests = () => {
       prev.map((lab) =>
         lab.id === labId
           ? {
-              ...lab,
-              results: lab.results.some((r) => r.testName === testName)
-                ? lab.results.map((r) =>
-                    r.testName === testName
-                      ? { ...r, result: value }
-                      : r
-                  )
-                : [...lab.results, { testName, result: value }]
-            }
+            ...lab,
+            results: lab.results.some((r) => r.testName === testName)
+              ? lab.results.map((r) =>
+                r.testName === testName
+                  ? { ...r, result: value }
+                  : r
+              )
+              : [...lab.results, { testName, result: value }]
+          }
           : lab
       )
     );
@@ -65,14 +66,49 @@ const LabTests = () => {
     loadData();
   };
 
+  const filteredLabTests = labTests.filter((lab) => {
+    const term = searchTerm.toLowerCase();
+
+    // Patient Name
+    const patientName = getPatientName(lab.patientId).toLowerCase();
+
+    // All test names combined
+    const testNames = lab.tests
+      .map((t) => getTestName(t).toLowerCase())
+      .join(" ");
+
+    return (
+      patientName.includes(term) ||
+      testNames.includes(term)
+    );
+  });
+
   /* ======================
      UI
   ======================= */
   return (
     <div className="page-content">
       <div className="patient-table-card">
-        <div className="table-header">
+        <div
+          className="table-header"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center"
+          }}
+        >
           <h4>Laboratory Tests</h4>
+
+          {/* 🔍 SEARCH BAR */}
+          <div className="table-search" style={{ width: "250px" }}>
+            <i className="bi bi-search"></i>
+            <input
+              type="text"
+              placeholder="Search patient or test"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
 
         <table>
@@ -88,7 +124,7 @@ const LabTests = () => {
           </thead>
 
           <tbody>
-            {labTests.map((lab) => (
+            {filteredLabTests.map((lab) => (
               <tr key={lab.id}>
                 <td>{lab.id}</td>
 
@@ -126,9 +162,8 @@ const LabTests = () => {
 
                 <td>
                   <span
-                    className={`badge ${
-                      lab.status === "COMPLETED" ? "Completed" : "Pending"
-                    }`}
+                    className={`badge ${lab.status === "COMPLETED" ? "Completed" : "Pending"
+                      }`}
                   >
                     {lab.status}
                   </span>

@@ -13,7 +13,7 @@ const OPD_TIMINGS = [
   { label: "Evening (5:00 – 7:00)", value: "5:00-7:00" }
 ];
 
-const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
+const DoctorForm = ({ onSuccess, editDoctor, clearEdit, searchTerm, setSearchTerm }) => {
 
   const [departments, setDepartments] = useState([]);
 
@@ -178,8 +178,29 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
 
   return (
     <div className="doctor-form-card">
-      <h5>{editDoctor ? "Edit Doctor" : "Add Doctor"}</h5>
-      <p>Doctor details & OPD availability</p>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center"
+        }}
+      >
+        <div>
+          <h5>{editDoctor ? "Edit Doctor" : "Add Doctor"}</h5>
+          <p>Doctor details & OPD availability</p>
+        </div>
+
+        {/* 🔍 SEARCH BAR */}
+        <div className="table-search" style={{ width: "250px" }}>
+          <i className="bi bi-search"></i>
+          <input
+            type="text"
+            placeholder="Search doctor or department"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+      </div>
 
       <form onSubmit={handleSubmit} className="doctor-form-grid">
         <div>

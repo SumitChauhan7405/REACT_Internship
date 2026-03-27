@@ -9,6 +9,7 @@ const DoctorSurgeries = () => {
 
   const [surgeries, setSurgeries] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
 
   /* ======================
      SORT SURGERIES
@@ -58,14 +59,40 @@ const DoctorSurgeries = () => {
     return <p>Loading surgeries...</p>;
   }
 
+  const filteredSurgeries = surgeries.filter((s) => {
+    const term = searchTerm.toLowerCase();
+
+    return (
+      s.patientName?.toLowerCase().includes(term) ||
+      s.surgeryType?.toLowerCase().includes(term)
+    );
+  });
+
   return (
     <div className="surgeries-container">
-      <div className="surgeries-header">
-        <h4>My Surgeries</h4>
-        <span>Doctor view</span>
-      </div>
+      <div
+          className="table-header"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center"
+          }}
+        >
+          <h4>My Surgeries</h4>
 
-      {surgeries.length === 0 ? (
+          {/* 🔍 SEARCH BAR */}
+          <div className="table-search" style={{ width: "250px" }}>
+            <i className="bi bi-search"></i>
+            <input
+              type="text"
+              placeholder="Search patient name and surgery type"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
+
+      {filteredSurgeries.length === 0 ? (
         <div className="surgeries-empty">
           No surgeries scheduled yet.
         </div>
@@ -86,7 +113,7 @@ const DoctorSurgeries = () => {
           </thead>
 
           <tbody>
-            {surgeries.map((surgery) => (
+            {filteredSurgeries.map((surgery) => (
               <tr key={surgery.id}>
                 <td data-label="Surgery ID">{surgery.id}</td>
                 <td data-label="Patient">{surgery.patientName}</td>
@@ -97,9 +124,8 @@ const DoctorSurgeries = () => {
                 <td data-label="OT">{surgery.operationTheatre}</td>
                 <td data-label="Status">
                   <span
-                    className={`surgery-badge ${
-                      surgery.status?.toLowerCase()
-                    }`}
+                    className={`surgery-badge ${surgery.status?.toLowerCase()
+                      }`}
                   >
                     {surgery.status}
                   </span>

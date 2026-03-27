@@ -9,6 +9,7 @@ const Admissions = () => {
   const [patients, setPatients] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [admissions, setAdmissions] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [form, setForm] = useState({
     patientId: "",
@@ -34,9 +35,6 @@ const Admissions = () => {
     loadData();
   }, []);
 
-  /* ======================
-     SEARCH
-  ======================= */
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearch(value);
@@ -65,6 +63,17 @@ const Admissions = () => {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
+  const filteredAdmissions = admissions.filter((adm) => {
+    const term = searchTerm.toLowerCase();
+
+    return (
+      adm.patientName?.toLowerCase().includes(term) ||
+      adm.roomNumber?.toString().toLowerCase().includes(term) ||
+      adm.roomType?.toLowerCase().includes(term) ||
+      adm.admissionDate?.toLowerCase().includes(term)
+    );
+  });
 
   const generateAdmissionId = () => {
     if (admissions.length === 0) return "ADM-001";
@@ -177,7 +186,19 @@ const Admissions = () => {
 
       {/* ===== TABLE ===== */}
       <div className="admissions-card">
-        <h4>Admissions</h4>
+        <div className="appointment-table-header">
+          <h4>Admissions</h4>
+
+          <div className="table-search">
+            <i className="bi bi-search"></i>
+            <input
+              type="text"
+              placeholder="Search by Patient, Room No, Type, Date"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
 
         <table className="admissions-table">
           <thead>
@@ -195,7 +216,7 @@ const Admissions = () => {
           </thead>
 
           <tbody>
-            {admissions.map((adm) => (
+            {filteredAdmissions.map((adm) => (
               <tr key={adm.id}>
                 <td>{adm.id}</td>
                 <td>{adm.patientName}</td>
