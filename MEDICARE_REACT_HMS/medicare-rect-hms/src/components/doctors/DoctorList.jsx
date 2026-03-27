@@ -29,14 +29,13 @@ const DoctorList = ({ onEdit }) => {
     );
   }
 
-  /* ✅ GROUP BY DEPARTMENT */
+  /* Group by DepartMent */
   const groupedDoctors = doctors.reduce((acc, doc) => {
     acc[doc.department] = acc[doc.department] || [];
     acc[doc.department].push(doc);
     return acc;
   }, {});
 
-  /* ✅ SAFE IMAGE LOADER FROM src/assets */
   const getDoctorImage = (imageName) => {
     try {
       return require(`../../assets/images/doctors/${imageName}`);
@@ -49,14 +48,12 @@ const DoctorList = ({ onEdit }) => {
     <div className="doctor-list-wrapper">
       {Object.keys(groupedDoctors).map((dept) => (
         <div key={dept} className="doctor-table-card">
-          
-          {/* Header */}
+
           <div className="doctor-table-header">
             <h6>{dept}</h6>
             <span>Total: {groupedDoctors[dept].length}</span>
           </div>
 
-          {/* Table */}
           <table className="doctor-table">
             <thead>
               <tr>
@@ -73,8 +70,6 @@ const DoctorList = ({ onEdit }) => {
             <tbody>
               {groupedDoctors[dept].map((doc) => (
                 <tr key={doc.id}>
-                  
-                  {/* Doctor */}
                   <td>
                     <div className="doctor-info">
                       <img
@@ -102,7 +97,6 @@ const DoctorList = ({ onEdit }) => {
 
                   <td>₹{doc.consultationFee}</td>
 
-                  {/* Action */}
                   <td>
                     <div className="doctor-actions">
                       <button
@@ -119,7 +113,6 @@ const DoctorList = ({ onEdit }) => {
                       </button>
                     </div>
                   </td>
-
                 </tr>
               ))}
             </tbody>

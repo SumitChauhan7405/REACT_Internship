@@ -6,9 +6,7 @@ const Lab = () => {
   const [labTests, setLabTests] = useState([]);
   const [patients, setPatients] = useState([]);
 
-  /* ======================
-     LOAD DATA
-  ======================= */
+  /* Load Data */
   const loadData = async () => {
     const [labRes, patRes] = await Promise.all([
       axios.get("http://localhost:5000/labTests"),

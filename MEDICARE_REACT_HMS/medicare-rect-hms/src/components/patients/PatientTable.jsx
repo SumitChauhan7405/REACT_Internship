@@ -18,7 +18,7 @@ const PatientTable = ({ patients, onEdit, onDelete }) => {
     }
   };
 
-  /* 🔍 SEARCH FILTER */
+  /* Search Patients */
   const filteredPatients = patients.filter((p) =>
     `${p.firstName} ${p.lastName}`
       .toLowerCase()
@@ -28,12 +28,11 @@ const PatientTable = ({ patients, onEdit, onDelete }) => {
   return (
     <div className="patient-table-card">
       <div className="table-header table-header-with-search">
-        {/* LEFT */}
+
         <div>
           <h6>Registered Patients</h6>
         </div>
 
-        {/* RIGHT */}
         <div className="patient-search-box">
           <input
             type="text"
@@ -43,7 +42,6 @@ const PatientTable = ({ patients, onEdit, onDelete }) => {
           />
           <i className="bi bi-search"></i>
 
-          {/* ✅ TOTAL AFTER SEARCH */}
           <span className="search-total">
             Total: {filteredPatients.length}
           </span>
@@ -71,8 +69,6 @@ const PatientTable = ({ patients, onEdit, onDelete }) => {
             <tr key={p.id}>
               <td>{p.id}</td>
               <td>{p.firstName} {p.lastName}</td>
-
-              {/* ✅ GENDER BADGE FIX */}
               <td>
                 <span className={`gender-badge ${p.gender.toLowerCase()}`}>
                   {p.gender}

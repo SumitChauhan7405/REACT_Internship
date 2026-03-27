@@ -14,9 +14,7 @@ const Appointments = () => {
   const [patients, setPatients] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  /* ======================
-     LOAD DATA
-  ======================= */
+  /* Load Data */
   const loadData = async () => {
     const [aptRes, patRes] = await Promise.all([
       getAppointments(),
@@ -31,9 +29,7 @@ const Appointments = () => {
     loadData();
   }, []);
 
-  /* ======================
-     GENERATE PATIENT ID
-  ======================= */
+  /* Generate PAtient ID After Appointment Confirmation */
   const generatePatientId = () => {
     const year = new Date().getFullYear();
     const patOnly = patients.filter((p) => p.id?.startsWith("PAT-"));
@@ -47,9 +43,7 @@ const Appointments = () => {
     return `PAT-${year}-${String(num).padStart(4, "0")}`;
   };
 
-  /* ======================
-     GENERATE APPOINTMENT ID
-  ======================= */
+  /* Generate Appointment ID */
   const generateAppointmentId = () => {
     const year = new Date().getFullYear();
     const aptOnly = appointments.filter((a) =>
@@ -65,9 +59,7 @@ const Appointments = () => {
     return `APT-${year}-${String(num).padStart(4, "0")}`;
   };
 
-  /* ======================
-     ACTIONS
-  ======================= */
+  /* ACTIONS */
   const handleDelete = async (id) => {
     if (window.confirm("Delete this appointment?")) {
       await deleteAppointment(id);
@@ -105,9 +97,7 @@ const Appointments = () => {
     loadData();
   };
 
-  /* ======================
-     FILTER
-  ======================= */
+  /* Search Appointments */
   const filteredAppointments = appointments.filter((apt) => {
     const term = searchTerm.toLowerCase();
     return (
@@ -116,9 +106,6 @@ const Appointments = () => {
     );
   });
 
-  /* ======================
-     UI
-  ======================= */
   return (
     <div className="page-content">
       <div className="appointment-table-card">

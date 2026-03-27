@@ -237,6 +237,20 @@
       "status": "CONFIRMED",
       "source": "WALKIN",
       "createdAt": "2026-02-16T10:31:17.783Z"
+    },
+    {
+      "id": "PAT-2026-0026",
+      "firstName": "Raheman",
+      "lastName": "Dakait",
+      "gender": "Male",
+      "age": "38",
+      "phone": "5642319780",
+      "bloodGroup": "B-",
+      "doctorName": "Dr. Raj Sanchla",
+      "timing": "EVENING (5:00 - 7:00)",
+      "status": "CONFIRMED",
+      "source": "WALKIN",
+      "createdAt": "2026-03-22T13:17:24.572Z"
     }
   ],
   "doctors": [
@@ -580,6 +594,30 @@
         "Hindi",
         "English"
       ]
+    },
+    {
+      "id": "DOC-015",
+      "name": "Dr. Mansi Rathod",
+      "email": "mansi.rathod@medicare.com",
+      "password": "mansi@123",
+      "department": "ABC",
+      "experience": 42,
+      "education": "Vel eius explicabo ",
+      "availableDays": [
+        "Mon",
+        "Tue"
+      ],
+      "timeSlots": [
+        "10:00-12:00"
+      ],
+      "consultationFee": 93,
+      "image": "doc1.png",
+      "about": "Vel id voluptatem in",
+      "languages": [
+        "Gujarati",
+        "Hindi",
+        "English"
+      ]
     }
   ],
   "departments": [
@@ -617,6 +655,11 @@
       "id": "DEPT-2026-0007",
       "name": "Sumit5120",
       "createdAt": "2026-02-24T07:33:57.382Z"
+    },
+    {
+      "id": "DEPT-2026-0008",
+      "name": "ABC",
+      "createdAt": "2026-03-22T13:19:52.994Z"
     }
   ],
   "appointments": [
@@ -709,6 +752,22 @@
       "createdAt": "2026-02-06T13:36:40.118Z",
       "patientId": "PAT-2026-0024",
       "patientName": "Cody Rhodes"
+    },
+    {
+      "id": "APT-2026-0008",
+      "firstName": "Sumit",
+      "lastName": "Chauhan",
+      "gender": "Male",
+      "age": "22",
+      "phone": "9054277510",
+      "bloodGroup": "AB-",
+      "doctorId": "DOC-003",
+      "doctorName": "Dr. Namra Pithwa",
+      "date": "2026-03-21",
+      "time": "EVENING (5:00 - 7:00)",
+      "status": "PENDING",
+      "source": "ONLINE",
+      "createdAt": "2026-03-07T10:52:09.161Z"
     }
   ],
   "consultations": [
@@ -1050,6 +1109,33 @@
         }
       ],
       "createdAt": "2026-02-16T10:34:17.095Z"
+    },
+    {
+      "id": "CON-2026-0021",
+      "appointmentId": "WALKIN-PAT-2026-0026",
+      "doctorId": "DOC-007",
+      "doctorName": "Dr. Raj Sanchla",
+      "department": "Radiology",
+      "patientId": "PAT-2026-0026",
+      "patientName": "Raheman Dakait",
+      "diagnosis": "Hamza Ali Mazari e bov maryo ",
+      "consultation": "lab test and surgery karvi padse",
+      "consultationFee": 600,
+      "medicines": [
+        {
+          "name": "Paracetamol",
+          "dosage": "0-0-1"
+        },
+        {
+          "name": "Dolo 650",
+          "dosage": "1-0-1"
+        },
+        {
+          "name": "API",
+          "dosage": "0-1-0"
+        }
+      ],
+      "createdAt": "2026-03-22T13:25:46.765Z"
     }
   ],
   "labTestMasters": [
@@ -1123,6 +1209,13 @@
       "charge": 600,
       "visibility": "DEPARTMENT",
       "department": "ENT"
+    },
+    {
+      "id": "LT-012",
+      "name": "DEXA Scan",
+      "charge": 2000,
+      "visibility": "DEPARTMENT",
+      "department": "Radiology"
     }
   ],
   "labTests": [
@@ -1547,6 +1640,47 @@
       ],
       "status": "COMPLETED",
       "createdAt": "2026-02-16T10:34:03.012Z"
+    },
+    {
+      "id": "LAB-2026-0019",
+      "consultationId": "CON-2026-0021",
+      "patientId": "PAT-2026-0026",
+      "patientName": "Raheman Dakait",
+      "doctorId": "DOC-007",
+      "doctorName": "Dr. Raj Sanchla",
+      "tests": [
+        {
+          "testId": "LT-012",
+          "testName": "DEXA Scan",
+          "charge": 2000
+        },
+        {
+          "testId": "LT-004",
+          "testName": "X-Ray",
+          "charge": 400
+        },
+        {
+          "testId": "LT-006",
+          "testName": "CT Scan",
+          "charge": 3000
+        }
+      ],
+      "results": [
+        {
+          "testName": "X-Ray",
+          "result": "Normal"
+        },
+        {
+          "testName": "CT Scan",
+          "result": "Several Bones Damaged"
+        },
+        {
+          "testName": "DEXA Scan",
+          "result": "Multiple Bones Broken"
+        }
+      ],
+      "status": "COMPLETED",
+      "createdAt": "2026-03-22T13:25:35.797Z"
     }
   ],
   "admissions": [
@@ -1675,7 +1809,8 @@
       "roomType": "GENERAL",
       "roomCharge": 1500,
       "admissionDate": "2026-02-06",
-      "status": "ADMITTED"
+      "status": "DISCHARGED",
+      "dischargeDate": "2026-03-07"
     },
     {
       "id": "ADM-012",
@@ -1689,6 +1824,18 @@
       "admissionDate": "2026-02-16",
       "status": "DISCHARGED",
       "dischargeDate": "2026-03-05"
+    },
+    {
+      "id": "ADM-013",
+      "patientId": "PAT-2026-0026",
+      "patientName": "Raheman Dakait",
+      "doctorName": "Dr. Raj Sanchla",
+      "roomId": "ROOM-019",
+      "roomNumber": "204",
+      "roomType": "DELUXE",
+      "roomCharge": 4000,
+      "admissionDate": "2026-03-22",
+      "status": "ADMITTED"
     }
   ],
   "rooms": [
@@ -1731,7 +1878,7 @@
       "id": "ROOM-008",
       "roomNumber": "103",
       "type": "GENERAL",
-      "status": "OCCUPIED",
+      "status": "AVAILABLE",
       "charge": 1500
     },
     {
@@ -1801,7 +1948,7 @@
       "id": "ROOM-019",
       "roomNumber": "204",
       "type": "DELUXE",
-      "status": "AVAILABLE",
+      "status": "OCCUPIED",
       "charge": 4000
     },
     {
@@ -1817,6 +1964,13 @@
       "type": "GENERAL",
       "status": "AVAILABLE",
       "charge": 15000
+    },
+    {
+      "id": "ROOM-022",
+      "roomNumber": "ICU_403",
+      "type": "ICU",
+      "status": "AVAILABLE",
+      "charge": 4500
     }
   ],
   "vitals": [
@@ -1914,6 +2068,20 @@
       "charge": 60000,
       "visibility": "DEPARTMENT",
       "department": "ENT"
+    },
+    {
+      "id": "SM-014",
+      "name": "Angiography",
+      "charge": 150000,
+      "visibility": "DEPARTMENT",
+      "department": "Radiology"
+    },
+    {
+      "id": "SM-015",
+      "name": "PCNL (Kidney Stone Removal)",
+      "charge": 80000,
+      "visibility": "DEPARTMENT",
+      "department": "Radiology"
     }
   ],
   "surgeries": [
@@ -2168,6 +2336,24 @@
       "status": "COMPLETED",
       "notes": "All Consumables Are Ready",
       "createdAt": "2026-02-16T10:40:03.164Z"
+    },
+    {
+      "id": "SUR-2026-0017",
+      "consultationId": "CON-2026-0021",
+      "patientId": "PAT-2026-0026",
+      "patientName": "Raheman Dakait",
+      "doctorId": "DOC-007",
+      "doctorName": "Dr. Raj Sanchla",
+      "department": "Radiology",
+      "surgeryType": "Angiography",
+      "surgeryMasterId": "SM-014",
+      "surgeryCharge": 150000,
+      "scheduledDate": "2026-03-29",
+      "scheduledTime": "12:00",
+      "operationTheatre": "OT-1003",
+      "status": "COMPLETED",
+      "notes": "Keep Ready All Consumables",
+      "createdAt": "2026-03-22T13:33:44.999Z"
     }
   ],
   "discharges": [
@@ -2240,6 +2426,20 @@
       "totalAmount": 292845,
       "summary": "Patient Completely Recovered....!",
       "createdAt": "2026-03-05T06:24:19.171Z"
+    },
+    {
+      "id": "DIS-2026-0006",
+      "admissionId": "ADM-011",
+      "patientId": "PAT-2026-0024",
+      "patientName": "Cody Rhodes",
+      "doctorName": "Dr. Krisha Patel",
+      "roomNumber": "103",
+      "admissionDate": "2026-02-06",
+      "dischargeDate": "2026-03-07",
+      "billId": "BILL-0009",
+      "totalAmount": 240870,
+      "summary": "After Surgery Patient Recovered.......!",
+      "createdAt": "2026-03-07T10:57:07.206Z"
     }
   ],
   "bills": [
@@ -2532,6 +2732,43 @@
       "status": "PARTIAL",
       "amountPaid": 845,
       "remainingAmount": 292000
+    },
+    {
+      "id": "BILL-0009",
+      "admissionId": "ADM-011",
+      "patientId": "PAT-2026-0024",
+      "patientName": "Cody Rhodes",
+      "doctorName": "Dr. Krisha Patel",
+      "billDate": "2026-03-07T10:57:07.185Z",
+      "room": {
+        "roomId": "ROOM-008",
+        "roomType": "GENERAL",
+        "dailyCharge": 1500,
+        "stayDays": 30,
+        "totalRoomCharge": 45000
+      },
+      "admissionDate": "2026-02-06",
+      "dischargeDate": "2026-03-07",
+      "consultationCharge": 1000,
+      "labTests": [
+        {
+          "testId": "LT-004",
+          "testName": "X-Ray",
+          "charge": 400
+        },
+        {
+          "testId": "LT-006",
+          "testName": "CT Scan",
+          "charge": 3000
+        }
+      ],
+      "labCharge": 3400,
+      "surgeryCharge": 180000,
+      "subtotal": 229400,
+      "gstRate": 5,
+      "gstAmount": 11470,
+      "totalAmount": 240870,
+      "status": "UNPAID"
     }
   ],
   "payments": [

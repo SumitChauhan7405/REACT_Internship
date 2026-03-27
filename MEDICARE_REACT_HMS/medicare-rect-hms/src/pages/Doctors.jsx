@@ -23,7 +23,7 @@ const Doctors = () => {
 
       {/* Doctor List */}
       <DoctorList
-        key={refresh}        // forces reload (simple trick)
+        key={refresh}
         onEdit={(doc) => setEditDoctor(doc)}
       />
     </>

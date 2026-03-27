@@ -56,9 +56,8 @@ const PatientForm = ({ onSuccess, editPatient, clearEdit }) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  /* ======================
-     PATIENT ID GENERATOR
-  ======================= */
+  /* Patient ID Generator */
+  
   const generatePatientId = () => {
     const year = new Date().getFullYear();
     const patOnly = patients.filter(p => p.id?.startsWith("PAT-"));

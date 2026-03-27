@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { getDepartments } from "../services/departmentService";
 import "../assets/css/pages/surgery-masters.css";
 
 const emptyForm = {
@@ -13,6 +14,7 @@ const SurgeryMaster = () => {
   const [surgeries, setSurgeries] = useState([]);
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState(null);
+  const [departments, setDepartments] = useState([]);
 
   /* ======================
      LOAD SURGERY MASTERS
@@ -22,8 +24,15 @@ const SurgeryMaster = () => {
     setSurgeries(res.data);
   };
 
+  /* Load Departments */
+  const loadDepartments = async () => {
+    const res = await getDepartments();
+    setDepartments(res.data);
+  };
+
   useEffect(() => {
     loadSurgeries();
+    loadDepartments();
   }, []);
 
   /* ======================
@@ -137,12 +146,11 @@ const SurgeryMaster = () => {
             disabled={form.visibility !== "DEPARTMENT"}
           >
             <option value="">Select Department</option>
-            <option value="Cardiology">Cardiology</option>
-            <option value="Radiology">Radiology</option>
-            <option value="Orthopedics">Orthopedics</option>
-            <option value="Neurology">Neurology</option>
-            <option value="ENT">ENT</option>
-            <option value="General Medicine">General Medicine</option>
+            {departments.map((dept) => (
+              <option key={dept.id} value={dept.name}>
+                {dept.name}
+              </option>
+            ))}
           </select>
 
           <button type="submit" className="btn-primary">

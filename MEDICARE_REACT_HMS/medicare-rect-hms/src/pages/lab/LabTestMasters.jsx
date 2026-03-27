@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "../assets/css/pages/lab-test-masters.css";
+import { getDepartments } from "../../services/departmentService";
+import "../../assets/css/pages/lab-test-masters.css";
 
 const emptyForm = {
   name: "",
@@ -13,22 +14,26 @@ const LabTestMaster = () => {
   const [labTests, setLabTests] = useState([]);
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState(null);
+  const [departments, setDepartments] = useState([]);
 
-  /* ======================
-     LOAD LAB TEST MASTERS
-  ======================= */
+  /* Load Lab Test Master */
   const loadLabTests = async () => {
     const res = await axios.get("http://localhost:5000/labTestMasters");
     setLabTests(res.data);
   };
 
+  /* Load Departments */
+  const loadDepartments = async () => {
+    const res = await getDepartments();
+    setDepartments(res.data);
+  };
+
   useEffect(() => {
     loadLabTests();
+    loadDepartments();
   }, []);
 
-  /* ======================
-     HANDLERS
-  ======================= */
+  /* Handlers */
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -83,9 +88,6 @@ const LabTestMaster = () => {
     }
   };
 
-  /* ======================
-     UI
-  ======================= */
   return (
     <div className="page-content">
       <div className="patient-form-card mb-4">
@@ -121,12 +123,11 @@ const LabTestMaster = () => {
             disabled={form.visibility !== "DEPARTMENT"}
           >
             <option value="">Select Department</option>
-            <option value="Cardiology">Cardiology</option>
-            <option value="Radiology">Radiology</option>
-            <option value="Orthopedics">Orthopedics</option>
-            <option value="Neurology">Neurology</option>
-            <option value="ENT">ENT</option>
-            <option value="General Medicine">General Medicine</option>
+            {departments.map((dept) => (
+              <option key={dept.id} value={dept.name}>
+                {dept.name}
+              </option>
+            ))}
           </select>
 
           <button type="submit" className="btn-primary">

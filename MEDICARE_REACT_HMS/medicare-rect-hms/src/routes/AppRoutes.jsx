@@ -41,9 +41,9 @@ import DoctorProfile from "../pages/doctor/Profile";
 import DoctorPatientHistory from "../pages/doctor/DoctorPatientHistory";
 import DoctorSurgeries from "../pages/doctor/DoctorSurgeries";
 
-/* 🧪 LAB Pages (NEW) */
+/* 🧪 LAB Pages */
 import LabDashboard from "../pages/lab/LabDashboard";
-import LabTestMasters from "../pages/LabTestMasters";
+import LabTestMasters from "../pages/lab/LabTestMasters";
 import LabTests from "../pages/lab/LabTests";
 
 /* Bill Pages*/
@@ -84,7 +84,7 @@ const AppRoutes = () => {
         </Route>
       </Route>
 
-      {/* ================= DOCTOR PROTECTED ROUTES ================= */}
+      {/* ================= Doctor Protected Routes ================= */}
       <Route element={<ProtectedRoute allowedRoles={["doctor"]} />}>
         <Route path="/doctor" element={<DoctorLayout />}>
           <Route path="dashboard" element={<DoctorDashboard />} />
@@ -96,7 +96,7 @@ const AppRoutes = () => {
         </Route>
       </Route>
 
-      {/* ================= 🧪 LAB ================= */}
+      {/* ================= Lab Protected Routes ================= */}
       <Route element={<ProtectedRoute allowedRoles={["lab"]} />}>
         <Route path="/lab" element={<LabLayout />}>
           <Route path="dashboard" element={<LabDashboard />} />
@@ -105,7 +105,7 @@ const AppRoutes = () => {
         </Route>
       </Route>
 
-      {/* ================= BILLING ================= */}
+      {/* ================= Billing Protected Routes ================= */}
       <Route element={<ProtectedRoute allowedRoles={["bill"]} />}>
         <Route path="/bill" element={<BillLayout />}>
           <Route path="dashboard" element={<BillDashboard />} />

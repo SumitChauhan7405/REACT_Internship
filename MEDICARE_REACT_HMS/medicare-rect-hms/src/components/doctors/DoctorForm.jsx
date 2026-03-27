@@ -15,9 +15,6 @@ const OPD_TIMINGS = [
 
 const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
 
-  /* ===============================
-     ✅ NEW STATE (DEPARTMENTS)
-  ================================ */
   const [departments, setDepartments] = useState([]);
 
   const [form, setForm] = useState({
@@ -33,9 +30,6 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
     languages: []
   });
 
-  /* ===============================
-     ✅ LOAD DEPARTMENTS (NEW)
-  ================================ */
   useEffect(() => {
     loadDepartments();
   }, []);
@@ -45,9 +39,6 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
     setDepartments(res.data);
   };
 
-  /* ===============================
-     PREFILL EDIT
-  =============================== */
   useEffect(() => {
     if (editDoctor) {
       setForm({
@@ -65,9 +56,8 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
     }
   }, [editDoctor]);
 
-  /* ===============================
-     HANDLERS
-  =============================== */
+  /* Handlers */
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -96,9 +86,6 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
     }
   };
 
-  /* ===============================
-     LANGUAGES HANDLER
-  =============================== */
   const toggleLanguage = (lang) => {
     setForm((prev) => ({
       ...prev,
@@ -108,9 +95,7 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
     }));
   };
 
-  /* ===============================
-     DOCTOR ID GENERATION
-  =============================== */
+  /* Doctor ID Generation */
   const generateDoctorId = async () => {
     const res = await getDoctors();
     if (res.data.length === 0) return "DOC-001";
@@ -120,9 +105,7 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
     return `DOC-${String(next).padStart(3, "0")}`;
   };
 
-  /* ===============================
-     CREDENTIALS
-  =============================== */
+  /* Generate Credentials */
   const generateCredentials = (name) => {
     const parts = name.trim().toLowerCase().split(" ");
     const firstName = parts[0];
@@ -138,9 +121,6 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
     };
   };
 
-  /* ===============================
-     SUBMIT
-  =============================== */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -196,9 +176,6 @@ const DoctorForm = ({ onSuccess, editDoctor, clearEdit }) => {
     });
   };
 
-  /* ===============================
-     UI
-  =============================== */
   return (
     <div className="doctor-form-card">
       <h5>{editDoctor ? "Edit Doctor" : "Add Doctor"}</h5>

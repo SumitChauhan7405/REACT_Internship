@@ -22,9 +22,7 @@ const Departments = () => {
     setDepartments(res.data);
   };
 
-  /* ======================
-     DEPARTMENT ID GENERATOR
-  ======================= */
+  /* Department ID Generator */
   const generateDepartmentId = () => {
     const year = new Date().getFullYear();
     const deptOnly = departments.filter(d => d.id?.startsWith("DEPT-"));
@@ -74,8 +72,6 @@ const Departments = () => {
 
   return (
     <div className="department-page">
-
-      {/* ===== ADD / EDIT FORM ===== */}
       <div className="department-card">
         <div className="form-header">
           <h5>{editDepartment ? "Edit Department" : "Add Department"}</h5>
@@ -97,7 +93,6 @@ const Departments = () => {
         </form>
       </div>
 
-      {/* ===== DEPARTMENT TABLE ===== */}
       <div className="department-card">
         <div className="department-table-header">
           <h6>Departments</h6>
