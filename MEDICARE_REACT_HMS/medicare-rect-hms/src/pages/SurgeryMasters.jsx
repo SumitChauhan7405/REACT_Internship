@@ -17,9 +17,7 @@ const SurgeryMaster = () => {
   const [departments, setDepartments] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  /* ======================
-     LOAD SURGERY MASTERS
-  ======================= */
+  /* Load Surgery Master */
   const loadSurgeries = async () => {
     const res = await axios.get("http://localhost:5000/surgeryMasters");
     setSurgeries(res.data);
@@ -36,9 +34,7 @@ const SurgeryMaster = () => {
     loadDepartments();
   }, []);
 
-  /* ======================
-     HANDLERS
-  ======================= */
+  /* Handlers */
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -50,9 +46,7 @@ const SurgeryMaster = () => {
     return `SM-${String(num).padStart(3, "0")}`;
   };
 
-  /* ======================
-     SUBMIT
-  ======================= */
+  /* Submit */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -82,9 +76,7 @@ const SurgeryMaster = () => {
     loadSurgeries();
   };
 
-  /* ======================
-     EDIT
-  ======================= */
+  /* Edit */
   const handleEdit = (surgery) => {
     setForm({
       name: surgery.name,
@@ -95,9 +87,7 @@ const SurgeryMaster = () => {
     setEditingId(surgery.id);
   };
 
-  /* ======================
-     DELETE
-  ======================= */
+  /* Delete */
   const handleDelete = async (id) => {
     if (window.confirm("Delete this surgery?")) {
       await axios.delete(`http://localhost:5000/surgeryMasters/${id}`);
@@ -114,9 +104,6 @@ const SurgeryMaster = () => {
     );
   });
 
-  /* ======================
-     UI
-  ======================= */
   return (
     <div className="page-content">
       <div className="patient-form-card mb-4">
@@ -130,7 +117,6 @@ const SurgeryMaster = () => {
         >
           <h4>{editingId ? "Edit Surgery" : "Add New Surgery"}</h4>
 
-          {/* 🔍 SEARCH BAR */}
           <div className="table-search" style={{ width: "250px" }}>
             <i className="bi bi-search"></i>
             <input

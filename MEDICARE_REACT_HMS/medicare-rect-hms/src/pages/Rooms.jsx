@@ -172,8 +172,10 @@ const Rooms = () => {
           >
             <option value="">Select Room Type</option>
             <option value="GENERAL">General</option>
-            <option value="DELUXE">Deluxe</option>
             <option value="PRIVATE">Private</option>
+            <option value="SEMI_PRIVATE">Semi-Private</option>
+            <option value="DELUXE">Deluxe</option>
+            <option value="LUXURY">Luxury</option>
             <option value="ICU">ICU</option>
             <option value="OPERATION_THEATRE">
               OPERATION_THEATRE

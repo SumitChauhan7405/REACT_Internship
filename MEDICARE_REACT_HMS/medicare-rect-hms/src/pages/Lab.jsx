@@ -61,7 +61,6 @@ const Lab = () => {
           <h4>Laboratory Tests</h4>
 
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            {/* 🔍 Search Bar */}
             <div className="table-search" style={{ width: "250px" }}>
               <i className="bi bi-search"></i>
               <input
@@ -72,7 +71,6 @@ const Lab = () => {
               />
             </div>
 
-            {/* ✅ Existing Text */}
             <span className="lab-managed-badge">
               Managed by Laboratory Department
             </span>

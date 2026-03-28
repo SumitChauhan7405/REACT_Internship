@@ -18,9 +18,7 @@ const Discharge = () => {
   const [billPreview, setBillPreview] = useState(null);
   const [dischargeSummary, setDischargeSummary] = useState("");
 
-  /* ======================
-     LOAD DATA
-  ======================= */
+  /* Load All Data */
   const loadData = async () => {
     const [
       admRes,
@@ -46,16 +44,14 @@ const Discharge = () => {
     setLabTests(labRes.data);
     setSurgeries(surRes.data);
     setBills(billRes.data);
-    setDischarges(disRes.data); // ✅ NEW
+    setDischarges(disRes.data);
   };
 
   useEffect(() => {
     loadData();
   }, []);
 
-  /* ======================
-     GENERATE BILL
-  ======================= */
+  /* Generate Bill Summary */
   const generateBill = (adm) => {
     const alreadyBilled = bills.some(b => b.admissionId === adm.id);
     if (alreadyBilled) {
@@ -132,14 +128,12 @@ const Discharge = () => {
     });
   };
 
-  /* ======================
-     CONFIRM DISCHARGE
-  ======================= */
+  /* COnfirm Patient Diacharge */
   const confirmDischarge = async () => {
     if (!selectedAdmission || !billPreview) return;
 
     const year = new Date().getFullYear();
-    const dischargeId = `DIS-${year}-${String(discharges.length + 1).padStart(4, "0")}`; // ✅ NORMALIZED
+    const dischargeId = `DIS-${year}-${String(discharges.length + 1).padStart(4, "0")}`;
     const billId = `BILL-${String(bills.length + 1).padStart(4, "0")}`;
 
     await axios.post("http://localhost:5000/bills", {
@@ -198,7 +192,7 @@ const Discharge = () => {
       dischargeDate: billPreview.dischargeDate,
       billId,
       totalAmount: billPreview.totalAmount,
-      summary: dischargeSummary || "Patient discharged successfully", // ✅ NEW
+      summary: dischargeSummary || "Patient discharged successfully",
       createdAt: new Date().toISOString()
     });
 
@@ -206,7 +200,7 @@ const Discharge = () => {
 
     setBillPreview(null);
     setSelectedAdmission(null);
-    setDischargeSummary(""); // ✅ RESET
+    setDischargeSummary("");
     loadData();
   };
 

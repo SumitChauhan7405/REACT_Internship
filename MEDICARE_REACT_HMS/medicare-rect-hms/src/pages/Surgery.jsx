@@ -12,9 +12,7 @@ const Surgery = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
-  /* ======================
-     LOAD ALL SURGERIES
-  ======================= */
+  /* Load Surgeries */
   const loadSurgeries = async () => {
     const res = await getSurgeries();
     setSurgeries(res.data);
@@ -36,9 +34,7 @@ const Surgery = () => {
     );
   });
 
-  /* ======================
-     RELEASE OPERATION THEATRE
-  ======================= */
+  /* Relese Operation Theatre */
   const releaseOperationTheatre = async (surgeryId) => {
     const roomRes = await getRooms();
 
@@ -50,7 +46,6 @@ const Surgery = () => {
 
     if (!linkedOT) return;
 
-    // ✅ FULL OBJECT REPLACEMENT (PUT)
     await axios.put(
       `http://localhost:5000/rooms/${linkedOT.id}`,
       {
@@ -64,9 +59,7 @@ const Surgery = () => {
   };
 
 
-  /* ======================
-     STATUS UPDATE
-  ======================= */
+  /* Update Status */
   const handleStatusChange = async (id, status) => {
     await updateSurgery(id, { status });
 

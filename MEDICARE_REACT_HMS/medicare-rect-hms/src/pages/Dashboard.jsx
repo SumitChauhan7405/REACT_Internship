@@ -16,7 +16,8 @@ const Dashboard = () => {
     pendingLabs: 0,
     pendingSurgeries: 0,
     pendingDischarges: 0,
-    unpaidBills: 0
+    unpaidBills: 0,
+    partialBills: 0
   });
 
   const [recentAdmissions, setRecentAdmissions] = useState([]);
@@ -59,7 +60,8 @@ const Dashboard = () => {
         pendingLabs: labsRes.data.filter(l => l.status !== "COMPLETED").length,
         pendingSurgeries: surgeriesRes.data.filter(s => s.status === "SCHEDULED").length,
         pendingDischarges: admissionsRes.data.filter(a => a.status === "ADMITTED").length,
-        unpaidBills: billsRes.data.filter(b => b.status === "UNPAID").length
+        unpaidBills: billsRes.data.filter(b => b.status === "UNPAID").length,
+        partialBills: billsRes.data.filter(b => b.status === "PARTIAL").length
       });
 
       setRecentAdmissions(
@@ -120,7 +122,8 @@ const Dashboard = () => {
           ["Pending LabTests", counts.pendingLabs, "bi-flask-florence"],
           ["Pending Surgeries", counts.pendingSurgeries, "bi-scissors"],
           ["Pending Discharges", counts.pendingDischarges, "bi-box-arrow-right"],
-          ["Unpaid Bills", counts.unpaidBills, "bi-cash-coin"]
+          ["Unpaid Bills", counts.unpaidBills, "bi-cash-coin"],
+          ["Partial Bills", counts.partialBills, "bi-cash-stack"]
         ].map(([title, value, icon], i) => (
           <div className="dashboard-card" key={i}>
             <div className="card-info">
@@ -243,7 +246,7 @@ const Dashboard = () => {
           </table>
         </div>
 
-        {/* Pending Consultations (NEW) */}
+        {/* Pending Consultations*/}
         <div
           className="activity-card clickable"
           onClick={() => navigate("/admin/appointments")}
@@ -262,7 +265,7 @@ const Dashboard = () => {
           </table>
         </div>
 
-        {/* Recent Patient Registrations (NEW) */}
+        {/* Recent Patient Registrations */}
         <div
           className="activity-card clickable"
           onClick={() => navigate("/admin/patients")}
@@ -280,7 +283,6 @@ const Dashboard = () => {
             </tbody>
           </table>
         </div>
-
       </div>
     </div>
   );

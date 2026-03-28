@@ -82,9 +82,7 @@ const Admissions = () => {
     return `ADM-${String(num + 1).padStart(3, "0")}`;
   };
 
-  /* ======================
-     ADMIT
-  ======================= */
+  /* Admit Patient */
   const handleAdmit = async (e) => {
     e.preventDefault();
 
@@ -124,9 +122,7 @@ const Admissions = () => {
     loadData();
   };
 
-  /* ======================
-     DISCHARGE (REDIRECT ONLY)
-  ======================= */
+  /* Dischsrge PAteint  */
   const handleDischarge = (adm) => {
     navigate("/admin/discharge", {
       state: {
@@ -137,7 +133,6 @@ const Admissions = () => {
 
   return (
     <div className="admissions-page">
-      {/* ===== ADMIT ===== */}
       <div className="admissions-card">
         <h4>Admit Patient</h4>
 
@@ -184,7 +179,6 @@ const Admissions = () => {
         </form>
       </div>
 
-      {/* ===== TABLE ===== */}
       <div className="admissions-card">
         <div className="appointment-table-header">
           <h4>Admissions</h4>

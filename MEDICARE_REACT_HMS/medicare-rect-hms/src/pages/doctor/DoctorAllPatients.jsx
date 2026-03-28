@@ -7,9 +7,7 @@ const DoctorAllPatients = () => {
   const [patients, setPatients] = useState([]);
   const [search, setSearch] = useState("");
 
-  /* ======================
-     LOAD ALL PATIENTS
-  ======================= */
+  /* Load All Patients */
   useEffect(() => {
     const loadPatients = async () => {
       const res = await axios.get("http://localhost:5000/patients");
@@ -21,23 +19,19 @@ const DoctorAllPatients = () => {
 
   const navigate = useNavigate();
 
-  /* ======================
-     GROUP BY DEPARTMENT
-  ======================= */
+  /* Group by Department */
   const groupedPatients = patients.reduce((acc, p) => {
     const department =
       p.doctorName?.includes("(")
         ? p.doctorName.split("(")[1].replace(")", "")
-        : "General";
+        : "All";
 
     if (!acc[department]) acc[department] = [];
     acc[department].push(p);
     return acc;
   }, {});
 
-  /* ======================
-     SEARCH FILTER
-  ======================= */
+  /* Search Filter */
   const matchesSearch = (p) =>
     `${p.firstName} ${p.lastName}`.toLowerCase().includes(search.toLowerCase());
 
@@ -74,9 +68,7 @@ const DoctorAllPatients = () => {
         </div>
       </div>
 
-      {/* ======================
-         DEPARTMENT SECTIONS
-      ======================= */}
+      {/* Department Section */}
       {Object.keys(groupedPatients).map((dept) => {
         const deptPatients = groupedPatients[dept].filter(matchesSearch);
 
@@ -85,7 +77,7 @@ const DoctorAllPatients = () => {
         return (
           <div className="patient-table-card" key={dept}>
             <div className="table-header">
-              <h6>{dept} Department</h6>
+              <h6>{dept} Department Patients</h6>
               <span>Total: {deptPatients.length}</span>
             </div>
 
@@ -119,8 +111,6 @@ const DoctorAllPatients = () => {
                     <td>{p.phone}</td>
                     <td>{p.bloodGroup}</td>
                     <td>{p.doctorName}</td>
-
-                    {/* 👁 VIEW HISTORY ONLY */}
                     <td>
                       <button
                         className="view-btn"
@@ -138,7 +128,6 @@ const DoctorAllPatients = () => {
         );
       })}
 
-      {/* EMPTY STATE */}
       {patients.length === 0 && (
         <p className="no-data">No patients found</p>
       )}
