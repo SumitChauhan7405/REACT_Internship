@@ -15,9 +15,7 @@ const SurgeryModal = ({
   doctor,
   refreshAppointments
 }) => {
-  /* ======================
-     STATE
-  ======================= */
+
   const [form, setForm] = useState({
     department: "",
     surgeryId: "",
@@ -30,9 +28,7 @@ const SurgeryModal = ({
   const [availableOTs, setAvailableOTs] = useState([]);
   const [surgeryMasters, setSurgeryMasters] = useState([]);
 
-  /* ======================
-     LOAD DATA
-  ======================= */
+  /* Load Data */
   useEffect(() => {
     if (!open || !doctor) return;
 
@@ -47,7 +43,7 @@ const SurgeryModal = ({
 
     loadAvailableOTs();
     loadSurgeryMasters();
-  }, [open, doctor]); // ✅ FIXED HERE
+  }, [open, doctor]);
 
   const loadAvailableOTs = async () => {
     const res = await getRooms();
@@ -69,25 +65,19 @@ const SurgeryModal = ({
 
   if (!open || !consultation || !patient || !doctor) return null;
 
-  /* ======================
-     FILTER SURGERIES
-  ======================= */
+  /* Filter SUrgeries */
   const visibleSurgeries = surgeryMasters.filter(s =>
     s.visibility === "GENERAL"
       ? true
       : s.department === form.department
   );
 
-  /* ======================
-     HANDLERS
-  ======================= */
+  /* Handler */
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  /* ======================
-     SURGERY ID
-  ======================= */
+  /* Surgery ID */
   const generateSurgeryId = async () => {
     const year = new Date().getFullYear();
     const res = await getSurgeries();
@@ -104,9 +94,7 @@ const SurgeryModal = ({
     return `SUR-${year}-${String(next).padStart(4, "0")}`;
   };
 
-  /* ======================
-     DUPLICATE CHECK
-  ======================= */
+  /* Chechk If Duplicat urgery */
   const checkExistingSurgery = async () => {
     const res = await getSurgeries();
     return res.data.some(
@@ -114,9 +102,6 @@ const SurgeryModal = ({
     );
   };
 
-  /* ======================
-     SAVE
-  ======================= */
   const handleSave = async () => {
     if (
       !form.surgeryId ||
@@ -183,9 +168,6 @@ const SurgeryModal = ({
     onClose();
   };
 
-  /* ======================
-     UI
-  ======================= */
   return (
     <div className="surgery-backdrop" onClick={onClose}>
       <div

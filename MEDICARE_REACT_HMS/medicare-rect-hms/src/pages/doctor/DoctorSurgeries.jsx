@@ -11,9 +11,7 @@ const DoctorSurgeries = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
-  /* ======================
-     SORT SURGERIES
-  ======================= */
+  /* Sort Surgeres */
   const sortSurgeries = (list) => {
     return [...list].sort((a, b) => {
       const dateA = new Date(`${a.scheduledDate} ${a.scheduledTime}`);
@@ -22,9 +20,7 @@ const DoctorSurgeries = () => {
     });
   };
 
-  /* ======================
-     LOAD SURGERIES (FIXED)
-  ======================= */
+  /* Load Surgeries */
   const loadSurgeries = useCallback(async () => {
     if (!doctorId) return;
 
@@ -33,16 +29,12 @@ const DoctorSurgeries = () => {
     setLoading(false);
   }, [doctorId]);
 
-  /* ======================
-     INITIAL LOAD
-  ======================= */
+
   useEffect(() => {
     loadSurgeries();
   }, [loadSurgeries]);
 
-  /* ======================
-     AUTO REFRESH ON TAB FOCUS
-  ======================= */
+
   useEffect(() => {
     const handleVisibility = () => {
       if (document.visibilityState === "visible") {
@@ -79,8 +71,6 @@ const DoctorSurgeries = () => {
           }}
         >
           <h4>My Surgeries</h4>
-
-          {/* 🔍 SEARCH BAR */}
           <div className="table-search" style={{ width: "250px" }}>
             <i className="bi bi-search"></i>
             <input

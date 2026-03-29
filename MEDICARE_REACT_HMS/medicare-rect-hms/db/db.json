@@ -1835,7 +1835,8 @@
       "roomType": "DELUXE",
       "roomCharge": 4000,
       "admissionDate": "2026-03-22",
-      "status": "ADMITTED"
+      "status": "DISCHARGED",
+      "dischargeDate": "2026-03-29"
     }
   ],
   "rooms": [
@@ -1948,7 +1949,7 @@
       "id": "ROOM-019",
       "roomNumber": "204",
       "type": "DELUXE",
-      "status": "OCCUPIED",
+      "status": "AVAILABLE",
       "charge": 4000
     },
     {
@@ -2440,6 +2441,20 @@
       "totalAmount": 240870,
       "summary": "After Surgery Patient Recovered.......!",
       "createdAt": "2026-03-07T10:57:07.206Z"
+    },
+    {
+      "id": "DIS-2026-0007",
+      "admissionId": "ADM-013",
+      "patientId": "PAT-2026-0026",
+      "patientName": "Raheman Dakait",
+      "doctorName": "Dr. Raj Sanchla",
+      "roomNumber": "204",
+      "admissionDate": "2026-03-22",
+      "dischargeDate": "2026-03-29",
+      "billId": "BILL-0010",
+      "totalAmount": 197400,
+      "summary": "Raheman bhai recovered...!",
+      "createdAt": "2026-03-29T14:33:58.438Z"
     }
   ],
   "bills": [
@@ -2769,6 +2784,50 @@
       "gstAmount": 11470,
       "totalAmount": 240870,
       "status": "UNPAID"
+    },
+    {
+      "id": "BILL-0010",
+      "admissionId": "ADM-013",
+      "patientId": "PAT-2026-0026",
+      "patientName": "Raheman Dakait",
+      "doctorName": "Dr. Raj Sanchla",
+      "billDate": "2026-03-29T14:33:58.388Z",
+      "room": {
+        "roomId": "ROOM-019",
+        "roomType": "DELUXE",
+        "dailyCharge": 4000,
+        "stayDays": 8,
+        "totalRoomCharge": 32000
+      },
+      "admissionDate": "2026-03-22",
+      "dischargeDate": "2026-03-29",
+      "consultationCharge": 600,
+      "labTests": [
+        {
+          "testId": "LT-012",
+          "testName": "DEXA Scan",
+          "charge": 2000
+        },
+        {
+          "testId": "LT-004",
+          "testName": "X-Ray",
+          "charge": 400
+        },
+        {
+          "testId": "LT-006",
+          "testName": "CT Scan",
+          "charge": 3000
+        }
+      ],
+      "labCharge": 5400,
+      "surgeryCharge": 150000,
+      "subtotal": 188000,
+      "gstRate": 5,
+      "gstAmount": 9400,
+      "totalAmount": 197400,
+      "status": "PARTIAL",
+      "amountPaid": 400,
+      "remainingAmount": 197000
     }
   ],
   "payments": [
@@ -2916,6 +2975,15 @@
       "mode": "UPI",
       "amount": 845,
       "date": "2026-03-05"
+    },
+    {
+      "id": "PAY-0018",
+      "billId": "BILL-0010",
+      "patientId": "PAT-2026-0026",
+      "patientName": "Raheman Dakait",
+      "mode": "Cash",
+      "amount": 400,
+      "date": "2026-03-29"
     }
   ],
   "feedback": [

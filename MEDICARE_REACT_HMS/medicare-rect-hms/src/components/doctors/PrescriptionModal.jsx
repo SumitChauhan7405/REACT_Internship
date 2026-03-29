@@ -1,17 +1,15 @@
 import { useEffect, useState, useCallback } from "react";
-import axios from "axios"; // ✅ ADDED
+import axios from "axios";
 import {
   addConsultation,
   getAllConsultations,
   updateConsultation
 } from "../../services/consultationService";
-
 import LabTestsModal from "../lab/LabTestsModal";
 import SurgeryModal from "../doctors/SurgeryModal";
-
 import "../../assets/css/components/prescription-modal.css";
 
-/* ✅ Always return a fresh object */
+
 const getEmptyForm = () => ({
   diagnosis: "",
   consultation: "",
@@ -29,22 +27,17 @@ const PrescriptionModal = ({
   const [form, setForm] = useState(getEmptyForm());
   const [lastConsultationNumber, setLastConsultationNumber] = useState(0);
 
-  /* 🆕 Prescription History */
   const [history, setHistory] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editingCreatedAt, setEditingCreatedAt] = useState(null);
 
-  /* 🧪 LAB */
   const [openLabModal, setOpenLabModal] = useState(false);
   const [selectedConsultation, setSelectedConsultation] = useState(null);
 
-  /* ❤️ SURGERY */
   const [openSurgeryModal, setOpenSurgeryModal] = useState(false);
   const [surgeryConsultation, setSurgeryConsultation] = useState(null);
 
-  /* ======================
-     LOAD CONSULTATION COUNTER
-  ======================= */
+  /* Load Consultation COunter */
   useEffect(() => {
     if (!open) return;
 
@@ -63,9 +56,7 @@ const PrescriptionModal = ({
     loadCounter();
   }, [open]);
 
-  /* ======================
-     LOAD PRESCRIPTION HISTORY
-  ======================= */
+  /* Load Prescription History */
   const loadHistory = useCallback(async () => {
     if (!patient) return;
 
@@ -82,9 +73,7 @@ const PrescriptionModal = ({
     loadHistory();
   }, [open, loadHistory]);
 
-  /* ======================
-     RESET FORM
-  ======================= */
+  /* Reset the Form */
   useEffect(() => {
     if (open) {
       setForm(getEmptyForm());
@@ -95,9 +84,7 @@ const PrescriptionModal = ({
 
   if (!open || !appointment || !patient || !doctor) return null;
 
-  /* ======================
-     FORM HANDLERS
-  ======================= */
+  /* Form Handlers */
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -124,9 +111,7 @@ const PrescriptionModal = ({
     });
   };
 
-  /* ======================
-     EDIT HISTORY
-  ======================= */
+  /* Edit Prescription History */
   const editPrescription = (item) => {
     setEditingId(item.id);
     setEditingCreatedAt(item.createdAt);
@@ -139,9 +124,7 @@ const PrescriptionModal = ({
     });
   };
 
-  /* ======================
-     SUBMIT PRESCRIPTION
-  ======================= */
+  /* Submit Prescription */
   const handleSubmit = async () => {
     const year = new Date().getFullYear();
     const nextNumber = lastConsultationNumber + 1;
@@ -172,9 +155,7 @@ const PrescriptionModal = ({
       setLastConsultationNumber(nextNumber);
     }
 
-    /* ======================
-       🔥 LINK LAB TESTS
-    ======================= */
+    /* Link Lab Test */
     const labRes = await axios.get("http://localhost:5000/labTests");
 
     const pendingLabs = labRes.data.filter(
@@ -192,9 +173,7 @@ const PrescriptionModal = ({
       );
     }
 
-    /* ======================
-       🔥 LINK SURGERIES (NEW)
-    ======================= */
+    /* Link Surgery */
     const surgeryRes = await axios.get("http://localhost:5000/surgeries");
 
     const pendingSurgeries = surgeryRes.data.filter(
@@ -222,9 +201,7 @@ const PrescriptionModal = ({
     setEditingCreatedAt(null);
   };
 
-  /* ======================
-     LAB & SURGERY OPENERS
-  ======================= */
+  /* Opens Lab and Surgery Pop Ups */
   const openLab = (consultation) => {
     setSelectedConsultation(consultation);
     setOpenLabModal(true);
@@ -235,9 +212,6 @@ const PrescriptionModal = ({
     setOpenSurgeryModal(true);
   };
 
-  /* ======================
-     UI
-  ======================= */
   return (
     <>
       <div className="prescription-backdrop" onClick={onClose}>
@@ -245,7 +219,7 @@ const PrescriptionModal = ({
           className="prescription-card prescription-split"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* ===== LEFT FORM ===== */}
+          {/* Left Form */}
           <div className="prescription-left">
             <h5>Prescription</h5>
 
@@ -302,7 +276,7 @@ const PrescriptionModal = ({
               + Add Medicine
             </button>
 
-            {/* 🔥 LAB & SURGERY ICONS INSIDE FORM */}
+            {/* Lab And Surgery inside Prescription Modal */}
             <div className="history-actions" style={{ marginTop: 10 }}>
               <button
                 className="icon-btn lab"
@@ -329,7 +303,7 @@ const PrescriptionModal = ({
             </div>
           </div>
 
-          {/* ===== RIGHT HISTORY ===== */}
+          {/* Prescription History */}
           <div className="prescription-history">
             <h6>Prescription History</h6>
 
@@ -395,7 +369,7 @@ const PrescriptionModal = ({
         </div>
       </div>
 
-      {/* 🧪 LAB MODAL */}
+      {/* Lab Modal */}
       <LabTestsModal
         open={openLabModal}
         onClose={() => setOpenLabModal(false)}
@@ -403,7 +377,7 @@ const PrescriptionModal = ({
         patient={patient}
       />
 
-      {/* ❤️ SURGERY MODAL */}
+      {/* Surgery Modal */}
       <SurgeryModal
         open={openSurgeryModal}
         onClose={() => setOpenSurgeryModal(false)}

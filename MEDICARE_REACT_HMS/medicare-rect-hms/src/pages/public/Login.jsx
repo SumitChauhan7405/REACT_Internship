@@ -168,28 +168,8 @@ const Login = () => {
                   </button>
                 </form>
 
-                {/* Divider */}
-                <div className="divider-container">
-                  <div className="divider-line">
-                    <div></div>
-                  </div>
-                  <div className="divider-text-wrapper">
-                    <span className="divider-text">Support Options</span>
-                  </div>
-                </div>
-
-                {/* Support Links */}
-                <div className="support-options">
-                  <a href="/login" className="support-link">
-                    <span className="material-symbols-outlined">help</span>
-                    Help Center
-                  </a>
-                  <a href="/login" className="support-link">
-                    <span className="material-symbols-outlined">support_agent</span>
-                    Contact IT
-                  </a>
-                </div>
-
+                <br/>
+                <br/>
                 <div className="copyright">
                   © 2026 MediCare Systems. All rights reserved.
                 </div>

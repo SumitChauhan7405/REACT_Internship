@@ -18,10 +18,9 @@ const DoctorLabTests = ({ consultationId }) => {
 
   return (
     <>
-      <h6 style={{ marginTop: 20 }}>Lab Tests</h6>
+      <h5 style={{ marginTop: 20 }}>Lab Test Results</h5>
 
       {labTests.map((lab) => {
-        // ✅ NORMALIZE TEST NAMES (OLD + NEW FORMAT SUPPORT)
         const testNames = Array.isArray(lab.tests)
           ? lab.tests.map((t) =>
               typeof t === "string" ? t : t.testName
@@ -39,7 +38,7 @@ const DoctorLabTests = ({ consultationId }) => {
             }}
           >
             <p>
-              <strong>Tests:</strong> {testNames.join(", ")}
+              <strong>Lab Tests:</strong> {testNames.join(", ")}
             </p>
 
             <span

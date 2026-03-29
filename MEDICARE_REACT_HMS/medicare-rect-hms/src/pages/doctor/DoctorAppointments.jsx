@@ -15,13 +15,10 @@ const DoctorAppointments = () => {
   const [patients, setPatients] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Prescription modal
   const [openModal, setOpenModal] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
 
-  /* ======================
-     LOAD DATA
-  ======================= */
+  /* Load Data */
   const loadAppointments = useCallback(async () => {
     if (!doctorId) return;
 
@@ -61,9 +58,7 @@ const DoctorAppointments = () => {
     loadAppointments();
   }, [loadAppointments]);
 
-  /* ======================
-     PRESCRIPTION (ADD ONLY)
-  ======================= */
+  /* Prescription */
   const handleAddPrescription = (apt) => {
     setSelectedAppointment(apt);
     setOpenModal(true);
@@ -95,7 +90,6 @@ const DoctorAppointments = () => {
         >
           <h4>My Patients</h4>
 
-          {/* 🔍 SEARCH BAR */}
           <div className="table-search" style={{ width: "250px" }}>
             <i className="bi bi-search"></i>
             <input
@@ -145,7 +139,6 @@ const DoctorAppointments = () => {
         </table>
       </div>
 
-      {/* PRESCRIPTION MODAL */}
       <PrescriptionModal
         open={openModal}
         onClose={closeModal}

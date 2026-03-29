@@ -8,9 +8,7 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
   const [selectedTests, setSelectedTests] = useState([]);
   const [labMasters, setLabMasters] = useState([]);
 
-  /* ======================
-     LOAD LAB MASTER + EXISTING LAB TEST
-  ======================= */
+  /* Load LAb test master and existing tests */
   useEffect(() => {
     if (!open || !patient) return;
 
@@ -57,9 +55,7 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
     );
   };
 
-  /* ======================
-     NORMALIZED LAB ID
-  ======================= */
+  /* Normalize Lab ID */
   const generateLabTestId = async () => {
     const year = new Date().getFullYear();
     const res = await axios.get("http://localhost:5000/labTests");
@@ -76,9 +72,7 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
     return `LAB-${year}-${String(next).padStart(4, "0")}`;
   };
 
-  /* ======================
-     SAVE LAB TEST
-  ======================= */
+  /* Save Lab TEst */
   const handleSave = async () => {
     if (selectedTests.length === 0) {
       alert("Please select at least one lab test");
@@ -108,7 +102,7 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
 
       await axios.post("http://localhost:5000/labTests", {
         id: newId,
-        consultationId: consultation?.id || null, // ✅ TEMP NULL
+        consultationId: consultation?.id || null,
         patientId: patient.id,
         patientName: `${patient.firstName} ${patient.lastName}`,
         doctorId: consultation?.doctorId || null,
@@ -126,9 +120,6 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
 
   return (
     <>
-      {/* ======================
-   UI
-====================== */}
       <div className="lab-modal-backdrop" onClick={onClose}>
         <div
           className="lab-modal-card"
@@ -146,7 +137,6 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
             </p>
           </div>
 
-          {/* 🔍 SEARCH BAR */}
           <input
             type="text"
             className="lab-search"
@@ -159,7 +149,6 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
             }}
           />
 
-          {/* 🧪 SCROLLABLE LAB TEST LIST */}
           <div className="lab-test-scroll">
             <div className="lab-test-grid">
               {labMasters
@@ -181,8 +170,8 @@ const LabTestsModal = ({ open, onClose, consultation, patient }) => {
                 })}
             </div>
           </div>
-
-          {/* EXISTING LAB REPORTS */}
+          <hr/>
+          {/* Lab Test Results */}
           {consultation?.id && (
             <DoctorLabTests consultationId={consultation.id} />
           )}
